@@ -1,1 +1,18 @@
-<p>navbar works!</p>
+
+<nav>
+  <a class="button" routerLink="" routerLinkActive="activebutton" [routerLinkActiveOptions]="{ exact: true }">
+    Home
+  </a>
+
+  
+  <div class="nav-buttons">
+      @if (!activeUser) {
+    <a class="button" routerLink="/login" routerLinkActive="activebutton">Login</a>
+    <a class="button" routerLink="/signup" routerLinkActive="activebutton">Register</a>
+  } @else {
+    <a class="button" (click)="onLogout()">Logout</a>
+  }
+
+  </div>
+
+</nav>
