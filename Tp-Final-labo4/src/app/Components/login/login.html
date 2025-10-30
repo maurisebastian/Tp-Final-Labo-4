@@ -1,1 +1,10 @@
+
+<form [formGroup]="form" (ngSubmit)="onLogin()" class="login-form">
+    <fieldset>
+        <legend>Iniciar Sesión</legend>
+        <input type="text" placeholder="Username" formControlName="username" />
+        <input type="password" placeholder="Password" formControlName="password" />
+        <button type="submit">Enviar</button>
+    </fieldset>
+</form>
 <p>login works!</p>
