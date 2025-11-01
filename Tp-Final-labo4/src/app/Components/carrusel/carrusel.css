@@ -1,0 +1,39 @@
+.movie-carousel {
+  padding: 20px;
+  position: relative;
+}
+
+.movie-list-container {
+  overflow: hidden; 
+  width: 100%;
+}
+
+.movie-list {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+.movie-item {
+  min-width: 150px;
+  flex: 0 0 auto;
+  margin-right: 10px; 
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease; 
+}
+
+.movie-item:hover {
+  transform: scale(1.2); 
+  z-index: 10; 
+}
+
+.movie-item img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ranking {
+  position: absolute;
+  top: 10px;
+}

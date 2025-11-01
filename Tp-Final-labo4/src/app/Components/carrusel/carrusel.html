@@ -1,1 +1,21 @@
-<p>carrusel works!</p>
+<app-barra-superior></app-barra-superior>
+<div class="movie-carousel mt-4">
+  <h2 class="mb-3">Top Más Puntuadas</h2>
+  <button class="carousel-arrow left-arrow" (click)="prevSlide()">&#9664;</button>
+  <div class="movie-list-container">
+    <div class="movie-list d-flex">
+      <div *ngFor="let movie of topRatedMovies; let i = index" class="movie-item" style="width: 190px;">
+        <div class="ranking">#{{ i + 1 }}</div>
+        <a [routerLink]="['/movie-review', movie.id]">
+          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="img-fluid rounded">
+        </a>
+        <a [routerLink]="['/movie-review', movie.id]" class="movie-title-link">
+          <p class="mt-2 text-center">{{ movie.title }}</p>
+        </a>
+        <p class="text-muted text-center">Puntuación: {{ movie.vote_average }}</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-arrow right-arrow" (click)="nextSlide()" [disabled]="isNextButtonDisabled()">&#9654;</button>
+</div>
+<app-footer></app-footer>
