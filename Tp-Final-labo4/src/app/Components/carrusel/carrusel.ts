@@ -1,9 +1,12 @@
 import { Component,OnInit } from '@angular/core';
 import { TmdbService } from '../../Services/tmdb.service';
 import { Moviein } from '../../Interfaces/moviein';
+import { Footer } from "../../Shared/footer/footer";
+import { TopBar } from "../top-bar/top-bar";
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-carrusel',
-  imports: [],
+  imports: [RouterModule, Footer, TopBar],
   templateUrl: './carrusel.html',
   styleUrl: './carrusel.css',
 })
