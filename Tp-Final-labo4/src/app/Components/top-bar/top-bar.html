@@ -1,27 +1,28 @@
 <div class="container">
-  <div class="row align-items-center py-3">
-    <div class="col-md-3 text-center">
-      <p class="mt-2 text-center"></p>
-      <a [routerLink]="['/']" class="movie-title-link"> 
-        <img src="assets/logo-cine.png" alt="logo-cine" class="img-fluid logo">
-      </a>
-    </div>
-   
-    <div class="col-md-6">
-      
-      <div class="input-group">
-        <input  type="text"  class="form-control" id="search" [formControl]="busqueda" placeholder="Buscar pelicula">
-        <button class="btn btn-primary" (click)="buscar()">Buscar </button>
-        
-      </div>
-      
-    </div>
 
-    <div class="col-md-2 text-end">
-      <a [routerLink]="['/profile-detail']">
-        <img src="assets/perfil.png" alt="Perfil del usuario" class="rounded-circle" style="width: 50px; height: 50px;">
-      </a>
-      <button  routerLinkActive="router-link-active">Perfiles</button>
-    </div>
+  <div>
+    <a [routerLink]="['/']" class="movie-title-link">
+      <h2></h2>
+      <img src="assets/logo-cine.png" alt="logo-cine" class="logo">
+    </a>
   </div>
+
+
+  <div>
+    <input type="text" class="form-control" id="search" [formControl]="busqueda" placeholder="Buscar pelicula">
+    <button class="btn btn-primary" (click)="buscar()" [disabled]="busqueda.invalid" >Buscar </button>
+    @if (busqueda.hasError("required") && busqueda.touched) {
+      <span>No se ingreso dato de la pelicula</span>
+    }
+
+  </div>
+  
+  <div  >
+    
+    <a [routerLink]="['/profile-detail']" class="perfil-class">
+      <h2>Perfil</h2>
+      <img src="assets/perfil.png" alt="Perfil del usuario" class="logo perfil">
+    </a>
+  </div>
+
 </div>

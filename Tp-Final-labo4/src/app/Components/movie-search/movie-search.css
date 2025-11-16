@@ -1,0 +1,50 @@
+.movie-item {
+    min-width: 150px;
+    flex: 0 0 auto;
+    margin-right: 10px; 
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease; 
+  }
+  
+  .movie-item:hover {
+    transform: scale(1.2); 
+    z-index: 10; 
+  }
+  
+  .movie-item img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  img{
+    max-width: 100px;
+  }
+  .logo {
+    font-size: 1.5em;
+    max-width: 70px;
+  }
+
+  .container-nav{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   height: 30%;
+   width: 70%;
+  }
+  .perfil-class{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+
+  }
+
+  h2{
+    font-family: 'Arial', sans-serif;
+    color: #666666;
+    font-size: 15px;
+  
+  }
+
+  
