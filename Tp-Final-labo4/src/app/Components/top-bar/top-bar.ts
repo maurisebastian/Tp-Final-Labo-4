@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -12,7 +12,8 @@ export class TopBar {
 
   private readonly router = inject(Router);
 
-  busqueda = new FormControl('');
+  busqueda = new FormControl('',Validators.required);
+  
 
   buscar() {
     const value = this.busqueda.value ?? ""; 
