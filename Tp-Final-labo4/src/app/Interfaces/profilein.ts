@@ -1,7 +1,3 @@
-export interface Profilein {
-     profiles: Profile[],
-    review:   Review[]
-}
 
 export interface Profile {
     id?:       string,

@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,inject,OnInit } from '@angular/core';
 import { TmdbService } from '../../Services/tmdb.service';
 import { Moviein } from '../../Interfaces/moviein';
 import { Footer } from "../../Shared/footer/footer";
@@ -12,11 +12,14 @@ import { RouterModule } from '@angular/router';
 })
 
 export class Carrusel implements OnInit {
+
+  private readonly tmdbService = inject(TmdbService);
+  
   topRatedMovies: Moviein[] = [];
   currentSlideIndex: number = 0;
   maxVisibleMovies: number = 5;
 
-  constructor(private tmdbService: TmdbService) {}
+  
 
   ngOnInit() {
     this.loadTopRatedMovies();

@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+ --colorPrincipal : #5BC0EB;
+ --colorFuente : #1B4965;
+ --colorFondo : #F4F9F9;
+ --colorIconos: #FF6B6B;
+ --colorComplemento: #9BF6FF;
+}
+span{
+    color: var(--colorIconos);
+}

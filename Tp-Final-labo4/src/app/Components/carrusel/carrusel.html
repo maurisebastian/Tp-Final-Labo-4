@@ -1,5 +1,7 @@
 <app-top-bar></app-top-bar>
-<div class="movie-carousel mt-4">
+
+@if( topRatedMovies.length > 0){
+  <div class="movie-carousel mt-4">
   <h2 class="mb-3">Top Más Puntuadas</h2>
   <button class="carousel-arrow left-arrow" (click)="prevSlide()">&#9664;</button>
  
@@ -29,4 +31,9 @@
   </div>
   <button class="carousel-arrow right-arrow" (click)="nextSlide()" [disabled]="isNextButtonDisabled()">&#9654;</button>
 </div>
+
+}@else {
+   <p>Cargando películas...</p>
+}
+
 <app-footer></app-footer>

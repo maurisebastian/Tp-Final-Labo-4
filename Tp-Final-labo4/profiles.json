@@ -1,8 +1,8 @@
 {
-    "review": [],
+    "comments": [],
     "profiles": [  {
       "id": 1,
-      "username": "Pepe",
+      "username": "pepe",
       "date": "1994-01-22",
       "email": "pepe@gmail.com",
       "cel": "223552343",
