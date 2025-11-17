@@ -17,9 +17,36 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+
   img{
-    max-width: 100px;
+    max-width: 90px;
   }
+  a{
+    text-decoration: none;
+    color: rgb(61, 114, 102);
+  }
+  .col{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+  }
+
+
+  .card{
+   width: 105px;
+   height: 280px;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   border: 1px solid rgb(69, 82, 79);
+   
+    
+  }
+
   .logo {
     font-size: 1.5em;
     max-width: 70px;

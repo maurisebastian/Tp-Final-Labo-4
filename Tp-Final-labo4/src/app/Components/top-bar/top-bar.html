@@ -11,6 +11,7 @@
   <div>
     <input type="text" class="form-control" id="search" [formControl]="busqueda" placeholder="Buscar pelicula">
     <button class="btn btn-primary" (click)="buscar()" [disabled]="busqueda.invalid" >Buscar </button>
+    <br>
     @if (busqueda.hasError("required") && busqueda.touched) {
       <span>No se ingreso dato de la pelicula</span>
     }

@@ -1,4 +1,4 @@
-import { Injectable,signal } from '@angular/core';
+import { inject, Injectable,signal } from '@angular/core';
 import { Profile } from '../Interfaces/profilein';
 import { HttpClient } from '@angular/common/http';
 import{map,catchError,of}from'rxjs'
@@ -10,11 +10,11 @@ import{map,catchError,of}from'rxjs'
 export class ProfileService {
   
   private baseUrl = 'http://localhost:3000/profiles';
+  
+  private http = inject(HttpClient);
 
   //Usamos un Signal 
   activeUser = signal<Profile | undefined>(undefined);
-
-  constructor(private http: HttpClient) {}
 
   // Devuelve el signal 
   auth() {
