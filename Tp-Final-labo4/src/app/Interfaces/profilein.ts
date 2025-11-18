@@ -1,13 +1,12 @@
 
 export interface Profile {
-    id?:       string,
-    username: string,
-    date:     Date,
-    email:    string,
-    cel:      string,
-    password: string
+  id?: number;
+  username: string;
+  password: string;
+  date?: string;
+  cel?: string;
+  email?: string;
 }
-
 export interface Review {
     idProfile: number;
   idMovie: number;

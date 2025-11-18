@@ -1,1 +1,75 @@
-<p>singup works!</p>
+<form [formGroup]="form" (ngSubmit)="onSignup()">
+
+  <div *ngIf="signupError" class="error-global">
+    {{ signupError }}
+  </div>
+
+  <!-- Usuario -->
+  <label>
+    Usuario
+    <input type="text" formControlName="username">
+  </label>
+  <div *ngIf="username.touched && username.invalid" class="error">
+    El nombre de usuario es obligatorio.
+  </div>
+
+  <!-- Contraseña -->
+  <label>
+    Contraseña
+    <input type="password" formControlName="password">
+  </label>
+  <div *ngIf="password.touched && password.invalid" class="error">
+    La contraseña es obligatoria.
+  </div>
+
+  <!-- Fecha de nacimiento -->
+  <label>
+    Fecha de nacimiento
+    <input type="date" formControlName="date">
+  </label>
+  <div *ngIf="date.touched && date.invalid" class="error">
+    <span *ngIf="date.hasError('required')">
+      La fecha de nacimiento es obligatoria.
+    </span>
+    <span *ngIf="date.hasError('minAge')">
+      Debes ser mayor de 12 años.
+    </span>
+  </div>
+
+  <!-- Celular -->
+  <label>
+    Celular
+    <input type="text" formControlName="cel">
+  </label>
+  <div *ngIf="cel.touched && cel.invalid" class="error">
+    <span *ngIf="cel.hasError('required')">
+      El celular es obligatorio.
+    </span>
+    <span *ngIf="cel.hasError('minlength')">
+      Debe tener al menos 5 dígitos.
+    </span>
+    <span *ngIf="cel.hasError('pattern')">
+      Solo se permiten números.
+    </span>
+  </div>
+
+  <!-- Email -->
+  <label>
+    Email
+    <input type="email" formControlName="email">
+  </label>
+  <div *ngIf="email.touched && email.invalid" class="error">
+    <span *ngIf="email.hasError('required')">
+      El email es obligatorio.
+    </span>
+    <span *ngIf="email.hasError('email')">
+      El formato de email no es válido.
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">
+  {{ isEditMode ? 'Guardar cambios' : 'Crear usuario' }}
+</button>
+
+
+</form>

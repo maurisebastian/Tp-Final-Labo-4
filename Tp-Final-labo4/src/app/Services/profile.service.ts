@@ -47,6 +47,22 @@ export class ProfileService {
     this.activeUser.set(undefined); 
     return of(true);
   }
+
+  //actualizar perfil reutilizando el mismo modelo
+  updateProfile(user: Profile) {
+    if (!user.id) {
+      // sin id no podemos actualizar en json-server
+      return of(false);
+    }
+
+    return this.http.put<Profile>(`${this.baseUrl}/${user.id}`, user).pipe(
+      map((u) => {
+        this.activeUser.set(u);   // actualizamos el signal
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+  }
 }
   
 

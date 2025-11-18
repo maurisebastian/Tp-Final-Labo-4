@@ -10,6 +10,10 @@
     <a class="button" routerLink="/login" routerLinkActive="activebutton">Login</a>
     <a class="button" routerLink="/signup" routerLinkActive="activebutton">Register</a>
   } @else {
+<!--editar-->
+    <a class="button" routerLink="/profile/edit" routerLinkActive="activebutton">
+        Edit Profile
+      </a>
     <a class="button" (click)="onLogout()">Logout</a>
   }
 

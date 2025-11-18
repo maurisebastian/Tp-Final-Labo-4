@@ -10,6 +10,7 @@ export const routes: Routes = [
     {path: '', component: Carrusel},
     {path:'movie-review/:id',component: MovieReview},
     {path: 'login', component: Login },
+    {path: 'profile/edit', component: Signup, data: { mode: 'edit' } },
     {path: 'signup', component: Signup},
     {path: 'profile-detail',component : ProfileDetail },
     {path: 'search/:query',component : MovieSearch},
