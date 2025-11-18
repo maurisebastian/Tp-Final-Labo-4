@@ -1,11 +1,135 @@
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { ReviewService } from '../../Services/review.service';
+import { ProfileService } from '../../Services/profile.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Profile, Review } from '../../Interfaces/profilein';
 
 @Component({
   selector: 'app-review-list',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './review-list.html',
   styleUrl: './review-list.css',
 })
 export class ReviewList {
+
+private readonly reviewService = inject(ReviewService);
+private readonly profileService = inject(ProfileService);
+
+protected fb = inject(FormBuilder);
+
+ peliculaID = input<number>();
+  
+  userId: number | undefined = undefined;
+  reviews: any[] = [];
+ 
+  starRating = 0;
+  userLoggedIn: boolean = false; 
+  userProfile: Profile | undefined;
+
+  protected readonly reviewForm = this.fb.nonNullable.group({
+    score: this.fb.nonNullable.control(0, Validators.required),
+    description: ['', [Validators.required, Validators.minLength(5)]],
+
+  });
+  get score(){
+    return this.reviewForm.controls.score;
+  }
+  get description(){
+    return this.reviewForm.controls.description;
+  }
+
+  ngOnInit(): void {
+    this.loadReviews();
+    this.getUserId(); 
+  }
+
+  loadReviews() {
+    const id = this.peliculaID();
+      if (id === undefined) {
+    console.warn("No hay id de película, no se cargan reseñas");
+    return;
+       }
+    this.reviewService.getReviewsByMovieId(id).subscribe(
+      (reviews) => {
+        this.reviews = reviews;
+      },
+      (error) => {
+        console.error('Error al cargar reseñas:', error);
+      }
+    );
+  }
+
+  setStarRating(star: number) {
+  this.starRating = star;
+  this.reviewForm.controls.score.setValue(star);
+}
+
+
+ getUserId() {
+  const user = this.profileService.auth()();
+
+  if (user?.id) {
+    this.userId = Number(user.id);
+    this.userLoggedIn = true;
+  } else {
+    this.userId = undefined;
+    this.userLoggedIn = false;
+  }
+}
+
+  addReview() {
+    if (this.reviewForm.invalid) {
+      this.reviewForm.markAllAsTouched();
+      return;
+    }
+
+    if (!this.userLoggedIn) {
+      alert('Debes estar logueado para dejar una reseña.');
+      return; 
+    }
+   
+
+    if (this.userId === undefined) {
+      console.error('Usuario no logueado');
+      return;
+    }
+     const movieId = this.peliculaID();
+
+     if (movieId === undefined) {
+    console.error('No se encontró el ID de la película');
+    return;
+  }
+
+   const newReviewData: Review = {
+  idProfile: this.userId,
+  idMovie: movieId,
+  score: Number(this.reviewForm.value.score),
+  description: this.reviewForm.value.description ?? '',
+};
+
+    this.reviewService.addReview(newReviewData).subscribe(
+      (response) => {
+        this.reviews.push(response);
+        this.reviewForm.reset();
+        this.starRating = 0;
+      },
+      (error) => {
+        console.error('Error al agregar la reseña:', error);
+      }
+    );
+  }
+
+
+  deleteReview(reviewId: number) {
+    this.reviewService.deleteReviewById(reviewId).subscribe(
+      () => {
+        this.reviews = this.reviews.filter((review) => review.id !== reviewId);
+      },
+      (error) => {
+        console.error('Error al eliminar la reseña:', error);
+      }
+    );
+  }
+  
 
 }

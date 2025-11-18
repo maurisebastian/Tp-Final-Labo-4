@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -6,10 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TmdbService {
-   private apiKey: string = 'c130076811f0e957626523dba642db29';
-  private baseUrl: string = 'https://api.themoviedb.org/3';
 
-  constructor(private http: HttpClient) {}
+  
+  private apiKey: string = 'c130076811f0e957626523dba642db29';
+  private baseUrl: string = 'https://api.themoviedb.org/3';
+  private http = inject(HttpClient);
+
 
   searchMovies(query: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}`);

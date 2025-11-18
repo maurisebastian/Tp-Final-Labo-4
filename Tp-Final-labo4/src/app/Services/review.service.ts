@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Review } from '../Interfaces/profilein';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class ReviewService {
 
    private http = inject(HttpClient);
 
-  getReviewsByMovieId(movieId: number): Observable<any[]> {
+  getReviewsByMovieId(movieId: number | string ): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}?idMovie=${movieId}`);
   }
 
-  addReview(reviewData: { idProfile: number; idMovie: number; score: string; description: string }): Observable<any> {
+  addReview(reviewData: Review): Observable<any> {
     return this.http.post<any>(this.baseUrl, reviewData);
   }
 

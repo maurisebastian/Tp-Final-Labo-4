@@ -1,1 +1,75 @@
-<p>review-list works!</p>
+<div class="review-list container mt-4">
+
+  <h3 >Agrega tu reseña</h3>
+
+  <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+    <div class="star-rating mb-3">
+
+      @for (star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
+      <span (click)="setStarRating(star)" class="star" [class.selected]="star <= + reviewForm.controls.score.value">
+        ★
+      </span>
+      }
+
+      <span >Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10</span>
+
+      @if (reviewForm.get('score')?.invalid && reviewForm.get('score')?.touched) {
+        <div class="text-danger">
+         * La calificación es obligatoria y debe estar entre 1 y 10.
+         </div>
+       }
+
+      
+    </div>
+
+    <textarea formControlName="description"  placeholder="Escribe tu reseña aquí...">
+    </textarea>
+
+      @if (reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched) {
+        <div class="text-danger">
+        * La descripción es obligatoria y debe tener al menos 5 caracteres.
+      </div>
+       }
+
+    
+
+    <button type="submit" class="btn btn-success" [disabled]="reviewForm.invalid">Agregar reseña</button>
+  </form>
+
+  <div class="review-list container mt-4">
+    <h3>Reseñas</h3>
+
+    @if (reviews.length === 0) {
+     <span>
+       No hay reseñas disponibles para esta película.
+     </span>
+     }
+
+     @for (review of reviews; track review.id) {
+       <div >
+       <div >
+
+         <span class="user-id badge bg-primary me-2">
+           Usuario ID: {{ review.idProfile }}
+          </span>
+
+         <span class="review-score">
+          <strong>Calificación:</strong> {{ review.score }} / 10
+         </span>
+
+         @if (review.idProfile === userId) {
+          <button class="btn"
+                (click)="deleteReview(review.id)">
+            X
+           </button>
+           }
+        </div>
+
+           <p class="review-description">{{ review.description }}</p>
+        </div>
+   }
+
+
+  </div>
+
+</div>

@@ -9,9 +9,9 @@ export interface Profile {
 }
 
 export interface Review {
-    idProfile:   string,
-    idMovie:     string,
-    score:       string,
-    description: string
+    idProfile: number;
+  idMovie: number;
+  score: number;
+  description: string;
 }
 

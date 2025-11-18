@@ -1,0 +1,33 @@
+.movie-details {
+  display: flex;
+  gap: 20px;
+  align-items: center; 
+  justify-content: center; 
+  padding: 20px;
+  min-height: 80vh; 
+}
+
+.movie-details img {
+  border-radius: 8px;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.movie-details-content {
+  max-width: 600px;
+  text-align: left; 
+}
+
+.movie-details-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.movie-details-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+

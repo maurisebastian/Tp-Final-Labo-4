@@ -1,1 +1,33 @@
-<p>movie-review works!</p>
+<app-top-bar></app-top-bar>
+
+
+@if (movieDetails) {
+
+<div class="movie-details">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path" [alt]="movieDetails.title" />
+    <div class="movie-details-content">
+        <h1>{{ movieDetails.title }}</h1>
+        <p><strong>Resumen:</strong> {{ movieDetails.overview }}</p>
+        <p><strong>Fecha de lanzamiento:</strong> {{ movieDetails.release_date }}</p>
+        <p><strong>Duración:</strong> {{ movieDetails.runtime }} minutos</p>
+        <p><strong>Calificación:</strong> {{ movieDetails.vote_average }}</p>
+        <p><strong>Géneros:</strong></p>
+
+        @for (genre of movieDetails.genres; track $index) {
+        <span>
+            *  {{genre.name}}
+
+        </span>
+
+        }
+
+    </div>
+
+</div>
+
+
+}
+
+<app-review-list [peliculaID]="movieId"></app-review-list>
+
+<footer></footer>
