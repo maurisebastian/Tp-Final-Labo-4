@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ProfileService } from '../../Services/profile.service';
 import { Signal, effect } from '@angular/core';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,26 +10,26 @@ import { Signal, effect } from '@angular/core';
   styleUrl: './navbar.css',
 })
 export class Navbar {
+  
   activeUser = false;
+  private authService = inject(AuthService);
 
   private _trackUser = effect(() => {
-    const user = this.profileService.activeUser();
+    const user = this.authService.getActiveUser()();
     this.activeUser = !!user;
   });
 
   constructor(
-    private profileService: ProfileService,
     private router: Router
   ) { }
 
 
 
   onLogout() {
-    this.profileService.logout().subscribe({
-      next: () => {
+
+        this.authService.logout();
         this.router.navigate(['/']);
-      }
-    });
+   
   }
 
 }

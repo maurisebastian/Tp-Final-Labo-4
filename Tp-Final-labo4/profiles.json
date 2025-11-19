@@ -48,13 +48,27 @@
       "idMovie": 424,
       "score": 7,
       "description": "muy buena"
+    },
+    {
+      "idProfile": null,
+      "idMovie": 278,
+      "score": 6,
+      "description": "claro que si",
+      "id": "26gl2vn"
+    },
+    {
+      "idProfile": null,
+      "idMovie": 597,
+      "score": 6,
+      "description": "muy buena",
+      "id": "b4uezaD"
     }
   ],
   "profiles": [
     {
       "id": 1,
       "username": "admin",
-      "password": "admin123",
+      "password": "fakepass",
       "email": "admin@moviehub.com",
       "date": "1990-01-01",
       "cel": "12345678",
@@ -78,7 +92,7 @@
     },
     {
       "id": "a95c",
-      "username": "luluy",
+      "username": "lulu",
       "password": "123456",
       "date": "2008-05-02",
       "cel": "6876786",

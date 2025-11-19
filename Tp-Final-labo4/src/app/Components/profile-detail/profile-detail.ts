@@ -5,6 +5,7 @@ import { ReviewService } from '../../Services/review.service';
 import { TopBar } from "../top-bar/top-bar";
 import { Footer } from "../../Shared/footer/footer";
 import { TmdbService } from '../../Services/tmdb.service';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-profile-detail',
@@ -14,10 +15,9 @@ import { TmdbService } from '../../Services/tmdb.service';
 })
 export class ProfileDetail {
 
-
-  private profileService = inject(ProfileService);
   private reviewService = inject(ReviewService);
   private tmdbService = inject(TmdbService);
+  private authService = inject(AuthService);
 
   [x: string]: any;
   userProfile: Profile | undefined;
@@ -31,7 +31,7 @@ export class ProfileDetail {
   }
 
   loadUserProfile() {
-  const user = this.profileService.auth()();
+  const user = this.authService.getActiveUser()();
   if (user) {
     this.userProfile = user;
     this.userLoggedIn = true;

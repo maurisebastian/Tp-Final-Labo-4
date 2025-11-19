@@ -3,6 +3,7 @@ import { ReviewService } from '../../Services/review.service';
 import { ProfileService } from '../../Services/profile.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Profile, Review } from '../../Interfaces/profilein';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-review-list',
@@ -14,6 +15,7 @@ export class ReviewList {
 
 private readonly reviewService = inject(ReviewService);
 private readonly profileService = inject(ProfileService);
+private readonly authService = inject(AuthService);
 
 protected fb = inject(FormBuilder);
 
@@ -77,7 +79,7 @@ protected fb = inject(FormBuilder);
 
 
  getUserId() {
-  const user = this.profileService.auth()();
+  const user = this.authService.getActiveUser()();
 
   if (user?.id) {
     this.userId = Number(user.id);

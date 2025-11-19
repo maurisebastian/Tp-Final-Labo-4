@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../Services/profile.service';
 import { Profile } from '../../Interfaces/profilein';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-signup',
@@ -21,6 +22,7 @@ import { Profile } from '../../Interfaces/profilein';
 export class Signup {
 
   private fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
 
   signupError = '';
   signupSuccess = '';
@@ -61,14 +63,15 @@ export class Signup {
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    
   ) {
     const mode = this.route.snapshot.data?.['mode'];
 
     if (mode === 'edit') {
       this.isEditMode = true;
 
-      const active = this.profileService.auth()();
+      const active = this.authService.getActiveUser()();
       if (!active) {
         this.router.navigate(['/login']);
         return;
@@ -89,7 +92,7 @@ export class Signup {
   // Getters para el template
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
-  get date() { return this.form.controls.date; }
+ get date() { return this.form.controls.date; }
   get cel() { return this.form.controls.cel; }
   get email() { return this.form.controls.email; }
 

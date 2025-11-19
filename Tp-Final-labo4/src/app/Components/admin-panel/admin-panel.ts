@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../Services/profile.service';
 import { Profile, Review } from '../../Interfaces/profilein';
 import { ReviewService } from '../../Services/review.service';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -18,8 +19,9 @@ export class AdminPanel implements OnInit {
   private profileService = inject(ProfileService);
   private router = inject(Router);
   private reviewService = inject(ReviewService);
+  private authService = inject(AuthService);
 
-  activeUserSignal = this.profileService.auth();
+activeUserSignal = this.authService.getActiveUser();
 
   // usuarios
   users: Profile[] = [];
