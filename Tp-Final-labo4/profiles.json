@@ -50,18 +50,25 @@
       "description": "muy buena"
     },
     {
-      "idProfile": null,
+      "idProfile": "NnUCsx5",
       "idMovie": 278,
-      "score": 6,
-      "description": "claro que si",
-      "id": "26gl2vn"
+      "score": 9,
+      "description": "asdasdasdasd",
+      "id": "sK1ndJF"
     },
     {
-      "idProfile": null,
+      "idProfile": "NnUCsx5",
+      "idMovie": 278,
+      "score": 9,
+      "description": "ahora me gusto un poco mas",
+      "id": "uOCvbLF"
+    },
+    {
+      "idProfile": "NnUCsx5",
       "idMovie": 597,
-      "score": 6,
-      "description": "muy buena",
-      "id": "b4uezaD"
+      "score": 0,
+      "description": "muy buena peli",
+      "id": "YZO1YF5"
     }
   ],
   "profiles": [
@@ -113,6 +120,15 @@
       "date": "2012-09-19",
       "cel": "21456",
       "email": "fsed@fas.com"
+    },
+    {
+      "username": "mauri",
+      "password": "123456",
+      "date": "1991-11-21",
+      "cel": "22312323213",
+      "email": "maurimauri@gmail.com",
+      "role": "user",
+      "id": "NnUCsx5"
     }
   ]
 }

@@ -27,7 +27,7 @@ export class ReviewService {
   }
 
   // Reseñas por usuario (si la necesitás en perfil)
-  getReviewsByUserId(profileId: number): Observable<Review[]> {
+  getReviewsByUserId(profileId: number | string): Observable<Review[]> {
     return this.http.get<Review[]>(`${this.baseUrl}?idProfile=${profileId}`);
   }
 

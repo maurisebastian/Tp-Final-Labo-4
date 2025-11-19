@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { ReviewService } from '../../Services/review.service';
 import { ProfileService } from '../../Services/profile.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -42,7 +42,6 @@ protected fb = inject(FormBuilder);
 
   ngOnInit(): void {
     this.loadReviews();
-    this.getUserId(); 
   }
 
   loadReviews() {
@@ -77,18 +76,18 @@ protected fb = inject(FormBuilder);
   this.reviewForm.controls.score.setValue(star);
 }
 
-
- getUserId() {
+private trackUser = effect(() => {
   const user = this.authService.getActiveUser()();
 
   if (user?.id) {
-    this.userId = Number(user.id);
+    this.userId = user.id; 
+    console.log(user);
     this.userLoggedIn = true;
   } else {
     this.userId = undefined;
     this.userLoggedIn = false;
   }
-}
+});
 
   addReview() {
     if (this.reviewForm.invalid) {
@@ -121,6 +120,7 @@ protected fb = inject(FormBuilder);
 };
 
     this.reviewService.addReview(newReviewData).subscribe(
+  
       (response) => {
         this.reviews.push(response);
         this.reviewForm.reset();
