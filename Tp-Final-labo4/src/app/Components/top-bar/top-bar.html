@@ -1,28 +1,46 @@
-<div class="container">
+<div class="topbar-container">
 
-  <div>
-    <a [routerLink]="['/']" class="movie-title-link">
-      <h2></h2>
-      <img src="assets/logo-cine.png" alt="logo-cine" class="logo">
+  <!-- IZQUIERDA: LOGO / HOME -->
+  <div class="topbar-left">
+    <a [routerLink]="['/']" class="logo-link">
+      <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img" />
+      <span class="app-title">MovieHub</span>
     </a>
   </div>
 
+  <!-- CENTRO: BUSCADOR -->
+  <div class="topbar-center">
+    <div class="search-wrapper">
+      <input
+        type="text"
+        class="search-input"
+        id="search"
+        [formControl]="busqueda"
+        placeholder="Buscar película" />
 
-  <div>
-    <input type="text" class="form-control" id="search" [formControl]="busqueda" placeholder="Buscar pelicula">
-    <button class="btn btn-primary" (click)="buscar()" [disabled]="busqueda.invalid" >Buscar </button>
-    <br>
-    @if (busqueda.hasError("required") && busqueda.touched) {
-      <span>No se ingreso dato de la pelicula</span>
+      <button
+        class="search-btn"
+        (click)="buscar()"
+        [disabled]="busqueda.invalid">
+        Buscar
+      </button>
+    </div>
+
+    @if (busqueda.hasError('required') && busqueda.touched) {
+      <span class="search-error">
+        No se ingresó dato de la película.
+      </span>
     }
-
   </div>
-  
-  <div  >
-    
-    <a [routerLink]="['/profile-detail']" class="perfil-class">
-      <h2>Perfil</h2>
-      <img src="assets/perfil.png" alt="Perfil del usuario" class="logo perfil">
+
+  <!-- DERECHA: PERFIL -->
+  <div class="topbar-right">
+    <a [routerLink]="['/profile-detail']" class="profile-link">
+      <span class="profile-text">Perfil</span>
+      <img
+        src="assets/perfil.png"
+        alt="Perfil del usuario"
+        class="profile-avatar" />
     </a>
   </div>
 

@@ -1,36 +1,53 @@
 nav {
-    display: flex;
-    justify-content: space-between; /* Home izquierda, botones derecha */
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-    font-family: Arial, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 40px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-family: "Segoe UI", Arial, sans-serif;
 }
+
+/* Contenedor de botones de la derecha */
 .nav-buttons {
-    display: flex;
-    gap: 10px; /* espacio entre botones */
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
+
+/* Botón principal (Home / Login / Register / Logout) */
 .button {
-    box-shadow: inset 0 1px 0 0 #ffffff;
-    background: #ffffff linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-    border-radius: 6px;
-    border: 1px solid #dcdcdc;
-    display: inline-block;
-    cursor: pointer;
-    color: #666666;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 6px 24px;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #ffffff;
-    outline: 0;
+  box-shadow: none;
+  background: #f5f5f5;
+  border-radius: 20px;
+  border: 1px solid #d0d0d0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 18px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+              transform 0.08s ease;
 }
+
+.button:hover {
+  background: #e9f0ff;
+  border-color: #4a8cff;
+  color: #2a4f96;
+  transform: translateY(-1px);
+}
+
+/* Botón activo (routerLinkActive) */
 .activebutton {
-    box-shadow: inset 0 1px 0 0 #dcecfb;
-    background: #bddbfa linear-gradient(to bottom, #bddbfa 5%, #51a9ac 100%);
-    border: 1px solid #84bbf3;
-    color: #ffffff;
-    text-shadow: 0 1px 0 #528ecc;
+  background: #4a8cff;
+  border-color: #4a8cff;
+  color: #ffffff;
 }

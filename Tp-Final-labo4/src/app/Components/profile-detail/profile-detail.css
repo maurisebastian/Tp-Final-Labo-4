@@ -1,48 +1,114 @@
-.profile-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .profile-info p {
-    font-size: 1.1rem;
-    margin: 10px 0;
-  }
-  
-  .review-card {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .review-score {
-    font-weight: bold;
-  }
-  
-  .delete-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .delete-btn:hover {
-    background-color: darkred;
-  }
-  
-  .alert-warning {
-    color: #856404;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-  }
-  
+/* Contenedor general que centra la tarjeta de perfil en la página */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+/* Tarjeta principal del perfil (datos del usuario + reseñas) */
+.profile-card {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 32px 40px;
+  box-sizing: border-box;
+}
+
+/* Título principal de la sección de perfil */
+.profile-title {
+  font-size: 28px;
+  margin: 0 0 24px 0;
+  font-weight: 700;
+  color: #222222;
+}
+
+/* Datos de usuario (texto principal) */
+.profile-info p {
+  font-size: 15px;
+  margin: 6px 0;
+  color: #333333;
+}
+
+/* Título de la subsección de reseñas */
+.section-title {
+  font-size: 20px;
+  margin: 24px 0 12px 0;
+  font-weight: 600;
+  color: #222222;
+}
+
+/* Texto que se muestra cuando no hay reseñas */
+.empty-reviews {
+  font-size: 14px;
+  color: #777777;
+  margin: 8px 0 0 0;
+}
+
+/* Tarjeta individual de reseña */
+.review-card {
+  background-color: #fafafa;
+  padding: 16px 20px;
+  margin: 10px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eeeeee;
+}
+
+/* Encabezado de la reseña (nombre, puntuación y botón) */
+.review-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* Nombre de la película en la reseña */
+.review-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222222;
+}
+
+/* Puntuación de la reseña */
+.review-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d7263d;
+}
+
+/* Texto de la reseña */
+.review-text {
+  margin: 0;
+  font-size: 14px;
+  color: #444444;
+}
+
+/* Botón de eliminar reseña */
+.delete-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background-color: #e41b1b;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Efecto hover del botón de eliminar */
+.delete-btn:hover {
+  background-color: #c01515;
+  transform: translateY(-1px);
+}
+
+/* Mensaje cuando el usuario no está logueado */
+.login-message {
+  text-align: center;
+  padding: 40px 16px;
+  font-size: 16px;
+  color: #444444;
+}

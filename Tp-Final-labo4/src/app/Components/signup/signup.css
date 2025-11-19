@@ -1,4 +1,4 @@
-/* Contenedor general del formulario */
+/* Contenedor del formulario */
 form {
   max-width: 800px;
   margin: 40px auto;
@@ -12,91 +12,82 @@ form {
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Mensaje de error global (cuando falla el signup/update) */
+/* Error global */
 .error-global {
+  display: none;
   grid-column: span 2;
-  padding: 10px 12px;
+  padding: 10px;
   border-radius: 8px;
   background: #ffe6e6;
   color: #a40000;
   font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 5px;
 }
 
-/* Cada label envuelve texto + input */
+.error-global.visible {
+  display: block;
+}
+
+/* Cada label contiene input + errores */
 label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  gap: 5px;
+  font-size: 15px;
   font-weight: 600;
   color: #444;
-  gap: 6px;
 }
 
-/* Inputs del formulario */
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="date"] {
+/* Inputs */
+input {
   padding: 10px 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: #fafafa;
   font-size: 15px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: .2s ease;
 }
 
-input:focus {
-  outline: none;
-  border-color: #4a90ff;
-  background: #ffffff;
-  box-shadow: 0 0 4px rgba(74, 144, 255, 0.5);
+input.ng-invalid.ng-touched {
+  border-color: #d00000;
+  background: #fff6f6;
 }
 
-/* Mensajes de error por campo */
+/* Errores de campos */
 .error {
+  display: none;
   font-size: 12px;
   color: #b00000;
 }
 
-/* Hacemos que los errores ocupen el ancho completo bajo el form si hace falta */
-label + .error {
-  margin-top: -4px;
+/* Cuando el input está inválido y tocado → mostrar errores */
+input.ng-invalid.ng-touched + .error,
+input.ng-invalid.ng-touched ~ .error {
+  display: block;
 }
 
-/* Botón principal */
+/* Botón */
 button[type="submit"] {
   grid-column: span 2;
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 12px;
   border-radius: 8px;
-  border: none;
   background: #4a8cff;
-  color: #ffffff;
+  color: white;
+  border: none;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: .2s ease;
 }
 
-button[type="submit"]:hover:enabled {
-  background: #3c74da;
-  transform: translateY(-1px);
-}
-
-button[type="submit"]:disabled {
-  background: #c5c5c5;
+button[disabled] {
+  background: #b9b9b9;
   cursor: not-allowed;
 }
 
-/* Responsivo: en pantallas chicas una sola columna */
+/* Responsivo */
 @media (max-width: 700px) {
   form {
     grid-template-columns: 1fr;
-  }
-
-  button[type="submit"] {
-    grid-column: span 1;
   }
 }

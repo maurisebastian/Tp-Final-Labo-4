@@ -1,53 +1,81 @@
-<div class="container">
-  <div class="container-nav">
+<div class="search-page">
 
-    <div>
-      <a [routerLink]="['/']" class="movie-title-link">
-        <img src="assets/logo-cine.png" alt="logo-cine" class="logo">
+  <!-- Barra superior propia de esta página -->
+  <div class="search-topbar">
+
+    <!-- Logo -->
+    <div class="search-logo">
+      <a [routerLink]="['/']">
+        <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img">
       </a>
     </div>
 
+    <!-- Buscador -->
+    <div class="search-center">
+      <div class="search-box">
+        <input
+          [formControl]="busqueda"
+          type="text"
+          id="search"
+          placeholder="Buscar película"
+          class="search-input" />
 
-    <div>
-      <input [formControl]="busqueda" type="text" class="form-control" id="search" placeholder="Buscar pelicula">
-      <button class="btn btn-primary" (click)="buscar()" [disabled]="busqueda.invalid">Buscar </button>
-      <br>
-      @if (busqueda.hasError("required") && busqueda.touched) {
-      <span>No se ingreso dato de la pelicula</span>
+        <button
+          class="search-btn"
+          (click)="buscar()"
+          [disabled]="busqueda.invalid">
+          Buscar
+        </button>
+      </div>
+
+      @if (busqueda.hasError('required') && busqueda.touched) {
+        <span class="search-error">
+          No se ingresó dato de la película.
+        </span>
       }
     </div>
 
-
-    <div>
-      <a [routerLink]="['/profile-detail']" class="perfil-class">
-        <h2>Perfil</h2>
-        <img src="assets/perfil.png" alt="Perfil del usuario" class="logo perfil">
+    <!-- Perfil -->
+    <div class="search-profile">
+      <a [routerLink]="['/profile-detail']" class="profile-link">
+        <span class="profile-text">Perfil</span>
+        <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar">
       </a>
     </div>
 
   </div>
 
-  <div class="row mt-3">
+  <!-- Título de resultados -->
+  <h2 class="results-title">
+    Resultados de búsqueda
+    @if (busqueda.value) {
+      <span class="results-query">"{{ busqueda.value }}"</span>
+    }
+  </h2>
 
+  <!-- Grid de películas -->
+  <div class="results-grid">
 
-    <div class="col">
-
-      @for (item of resultados; track item.id) {
-
-      <div class="card">
+    @for (item of resultados; track item.id) {
+      <div class="result-card">
         <a [routerLink]="['/movie-review', item.id]">
-          <img [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path" alt="{{ item.title }}"
-            class="img-fluid rounded">
+          <img
+            [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
+            alt="{{ item.title }}"
+            class="result-poster">
         </a>
-        <a [routerLink]="['/movie-review', item.id]" class="movie-title-link">
+
+        <a [routerLink]="['/movie-review', item.id]" class="result-title">
           {{ item.title }}
         </a>
-        <p>Puntuación: {{ item.vote_average }}</p>
-      </div>
 
-      }
-    </div>
+        <p class="result-score">
+          Puntuación: {{ item.vote_average }}
+        </p>
+      </div>
+    }
 
   </div>
 </div>
+
 <app-footer></app-footer>

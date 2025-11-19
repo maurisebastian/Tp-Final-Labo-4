@@ -1,77 +1,193 @@
-.movie-item {
-    min-width: 150px;
-    flex: 0 0 auto;
-    margin-right: 10px; 
-    text-align: center;
-    position: relative;
-    transition: transform 0.3s ease; 
-  }
-  
-  .movie-item:hover {
-    transform: scale(1.2); 
-    z-index: 10; 
-  }
-  
-  .movie-item img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+/* CONTENEDOR GENERAL DE LA PÁGINA */
+.search-page {
+  max-width: 1200px;
+  margin: 16px auto 40px;
+  padding: 0 24px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
 
+/* ===== TOPBAR LOCAL ===== */
 
-  img{
-    max-width: 90px;
-  }
-  a{
-    text-decoration: none;
-    color: rgb(61, 114, 102);
-  }
-  .col{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
+.search-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
 
+.search-logo a {
+  display: flex;
+  align-items: center;
+}
 
-  .card{
-   width: 105px;
-   height: 280px;
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
-   display: flex;
-   flex-direction: column;
-   border-radius: 5px;
-   align-items: center;
+/* Centro: buscador */
+.search-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-   border: 1px solid rgb(69, 82, 79);
-   
-    
-  }
+.search-box {
+  display: flex;
+  width: 100%;
+  max-width: 420px;
+  gap: 8px;
+}
 
-  .logo {
-    font-size: 1.5em;
-    max-width: 70px;
-  }
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 14px;
+  transition: 0.2s;
+}
 
-  .container-nav{
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   height: 30%;
-   width: 70%;
-  }
-  .perfil-class{
-    display: flex;
+.search-input:focus {
+  outline: none;
+  border-color: #4a8cff;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(74, 144, 255, 0.4);
+}
+
+.search-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: #4a8cff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-btn:hover:enabled {
+  background: #3a78e0;
+}
+
+.search-btn:disabled {
+  background: #c3c3c3;
+  cursor: not-allowed;
+}
+
+.search-error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #b00000;
+}
+
+/* Perfil a la derecha */
+.search-profile {
+  min-width: 150px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.profile-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.profile-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #4a8cff;
+  background: #e6f0ff;
+  object-fit: cover;
+}
+
+/* ===== RESULTADOS ===== */
+
+.results-title {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.results-query {
+  font-weight: 400;
+  color: #555;
+}
+
+/* GRID de tarjetas */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 24px;
+}
+
+/* Tarjeta individual */
+.result-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Poster */
+.result-poster {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Título */
+.result-title {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d4f5f;
+  text-decoration: none;
+}
+
+.result-title:hover {
+  text-decoration: underline;
+}
+
+/* Puntuación */
+.result-score {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .search-topbar {
     flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-
+    align-items: stretch;
   }
 
-  h2{
-    font-family: 'Arial', sans-serif;
-    color: #666666;
-    font-size: 15px;
-  
+  .search-profile {
+    justify-content: center;
   }
-
-  
+}

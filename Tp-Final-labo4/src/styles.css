@@ -1,10 +1,60 @@
-:root{
- --colorPrincipal : #5BC0EB;
- --colorFuente : #1B4965;
- --colorFondo : #F4F9F9;
- --colorIconos: #FF6B6B;
- --colorComplemento: #9BF6FF;
+:root {
+  --colorPrincipal : #5BC0EB;       /* Celeste principal */
+  --colorFuente : #1B4965;          /* Azul oscuro */
+  --colorFondo : #F4F9F9;           /* Fondo suave */
+  --colorIconos: #FF6B6B;           /* Coral */
+  --colorComplemento: #9BF6FF;      /* Celestito extra */
+
+  --card-bg: #ffffff;               /* fondo estándar de tarjetas */
 }
-span{
-    color: var(--colorIconos);
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--colorFondo);
+  color: var(--colorFuente);
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: var(--colorFuente);
+  margin-top: 0;
+}
+
+/* Botones globales */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background-color: var(--colorPrincipal);
+  color: white;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--colorComplemento);
+  transform: translateY(-2px);
+}
+
+/* Tarjetas */
+.card,
+.movie-details,
+.review-form-card,
+.reviews-card,
+.profile-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px 28px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Chip pequeño */
+.chip {
+  background-color: var(--colorComplemento);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-right: 6px;
 }
