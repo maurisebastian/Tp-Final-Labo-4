@@ -1,32 +1,30 @@
 <div class="search-page">
 
-  <!-- Barra superior propia de esta página -->
   <div class="search-topbar">
 
-    <!-- Logo -->
     <div class="search-logo">
       <a [routerLink]="['/']">
         <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img">
       </a>
     </div>
 
-    <!-- Buscador -->
     <div class="search-center">
-      <div class="search-box">
+      <form class="search-box" (submit)="onSubmit($event)">
         <input
           [formControl]="busqueda"
           type="text"
           id="search"
           placeholder="Buscar película"
-          class="search-input" />
+          class="search-input"
+        />
 
         <button
+          type="submit"
           class="search-btn"
-          (click)="buscar()"
           [disabled]="busqueda.invalid">
           Buscar
         </button>
-      </div>
+      </form>
 
       @if (busqueda.hasError('required') && busqueda.touched) {
         <span class="search-error">
@@ -35,7 +33,6 @@
       }
     </div>
 
-    <!-- Perfil -->
     <div class="search-profile">
       <a [routerLink]="['/profile-detail']" class="profile-link">
         <span class="profile-text">Perfil</span>
@@ -45,7 +42,6 @@
 
   </div>
 
-  <!-- Título de resultados -->
   <h2 class="results-title">
     Resultados de búsqueda
     @if (busqueda.value) {
@@ -53,9 +49,7 @@
     }
   </h2>
 
-  <!-- Grid de películas -->
   <div class="results-grid">
-
     @for (item of resultados; track item.id) {
       <div class="result-card">
         <a [routerLink]="['/movie-review', item.id]">
@@ -74,7 +68,6 @@
         </p>
       </div>
     }
-
   </div>
 </div>
 

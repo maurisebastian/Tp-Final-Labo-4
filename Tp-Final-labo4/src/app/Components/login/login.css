@@ -53,3 +53,14 @@
 .login-form button:hover {
     background-color: #0056b3;
 }
+
+.error {
+    color: #b00020;
+    font-size: 0.85em;
+    margin-bottom: 8px;
+}
+
+.error.general {
+    margin-top: 10px;
+    text-align: center;
+}

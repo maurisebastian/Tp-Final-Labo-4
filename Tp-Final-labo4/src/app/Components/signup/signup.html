@@ -1,75 +1,129 @@
-<form [formGroup]="form" (ngSubmit)="onSignup()">
+<form [formGroup]="form" (ngSubmit)="onSignup()" class="signup-form">
 
-  <div *ngIf="signupError" class="error-global">
-    {{ signupError }}
+  <!-- Mensajes globales -->
+  @if (signupError) {
+    <div class="error-global">
+      {{ signupError }}
+    </div>
+  }
+
+  @if (signupSuccess) {
+    <div class="success-global">
+      {{ signupSuccess }}
+    </div>
+  }
+
+  <div class="form-row">
+    <!-- Usuario -->
+    <div class="form-field">
+      <label for="username">Usuario</label>
+      <input id="username" type="text" formControlName="username" />
+
+      @if (username.touched && username.invalid) {
+        <div class="error">
+          @if (username.hasError('required')) {
+            <span>El nombre de usuario es obligatorio.</span>
+          }
+          @if (username.hasError('minlength')) {
+            <span>Debe tener al menos 4 caracteres.</span>
+          }
+          @if (username.hasError('maxlength')) {
+            <span>No puede tener más de 16 caracteres.</span>
+          }
+          @if (username.hasError('pattern')) {
+            <span>No se permiten espacios en el nombre de usuario.</span>
+          }
+          @if (username.hasError('taken')) {
+            <span>Este nombre de usuario ya está en uso.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Contraseña -->
+    <div class="form-field">
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" formControlName="password" />
+
+      @if (password.touched && password.invalid) {
+        <div class="error">
+          @if (password.hasError('required')) {
+            <span>La contraseña es obligatoria.</span>
+          }
+          @if (password.hasError('minlength')) {
+            <span>Debe tener al menos 6 caracteres.</span>
+          }
+          @if (password.hasError('maxlength')) {
+            <span>No puede tener más de 20 caracteres.</span>
+          }
+          @if (password.hasError('pattern')) {
+            <span>No se permiten espacios en la contraseña.</span>
+          }
+        </div>
+      }
+    </div>
   </div>
 
-  <!-- Usuario -->
-  <label>
-    Usuario
-    <input type="text" formControlName="username">
-  </label>
-  <div *ngIf="username.touched && username.invalid" class="error">
-    El nombre de usuario es obligatorio.
-  </div>
+  <div class="form-row">
+    <!-- Fecha de nacimiento -->
+    <div class="form-field">
+      <label for="date">Fecha de nacimiento</label>
+      <input id="date" type="date" formControlName="date" />
 
-  <!-- Contraseña -->
-  <label>
-    Contraseña
-    <input type="password" formControlName="password">
-  </label>
-  <div *ngIf="password.touched && password.invalid" class="error">
-    La contraseña es obligatoria.
-  </div>
+      @if (date.touched && date.invalid) {
+        <div class="error">
+          @if (date.hasError('required')) {
+            <span>La fecha de nacimiento es obligatoria.</span>
+          }
+          @if (date.hasError('minAge')) {
+            <span>Debes ser mayor de 12 años.</span>
+          }
+        </div>
+      }
+    </div>
 
-  <!-- Fecha de nacimiento -->
-  <label>
-    Fecha de nacimiento
-    <input type="date" formControlName="date">
-  </label>
-  <div *ngIf="date.touched && date.invalid" class="error">
-    <span *ngIf="date.hasError('required')">
-      La fecha de nacimiento es obligatoria.
-    </span>
-    <span *ngIf="date.hasError('minAge')">
-      Debes ser mayor de 12 años.
-    </span>
-  </div>
+    <!-- Celular -->
+    <div class="form-field">
+      <label for="cel">Celular</label>
+      <input id="cel" type="text" formControlName="cel" />
 
-  <!-- Celular -->
-  <label>
-    Celular
-    <input type="text" formControlName="cel">
-  </label>
-  <div *ngIf="cel.touched && cel.invalid" class="error">
-    <span *ngIf="cel.hasError('required')">
-      El celular es obligatorio.
-    </span>
-    <span *ngIf="cel.hasError('minlength')">
-      Debe tener al menos 5 dígitos.
-    </span>
-    <span *ngIf="cel.hasError('pattern')">
-      Solo se permiten números.
-    </span>
+      @if (cel.touched && cel.invalid) {
+        <div class="error">
+          @if (cel.hasError('required')) {
+            <span>El celular es obligatorio.</span>
+          }
+          @if (cel.hasError('minlength')) {
+            <span>Debe tener al menos 5 dígitos.</span>
+          }
+          @if (cel.hasError('pattern')) {
+            <span>Solo se permiten números.</span>
+          }
+        </div>
+      }
+    </div>
   </div>
 
   <!-- Email -->
-  <label>
-    Email
-    <input type="email" formControlName="email">
-  </label>
-  <div *ngIf="email.touched && email.invalid" class="error">
-    <span *ngIf="email.hasError('required')">
-      El email es obligatorio.
-    </span>
-    <span *ngIf="email.hasError('email')">
-      El formato de email no es válido.
-    </span>
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+
+    @if (email.touched && email.invalid) {
+      <div class="error">
+        @if (email.hasError('required')) {
+          <span>El email es obligatorio.</span>
+        }
+        @if (email.hasError('email')) {
+          <span>El formato de email no es válido.</span>
+        }
+        @if (email.hasError('taken')) {
+          <span>Este email ya está registrado.</span>
+        }
+      </div>
+    }
   </div>
 
   <button type="submit" [disabled]="form.invalid">
-  {{ isEditMode ? 'Guardar cambios' : 'Crear usuario' }}
-</button>
-
-
+    {{ isEditMode ? 'Guardar cambios' : 'Crear usuario' }}
+  </button>
 </form>

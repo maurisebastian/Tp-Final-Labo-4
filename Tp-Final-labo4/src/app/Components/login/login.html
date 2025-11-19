@@ -1,9 +1,60 @@
-
 <form [formGroup]="form" (ngSubmit)="onLogin()" class="login-form">
-    <fieldset>
-        <legend>Iniciar Sesión</legend>
-        <input type="text" placeholder="Username" formControlName="username" />
-        <input type="password" placeholder="Password" formControlName="password" />
-        <button type="submit">Enviar</button>
-    </fieldset>
+  <fieldset>
+    <legend>Iniciar Sesión</legend>
+
+    <!-- USERNAME -->
+    <input
+      type="text"
+      placeholder="Username"
+      formControlName="username"
+    />
+    @if (username.touched && username.invalid) {
+      <div class="error">
+        @if (username.hasError('required')) {
+          <span>El usuario es obligatorio.</span>
+        }
+        @if (username.hasError('minlength')) {
+          <span>El usuario debe tener al menos 4 caracteres.</span>
+        }
+        @if (username.hasError('maxlength')) {
+          <span>El usuario no puede superar los 16 caracteres.</span>
+        }
+        @if (username.hasError('pattern')) {
+          <span>El usuario no puede tener espacios.</span>
+        }
+      </div>
+    }
+
+    <!-- PASSWORD -->
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+    />
+    @if (password.touched && password.invalid) {
+      <div class="error">
+        @if (password.hasError('required')) {
+          <span>La contraseña es obligatoria.</span>
+        }
+        @if (password.hasError('minlength')) {
+          <span>La contraseña debe tener al menos 6 caracteres.</span>
+        }
+        @if (password.hasError('maxlength')) {
+          <span>La contraseña no puede superar los 20 caracteres.</span>
+        }
+        @if (password.hasError('pattern')) {
+          <span>La contraseña no puede tener espacios.</span>
+        }
+      </div>
+    }
+
+    <!-- ERROR GENERAL -->
+    @if (loginError) {
+      <div class="error general">
+        {{ loginError }}
+      </div>
+    }
+
+    <button type="submit">Enviar</button>
+  </fieldset>
 </form>
