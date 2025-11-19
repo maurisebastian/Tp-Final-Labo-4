@@ -1,78 +1,98 @@
-<div class="review-list container mt-4">
+<div class="review-section">
 
-  <h3>Agrega tu reseña</h3>
+  <!-- Card: formulario para agregar reseña -->
+  <div class="add-review">
 
-  <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+    <h3 class="section-title">Agrega tu reseña</h3>
 
-    <div class="star-rating mb-3">
+    <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
 
-      @for (star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
-      <span (click)="setStarRating(star)" class="star" [class.selected]="star <= + reviewForm.controls.score.value">
-        ★
-      </span>
-      }
+      <div class="star-rating mb-3">
 
-      <span>Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10</span>
+        @for (star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
+          <span
+            (click)="setStarRating(star)"
+            class="star"
+            [class.selected]="star <= +reviewForm.controls.score.value"
+          >
+            ★
+          </span>
+        }
+
+        <span class="rating-label">
+          Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
+        </span>
+      </div>
 
       @if (reviewForm.get('score')?.invalid && reviewForm.get('score')?.touched) {
-      <div class="text-danger">
-        * La calificación es obligatoria y debe estar entre 1 y 10.
-      </div>
+        <div class="text-danger">
+          * La calificación es obligatoria y debe estar entre 1 y 10.
+        </div>
       }
 
+      <textarea
+        formControlName="description"
+        placeholder="Escribe tu reseña aquí..."
+        class="review-textarea"
+      ></textarea>
 
-    </div>
+      @if (reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched) {
+        <div class="text-danger">
+          * La descripción es obligatoria y debe tener al menos 5 caracteres.
+        </div>
+      }
 
-    <textarea formControlName="description" placeholder="Escribe tu reseña aquí...">
-    </textarea>
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="reviewForm.invalid"
+      >
+        Agregar reseña
+      </button>
 
-    @if (reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched) {
-    <div class="text-danger">
-      * La descripción es obligatoria y debe tener al menos 5 caracteres.
-    </div>
-    }
+    </form>
 
-    <button type="submit" class="btn btn-success" [disabled]="reviewForm.invalid">Agregar reseña</button>
+  </div>
 
-  </form>
+  <!-- Card: listado de reseñas -->
+  <div class="reviews-list-block">
 
-  <div class="review-list container mt-4">
-    <h3>Reseñas</h3>
+    <h3 class="section-title">Reseñas</h3>
 
     @if (reviews.length === 0) {
-    <span>
-      No hay reseñas disponibles para esta película.
-    </span>
+      <span class="empty-reviews">
+        No hay reseñas disponibles para esta película.
+      </span>
     }
 
     @for (review of reviews; track review.id) {
 
-    <div class="card-reseñas">
+      <div class="card-reseñas">
 
-        <div class="review-info" > 
+        <div class="review-info">
+
           <strong>
-             Usuario: {{ review.userName || review.idProfile }}
+            Usuario: {{ review.userName || review.idProfile }}
           </strong>
 
-        <span class="review-score">
-          <strong>Calificación:</strong> {{ review.score }} / 10
-        </span>
-
+          <span class="review-score">
+            <strong>Calificación:</strong> {{ review.score }} / 10
+          </span>
 
         </div>
 
         @if (review.idProfile === userId) {
-        <button class="btn" (click)="deleteReview(review.id)">
-          Eliminar
-        </button>
+          <button class="btn-delete" (click)="deleteReview(review.id)">
+  Eliminar
+</button>
+
         }
 
-    </div>
+      </div>
 
-     <p class="review-description">{{ review.description }}</p>
+      <p class="review-description">{{ review.description }}</p>
 
     }
-
 
   </div>
 

@@ -1,91 +1,138 @@
+/* ===== CONTENEDOR GENERAL (estructura original) ===== */
 .movie-carousel {
+  max-width: 1200px;
+  margin: 40px auto;
   padding: 20px;
   position: relative;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
+/* Lista horizontal: misma lógica que tus compañeros */
 .movie-list-container {
-  overflow: hidden; 
+  overflow: hidden;
   width: 100%;
 }
 
 .movie-list {
   display: flex;
-  transition: transform 1s ease-in-out;
+  gap: 25px;
+  transition: transform 0.4s ease-in-out;
 }
 
+/* ===== TARJETAS (mismos tamaños, pero más lindas) ===== */
 .movie-item {
-  min-width: 150px;
-  flex: 0 0 auto;
-  margin-right: 10px; 
-  text-align: center;
+  width: 180px;          /* NO cambiar este ancho */
+  flex-shrink: 0;        /* para que el TS siga funcionando igual */
   position: relative;
-  transition: transform 0.3s ease; 
-}
-
-.movie-item:hover {
-  transform: scale(1.2); 
-  z-index: 10; 
+  text-align: center;
+  transition: box-shadow 0.25s ease;
 }
 
 .movie-item img {
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 265px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
 }
 
+/* Título de la película (la letra que te gusta) */
+.movie-title-link p {
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.movie-title-link:hover p {
+  color: #4a8cff;
+}
+
+/* Puntuación debajo */
+.text-muted {
+  font-size: 13px;
+  color: #666 !important;
+}
+
+/* Ranking (#5, #6, etc.) */
 .ranking {
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #4a8cff;
   color: white;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 13px;
   font-weight: bold;
-  z-index: 1;
+  z-index: 20;
 }
 
+/* ===== FLECHAS: estilo del “círculo blanco lindo” ===== */
 .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8); 
-  border: yes;
-  color: #333; 
-  padding: 30px;
-  cursor: pointer;
-  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #333;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  width: 40px; 
-  height: 40px; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.1s ease; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
 }
 
+/* Posición de cada flecha (igual lógica, solo un poco afuera) */
 .left-arrow {
-  left: 10px; 
+  left: 10px;    /* antes -20 */
 }
 
 .right-arrow {
-  right: 10px; 
+  right: 10px;   /* antes -20 */
 }
+
 
 .carousel-arrow:hover {
-  background-color: rgba(255, 255, 255, 1); 
-  transform: translateY(-50%) scale(2); 
+  background-color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-arrow:focus {
-  outline: none; 
-}
 .carousel-arrow:disabled {
-  color: #ccc; 
-  cursor: not-allowed;
+  opacity: 0.4;
+  cursor: default;
+  transform: translateY(-50%);
 }
 
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .movie-item {
+    width: 150px;
+  }
 
+  .movie-item img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .movie-item {
+    width: 130px;
+  }
+
+  .movie-item img {
+    height: 190px;
+  }
+
+  .carousel-arrow {
+    display: none;
+  }
+}
 

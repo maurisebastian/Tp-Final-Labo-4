@@ -1,43 +1,56 @@
 <app-top-bar></app-top-bar>
 
-@if(userLoggedIn){
+@if (userLoggedIn) {
 
-<div class="profile-container">
-  <h2>Detalles del perfil</h2>
-  <div class="profile-info">
-    <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
-    <p><strong>Email:</strong> {{ userProfile?.email }}</p>
-    <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
-    <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
-  </div>
+  <div class="profile-page">
+    <div class="profile-card">
+      <h2 class="profile-title">Detalles del perfil</h2>
 
-  <h3>Reseñas</h3>
+      <div class="profile-info">
+        <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
+        <p><strong>Email:</strong> {{ userProfile?.email }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
+        <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
+      </div>
 
-  @if (reviews.length === 0) {
-  <span>No tienes reseñas disponibles.</span>
+      <h3 class="section-title">Reseñas</h3>
 
-  }
+      @if (reviews.length === 0) {
+        <p class="empty-reviews">
+          No tienes reseñas disponibles.
+        </p>
+      }
 
-  @for (review of reviews; track $index) {
-  <div class="review-card">
-    <div class="review-header">
+      @for (review of reviews; track $index) {
+        <div class="review-card">
+          <div class="review-header">
+            <strong class="review-name">
+              Película: {{ review.movieName || 'Cargando...' }}
+            </strong>
 
-      <span> id: {{review.id}} </span>
-      <strong class="review-name">Pelicula:  {{ review.movieName || "Cargando..." }}  </strong>
-      <span class="review-score">Calificación: {{ review.score }} / 10</span>
-      <button class="delete-btn" (click)="deleteReview(review.id)">Eliminar</button>
+            <span class="review-score">
+              Calificación: {{ review.score }} / 10
+            </span>
+
+            <button class="delete-btn" (click)="deleteReview(review.id)">
+              Eliminar
+            </button>
+          </div>
+
+          <p class="review-text">
+            {{ review.description }}
+          </p>
+        </div>
+      }
+
     </div>
-    <p>{{ review.description }}</p>
   </div>
-  }
 
-</div>
+} @else {
 
-
-
-}@else {
-
-<p>Por favor, inicie sesión para ver los detalles de su perfil.</p>
+  <p class="login-message">
+    Por favor, inicie sesión para ver los detalles de su perfil.
+  </p>
 
 }
 

@@ -1,29 +1,140 @@
+/* CONTENEDOR GENERAL DEL TOP BAR */
+.topbar-container {
+  max-width: 1200px;
+  margin: 16px auto 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
 
-  .logo {
-    font-size: 1.5em;
-    max-width: 70px;
-  }
-  .container{
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   height: 30%;
-   width: 70%;
-  }
-  .perfil-class{
-    display: flex;
+/* ===== IZQUIERDA: LOGO + NOMBRE APP ===== */
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.app-title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #222;
+}
+
+/* ===== CENTRO: BUSCADOR ===== */
+
+.topbar-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 380px;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a8cff;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(74, 144, 255, 0.4);
+}
+
+.search-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: #4a8cff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-btn:hover:enabled {
+  background: #3a78e0;
+}
+
+.search-btn:disabled {
+  background: #c3c3c3;
+  cursor: not-allowed;
+}
+
+.search-error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #b00000;
+}
+
+/* ===== DERECHA: PERFIL ===== */
+
+.topbar-right {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 150px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.profile-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.profile-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #4a8cff;
+  background: #e6f0ff;
+  object-fit: cover;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .topbar-container {
     flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-
+    align-items: stretch;
+    gap: 12px;
   }
 
-  h2{
-    font-family: 'Arial', sans-serif;
-    color: #666666;
-    font-size: 15px;
-  
+  .topbar-right {
+    justify-content: center;
   }
-
-
-  
+}
