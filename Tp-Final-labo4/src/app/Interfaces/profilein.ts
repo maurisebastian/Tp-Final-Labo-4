@@ -13,6 +13,7 @@ export interface Review {
   idMovie: number;
   score: number;
   description: string;
-  userName?: string; 
+  userName?: string;
+  movieName?: string;  
 }
 

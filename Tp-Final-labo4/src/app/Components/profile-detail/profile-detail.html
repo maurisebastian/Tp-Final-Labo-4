@@ -21,8 +21,9 @@
   @for (review of reviews; track $index) {
   <div class="review-card">
     <div class="review-header">
-      <span class="review-name">Id Comentario: {{ review.idMovie }} {{review.id}}</span>
-      <span></span>
+
+      <span> id: {{review.id}} </span>
+      <strong class="review-name">Pelicula:  {{ review.movieName || "Cargando..." }}  </strong>
       <span class="review-score">Calificación: {{ review.score }} / 10</span>
       <button class="delete-btn" (click)="deleteReview(review.id)">Eliminar</button>
     </div>
