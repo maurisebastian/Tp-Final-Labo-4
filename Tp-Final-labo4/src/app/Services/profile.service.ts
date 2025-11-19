@@ -10,16 +10,11 @@ import { Profile } from '../Interfaces/profilein';
 export class ProfileService {
 
   private baseUrl = 'http://localhost:3000/profiles';
-
   private http = inject(HttpClient);
 
-  // Usamos un Signal para guardar el usuario activo (logueado)
   activeUser = signal<Profile | undefined>(undefined);
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    // Solo intento leer localStorage si estoy en el browser
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
     if (this.isBrowser()) {
       const stored = localStorage.getItem('activeUser');
       if (stored) {
@@ -33,41 +28,42 @@ export class ProfileService {
     }
   }
 
-  // Helper: saber si estoy en el navegador
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
-  // Manejo centralizado del usuario activo + localStorage
   private setActiveUser(user?: Profile) {
     this.activeUser.set(user);
 
-    if (!this.isBrowser()) {
-      // Si no estoy en el browser (SSR), no toco localStorage
-      return;
-    }
+    if (!this.isBrowser()) return;
 
-    if (user) {
+    if (user)
       localStorage.setItem('activeUser', JSON.stringify(user));
-    } else {
+    else
       localStorage.removeItem('activeUser');
-    }
   }
 
-  // Devuelve el signal de usuario activo
   auth() {
     return this.activeUser;
   }
 
-  // Obtener un usuario por id
-  getUserById(id: string | number) {
+  isSuperAdmin() {
+    return this.activeUser()?.role === 'superadmin';
+  }
+
+ isAdmin(): boolean {
+  const u = this.activeUser();
+  return !!u && (u.role === 'admin' || u.role === 'superadmin');
+}
+
+
+  getUserById(id: number) {
     return this.http.get<Profile>(`${this.baseUrl}/${id}`);
   }
 
-  // Registro de usuario nuevo
   signup(user: Profile) {
     return this.http.post<Profile>(this.baseUrl, user).pipe(
-      map((u) => {
+      map(u => {
         this.setActiveUser(u);
         return true;
       }),
@@ -75,10 +71,8 @@ export class ProfileService {
     );
   }
 
-  // Login: busca por username y valida contraseña
   login(credentials: { username: string; password: string }) {
-    return this.http
-      .get<Profile[]>(`${this.baseUrl}?username=${encodeURIComponent(credentials.username)}`)
+    return this.http.get<Profile[]>(`${this.baseUrl}?username=${encodeURIComponent(credentials.username)}`)
       .pipe(
         map(([u]) => {
           if (u && u.password === credentials.password) {
@@ -91,62 +85,77 @@ export class ProfileService {
       );
   }
 
-  // Busca usuarios por username
   findByUsername(username: string) {
-    return this.http.get<Profile[]>(
-      `${this.baseUrl}?username=${encodeURIComponent(username)}`
-    );
+    return this.http.get<Profile[]>(`${this.baseUrl}?username=${encodeURIComponent(username)}`);
   }
 
-  // Busca usuarios por email
   findByEmail(email: string) {
-    return this.http.get<Profile[]>(
-      `${this.baseUrl}?email=${encodeURIComponent(email)}`
-    );
+    return this.http.get<Profile[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`);
   }
 
-  /**
-   * Devuelve si ya existe username o email en la base.
-   * Retorna un objeto:
-   * { usernameExists: boolean, emailExists: boolean }
-   */
   checkUsernameAndEmail(username: string, email: string) {
     return forkJoin({
       usernameMatches: this.findByUsername(username),
-      emailMatches: this.findByEmail(email),
+      emailMatches: this.findByEmail(email)
     }).pipe(
       map(({ usernameMatches, emailMatches }) => ({
         usernameExists: usernameMatches.length > 0,
-        emailExists: emailMatches.length > 0,
+        emailExists: emailMatches.length > 0
       })),
       catchError(() =>
-        of({
-          usernameExists: false,
-          emailExists: false,
-        })
+        of({ usernameExists: false, emailExists: false })
       )
     );
   }
 
-  // Cerrar sesión
   logout() {
     this.setActiveUser(undefined);
     return of(true);
   }
 
-  // Actualizar perfil reutilizando el mismo modelo
   updateProfile(user: Profile) {
-    if (!user.id) {
-      // Sin id no podemos actualizar en json-server
-      return of(false);
-    }
+    if (!user.id) return of(false);
 
     return this.http.put<Profile>(`${this.baseUrl}/${user.id}`, user).pipe(
-      map((u) => {
+      map(u => {
         this.setActiveUser(u);
         return true;
       }),
       catchError(() => of(false))
     );
   }
+
+  getAllUsers() {
+    return this.http.get<Profile[]>(this.baseUrl).pipe(
+      catchError(() => of([]))
+    );
+  }
+
+  //  SUPERADMIN PROTEGIDO
+  deleteUser(id: number) {
+    if (id === 1) {
+      return of(false); // no borrar superadmin
+    }
+
+    return this.http.delete(`${this.baseUrl}/${id}`).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
+  }
+
+  //  CREAR ADMINS CON VALIDACIÓN
+  //  CREAR ADMIN (simple, sin lógica mágica)
+createAdmin(data: { username: string; password: string; email: string }) {
+  const newAdmin: Profile = {
+    username: data.username,
+    password: data.password,
+    email: data.email,
+    role: 'admin'
+  };
+
+  return this.http.post<Profile>(this.baseUrl, newAdmin).pipe(
+    catchError(() => of(null as any))   // si falla el POST devolvemos null
+  );
+}
+
 }

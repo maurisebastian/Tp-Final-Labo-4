@@ -1,0 +1,124 @@
+<div class="admin-page">
+
+  <h2>Panel de administración</h2>
+
+  <p>Usuario actual:
+    <strong>{{ activeUserSignal()?.username }}</strong>
+    ({{ activeUserSignal()?.role }})
+  </p>
+
+  <!-- =============== USUARIOS =============== -->
+
+  <h3>Lista de usuarios</h3>
+
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (u of users; track u.id) {
+        <tr>
+          <td>{{ u.id }}</td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.role }}</td>
+          <td>
+            @if (u.role !== 'superadmin') {
+              <button class="btn-delete" (click)="deleteUser(u)">Eliminar</button>
+            } @else {
+              <span class="superadmin-label">Superadmin</span>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- =============== CREAR ADMIN (solo superadmin) =============== -->
+
+  @if (activeUserSignal()?.role === 'superadmin') {
+    <h3>Crear nuevo administrador</h3>
+
+    <div class="new-admin-form">
+      <input
+        type="text"
+        placeholder="Nombre de usuario"
+        [(ngModel)]="newAdminUsername" />
+
+      <input
+        type="password"
+        placeholder="Contraseña"
+        [(ngModel)]="newAdminPassword" />
+
+      <input
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="newAdminEmail" />
+
+      <button (click)="createAdmin()">
+        Crear admin
+      </button>
+    </div>
+  }
+
+  <!-- =============== RESEÑAS POR PELÍCULA =============== -->
+
+  <div class="reviews-section">
+    <h3>Reseñas por película</h3>
+
+    @if (reviews.length === 0) {
+      <p>No hay reseñas cargadas todavía.</p>
+    } @else {
+
+      @for (group of groupedReviews | keyvalue; track group.key) {
+
+        <div class="review-group-card">
+          <div class="review-group-header">
+            <span class="review-group-title">
+              Película ID: {{ group.key }}
+            </span>
+            <span class="review-count-pill">
+              {{ group.value.length }} reseña{{ group.value.length > 1 ? 's' : '' }}
+            </span>
+          </div>
+
+          <ul class="review-list">
+            @for (rev of group.value; track rev.id) {
+              <li class="review-item">
+                <div class="review-header">
+                  <div>
+                    <span class="review-user">
+                      Perfil ID: {{ rev.idProfile }}
+                    </span>
+                    <span class="review-rating">
+                      · {{ rev.score }} / 10
+                    </span>
+                  </div>
+
+                  <button
+                    class="btn-delete-review"
+                    (click)="deleteReview(rev)">
+                    Eliminar reseña
+                  </button>
+                </div>
+
+                <p class="review-comment">
+                  {{ rev.description }}
+                </p>
+              </li>
+            }
+          </ul>
+        </div>
+
+      }
+
+    }
+  </div>
+
+</div>

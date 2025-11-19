@@ -43,36 +43,22 @@
       "description": "jklñ.jkl hdfg gf"
     },
     {
-      "id": "b403",
-      "idProfile": null,
-      "idMovie": 240,
-      "score": 6,
-      "description": "gdfgdfgdfg"
-    },
-    {
-      "id": "8ee6",
-      "idProfile": null,
-      "idMovie": 240,
-      "score": 6,
-      "description": "ñippiopip"
+      "id": "b994",
+      "idProfile": 4219,
+      "idMovie": 424,
+      "score": 7,
+      "description": "muy buena"
     }
   ],
   "profiles": [
     {
-      "id": "1",
-      "username": "pepe",
-      "date": "1994-01-22",
-      "email": "pepe@gmail.com",
-      "cel": "223552343",
-      "password": "123"
-    },
-    {
-      "id": "7101",
-      "username": "sofia",
-      "password": "123",
-      "date": "2011-06-14",
-      "cel": "5242453",
-      "email": "sofiastejskal@gmail.com"
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "email": "admin@moviehub.com",
+      "date": "1990-01-01",
+      "cel": "12345678",
+      "role": "superadmin"
     },
     {
       "id": "939d",
@@ -105,6 +91,14 @@
       "date": "2008-02-05",
       "cel": "5632456345",
       "email": "skal@gmail.com"
+    },
+    {
+      "id": "4219",
+      "username": "caro",
+      "password": "gfdgdf654645",
+      "date": "2012-09-19",
+      "cel": "21456",
+      "email": "fsed@fas.com"
     }
   ]
 }

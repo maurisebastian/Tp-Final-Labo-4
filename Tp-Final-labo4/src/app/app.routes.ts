@@ -5,6 +5,7 @@ import { Signup } from './Components/signup/signup';
 import { MovieReview } from './Components/movie-review/movie-review';
 import { ProfileDetail } from './Components/profile-detail/profile-detail';
 import { MovieSearch } from './Components/movie-search/movie-search';
+import { AdminPanel } from './Components/admin-panel/admin-panel'; 
 
 export const routes: Routes = [
     {path: '', component: Carrusel},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: 'signup', component: Signup},
     {path: 'profile-detail',component : ProfileDetail },
     {path: 'search/:query',component : MovieSearch},
+    { path: 'admin', component: AdminPanel },  
     {path: '**',redirectTo: '', pathMatch: 'full'}
 
 ];
