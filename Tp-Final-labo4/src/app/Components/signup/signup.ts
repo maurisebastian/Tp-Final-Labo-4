@@ -22,9 +22,30 @@ export class Signup {
 
   private fb = inject(FormBuilder);
 
+  signupError = '';
+  signupSuccess = '';
+  isEditMode = false;
+  private currentUser: Profile | undefined;
+
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    username: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(16),
+        Validators.pattern(/^\S+$/), // no permite espacios
+      ],
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20),
+        Validators.pattern(/^\S+$/), // no permite espacios
+      ],
+    ],
     date: ['', [Validators.required, this.minAgeValidator(12)]],
     cel: [
       '',
@@ -37,16 +58,11 @@ export class Signup {
     email: ['', [Validators.required, Validators.email]],
   });
 
-  signupError = '';
-  isEditMode = false;
-  private currentUser: Profile | undefined;
-
   constructor(
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // Leemos el "mode" desde la ruta
     const mode = this.route.snapshot.data?.['mode'];
 
     if (mode === 'edit') {
@@ -54,14 +70,12 @@ export class Signup {
 
       const active = this.profileService.auth()();
       if (!active) {
-        // si no hay usuario logueado, mandamos a login o home
         this.router.navigate(['/login']);
         return;
       }
 
       this.currentUser = active;
 
-      // cargamos los datos actuales en el form
       this.form.patchValue({
         username: active.username,
         password: active.password,
@@ -72,13 +86,14 @@ export class Signup {
     }
   }
 
-  // getters para el HTML
+  // Getters para el template
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
   get date() { return this.form.controls.date; }
   get cel() { return this.form.controls.cel; }
   get email() { return this.form.controls.email; }
 
+  // Validador de edad mínima
   private minAgeValidator(minAge: number): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -99,6 +114,7 @@ export class Signup {
 
   onSignup() {
     this.signupError = '';
+    this.signupSuccess = '';
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -106,6 +122,16 @@ export class Signup {
     }
 
     const formValue = this.form.getRawValue();
+
+    // Extraemos username y email del form
+    const username = formValue.username;
+    const email = formValue.email;
+
+    // Por seguridad (y para que TS quede contento)
+    if (!username || !email) {
+      this.signupError = 'Faltan datos de usuario o email.';
+      return;
+    }
 
     if (this.isEditMode) {
       // MODO EDITAR PERFIL
@@ -117,9 +143,10 @@ export class Signup {
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
-        next: (ok) => {
+        next: (ok: boolean) => {
           if (ok) {
-            this.router.navigate(['/']);  // o a profile-detail, como quieran
+            this.signupSuccess = 'Perfil actualizado correctamente.';
+            this.router.navigate(['/']);
           } else {
             this.signupError = 'No se pudo actualizar el perfil.';
           }
@@ -130,21 +157,52 @@ export class Signup {
       });
 
     } else {
-      // MODO CREAR USUARIO (signup normal)
-      const newUser: Profile = formValue;
+      // MODO CREAR USUARIO (alta nueva)
 
-      this.profileService.signup(newUser).subscribe({
-        next: (ok) => {
-          if (ok) {
-            this.router.navigate(['/']);
-          } else {
-            this.signupError = 'No se pudo registrar el usuario.';
-          }
-        },
-        error: () => {
-          this.signupError = 'No se pudo registrar el usuario.';
-        },
-      });
+      const newUser: Profile = formValue as Profile;
+
+      this.profileService
+        .checkUsernameAndEmail(username, email)
+        .subscribe({
+          next: ({ usernameExists, emailExists }) => {
+            if (usernameExists) {
+              this.signupError = 'El nombre de usuario ya está registrado.';
+              this.username.setErrors({ taken: true });
+              this.username.markAsTouched();
+              return;
+            }
+
+            if (emailExists) {
+              this.signupError = 'El email ya está registrado.';
+              this.email.setErrors({ taken: true });
+              this.email.markAsTouched();
+              return;
+            }
+
+            this.profileService.signup(newUser).subscribe({
+              next: (ok: boolean) => {
+                if (ok) {
+                  this.signupSuccess = 'Usuario registrado correctamente.';
+                  this.form.reset();
+                  this.form.markAsPristine();
+                  this.form.markAsUntouched();
+                  setTimeout(() => {
+                    this.router.navigate(['/']);
+                  }, 600);
+                } else {
+                  this.signupError = 'No se pudo registrar el usuario.';
+                }
+              },
+              error: () => {
+                this.signupError = 'No se pudo registrar el usuario.';
+              },
+            });
+          },
+          error: () => {
+            this.signupError = 'Error al validar usuario y email.';
+          },
+        });
     }
   }
+
 }

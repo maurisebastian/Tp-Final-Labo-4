@@ -13,20 +13,16 @@ export class TopBar {
 
   private readonly router = inject(Router);
 
-  busqueda = new FormControl('',Validators.required);
-  
+  busqueda = new FormControl('', Validators.required);
 
   buscar() {
-    const value = this.busqueda.value ?? ""; 
+    const value = (this.busqueda.value ?? '').trim();
+
+    if (!value) {
+      this.busqueda.markAsTouched();
+      return;
+    }
+
     this.router.navigate(['/search', value]);
   }
-
 }
-
-
-
-
-
-
-
-

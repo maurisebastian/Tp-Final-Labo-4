@@ -16,7 +16,9 @@
         class="search-input"
         id="search"
         [formControl]="busqueda"
-        placeholder="Buscar película" />
+        placeholder="Buscar película"
+        (keyup.enter)="buscar()"  
+        />
 
       <button
         class="search-btn"
