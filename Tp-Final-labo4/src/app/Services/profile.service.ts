@@ -20,6 +20,11 @@ export class ProfileService {
   auth() {
     return this.activeUser;
   }
+  
+  getUserById(id: String | number){
+    return this.http.get<Profile>(`${this.baseUrl}/${id}`);
+
+  }
 
   signup(user: Profile) {
     return this.http.post<Profile>(this.baseUrl, user).pipe(

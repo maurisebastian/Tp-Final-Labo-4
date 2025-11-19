@@ -44,20 +44,31 @@ protected fb = inject(FormBuilder);
   }
 
   loadReviews() {
-    const id = this.peliculaID();
-      if (id === undefined) {
+  const id = this.peliculaID();
+
+  if (id === undefined) {
     console.warn("No hay id de película, no se cargan reseñas");
     return;
-       }
-    this.reviewService.getReviewsByMovieId(id).subscribe(
-      (reviews) => {
-        this.reviews = reviews;
-      },
-      (error) => {
-        console.error('Error al cargar reseñas:', error);
-      }
-    );
   }
+
+  this.reviewService.getReviewsByMovieId(id).subscribe(
+    (reviews) => {
+
+      // Por cada review, pedimos el usuario
+      reviews.forEach(review => {
+        this.profileService.getUserById(review.idProfile).subscribe(user => {
+          review.userName = `${user.username}`;
+        });
+      });
+
+      this.reviews = reviews;
+    },
+    (error) => {
+      console.error('Error al cargar reseñas:', error);
+    }
+  );
+}
+
 
   setStarRating(star: number) {
   this.starRating = star;

@@ -1,13 +1,6 @@
 {
   "comments": [
     {
-      "idProfile": 1,
-      "idMovie": 597,
-      "score": 6,
-      "description": "asdasd",
-      "id": "1"
-    },
-    {
       "id": "59b6",
       "idProfile": 7101,
       "idMovie": 424,
@@ -20,6 +13,20 @@
       "idMovie": 116988,
       "score": 5,
       "description": "mmm muchoq desear"
+    },
+    {
+      "idProfile": 1,
+      "idMovie": 597,
+      "score": 0,
+      "description": "muy buena eeeee dale qedasdsa",
+      "id": "2vrY3R7"
+    },
+    {
+      "idProfile": 1,
+      "idMovie": 597,
+      "score": 0,
+      "description": "me parece bien",
+      "id": "L9FhFua"
     }
   ],
   "profiles": [

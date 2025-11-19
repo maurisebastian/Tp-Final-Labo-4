@@ -8,9 +8,11 @@ export interface Profile {
   email?: string;
 }
 export interface Review {
-    idProfile: number;
+  id?: number;
+  idProfile: number;
   idMovie: number;
   score: number;
   description: string;
+  userName?: string; 
 }
 

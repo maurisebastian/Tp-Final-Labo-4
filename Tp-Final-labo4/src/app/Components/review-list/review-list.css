@@ -1,6 +1,29 @@
 .container {
   max-width: 600px;
 }
+textarea{
+  width:70% ;
+  resize: vertical;
+}
+form{
+  display: flex;
+  flex-direction: column;
+}
+.card-reseñas {
+  background-color: var(--colorFondo);
+  display: flex;
+  align-items: center;     /* Alinea verticalmente */
+  justify-content: space-between;  /* Empuja el botón a la derecha */
+  padding: 10px;
+  border-radius: 6px;
+  gap: 15px;               /* Espacio entre elementos */
+}
+.review-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 
 .review-item {
   border-radius: 8px;
@@ -11,6 +34,8 @@
   font-size: 1rem;
   color: #333;
   margin-top: 5px;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
 }
 
 .star-rating {
@@ -29,11 +54,10 @@
   color: gold;
 }
 
-textarea {
-  resize: vertical;
-}
+
 
 button {
+  width: 30%;
   padding: 10px 15px;
   font-size: 1rem;
   border-radius: 5px;
