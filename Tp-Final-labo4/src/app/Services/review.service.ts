@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { Review } from '../Interfaces/profilein';
 
 @Injectable({
@@ -8,23 +8,33 @@ import { Review } from '../Interfaces/profilein';
 })
 export class ReviewService {
 
-   private baseUrl = 'http://localhost:3000/comments';
+  private baseUrl = 'http://localhost:3000/comments';
+  private http = inject(HttpClient);
 
-   private http = inject(HttpClient);
-
-  getReviewsByMovieId(movieId: number | string ): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}?idMovie=${movieId}`);
+  // Reseñas por película (para MovieReview / ReviewList)
+  getReviewsByMovieId(movieId: number | string): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.baseUrl}?idMovie=${movieId}`);
   }
 
-  addReview(reviewData: Review): Observable<any> {
-    return this.http.post<any>(this.baseUrl, reviewData);
+  //  Agregar reseña (ReviewList)
+  addReview(reviewData: Review): Observable<Review> {
+    return this.http.post<Review>(this.baseUrl, reviewData);
   }
 
-  deleteReviewById(reviewId: number): Observable<void> {
+  // Eliminar reseña por ID (lo usan ReviewList y AdminPanel)
+  deleteReviewById(reviewId: string | number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${reviewId}`);
   }
-  getReviewsByUserId(profileId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}?idProfile=${profileId}`);
+
+  // Reseñas por usuario (si la necesitás en perfil)
+  getReviewsByUserId(profileId: number): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.baseUrl}?idProfile=${profileId}`);
   }
-  
+
+  // TODAS las reseñas (para el AdminPanel)
+  getAllReviews(): Observable<Review[]> {
+    return this.http.get<Review[]>(this.baseUrl).pipe(
+      catchError(() => of([]))
+    );
+  }
 }

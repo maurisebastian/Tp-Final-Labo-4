@@ -37,13 +37,21 @@
 
   <!-- DERECHA: PERFIL -->
   <div class="topbar-right">
-    <a [routerLink]="['/profile-detail']" class="profile-link">
-      <span class="profile-text">Perfil</span>
-      <img
-        src="assets/perfil.png"
-        alt="Perfil del usuario"
-        class="profile-avatar" />
+  <a [routerLink]="['/profile-detail']" class="profile-link">
+    <span class="profile-text">Perfil</span>
+    <img
+      src="assets/perfil.png"
+      alt="Perfil del usuario"
+      class="profile-avatar" />
+  </a>
+
+  @if (isAdmin()) {
+    <a [routerLink]="['/admin']" class="admin-link">
+      Admin Panel
     </a>
-  </div>
+  }
+</div>
+
+
 
 </div>

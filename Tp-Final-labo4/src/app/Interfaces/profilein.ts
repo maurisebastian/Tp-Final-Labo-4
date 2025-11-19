@@ -1,4 +1,6 @@
 
+export type Role = 'superadmin' | 'admin' | 'user';
+
 export interface Profile {
   id?: number;
   username: string;
@@ -6,6 +8,7 @@ export interface Profile {
   date?: string;
   cel?: string;
   email?: string;
+  role: Role;
 }
 export interface Review {
   id?: number;

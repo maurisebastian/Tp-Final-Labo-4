@@ -140,6 +140,7 @@ export class Signup {
       const updatedUser: Profile = {
         ...this.currentUser,
         ...formValue,
+        role: this.currentUser.role  // se asegura de no cambiar el rol
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
@@ -159,7 +160,10 @@ export class Signup {
     } else {
       // MODO CREAR USUARIO (alta nueva)
 
-      const newUser: Profile = formValue as Profile;
+      const newUser: Profile = {
+        ...formValue,
+        role: 'user'   // cualquiera que se registre es user
+      } as Profile;
 
       this.profileService
         .checkUsernameAndEmail(username, email)
