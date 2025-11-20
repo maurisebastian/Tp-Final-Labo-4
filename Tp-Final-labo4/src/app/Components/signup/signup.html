@@ -68,7 +68,13 @@
     <!-- Fecha de nacimiento -->
     <div class="form-field">
       <label for="date">Fecha de nacimiento</label>
-      <input id="date" type="date" formControlName="date" />
+      <input
+        id="date"
+        type="date"
+        formControlName="date"
+        [min]="minBirthDate"
+        [max]="maxBirthDate"
+      />
 
       @if (date.touched && date.invalid) {
         <div class="error">
@@ -78,6 +84,9 @@
           @if (date.hasError('minAge')) {
             <span>Debes ser mayor de 12 años.</span>
           }
+          @if (date.hasError('yearMin')) {
+            <span>El año debe ser mayor o igual a 1900.</span>
+          }
         </div>
       }
     </div>
@@ -85,7 +94,13 @@
     <!-- Celular -->
     <div class="form-field">
       <label for="cel">Celular</label>
-      <input id="cel" type="text" formControlName="cel" />
+      <input
+        id="cel"
+        type="text"
+        formControlName="cel"
+        maxlength="10"
+        (input)="onCelInput($event)"
+      />
 
       @if (cel.touched && cel.invalid) {
         <div class="error">
@@ -94,6 +109,9 @@
           }
           @if (cel.hasError('minlength')) {
             <span>Debe tener al menos 5 dígitos.</span>
+          }
+          @if (cel.hasError('maxlength')) {
+            <span>No puede tener más de 10 dígitos.</span>
           }
           @if (cel.hasError('pattern')) {
             <span>Solo se permiten números.</span>

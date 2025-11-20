@@ -136,6 +136,33 @@
       "email": "maurimauri@gmail.com",
       "role": "user",
       "id": "NnUCsx5"
+    },
+    {
+      "id": "74da",
+      "username": "fsdfsdfsd",
+      "password": "123456",
+      "date": "2010-06-16",
+      "cel": "4342342342342342342342",
+      "email": "fdsfsdfjskal@gmail.com",
+      "role": "user"
+    },
+    {
+      "id": "c944",
+      "username": "vcbcvbcvbvc",
+      "password": "123456",
+      "date": "2008-06-03",
+      "cel": "524456456568595245",
+      "email": "trtert@fdsa.com",
+      "role": "user"
+    },
+    {
+      "id": "e027",
+      "username": "fdsfsd",
+      "password": "123456",
+      "date": "2013-11-13",
+      "cel": "524245345",
+      "email": "fdsjskal@gmail.com",
+      "role": "user"
     }
   ]
 }

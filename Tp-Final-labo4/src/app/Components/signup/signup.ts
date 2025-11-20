@@ -29,6 +29,10 @@ export class Signup {
   isEditMode = false;
   private currentUser: Profile | undefined;
 
+  // límites de fecha de nacimiento
+  readonly minBirthDate = '1900-01-01';
+  readonly maxBirthDate = this.buildMaxDate(12); // hoy - 12 años
+
   form = this.fb.nonNullable.group({
     username: [
       '',
@@ -48,12 +52,20 @@ export class Signup {
         Validators.pattern(/^\S+$/), // no permite espacios
       ],
     ],
-    date: ['', [Validators.required, this.minAgeValidator(12)]],
+    date: [
+      '',
+      [
+        Validators.required,
+        this.minAgeValidator(12),
+        this.yearMinValidator(1900),
+      ],
+    ],
     cel: [
       '',
       [
         Validators.required,
         Validators.minLength(5),
+        Validators.maxLength(10),
         Validators.pattern(/^[0-9]+$/),
       ],
     ],
@@ -64,7 +76,6 @@ export class Signup {
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute,
-    
   ) {
     const mode = this.route.snapshot.data?.['mode'];
 
@@ -92,9 +103,13 @@ export class Signup {
   // Getters para el template
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
- get date() { return this.form.controls.date; }
+  get date() { return this.form.controls.date; }
   get cel() { return this.form.controls.cel; }
   get email() { return this.form.controls.email; }
+
+  // ==========================
+  //   VALIDADORES PERSONALIZADOS
+  // ==========================
 
   // Validador de edad mínima
   private minAgeValidator(minAge: number): ValidatorFn {
@@ -115,6 +130,29 @@ export class Signup {
     };
   }
 
+  // Validador de año mínimo (ej: >= 1900)
+  private yearMinValidator(minYear: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (!value) return null;
+
+      const year = new Date(value).getFullYear();
+      return year >= minYear ? null : { yearMin: true };
+    };
+  }
+
+  // Construye la fecha máxima permitida para la edad mínima
+  private buildMaxDate(minAge: number): string {
+    const today = new Date();
+    const maxYear = today.getFullYear() - minAge;
+    const maxDate = new Date(maxYear, today.getMonth(), today.getDate());
+    return maxDate.toISOString().split('T')[0];
+  }
+
+  // ==========================
+  //   HANDLERS
+  // ==========================
+
   onSignup() {
     this.signupError = '';
     this.signupSuccess = '';
@@ -130,7 +168,6 @@ export class Signup {
     const username = formValue.username;
     const email = formValue.email;
 
-    // Por seguridad (y para que TS quede contento)
     if (!username || !email) {
       this.signupError = 'Faltan datos de usuario o email.';
       return;
@@ -143,7 +180,7 @@ export class Signup {
       const updatedUser: Profile = {
         ...this.currentUser,
         ...formValue,
-        role: this.currentUser.role  // se asegura de no cambiar el rol
+        role: this.currentUser.role,  // se asegura de no cambiar el rol
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
@@ -165,7 +202,7 @@ export class Signup {
 
       const newUser: Profile = {
         ...formValue,
-        role: 'user'   // cualquiera que se registre es user
+        role: 'user',   // cualquiera que se registre es user
       } as Profile;
 
       this.profileService
@@ -212,4 +249,14 @@ export class Signup {
     }
   }
 
+  // Limitar celular: solo números y máximo 10 dígitos
+  onCelInput(event: any) {
+    let value = event.target.value.replace(/[^0-9]/g, '');
+
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+
+    this.form.controls['cel'].setValue(value, { emitEvent: false });
+  }
 }
