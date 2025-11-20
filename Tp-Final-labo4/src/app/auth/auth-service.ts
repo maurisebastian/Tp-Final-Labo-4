@@ -23,7 +23,6 @@ export class AuthService {
 
   }
   logout() {
-
     this.activeUser.set(undefined);
   }
 
