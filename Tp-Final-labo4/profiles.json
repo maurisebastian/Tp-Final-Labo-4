@@ -69,6 +69,20 @@
       "idMovie": 238,
       "score": 7,
       "description": "mm a ver "
+    },
+    {
+      "id": "ea13",
+      "idProfile": "7b97",
+      "idMovie": 4688,
+      "score": 10,
+      "description": "la amo"
+    },
+    {
+      "id": "68a5",
+      "idProfile": "7b97",
+      "idMovie": 4688,
+      "score": 10,
+      "description": "el unico musical q me gusta"
     }
   ],
   "profiles": [
@@ -142,6 +156,15 @@
       "date": "2013-11-12",
       "cel": "654645654",
       "email": "gdfg@fsd.com",
+      "role": "user"
+    },
+    {
+      "id": "7b97",
+      "username": "caro",
+      "password": "fgsfgdsg",
+      "date": "1995-05-02",
+      "cel": "2296500000",
+      "email": "klhh@fsd.com",
       "role": "user"
     }
   ]

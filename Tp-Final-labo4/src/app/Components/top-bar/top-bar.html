@@ -11,25 +11,17 @@
   <!-- CENTRO: BUSCADOR -->
   <div class="topbar-center">
     <div class="search-wrapper">
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Buscar película"
-        [formControl]="busqueda"
-      />
-      <button
-        class="search-btn"
-        (click)="buscar()"
-        [disabled]="busqueda.invalid"
-      >
+      <input type="text" class="search-input" placeholder="Buscar película" [formControl]="busqueda"
+        (keyup.enter)="buscar()" />
+
+      <button class="search-btn" (click)="buscar()" [disabled]="busqueda.invalid">
         Buscar
       </button>
     </div>
-
     @if (busqueda.hasError('required') && busqueda.touched) {
-      <span class="search-error">
-        No se ingresó dato de la película.
-      </span>
+    <span class="search-error">
+      No se ingresó dato de la película.
+    </span>
     }
   </div>
 
@@ -38,26 +30,22 @@
 
     <!-- SOLO mostrar Perfil si hay usuario -->
     @if (activeUserSignal()) {
-      <a [routerLink]="['/profile-detail']" class="profile-link">
-        <span class="profile-text">
-          Perfil ({{ activeUserSignal()?.username }})
-        </span>
-        <img
-          src="assets/perfil.png"
-          alt="Perfil del usuario"
-          class="profile-avatar"
-        />
-      </a>
+    <a [routerLink]="['/profile-detail']" class="profile-link">
+      <span class="profile-text">
+        Perfil ({{ activeUserSignal()?.username }})
+      </span>
+      <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar" />
+    </a>
     }
 
     <!-- Panel admin solo si es admin o superadmin -->
     @if (isAdmin()) {
-      <a [routerLink]="['/admin']" class="admin-pill">
-        <span>Panel Admin</span>
-      </a>
+    <a [routerLink]="['/admin']" class="admin-pill">
+      <span>Panel Admin</span>
+    </a>
     }
 
-   
+
 
   </div>
 
