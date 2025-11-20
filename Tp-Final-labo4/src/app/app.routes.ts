@@ -12,15 +12,15 @@ import { AdminUserEdit } from './Components/admin-user-edit/admin-user-edit';
 
 
 export const routes: Routes = [
-  { path: '', component: Carrusel },
-  { path: 'movie-review/:id', component: MovieReview },
-  { path: 'login', component: Login },
-  { path: 'profile/edit', component: Signup, data: { mode: 'edit' } },
-  { path: 'signup', component: Signup },
-  { path: 'profile-detail', component: ProfileDetail, canActivate: [userGuard] },
+  { path: '', component: Carrusel, title: "Home page" },
+  { path: 'movie-review/:id', component: MovieReview, title: "movie review"},
+  { path: 'login', component: Login, title : "login" },
+  { path: 'profile/edit', component: Signup, data: { mode: 'edit' } ,title: "Profile edit" },
+  { path: 'signup', component: Signup , title : "sign up"},
+  { path: 'profile-detail', component: ProfileDetail , canActivate: [userGuard] , title : "profile detail" },
   { path: 'search/:query', component: MovieSearch },
-  { path: 'admin', component: AdminPanel, canActivate: [adminGuard] },
-  { path: 'admin/user/:id', component: AdminUserEdit, canActivate: [adminGuard] },
+  { path: 'admin', component: AdminPanel, canActivate: [adminGuard] , title : "Home admin" },
+  { path: 'admin/user/:id', component: AdminUserEdit, canActivate: [adminGuard] , title : "admin edit" },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
