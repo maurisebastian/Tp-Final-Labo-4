@@ -53,7 +53,7 @@ export class AuthService {
   logout() {
     this.activeUser.set(undefined);
 
-    // 🗑️ Borrar de localStorage
+    //  Borrar de localStorage
     if (isPlatformBrowser(this.platformId)) {
       try {
         localStorage.removeItem(this.STORAGE_KEY);

@@ -14,9 +14,8 @@ export class ProfileService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
 
-  // =============
   //   MÉTODOS API
-  // =============
+
 
   getUserById(id: number | string) {
     return this.http.get<Profile>(`${this.baseUrl}/${id}`);
