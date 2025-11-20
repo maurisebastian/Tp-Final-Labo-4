@@ -51,34 +51,30 @@ export class Login {
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
 
-  onLogin() {
-    this.loginError = '';
+  onLogin(event?: Event) {
+  if (event) event.preventDefault();
 
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+  this.loginError = '';
 
-    const { username, password } = this.form.getRawValue();
-
-    if (!username || !password) {
-      this.loginError = 'Faltan datos para iniciar sesión.';
-      return;
-    }
-
-    this.profileService
-      .login({ username, password })
-      .subscribe({
-        next: (loggedIn) => {
-          if (loggedIn) {
-            this.router.navigate(['/']);
-          } else {
-            this.loginError = 'Usuario o contraseña incorrectos.';
-          }
-        },
-        error: () => {
-          this.loginError = 'Error al intentar iniciar sesión.';
-        },
-      });
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  const { username, password } = this.form.getRawValue();
+
+  this.profileService.login({ username, password }).subscribe({
+    next: (ok) => {
+      if (ok) {
+        this.router.navigate(['/']);
+      } else {
+        this.loginError = 'Usuario o contraseña incorrectos.';
+      }
+    },
+    error: () => {
+      this.loginError = 'Error al intentar iniciar sesión.';
+    }
+  });
+}
+
 }

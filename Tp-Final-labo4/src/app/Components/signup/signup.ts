@@ -29,9 +29,8 @@ export class Signup {
   isEditMode = false;
   private currentUser: Profile | undefined;
 
-  // límites de fecha de nacimiento
   readonly minBirthDate = '1900-01-01';
-  readonly maxBirthDate = this.buildMaxDate(12); // hoy - 12 años
+  readonly maxBirthDate = this.buildMaxDate(12);
 
   form = this.fb.nonNullable.group({
     username: [
@@ -40,7 +39,7 @@ export class Signup {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(16),
-        Validators.pattern(/^\S+$/), // no permite espacios
+        Validators.pattern(/^\S+$/),
       ],
     ],
     password: [
@@ -49,7 +48,7 @@ export class Signup {
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(20),
-        Validators.pattern(/^\S+$/), // no permite espacios
+        Validators.pattern(/^\S+$/),
       ],
     ],
     date: [
@@ -100,18 +99,12 @@ export class Signup {
     }
   }
 
-  // Getters para el template
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
   get date() { return this.form.controls.date; }
   get cel() { return this.form.controls.cel; }
   get email() { return this.form.controls.email; }
 
-  // ==========================
-  //   VALIDADORES PERSONALIZADOS
-  // ==========================
-
-  // Validador de edad mínima
   private minAgeValidator(minAge: number): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -119,8 +112,8 @@ export class Signup {
 
       const birth = new Date(value);
       const today = new Date();
-
       let age = today.getFullYear() - birth.getFullYear();
+
       const m = today.getMonth() - birth.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
         age--;
@@ -130,7 +123,6 @@ export class Signup {
     };
   }
 
-  // Validador de año mínimo (ej: >= 1900)
   private yearMinValidator(minYear: number): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -141,7 +133,6 @@ export class Signup {
     };
   }
 
-  // Construye la fecha máxima permitida para la edad mínima
   private buildMaxDate(minAge: number): string {
     const today = new Date();
     const maxYear = today.getFullYear() - minAge;
@@ -150,10 +141,11 @@ export class Signup {
   }
 
   // ==========================
-  //   HANDLERS
+  //   HANDLER SIN ngSubmit
   // ==========================
+  onSignup(event?: Event) {
+    if (event) event.preventDefault();
 
-  onSignup() {
     this.signupError = '';
     this.signupSuccess = '';
 
@@ -163,8 +155,6 @@ export class Signup {
     }
 
     const formValue = this.form.getRawValue();
-
-    // Extraemos username y email del form
     const username = formValue.username;
     const email = formValue.email;
 
@@ -174,17 +164,16 @@ export class Signup {
     }
 
     if (this.isEditMode) {
-      // MODO EDITAR PERFIL
       if (!this.currentUser) return;
 
       const updatedUser: Profile = {
         ...this.currentUser,
         ...formValue,
-        role: this.currentUser.role,  // se asegura de no cambiar el rol
+        role: this.currentUser.role,
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
-        next: (ok: boolean) => {
+        next: (ok) => {
           if (ok) {
             this.signupSuccess = 'Perfil actualizado correctamente.';
             this.router.navigate(['/']);
@@ -198,12 +187,10 @@ export class Signup {
       });
 
     } else {
-      // MODO CREAR USUARIO (alta nueva)
-
       const newUser: Profile = {
         ...formValue,
-        role: 'user',   // cualquiera que se registre es user
-      } as Profile;
+        role: 'user',
+      };
 
       this.profileService
         .checkUsernameAndEmail(username, email)
@@ -212,27 +199,19 @@ export class Signup {
             if (usernameExists) {
               this.signupError = 'El nombre de usuario ya está registrado.';
               this.username.setErrors({ taken: true });
-              this.username.markAsTouched();
               return;
             }
 
             if (emailExists) {
               this.signupError = 'El email ya está registrado.';
               this.email.setErrors({ taken: true });
-              this.email.markAsTouched();
               return;
             }
 
             this.profileService.signup(newUser).subscribe({
-              next: (ok: boolean) => {
+              next: (ok) => {
                 if (ok) {
-                  this.signupSuccess = 'Usuario registrado correctamente.';
-                  this.form.reset();
-                  this.form.markAsPristine();
-                  this.form.markAsUntouched();
-                  setTimeout(() => {
-                    this.router.navigate(['/']);
-                  }, 600);
+                  this.router.navigate(['/']);
                 } else {
                   this.signupError = 'No se pudo registrar el usuario.';
                 }
@@ -249,14 +228,9 @@ export class Signup {
     }
   }
 
-  // Limitar celular: solo números y máximo 10 dígitos
   onCelInput(event: any) {
     let value = event.target.value.replace(/[^0-9]/g, '');
-
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
-
+    if (value.length > 10) value = value.slice(0, 10);
     this.form.controls['cel'].setValue(value, { emitEvent: false });
   }
 }

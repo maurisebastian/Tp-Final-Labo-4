@@ -1,0 +1,86 @@
+.edit-user-page {
+  max-width: 720px;
+  margin: 40px auto;
+}
+
+/* contenedor del form */
+.edit-form-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 16px;
+  background: #ffffff;
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(148, 163, 184, 0.35);
+}
+
+/* filas del form */
+.edit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edit-row label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.edit-row input,
+.edit-row select {
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #d0d4dc;
+  font-size: 0.9rem;
+}
+
+.edit-row input:focus,
+.edit-row select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb33;
+}
+
+/* errores */
+.field-error {
+  font-size: 0.8rem;
+  color: #b91c1c;
+}
+
+/* acciones */
+.edit-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-primary:disabled {
+  background-color: #93c5fd;
+  cursor: default;
+}
+
+.btn-cancel {
+  background-color: #e5e7eb;
+  color: #111827;
+  border-radius: 999px;
+  padding: 0.45rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #4b5563;
+}

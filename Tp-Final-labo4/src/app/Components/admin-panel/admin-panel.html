@@ -2,7 +2,8 @@
 
   <h2>Panel de administración</h2>
 
-  <p>Usuario actual:
+  <p>
+    Usuario actual:
     <strong>{{ activeUserSignal()?.username }}</strong>
     ({{ activeUserSignal()?.role }})
   </p>
@@ -21,6 +22,7 @@
         <th>Acciones</th>
       </tr>
     </thead>
+
     <tbody>
       @for (u of users; track u.id) {
         <tr>
@@ -30,7 +32,19 @@
           <td>{{ u.role }}</td>
           <td>
             @if (u.role !== 'superadmin') {
-              <button class="btn-delete" (click)="deleteUser(u)">Eliminar</button>
+
+              <a
+                class="btn-edit"
+                [routerLink]="['/admin/user', u.id]">
+                Editar
+              </a>
+
+              <button
+                class="btn-delete"
+                (click)="deleteUser(u)">
+                Eliminar
+              </button>
+
             } @else {
               <span class="superadmin-label">Superadmin</span>
             }
@@ -45,43 +59,65 @@
   @if (activeUserSignal()?.role === 'superadmin') {
     <h3>Crear nuevo administrador</h3>
 
-    <div class="new-admin-form">
+    <form
+      [formGroup]="newAdminForm"
+      (submit)="createAdmin($event)"
+      class="new-admin-form">
+
       <input
         type="text"
         placeholder="Nombre de usuario"
-        [(ngModel)]="newAdminUsername" />
+        formControlName="username" />
 
       <input
         type="password"
         placeholder="Contraseña"
-        [(ngModel)]="newAdminPassword" />
+        formControlName="password" />
 
       <input
         type="email"
         placeholder="Email"
-        [(ngModel)]="newAdminEmail" />
+        formControlName="email" />
 
-      <button (click)="createAdmin()">
+      <button type="submit">
         Crear admin
       </button>
-    </div>
+    </form>
   }
 
   <!-- =============== RESEÑAS POR PELÍCULA =============== -->
 
   <div class="reviews-section">
-    <h3>Reseñas por película</h3>
+
+    <div class="reviews-header">
+      <h3>Reseñas por película</h3>
+
+      <div class="reviews-filters">
+        <input
+          type="text"
+          class="reviews-filter-input"
+          placeholder="Buscar por usuario..."
+          (input)="onUserSearch($event)" />
+
+        <input
+          type="text"
+          class="reviews-filter-input"
+          placeholder="Buscar por película..."
+          (input)="onMovieSearch($event)" />
+      </div>
+    </div>
 
     @if (reviews.length === 0) {
       <p>No hay reseñas cargadas todavía.</p>
     } @else {
 
-      @for (group of groupedReviews | keyvalue; track group.key) {
+      @for (group of filteredGroupedReviews | keyvalue; track group.key) {
 
         <div class="review-group-card">
           <div class="review-group-header">
             <span class="review-group-title">
-              Película ID: {{ group.key }}
+              Película:
+              {{ group.value[0]?.movieName || ('ID ' + group.key) }}
             </span>
             <span class="review-count-pill">
               {{ group.value.length }} reseña{{ group.value.length > 1 ? 's' : '' }}
@@ -94,7 +130,7 @@
                 <div class="review-header">
                   <div>
                     <span class="review-user">
-                      Perfil ID: {{ rev.idProfile }}
+                      Usuario: {{ rev.userName || ('Perfil ' + rev.idProfile) }}
                     </span>
                     <span class="review-rating">
                       · {{ rev.score }} / 10

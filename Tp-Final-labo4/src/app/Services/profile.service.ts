@@ -1,5 +1,4 @@
-import { Injectable, inject, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, of, forkJoin } from 'rxjs';
 import { Profile } from '../Interfaces/profilein';
@@ -11,68 +10,23 @@ import { AuthService } from '../auth/auth-service';
 export class ProfileService {
 
   private baseUrl = 'http://localhost:3000/profiles';
-  private readonly STORAGE_KEY = 'activeUser';
 
   private http = inject(HttpClient);
   private auth = inject(AuthService);
-
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {
-    // 🔄 Al crear el servicio, intento restaurar el usuario desde localStorage
-    if (isPlatformBrowser(this.platformId)) {
-      const raw = localStorage.getItem(this.STORAGE_KEY);
-      if (raw) {
-        try {
-          const user = JSON.parse(raw) as Profile;
-          // Setea el usuario activo en el AuthService
-          this.auth.login(user);
-        } catch {
-          localStorage.removeItem(this.STORAGE_KEY);
-        }
-      }
-    }
-  }
-
-  // ======================
-  //   HELPER LOCALSTORAGE
-  // ======================
-
-  private saveActiveUser(user: Profile) {
-    if (!isPlatformBrowser(this.platformId)) return;
-    try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
-    } catch {
-      // ignoramos errores de storage
-    }
-  }
-
-  private clearActiveUser() {
-    if (!isPlatformBrowser(this.platformId)) return;
-    try {
-      localStorage.removeItem(this.STORAGE_KEY);
-    } catch {
-      // ignoramos errores
-    }
-  }
-
-  // Si querés un logout centralizado:
-  logout() {
-    this.auth.logout();
-    this.clearActiveUser();
-  }
 
   // =============
   //   MÉTODOS API
   // =============
 
-  getUserById(id: number) {
+  getUserById(id: number | string) {
     return this.http.get<Profile>(`${this.baseUrl}/${id}`);
   }
 
   signup(user: Profile) {
     return this.http.post<Profile>(this.baseUrl, user).pipe(
       map(u => {
-        this.auth.login(u);        // usuario activo en memoria
-        this.saveActiveUser(u);    // guardar en localStorage
+        // AuthService se encarga de memoria + localStorage
+        this.auth.login(u);
         return true;
       }),
       catchError(() => of(false))
@@ -85,8 +39,7 @@ export class ProfileService {
       .pipe(
         map(([u]) => {
           if (u && u.password === credentials.password) {
-            this.auth.login(u);     // memoria
-            this.saveActiveUser(u); // localStorage
+            this.auth.login(u); // también persiste en storage
             return true;
           }
           return false;
@@ -118,13 +71,15 @@ export class ProfileService {
     );
   }
 
-  updateProfile(user: Profile) {
+  updateProfile(user: Profile, updateSession: boolean = true) {
     if (!user.id) return of(false);
 
     return this.http.put<Profile>(`${this.baseUrl}/${user.id}`, user).pipe(
       map(u => {
-        this.auth.login(u);       // actualiza usuario activo
-        this.saveActiveUser(u);   // actualiza en localStorage
+        if (updateSession) {
+          // refresco usuario activo en AuthService
+          this.auth.login(u);
+        }
         return true;
       }),
       catchError(() => of(false))
@@ -158,5 +113,10 @@ export class ProfileService {
     return this.http.post<Profile>(this.baseUrl, newAdmin).pipe(
       catchError(() => of(null as any))
     );
+  }
+
+  // opcional: wrapper si en algún lado usás ProfileService.logout()
+  logout() {
+    this.auth.logout(); // AuthService borra memoria + localStorage
   }
 }

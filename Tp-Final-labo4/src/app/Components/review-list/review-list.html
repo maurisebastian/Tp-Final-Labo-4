@@ -5,7 +5,9 @@
 
     <h3 class="section-title">Agrega tu reseña</h3>
 
-    <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+    <form
+      [formGroup]="reviewForm"
+      (submit)="addReview($event)">
 
       <div class="star-rating mb-3">
 
@@ -83,9 +85,8 @@
 
         @if (review.idProfile === userId) {
           <button class="btn-delete" (click)="deleteReview(review.id)">
-  Eliminar
-</button>
-
+            Eliminar
+          </button>
         }
 
       </div>

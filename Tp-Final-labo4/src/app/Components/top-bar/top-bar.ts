@@ -1,32 +1,46 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { ProfileService } from '../../Services/profile.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [ReactiveFormsModule, RouterLink],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './top-bar.html',
-  styleUrl: './top-bar.css',
+  styleUrls: ['./top-bar.css'],
 })
 export class TopBar {
 
-  private readonly router = inject(Router);
-  private readonly profileService = inject(ProfileService);
-  private readonly authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
-  busqueda = new FormControl('', Validators.required);
+  // usuario logueado (signal)
+  activeUserSignal = this.authService.getActiveUser();
 
-  // signal con el usuario activo
-  user = this.authService.getActiveUser();
+  // control de búsqueda
+  busqueda = this.fb.nonNullable.control('', {
+    validators: [Validators.required],
+  });
 
-   buscar() {
-    const value = this.busqueda.value ?? '';
+  // buscar película
+  buscar() {
+    const value = this.busqueda.value.trim();
+
+    if (!value) {
+      this.busqueda.setErrors({ required: true });
+      this.busqueda.markAsTouched();
+      return;
+    }
+
     this.router.navigate(['/search', value]);
   }
 
-  // Sólo admins (admin o superadmin)
- isAdmin = this.authService.isAdmin;
-
+  // ¿es admin o superadmin?
+  isAdmin(): boolean {
+    const user = this.activeUserSignal();
+    return !!user && (user.role === 'admin' || user.role === 'superadmin');
+  }
 }

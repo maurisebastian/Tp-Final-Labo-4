@@ -1,0 +1,85 @@
+<div class="admin-page edit-user-page">
+
+  <h2>Editar usuario</h2>
+
+  @if (loadedUser) {
+
+    <p class="subtitle">
+      ID: <strong>{{ loadedUser.id }}</strong>
+      · Rol actual: <strong>{{ loadedUser.role }}</strong>
+    </p>
+
+    <form
+      [formGroup]="editForm"
+      (submit)="save($event)"
+      class="edit-form-grid">
+
+      <div class="edit-row">
+        <label for="username">Usuario</label>
+        <input id="username" type="text" formControlName="username" />
+
+        @if (editForm.get('username')?.touched && editForm.get('username')?.invalid) {
+          <span class="field-error">
+            El usuario es obligatorio (mínimo 4 caracteres).
+          </span>
+        }
+      </div>
+
+      <div class="edit-row">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+
+        @if (editForm.get('email')?.touched && editForm.get('email')?.invalid) {
+          <span class="field-error">
+            Email obligatorio y con formato válido.
+          </span>
+        }
+      </div>
+
+      <div class="edit-row">
+        <label for="cel">Celular</label>
+        <input
+          id="cel"
+          type="text"
+          formControlName="cel"
+          maxlength="10"
+          (input)="onCelInput($event)" />
+
+        @if (editForm.get('cel')?.touched && editForm.get('cel')?.invalid) {
+          <span class="field-error">
+            El celular debe tener entre 5 y 10 dígitos numéricos.
+          </span>
+        }
+      </div>
+
+      <div class="edit-row">
+        <label for="role">Rol</label>
+        <select id="role" formControlName="role">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="edit-actions">
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="editForm.invalid">
+          Guardar cambios
+        </button>
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="cancel()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+
+  } @else {
+    <p>Cargando usuario...</p>
+  }
+
+</div>

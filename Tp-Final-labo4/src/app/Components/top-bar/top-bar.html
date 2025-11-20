@@ -1,9 +1,9 @@
 <div class="topbar-container">
 
-  <!-- IZQUIERDA: LOGO / HOME -->
+  <!-- IZQUIERDA: LOGO -->
   <div class="topbar-left">
     <a [routerLink]="['/']" class="logo-link">
-      <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img" />
+      <img src="assets/logo-cine.png" alt="MovieHub" class="logo-img" />
       <span class="app-title">MovieHub</span>
     </a>
   </div>
@@ -14,16 +14,14 @@
       <input
         type="text"
         class="search-input"
-        id="search"
-        [formControl]="busqueda"
         placeholder="Buscar película"
-        (keyup.enter)="buscar()"  
-        />
-
+        [formControl]="busqueda"
+      />
       <button
         class="search-btn"
         (click)="buscar()"
-        [disabled]="busqueda.invalid">
+        [disabled]="busqueda.invalid"
+      >
         Buscar
       </button>
     </div>
@@ -35,23 +33,32 @@
     }
   </div>
 
-  <!-- DERECHA: PERFIL -->
+  <!-- DERECHA: PERFIL + ADMIN -->
   <div class="topbar-right">
-  <a [routerLink]="['/profile-detail']" class="profile-link">
-    <span class="profile-text">Perfil</span>
-    <img
-      src="assets/perfil.png"
-      alt="Perfil del usuario"
-      class="profile-avatar" />
-  </a>
 
-  @if (isAdmin()) {
-    <a [routerLink]="['/admin']" class="admin-link">
-      Admin Panel
-    </a>
-  }
-</div>
+    <!-- SOLO mostrar Perfil si hay usuario -->
+    @if (activeUserSignal()) {
+      <a [routerLink]="['/profile-detail']" class="profile-link">
+        <span class="profile-text">
+          Perfil ({{ activeUserSignal()?.username }})
+        </span>
+        <img
+          src="assets/perfil.png"
+          alt="Perfil del usuario"
+          class="profile-avatar"
+        />
+      </a>
+    }
 
+    <!-- Panel admin solo si es admin o superadmin -->
+    @if (isAdmin()) {
+      <a [routerLink]="['/admin']" class="admin-pill">
+        <span>Panel Admin</span>
+      </a>
+    }
 
+   
+
+  </div>
 
 </div>

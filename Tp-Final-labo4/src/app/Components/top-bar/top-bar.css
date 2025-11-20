@@ -97,14 +97,17 @@
   color: #b00000;
 }
 
-/* ===== DERECHA: PERFIL ===== */
+/* ===== DERECHA: PERFIL + ADMIN ===== */
 
 .topbar-right {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  min-width: 150px;
+  gap: 12px;
+  min-width: 190px;
 }
 
+/* Perfil */
 .profile-link {
   display: flex;
   align-items: center;
@@ -124,6 +127,33 @@
   border: 2px solid #4a8cff;
   background: #e6f0ff;
   object-fit: cover;
+}
+
+/* Botón “Panel Admin” */
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 13px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+  transition: background 0.15s ease, transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.admin-pill:hover {
+  background: #020617;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+}
+
+.admin-icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* RESPONSIVE */
