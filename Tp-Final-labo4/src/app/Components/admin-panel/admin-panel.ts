@@ -23,6 +23,7 @@ export class AdminPanel implements OnInit {
   activeUserSignal = this.authService.getActiveUser();
 
   users: Profile[] = [];
+  filteredUsers: Profile[] = [];
 
   ngOnInit(): void {
     const active = this.activeUserSignal();
@@ -37,6 +38,24 @@ export class AdminPanel implements OnInit {
   loadUsers() {
     this.profileService.getAllUsers().subscribe((users) => {
       this.users = users;
+      this.filteredUsers = users; // inicializamos
+    });
+  }
+
+  onSearch(value: string) {
+    const term = value.trim().toLowerCase();
+
+    if (!term) {
+      this.filteredUsers = this.users;
+      return;
+    }
+
+    this.filteredUsers = this.users.filter((u) => {
+      return (
+        (u.username?.toLowerCase().includes(term)) ||
+        (u.email?.toLowerCase().includes(term)) ||
+        (String(u.id).includes(term))
+      );
     });
   }
 
@@ -66,6 +85,7 @@ export class AdminPanel implements OnInit {
     this.profileService.deleteUser(user.id).subscribe((result) => {
       if (result) {
         this.users = this.users.filter((u) => u.id !== user.id);
+        this.filteredUsers = this.filteredUsers.filter((u) => u.id !== user.id);
       } else {
         alert('No se pudo eliminar el usuario.');
       }

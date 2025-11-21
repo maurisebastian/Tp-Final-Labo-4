@@ -2,6 +2,15 @@
   <h2>Usuarios</h2>
   <p>Ver, editar y eliminar usuarios registrados.</p>
 
+  <div class="users-search-box">
+  <input
+    type="text"
+    placeholder="Buscar usuario por nombre, email o ID..."
+    (input)="onSearch($event.target.value)"
+  />
+</div>
+
+
   <table class="users-table">
     <thead>
       <tr>
@@ -14,7 +23,8 @@
     </thead>
 
     <tbody>
-      @for (user of users; track user.id) {
+      @for (user of filteredUsers; track user.id) {
+
         <tr>
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>

@@ -1,11 +1,62 @@
-<main class="admin-page">
-  <h2>Crear nuevo administrador</h2>
-  <p>Solo el Administrador Principal puede crear cuentas con rol de administrador.</p>
+<main class="admin-create-page">
 
-  <form [formGroup]="newAdminForm" (submit)="createAdmin($event)" class="new-admin-form">
-    <input type="text" placeholder="Usuario" formControlName="username" />
-    <input type="password" placeholder="Contraseña" formControlName="password" />
-    <input type="email" placeholder="Email" formControlName="email" />
-    <button type="submit">Crear admin</button>
-  </form>
+  <section class="admin-create-card">
+    <header class="admin-create-header">
+      <h1>Crear nuevo administrador</h1>
+      <p>
+        Solo el <strong>Administrador Principal</strong> puede crear cuentas con rol de administrador.
+      </p>
+    </header>
+
+    <form
+      [formGroup]="newAdminForm"
+      (submit)="createAdmin($event)"
+      class="admin-create-form"
+    >
+      <div class="field-group">
+        <label for="username">Usuario</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="Ej: admin_jefe"
+          formControlName="username"
+        />
+      </div>
+
+      <div class="field-group">
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Mínimo 6 caracteres"
+          formControlName="password"
+        />
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="admin@mail.com"
+          formControlName="email"
+        />
+      </div>
+
+      <div class="admin-create-actions">
+        <button type="submit" class="btn-primary">
+          Crear admin
+        </button>
+
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="router.navigate(['/admin'])"
+        >
+          Volver al panel
+        </button>
+      </div>
+    </form>
+  </section>
+
 </main>

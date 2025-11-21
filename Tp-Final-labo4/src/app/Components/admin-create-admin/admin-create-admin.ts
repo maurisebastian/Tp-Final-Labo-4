@@ -18,7 +18,7 @@ export class AdminCreateAdminComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
-  private router = inject(Router);
+  public router = inject(Router);
 
   newAdminForm = this.fb.nonNullable.group({
     username: ['', Validators.required],
