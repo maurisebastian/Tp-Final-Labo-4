@@ -23,5 +23,24 @@ export interface Review {
   description: string;
   userName?: string;
   movieName?: string;
+
+   likesCount?: number;      // cantidad de likes
+  likedByUser?: boolean;    // si el usuario actual dio like
+
+ comments?: ReviewComment[];  
 }
+
+export interface ReviewComment {
+  id?: number;
+  idReview: number;    // Review relacionada
+  idProfile: number;   // Usuario que comenta
+  comment: string;     // Texto del comentario
+  date?: string;       // Opcional
+  userName?: string;   // Opcional, por conveniencia en el front
+
+  likesCount?: number;
+}
+
+
+
 

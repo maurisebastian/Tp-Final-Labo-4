@@ -1,4 +1,25 @@
 {
+  "reviewComments": [],
+  "reviewLikes": [
+    {
+      "idProfile": "21a8",
+      "idReview": "gmTVN38",
+      "date": "2025-11-21T17:47:48.635Z",
+      "id": 1
+    },
+    {
+      "idProfile": "21a8",
+      "idReview": "sK1ndJF",
+      "date": "2025-11-21T17:51:14.370Z",
+      "id": 2
+    },
+    {
+      "idProfile": "1d76",
+      "idReview": "sK1ndJF",
+      "date": "2025-11-21T17:51:37.905Z",
+      "id": 3
+    }
+  ],
   "comments": [
     {
       "idProfile": 1,
@@ -83,6 +104,20 @@
       "idMovie": 4688,
       "score": 10,
       "description": "el unico musical q me gusta"
+    },
+    {
+      "idProfile": "21a8",
+      "idMovie": 240,
+      "score": 7,
+      "description": "muy buena",
+      "id": "VcVPvdX"
+    },
+    {
+      "idProfile": "21a8",
+      "idMovie": 278,
+      "score": 8,
+      "description": "me gusto mucho ! ",
+      "id": "gmTVN38"
     }
   ],
   "profiles": [

@@ -18,6 +18,12 @@
   border: 1px solid #f0f0f0;
 }
 
+.review-info strong {
+  color: #222222;  /* bien visible */
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
 /* Card del listado de reseñas */
 .reviews-list-block {
   background-color: #ffffff;
@@ -135,15 +141,46 @@ form {
 .review-description {
   font-size: 0.95rem;
   color: #333;
-  margin-top: 5px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
+  margin-top: 6px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
 }
-
 /* Score al lado del usuario */
 .review-score {
   font-size: 0.9rem;
   color: #555;
+}
+.comments-block form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.comments-block input.form-control {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 1rem;
+}
+
+.comments-block button[type="submit"] {
+  padding: 6px 12px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.comments-title {
+  font-weight: bold;
+  margin-top: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.comments-block button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
 .btn-delete {
