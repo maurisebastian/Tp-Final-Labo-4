@@ -1,5 +1,12 @@
 {
-  "reviewComments": [],
+  "reviewComments": [
+    {
+      "idReview": "sK1ndJF",
+      "idProfile": "1d76",
+      "comment": "te ganaste un like",
+      "id": 1
+    }
+  ],
   "reviewLikes": [
     {
       "idProfile": "21a8",
@@ -16,8 +23,34 @@
     {
       "idProfile": "1d76",
       "idReview": "sK1ndJF",
-      "date": "2025-11-21T17:51:37.905Z",
+      "date": "2025-11-21T22:22:09.235Z",
       "id": 3
+    }
+  ],
+  "movieActivity": [
+    {
+      "idProfile": "1d76",
+      "idMovie": 238,
+      "movieName": "El padrino",
+      "status": "watched",
+      "id": 2,
+      "watchedDate": "2025-11-21T23:11:27.253Z"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 240,
+      "movieName": "El Padrino Parte II",
+      "status": "watched",
+      "id": 4,
+      "watchedDate": "2025-11-21T23:21:15.339Z"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 424,
+      "movieName": "La lista de Schindler",
+      "status": "watched",
+      "id": 5,
+      "watchedDate": "2025-11-21T23:21:16.097Z"
     }
   ],
   "comments": [
@@ -118,6 +151,13 @@
       "score": 8,
       "description": "me gusto mucho ! ",
       "id": "gmTVN38"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 278,
+      "score": 8,
+      "description": "con un final que te deja pensando. Totalmente recomendada",
+      "id": "BGXZOPd"
     }
   ],
   "profiles": [

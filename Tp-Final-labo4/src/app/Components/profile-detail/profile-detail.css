@@ -1,9 +1,11 @@
 /* Contenedor general que centra la tarjeta de perfil en la página */
 .profile-page {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* mantiene centrado el contenido total */
   padding: 40px 16px;
   box-sizing: border-box;
+  gap: 32px;               /* separación entre columnas */
+  align-items: flex-start; /* evita que se desalineen verticalmente */
 }
 
 /* Tarjeta principal del perfil (datos del usuario + reseñas) */
@@ -111,4 +113,17 @@
   padding: 40px 16px;
   font-size: 16px;
   color: #444444;
+}
+.left-column {
+  width: 60%;
+}
+
+.right-column {
+  width: 40%;
+}
+
+/* Para que la tarjeta del perfil mantenga tu estilo */
+.left-column .profile-card {
+  width: 100%;
+  max-width: none; /* para que use toda la columna izquierda */
 }

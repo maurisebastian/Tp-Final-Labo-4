@@ -6,10 +6,11 @@ import { TopBar } from "../top-bar/top-bar";
 import { Footer } from "../../Shared/footer/footer";
 import { TmdbService } from '../../Services/tmdb.service';
 import { AuthService } from '../../auth/auth-service';
+import { UserActivity } from "../user-activity/user-activity";
 
 @Component({
   selector: 'app-profile-detail',
-  imports: [TopBar, Footer],
+  imports: [TopBar, Footer, UserActivity],
   templateUrl: './profile-detail.html',
   styleUrl: './profile-detail.css',
 })

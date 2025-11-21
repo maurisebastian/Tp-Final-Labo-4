@@ -2,7 +2,12 @@
 
 @if (userLoggedIn) {
 
-  <div class="profile-page">
+<div class="profile-page">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="left-column">
+
+    <!-- DETALLES DEL PERFIL -->
     <div class="profile-card">
       <h2 class="profile-title">Detalles del perfil</h2>
 
@@ -12,39 +17,45 @@
         <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
         <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
       </div>
-
-      <h3 class="section-title">Reseñas</h3>
-
-      @if (reviews.length === 0) {
-        <p class="empty-reviews">
-          No tienes reseñas disponibles.
-        </p>
-      }
-
-      @for (review of reviews; track $index) {
-        <div class="review-card">
-          <div class="review-header">
-            <strong class="review-name">
-              Película: {{ review.movieName || 'Cargando...' }}
-            </strong>
-
-            <span class="review-score">
-              Calificación: {{ review.score }} / 10
-            </span>
-
-            <button class="delete-btn" (click)="deleteReview(review.id)">
-              Eliminar
-            </button>
-          </div>
-
-          <p class="review-text">
-            {{ review.description }}
-          </p>
-        </div>
-      }
-
     </div>
+
+    <!-- RESEÑAS -->
+    <h3 class="section-title">Reseñas</h3>
+
+    @if (reviews.length === 0) {
+      <p class="empty-reviews">No tienes reseñas disponibles.</p>
+    }
+
+    @for (review of reviews; track $index) {
+      <div class="review-card">
+
+        <div class="review-header">
+          <strong class="review-name">
+            Película: {{ review.movieName || 'Cargando...' }}
+          </strong>
+
+          <span class="review-score">
+            Calificación: {{ review.score }} / 10
+          </span>
+
+          <button class="delete-btn" (click)="deleteReview(review.id)">
+            Eliminar
+          </button>
+        </div>
+
+        <p class="review-text">
+          {{ review.description }}
+        </p>
+      </div>
+    }
   </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="right-column">
+    <app-user-activity></app-user-activity>
+  </div>
+
+</div>
 
 } @else {
 

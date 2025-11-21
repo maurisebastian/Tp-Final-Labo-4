@@ -1,32 +1,50 @@
 <app-top-bar></app-top-bar>
-
-
 @if (movieDetails) {
 
 <div class="movie-details">
     <img [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path" [alt]="movieDetails.title" />
+
     <div class="movie-details-content">
         <h1>{{ movieDetails.title }}</h1>
         <p><strong>Resumen:</strong> {{ movieDetails.overview }}</p>
         <p><strong>Fecha de lanzamiento:</strong> {{ movieDetails.release_date }}</p>
         <p><strong>Duración:</strong> {{ movieDetails.runtime }} minutos</p>
         <p><strong>Calificación:</strong> {{ movieDetails.vote_average }}</p>
+
         <p><strong>Géneros:</strong></p>
-
         @for (genre of movieDetails.genres; track $index) {
-        <span>
-            *  {{genre.name}}
+        <span>* {{ genre.name }}</span>
+        }
 
-        </span>
+        <hr>
 
+        @if (userId) {
+        <div class="activity-buttons">
+
+            <button class="btn-activity watched" (click)="markAs('watched')">
+                ✔ Marcar como vista
+            </button>
+
+            <button class="btn-activity towatch" (click)="markAs('towatch')">
+                ➕ Guardar para ver más tarde
+            </button>
+           @if (activity?.watchedDate) {
+        <p class="watch-date">
+            Vista el:
+           <strong>{{ activity.watchedDate | date:'shortDate' }}</strong>
+          </p>
+          }
+        </div>
+        } @else {
+        <p>Inicia sesión para guardar esta película.</p>
         }
 
     </div>
-
 </div>
 
-
 }
+
+
 
 <app-review-list [peliculaID]="movieId"></app-review-list>
 
