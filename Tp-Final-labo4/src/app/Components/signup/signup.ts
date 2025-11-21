@@ -37,8 +37,6 @@ export class Signup {
   readonly minBirthDate = '1900-01-01';
   readonly maxBirthDate = this.buildMaxDate(12);
 
-  favoriteGenres: number[] = [];
-
   // ======================
   //  FORMULARIO REACTIVO
   // ======================
@@ -113,7 +111,6 @@ export class Signup {
         firstName: active.firstName ?? '',
         lastName: active.lastName ?? '',
       });
-      // (más adelante podemos inicializar favoriteGenres en el template)
     }
   }
 
@@ -122,9 +119,9 @@ export class Signup {
   // ======================
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
-  get date()     { return this.form.controls.date; }
-  get cel()      { return this.form.controls.cel; }
-  get email()    { return this.form.controls.email; }
+  get date() { return this.form.controls.date; }
+  get cel() { return this.form.controls.cel; }
+  get email() { return this.form.controls.email; }
 
   // ======================
   //  VALIDADORES CUSTOM
@@ -195,7 +192,7 @@ export class Signup {
         ...this.currentUser,
         ...formValue,
         role: this.currentUser.role,
-        // favoriteGenres se conserva desde currentUser
+        // favoriteGenres se conserva tal como esté en currentUser
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
@@ -212,12 +209,13 @@ export class Signup {
         },
       });
 
-    // ----- MODO REGISTRO -----
+      // ----- MODO REGISTRO -----
     } else {
       const newUser: Profile = {
         ...formValue,
         role: 'user',
-        favoriteGenres: this.favoriteGenres,
+         favoriteGenres: [],
+        // favoriteGenres se van a elegir luego en otra pantalla
       };
 
       this.profileService
@@ -239,11 +237,12 @@ export class Signup {
             this.profileService.signup(newUser).subscribe({
               next: (ok) => {
                 if (ok) {
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/select-genres']);
                 } else {
                   this.signupError = 'No se pudo registrar el usuario.';
                 }
               },
+
               error: () => {
                 this.signupError = 'No se pudo registrar el usuario.';
               },
@@ -260,18 +259,5 @@ export class Signup {
     let value = event.target.value.replace(/[^0-9]/g, '');
     if (value.length > 10) value = value.slice(0, 10);
     this.form.controls['cel'].setValue(value, { emitEvent: false });
-  }
-
-  onGenreChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const value = Number(input.value);
-
-    if (input.checked) {
-      if (!this.favoriteGenres.includes(value)) {
-        this.favoriteGenres.push(value);
-      }
-    } else {
-      this.favoriteGenres = this.favoriteGenres.filter((g) => g !== value);
-    }
   }
 }
