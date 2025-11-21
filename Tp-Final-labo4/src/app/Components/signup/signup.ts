@@ -20,10 +20,15 @@ import { AuthService } from '../../auth/auth-service';
   styleUrls: ['./signup.css'],
 })
 export class Signup {
-
-  private fb = inject(FormBuilder);
+  // ======================
+  //  INYECCIONES
+  // ======================
+  private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
 
+  // ======================
+  //  ESTADO DEL COMPONENTE
+  // ======================
   signupError = '';
   signupSuccess = '';
   isEditMode = false;
@@ -32,6 +37,11 @@ export class Signup {
   readonly minBirthDate = '1900-01-01';
   readonly maxBirthDate = this.buildMaxDate(12);
 
+  favoriteGenres: number[] = [];
+
+  // ======================
+  //  FORMULARIO REACTIVO
+  // ======================
   form = this.fb.nonNullable.group({
     username: [
       '',
@@ -69,12 +79,17 @@ export class Signup {
       ],
     ],
     email: ['', [Validators.required, Validators.email]],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
   });
 
+  // ======================
+  //  CONSTRUCTOR
+  // ======================
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     const mode = this.route.snapshot.data?.['mode'];
 
@@ -95,16 +110,25 @@ export class Signup {
         date: active.date ?? '',
         cel: active.cel ?? '',
         email: active.email ?? '',
+        firstName: active.firstName ?? '',
+        lastName: active.lastName ?? '',
       });
+      // (más adelante podemos inicializar favoriteGenres en el template)
     }
   }
 
+  // ======================
+  //  GETTERS CÓMODOS
+  // ======================
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
-  get date() { return this.form.controls.date; }
-  get cel() { return this.form.controls.cel; }
-  get email() { return this.form.controls.email; }
+  get date()     { return this.form.controls.date; }
+  get cel()      { return this.form.controls.cel; }
+  get email()    { return this.form.controls.email; }
 
+  // ======================
+  //  VALIDADORES CUSTOM
+  // ======================
   private minAgeValidator(minAge: number): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -140,9 +164,9 @@ export class Signup {
     return maxDate.toISOString().split('T')[0];
   }
 
-  // ==========================
-  //   HANDLER SIN ngSubmit
-  // ==========================
+  // ======================
+  //  HANDLERS DEL FORM
+  // ======================
   onSignup(event?: Event) {
     if (event) event.preventDefault();
 
@@ -163,6 +187,7 @@ export class Signup {
       return;
     }
 
+    // ----- MODO EDITAR PERFIL -----
     if (this.isEditMode) {
       if (!this.currentUser) return;
 
@@ -170,6 +195,7 @@ export class Signup {
         ...this.currentUser,
         ...formValue,
         role: this.currentUser.role,
+        // favoriteGenres se conserva desde currentUser
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
@@ -186,10 +212,12 @@ export class Signup {
         },
       });
 
+    // ----- MODO REGISTRO -----
     } else {
       const newUser: Profile = {
         ...formValue,
         role: 'user',
+        favoriteGenres: this.favoriteGenres,
       };
 
       this.profileService
@@ -232,5 +260,18 @@ export class Signup {
     let value = event.target.value.replace(/[^0-9]/g, '');
     if (value.length > 10) value = value.slice(0, 10);
     this.form.controls['cel'].setValue(value, { emitEvent: false });
+  }
+
+  onGenreChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = Number(input.value);
+
+    if (input.checked) {
+      if (!this.favoriteGenres.includes(value)) {
+        this.favoriteGenres.push(value);
+      }
+    } else {
+      this.favoriteGenres = this.favoriteGenres.filter((g) => g !== value);
+    }
   }
 }

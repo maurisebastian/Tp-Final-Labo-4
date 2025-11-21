@@ -1,39 +1,52 @@
 <app-top-bar></app-top-bar>
 
-@if( topRatedMovies.length > 0){
-  <div class="movie-carousel mt-4">
-  <h2 class="mb-3">Top Más Puntuadas</h2>
-  <button class="carousel-arrow left-arrow" (click)="prevSlide()">&#9664;</button>
- 
-  <div class="movie-list-container">
-    <div class="movie-list d-flex">
-      
-      @for (movie of topRatedMovies; track movie.id; let i = $index) {
-        <div class="movie-item" style="width: 190px;">
-          <div class="ranking">#{{ i + 1 }}</div>
+@if (topRatedMovies.length > 0) {
+  <div 
+    class="movie-carousel" 
+    (mouseenter)="pauseAutoSlide()" 
+    (mouseleave)="resumeAutoSlide()"
+  >
 
-          <a [routerLink]="['/movie-review', movie.id]">
-            <img 
-              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
-              alt="{{ movie.title }}" 
-              class="img-fluid rounded">
-          </a>
+    <h2 class="section-title">Top Más Puntuadas</h2>
 
-          <a [routerLink]="['/movie-review', movie.id]" class="movie-title-link">
-            <p class="mt-2 text-center">{{ movie.title }}</p>
-          </a>
+    <!-- FLECHA IZQUIERDA -->
+    <button class="carousel-arrow left-arrow" (click)="prevSlide()">
+      &#9664;
+    </button>
 
-          <p class="text-muted text-center">Puntuación: {{ movie.vote_average }}</p>
-        </div>
-      }
+    <div class="movie-list-container">
+      <div class="movie-list">
+        @for (movie of topRatedMovies; track movie.id; let i = $index) {
+          
+          <div class="movie-item">
 
+            <div class="ranking">#{{ i + 1 }}</div>
+
+            <a [routerLink]="['/movie-review', movie.id]">
+              <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
+            </a>
+
+            <a class="movie-title-link" [routerLink]="['/movie-review', movie.id]">
+              <p>{{ movie.title }}</p>
+            </a>
+
+            <p class="text-muted">Puntuación: {{ movie.vote_average }}</p>
+          </div>
+
+        }
+      </div>
     </div>
-  </div>
-  <button class="carousel-arrow right-arrow" (click)="nextSlide()" [disabled]="isNextButtonDisabled()">&#9654;</button>
-</div>
 
-}@else {
-   <p>Cargando películas...</p>
+    <!-- FLECHA DERECHA -->
+    <button 
+      class="carousel-arrow right-arrow" 
+      (click)="nextSlide()" 
+      [disabled]="isNextButtonDisabled()"
+    >
+      &#9654;
+    </button>
+
+  </div>
 }
 
 <app-footer></app-footer>

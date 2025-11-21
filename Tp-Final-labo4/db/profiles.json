@@ -96,6 +96,21 @@
       "role": "superadmin"
     },
     {
+      "id": 7101,
+      "username": "sofi",
+      "password": "1234",
+      "email": "sofi@example.com",
+      "date": "1997-01-01",
+      "cel": "12345678",
+      "role": "user",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "favoriteGenres": [
+        28,
+        35
+      ]
+    },
+    {
       "username": "mauri",
       "password": "123456",
       "date": "1991-11-21",

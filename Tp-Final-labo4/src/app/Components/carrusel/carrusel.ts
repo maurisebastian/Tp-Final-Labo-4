@@ -1,53 +1,117 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { TmdbService } from '../../Services/tmdb.service';
 import { Moviein } from '../../Interfaces/moviein';
-import { Footer } from "../../Shared/footer/footer";
-import { TopBar } from "../top-bar/top-bar";
-import { RouterModule } from '@angular/router';
+import { Footer } from '../../Shared/footer/footer';
+import { TopBar } from '../top-bar/top-bar';
 
 @Component({
   selector: 'app-carrusel',
+  standalone: true,
   imports: [RouterModule, Footer, TopBar],
   templateUrl: './carrusel.html',
-  styleUrl: './carrusel.css',
+  styleUrls: ['./carrusel.css'],
 })
-export class Carrusel implements OnInit {
+export class Carrusel implements OnInit, OnDestroy {
 
   private readonly tmdbService = inject(TmdbService);
-  
+
   topRatedMovies: Moviein[] = [];
-  currentSlideIndex: number = 0;
+  currentSlideIndex = 0;
+  maxVisibleMovies = 5;
 
-  // Cantidad de películas que se ven completas en el carrusel
-  maxVisibleMovies: number = 5;
+  autoSlideInterval: any = null;
+  slideDelayMs = 1800; // 🔹 velocidad del auto-slide (1.8 segundos)
 
-  ngOnInit() {
+
+  // ---------------------------
+  //   CICLO DE VIDA
+  // ---------------------------
+  ngOnInit(): void {
     this.loadTopRatedMovies();
+    this.startAutoSlide();
   }
 
-  loadTopRatedMovies() {
+  ngOnDestroy(): void {
+    this.stopAutoSlide();
+  }
+
+  // Helper para no romper en SSR
+  private isBrowser(): boolean {
+    return typeof document !== 'undefined';
+  }
+
+  // ---------------------------
+  //       AUTO SLIDE
+  // ---------------------------
+  startAutoSlide(): void {
+    if (!this.isBrowser()) return;
+
+    this.stopAutoSlide();
+
+    this.autoSlideInterval = setInterval(() => {
+  const maxIndex = this.topRatedMovies.length - this.maxVisibleMovies;
+
+  if (this.topRatedMovies.length === 0) {
+    return;
+  }
+
+  if (this.currentSlideIndex < maxIndex) {
+    this.nextSlide();
+  } else {
+    this.currentSlideIndex = 0;
+    this.updateCarousel();
+  }
+}, this.slideDelayMs);
+
+  }
+
+  stopAutoSlide(): void {
+    if (this.autoSlideInterval) {
+      clearInterval(this.autoSlideInterval);
+      this.autoSlideInterval = null;
+    }
+  }
+
+  pauseAutoSlide(): void {
+    this.stopAutoSlide();
+  }
+
+  resumeAutoSlide(): void {
+    this.startAutoSlide();
+  }
+
+  // ---------------------------
+  //     CARGA DE PELÍCULAS
+  // ---------------------------
+  loadTopRatedMovies(): void {
     this.tmdbService.getTopRatedMovies().subscribe(
       (response: any) => {
         if (response && response.results) {
-          // Solo usamos las primeras 10
           this.topRatedMovies = response.results.slice(0, 10);
           console.log('Películas cargadas:', this.topRatedMovies);
+
+          // por las dudas, reseteo carrusel
+          this.currentSlideIndex = 0;
+          this.updateCarousel();
         }
       },
-      (error) => {
-        console.error('Error al obtener las películas:', error);
-      }
+      (error) => console.error('Error al obtener las películas:', error)
     );
   }
 
-  prevSlide() {
+  // ---------------------------
+  //   NAVEGACIÓN MANUAL
+  // ---------------------------
+  prevSlide(): void {
     if (this.currentSlideIndex > 0) {
       this.currentSlideIndex--;
       this.updateCarousel();
     }
   }
 
-  nextSlide() {
+  nextSlide(): void {
     const maxIndex = this.topRatedMovies.length - this.maxVisibleMovies;
     if (this.currentSlideIndex < maxIndex) {
       this.currentSlideIndex++;
@@ -55,26 +119,29 @@ export class Carrusel implements OnInit {
     }
   }
 
-  // Calcula cuánto hay que mover el carrusel según el ancho REAL de la card + gap
-  updateCarousel() {
+  // ---------------------------
+  //     MOVER CARRUSEL
+  // ---------------------------
+  updateCarousel(): void {
+    if (!this.isBrowser()) return;
+
     const movieList = document.querySelector('.movie-list') as HTMLElement | null;
     if (!movieList) return;
 
     const firstItem = movieList.querySelector('.movie-item') as HTMLElement | null;
     if (!firstItem) return;
 
-    const itemWidth = firstItem.offsetWidth; // 180px en tu CSS
+    const itemWidth = firstItem.offsetWidth || 180;
     const styles = getComputedStyle(movieList);
-
-    // Para flex con gap se usa columnGap / gap
     const gapStr = (styles.columnGap || styles.gap || '0').replace('px', '');
-    const gap = Number(gapStr) || 0; // 25px en tu CSS
+    const gap = Number(gapStr) || 0;
 
     const move = this.currentSlideIndex * (itemWidth + gap);
     movieList.style.transform = `translateX(-${move}px)`;
   }
 
   isNextButtonDisabled(): boolean {
-    return this.currentSlideIndex >= this.topRatedMovies.length - this.maxVisibleMovies;
+    return this.currentSlideIndex >=
+      this.topRatedMovies.length - this.maxVisibleMovies;
   }
 }

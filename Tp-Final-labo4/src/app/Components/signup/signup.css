@@ -1,93 +1,190 @@
-/* Contenedor del formulario */
-form {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+/* --- CONTENEDOR PRINCIPAL DEL FORMULARIO SIGNUP --- */
+.signup-form {
+  max-width: 780px;
+  margin: 60px auto;
+  padding: 40px 45px;
+  border-radius: 22px;
+
+  background: rgba(9, 14, 20, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6);
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px 24px;
+  gap: 22px 26px;
+
   font-family: "Segoe UI", Arial, sans-serif;
+  animation: fadeIn 0.4s ease-out;
 }
 
-/* Error global */
-.error-global {
-  display: none;
-  grid-column: span 2;
-  padding: 10px;
-  border-radius: 8px;
-  background: #ffe6e6;
-  color: #a40000;
+/* Animación del formulario */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mensajes globales */
+.error-global,
+.success-global {
+  grid-column: 1 / -1;
+  padding: 12px 15px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
+  animation: pop 0.3s ease-out;
 }
 
-.error-global.visible {
-  display: block;
+@keyframes pop {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-/* Cada label contiene input + errores */
-label {
+.error-global {
+  background: #fde0e0;
+  color: #a00000;
+}
+
+.success-global {
+  background: #e4ffe9;
+  color: #0f7a32;
+}
+
+/* Campos */
+.form-field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #444;
+  gap: 6px;
 }
 
-/* Inputs */
-input {
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fafafa;
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+/* Etiquetas */
+label,
+.label-title {
   font-size: 15px;
-  transition: .2s ease;
+  font-weight: 600;
+  color: #e6edf7;
+}
+
+/* INPUTS estilo Letterboxd */
+.signup-form input[type="text"],
+.signup-form input[type="password"],
+.signup-form input[type="email"],
+.signup-form input[type="date"] {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #343f51;
+  background: #101827;
+  color: #f5f7ff;
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+.signup-form input::placeholder {
+  color: #7d8597;
+}
+
+.signup-form input:focus {
+  border-color: #00e054; /* verde Letterboxd */
+  box-shadow: 0 0 0 3px rgba(0, 224, 84, 0.35);
+  background: #0b1320;
+  outline: none;
 }
 
 input.ng-invalid.ng-touched {
   border-color: #d00000;
-  background: #fff6f6;
+  background: #fff3f3;
 }
 
-/* Errores de campos */
+/* Errores individuales */
 .error {
-  display: none;
   font-size: 12px;
-  color: #b00000;
+  color: #ff6b6b;
+  padding-left: 4px;
+  margin-top: -2px;
 }
 
-/* Cuando el input está inválido y tocado → mostrar errores */
-input.ng-invalid.ng-touched + .error,
-input.ng-invalid.ng-touched ~ .error {
-  display: block;
+/* --- ESTILO DE GÉNEROS (CHIPS) --- */
+.genres-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
 }
 
-/* Botón */
-button[type="submit"] {
-  grid-column: span 2;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  background: #4a8cff;
-  color: white;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
+.genre-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #141b29;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid #343f51;
+
   cursor: pointer;
   transition: .2s ease;
 }
 
-button[disabled] {
-  background: #b9b9b9;
-  cursor: not-allowed;
+.genre-item span {
+  color: #dde3f0;
+  font-size: 13px;
 }
 
-/* Responsivo */
+.genre-item input {
+  accent-color: #00e054;
+}
+
+/* Estado seleccionado */
+.genre-item:has(input:checked) {
+  background: #00e054;
+  border-color: #00e054;
+}
+
+.genre-item:has(input:checked) span {
+  color: #0b111a;
+  font-weight: 600;
+}
+
+/* Botón principal */
+button[type="submit"] {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 12px;
+
+  background: linear-gradient(120deg, #00e054, #00b444);
+  color: #050708;
+  border: none;
+
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+  background: linear-gradient(120deg, #00ff6a, #00c24d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 224, 84, 0.55);
+}
+
+button[disabled] {
+  background: #444c56;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* RESPONSIVE */
 @media (max-width: 700px) {
-  form {
+  .signup-form {
     grid-template-columns: 1fr;
+    padding: 30px 25px;
   }
 }
