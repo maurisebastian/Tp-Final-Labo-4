@@ -322,6 +322,23 @@
       "favoriteGenres": [],
       "date": "1990-01-01",
       "cel": "00000000"
+    },
+    {
+      "id": "21a8",
+      "username": "sofi",
+      "password": "fakepass",
+      "date": "2013-11-07",
+      "cel": "5632456345",
+      "email": "sofdsfsdal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        35,
+        18,
+        10749,
+        878
+      ]
     }
   ]
 }

@@ -23,12 +23,32 @@
   font-size: 0.95rem;
 }
 
-/* Línea divisoria suave entre secciones */
-.section-divider {
-  margin: 28px 0 18px;
-  height: 1px;
-  border: none;
-  background: linear-gradient(to right, transparent, #4b5563, transparent);
+/* ======== BUSCADOR ======== */
+.users-search-box {
+  margin: 8px 0 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.users-search-box input {
+  width: 300px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  background: #111827; /* más claro para que se vea siempre */
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.users-search-box input::placeholder {
+  color: #9ca3af;
+}
+
+.users-search-box input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
 }
 
 /* ======== TABLA USUARIOS ======== */
@@ -89,7 +109,6 @@
   color: white;
   font-size: 0.82rem;
   cursor: pointer;
-  text-decoration: none;
   border: none;
   transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s;
   margin-right: 6px;
@@ -167,108 +186,6 @@
   background: #1d4ed8;
 }
 
-/* ======== SECCIÓN RESEÑAS ======== */
-.reviews-section {
-  margin-top: 40px;
-}
-
-.reviews-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.reviews-header h3 {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: #f9fafb;
-}
-
-.reviews-filters {
-  display: flex;
-  gap: 8px;
-}
-
-.reviews-filter-input {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid #4b5563;
-  font-size: 0.85rem;
-  min-width: 180px;
-  background: #020617;
-  color: #e5e7eb;
-}
-
-.reviews-filter-input::placeholder {
-  color: #6b7280;
-}
-
-.reviews-filter-input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.6);
-}
-
-.review-group-card {
-  background: #020617;
-  border-radius: 18px;
-  padding: 18px;
-  margin-top: 22px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.9);
-}
-
-.review-group-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.review-group-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.review-count-pill {
-  background: #0f766e;
-  color: #e0f2f1;
-  font-size: 0.78rem;
-  padding: 4px 12px;
-  border-radius: 999px;
-}
-
-.review-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.review-item {
-  padding: 10px 0;
-  border-top: 1px solid #1f2933;
-}
-
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.review-user {
-  font-weight: 600;
-}
-
-.review-rating {
-  font-size: 0.9rem;
-  color: #fbbf24;
-}
-
-.review-comment {
-  font-size: 0.9rem;
-  color: #d1d5db;
-  margin-top: 4px;
-}
-
 /* ======== RESPONSIVE ======== */
 @media (max-width: 900px) {
   .admin-page {
@@ -279,23 +196,12 @@
     flex-direction: column;
   }
 
-  .reviews-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .reviews-filters {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .reviews-filter-input {
-    width: 100%;
-  }
-
   .users-table th,
   .users-table td {
     padding: 8px;
+  }
+
+  .users-search-box input {
+    width: 100%;
   }
 }

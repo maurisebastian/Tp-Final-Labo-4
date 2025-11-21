@@ -24,7 +24,7 @@ export class AdminHomeComponent implements OnInit {
     }
   }
 
-  goTo(section: 'users' | 'new-admin' | 'reviews') {
+  goTo(section: 'users' | 'new-admin' | 'reviews' | 'reports') {
     this.router.navigate([`/admin/${section}`]);
   }
 }

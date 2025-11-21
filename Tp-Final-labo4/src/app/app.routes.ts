@@ -37,6 +37,16 @@ export const routes: Routes = [
 
   // Edición de usuario
   { path: 'admin/user/:id', component: AdminUserEdit, canActivate: [adminGuard], title: 'admin edit' },
+  {
+  path: 'admin/reports',
+  canActivate: [adminGuard],
+  title: 'Admin - Reportes',
+  loadComponent: () =>
+    import('./Components/admin-reports/admin-reports')
+      .then(m => m.AdminReports)
+},
+
+
 
   {
     path: 'select-genres',
