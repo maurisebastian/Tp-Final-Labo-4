@@ -1,6 +1,7 @@
+// src/app/Services/profile.service.ts
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, of, forkJoin } from 'rxjs';
+import { map, catchError, of, forkJoin, tap } from 'rxjs';
 import { Profile } from '../Interfaces/profilein';
 import { AuthService } from '../auth/auth-service';
 
@@ -8,19 +9,14 @@ import { AuthService } from '../auth/auth-service';
   providedIn: 'root',
 })
 export class ProfileService {
-  // ======================
-  //  CONFIGURACIÓN BÁSICA
-  // ======================
+
   private readonly baseUrl = 'http://localhost:3000/profiles';
 
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
 
-  // ======================
-  //  MÉTODOS DE LECTURA
-  // ======================
-
-  getUserById(id: number | string) {
+  // ---------- LECTURA ----------
+  getUserById(id: string | number) {
     return this.http.get<Profile>(`${this.baseUrl}/${id}`);
   }
 
@@ -42,14 +38,10 @@ export class ProfileService {
     );
   }
 
-  // ======================
-  //  AUTH / SIGNUP / LOGIN
-  // ======================
-
+  // ---------- AUTH ----------
   signup(user: Profile) {
     return this.http.post<Profile>(this.baseUrl, user).pipe(
       map((u) => {
-        // AuthService se encarga de memoria + localStorage
         this.auth.login(u);
         return true;
       }),
@@ -65,7 +57,7 @@ export class ProfileService {
       .pipe(
         map(([u]) => {
           if (u && u.password === credentials.password) {
-            this.auth.login(u); // persiste usuario activo
+            this.auth.login(u);
             return true;
           }
           return false;
@@ -75,12 +67,8 @@ export class ProfileService {
   }
 
   logout() {
-    this.auth.logout(); // borra usuario en memoria + storage
+    this.auth.logout();
   }
-
-  // ======================
-  //  VALIDACIONES
-  // ======================
 
   checkUsernameAndEmail(username: string, email: string) {
     return forkJoin({
@@ -97,27 +85,57 @@ export class ProfileService {
     );
   }
 
-  // ======================
-  //  CRUD DE PERFIL
-  // ======================
-
-  updateProfile(user: Profile, updateSession: boolean = true) {
-    if (!user.id) return of(false);
-
-    return this.http.put<Profile>(`${this.baseUrl}/${user.id}`, user).pipe(
-      map((u) => {
-        if (updateSession) {
-          this.auth.login(u); // refresca usuario en sesión
-        }
-        return true;
-      }),
-      catchError(() => of(false))
-    );
+  // ---------- UPDATE GENERAL (editar perfil) ----------
+  // Usado por SIGNUP en modo EDITAR PERFIL y por AdminUserEdit
+updateProfile(user: Profile, updateActiveUser: boolean = true) {
+  if (!user.id) {
+    console.error('❌ El usuario no tiene id, no puedo actualizar', user);
+    return of(false);
   }
 
-  deleteUser(id: number) {
-    // proteger usuario superadmin
-    if (id === 1) return of(false);
+  return this.http
+    .patch<Profile>(`${this.baseUrl}/${user.id}`, user)
+    .pipe(
+      tap((u) => {
+        console.log('🟢 Usuario actualizado en JSON:', u);
+
+        // si hace falta, también actualizamos el usuario activo
+        if (updateActiveUser) {
+          this.auth.login(u);
+        }
+      }),
+      map(() => true),
+      catchError((err) => {
+        console.error('❌ Error al actualizar usuario', err);
+        return of(false);
+      })
+    );
+}
+
+
+  // ---------- SOLO FAVORITE GENRES (pantalla select-genres) ----------
+  updateFavoriteGenres(userId: string, favoriteGenres: number[]) {
+
+    const payload = { favoriteGenres };
+
+    console.log(`🟢 PATCH -> ${this.baseUrl}/${userId}`, payload);
+
+    return this.http
+      .patch<Profile>(`${this.baseUrl}/${userId}`, payload)
+      .pipe(
+        tap((resp) => {
+          console.log('🟢 Respuesta JSON-server:', resp);
+        }),
+        map(() => true),
+        catchError((err) => {
+          console.error('❌ Error al actualizar favoriteGenres:', err);
+          return of(false);
+        })
+      );
+  }
+
+  deleteUser(id: string) {
+    if (id === '1') return of(false);
 
     return this.http.delete(`${this.baseUrl}/${id}`).pipe(
       map(() => true),
@@ -126,7 +144,6 @@ export class ProfileService {
   }
 
   createAdmin(data: { username: string; password: string; email: string }) {
-    // Admin por defecto con los campos requeridos de Profile
     const newAdmin: Profile = {
       username: data.username,
       password: data.password,
@@ -134,7 +151,7 @@ export class ProfileService {
       role: 'admin',
       firstName: 'Admin',
       lastName: 'Global',
-      favoriteGenres: [],    // gustos no usados para admin
+      favoriteGenres: [],
       date: '1990-01-01',
       cel: '00000000',
     };
