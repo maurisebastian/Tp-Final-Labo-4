@@ -87,7 +87,7 @@
   ],
   "profiles": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "fakepass",
       "email": "admin@moviehub.com",
@@ -96,7 +96,7 @@
       "role": "superadmin"
     },
     {
-      "id": 7101,
+      "id": "7101",
       "username": "sofi",
       "password": "1234",
       "email": "sofi@example.com",
@@ -181,6 +181,57 @@
       "cel": "2296500000",
       "email": "asdasd@fsd.com",
       "role": "user"
+    },
+    {
+      "id": "22a6",
+      "username": "sofiiiii",
+      "password": "fakepass",
+      "date": "2013-11-07",
+      "cel": "5632456345",
+      "email": "sofiastejskal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        878,
+        27
+      ]
+    },
+    {
+      "id": "0211",
+      "username": "carohgf",
+      "password": "fgsfgdsg",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "fhyfghgfastejskal@gmail.com",
+      "firstName": "hfghfg",
+      "lastName": "hgfh",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "d700",
+      "username": "fdsfsdfd",
+      "password": "fgsfgdsg",
+      "date": "2013-11-15",
+      "cel": "5632456345",
+      "email": "fdsfsdfl@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "5778",
+      "username": "gfdgfdgdf",
+      "password": "fgsfgdsg",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "fgdgdfgal@gmail.com",
+      "firstName": "dfg",
+      "lastName": "gdfgdf",
+      "role": "user",
+      "favoriteGenres": []
     }
   ]
 }

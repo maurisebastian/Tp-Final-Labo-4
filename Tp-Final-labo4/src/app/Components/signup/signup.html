@@ -166,40 +166,6 @@
     }
   </div>
 
-<!-- Géneros favoritos -->
-<div class="form-field form-field--full">
-  <span class="label-title">Géneros favoritos</span>
-
-  <div class="genres-group">
-
-    <label class="genre-item">
-      <input type="checkbox" value="28" (change)="onGenreChange($event)" />
-      <span>Acción</span>
-    </label>
-
-    <label class="genre-item">
-      <input type="checkbox" value="35" (change)="onGenreChange($event)" />
-      <span>Comedia</span>
-    </label>
-
-    <label class="genre-item">
-      <input type="checkbox" value="18" (change)="onGenreChange($event)" />
-      <span>Drama</span>
-    </label>
-
-    <label class="genre-item">
-      <input type="checkbox" value="27" (change)="onGenreChange($event)" />
-      <span>Terror</span>
-    </label>
-
-    <label class="genre-item">
-      <input type="checkbox" value="878" (change)="onGenreChange($event)" />
-      <span>Ciencia ficción</span>
-    </label>
-
-  </div>
-</div>
-
   <!-- Botón -->
   <button type="submit" [disabled]="form.invalid">
     {{ isEditMode ? 'Guardar cambios' : 'Crear usuario' }}

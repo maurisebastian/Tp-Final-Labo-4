@@ -1,0 +1,60 @@
+<app-top-bar></app-top-bar>
+
+<div class="favorite-movies-page">
+  <h2>Elegí tus películas favoritas 🎬</h2>
+  <p class="subtitle">
+    Vamos a usar estas elecciones para calcular tus géneros favoritos
+    y mostrarte mejores sugerencias.
+  </p>
+
+  <!-- TARJETAS -->
+  <div class="movies-grid">
+    @for (movie of movies; track movie.id) {
+
+      <div class="movie-card"
+           [class.selected]="isSelected(movie)"
+           (click)="toggleMovie(movie)">
+
+        @if (isSelected(movie)) {
+          <div class="movie-card-badge">
+            ✓ Seleccionada
+          </div>
+        }
+
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          [alt]="movie.title"
+        />
+
+        <div class="movie-card__info">
+          <h3>{{ movie.title }}</h3>
+          <p>Puntuación: {{ movie.vote_average }}</p>
+        </div>
+
+      </div>
+
+    }
+  </div>
+
+  <div class="selection-info">
+    Películas seleccionadas: {{ selectedMovieIds.size }}
+  </div>
+
+  @if (errorMsg) {
+    <div class="alert error">{{ errorMsg }}</div>
+  }
+
+  <div class="buttons-row">
+    <button class="btn-alt" type="button" (click)="loadRandomMovies(true)">
+      Ver otras películas
+    </button>
+
+    <button class="btn-primary" type="button"
+            (click)="savePreferences()"
+            [disabled]="selectedMovieIds.size === 0 || isSaving">
+      Guardar preferencias
+    </button>
+  </div>
+</div>
+
+<app-footer></app-footer>

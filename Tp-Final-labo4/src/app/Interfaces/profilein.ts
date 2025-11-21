@@ -11,7 +11,7 @@ export interface Profile {
   role: Role;
   firstName: string;          // nombre
   lastName: string;           // apellido
-  favoriteGenres: number[];   // ids de géneros TMDB (acción, drama, etc.)
+  favoriteGenres?: number[];   // ids de géneros TMDB (acción, drama, etc.)
 }
 
 export interface Review {
