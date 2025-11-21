@@ -1,48 +1,79 @@
-/* ===== CONTENEDOR GENERAL (estructura original) ===== */
+/* ======== CONTENEDOR GENERAL ======== */
 .movie-carousel {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
-  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 20px 40px;
   font-family: "Segoe UI", Arial, sans-serif;
+  text-align: center;
 }
 
-/* Lista horizontal: misma lógica que tus compañeros */
+/* Título elegante */
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #eaeaea;
+  margin-bottom: 35px;
+}
+
+
+/* ======== LISTA HORIZONTAL ======== */
 .movie-list-container {
   overflow: hidden;
   width: 100%;
+  padding: 10px 0;
 }
 
 .movie-list {
   display: flex;
   gap: 25px;
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out; 
 }
 
-/* ===== TARJETAS (mismos tamaños, pero más lindas) ===== */
+
+/* ======== TARJETAS DE PELÍCULA ======== */
 .movie-item {
-  width: 180px;          /* NO cambiar este ancho */
-  flex-shrink: 0;        /* para que el TS siga funcionando igual */
-  position: relative;
+  width: 165px;
+  flex-shrink: 0;
   text-align: center;
-  transition: box-shadow 0.25s ease;
+  position: relative;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.movie-item:hover {
+  transform: translateY(-6px);
+  filter: brightness(1.1);
 }
 
 .movie-item img {
   width: 100%;
-  height: 265px;
-  border-radius: 12px;
+  height: 245px;
+  border-radius: 14px;
   object-fit: cover;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
-/* Título de la película (la letra que te gusta) */
+
+/* ======== RANKING (#1 #2 #3) ======== */
+.ranking {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  background: linear-gradient(135deg, #4a8cff, #6baaff);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+
+/* ======== TÍTULO ======== */
 .movie-title-link p {
   margin-top: 12px;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 14px;
-  color: #333;
-  text-decoration: none;
+  color: #eaeaea;
   transition: color 0.2s ease;
 }
 
@@ -50,89 +81,69 @@
   color: #4a8cff;
 }
 
-/* Puntuación debajo */
+
+/* ======== PUNTUACIÓN ======== */
 .text-muted {
   font-size: 13px;
-  color: #666 !important;
+  color: #bfbfbf !important;
 }
 
-/* Ranking (#5, #6, etc.) */
-.ranking {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  background-color: #4a8cff;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: bold;
-  z-index: 20;
-}
 
-/* ===== FLECHAS: estilo del “círculo blanco lindo” ===== */
+/* ======== FLECHAS DEL CARRUSEL ======== */
 .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
-  color: #333;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255,255,255,0.95);
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  border: none;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  font-size: 24px;
   transition: background-color 0.2s ease, transform 0.2s ease;
   z-index: 10;
 }
 
-/* Posición de cada flecha (igual lógica, solo un poco afuera) */
+.carousel-arrow:hover {
+  background-color: #fff;
+  transform: translateY(-50%) scale(1.12);
+}
+
 .left-arrow {
-  left: 10px;    /* antes -20 */
+  left: -15px;
 }
 
 .right-arrow {
-  right: 10px;   /* antes -20 */
-}
-
-
-.carousel-arrow:hover {
-  background-color: #ffffff;
-  transform: translateY(-50%) scale(1.1);
+  right: -15px;
 }
 
 .carousel-arrow:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: default;
   transform: translateY(-50%);
 }
 
-/* ===== RESPONSIVE ===== */
+
+/* ======== RESPONSIVE ======== */
 @media (max-width: 900px) {
   .movie-item {
     width: 150px;
   }
-
   .movie-item img {
     height: 220px;
   }
 }
 
 @media (max-width: 600px) {
-  .movie-item {
-    width: 130px;
-  }
-
-  .movie-item img {
-    height: 190px;
-  }
-
   .carousel-arrow {
     display: none;
   }
+  .movie-item {
+    width: 135px;
+  }
+  .movie-item img {
+    height: 200px;
+  }
 }
-

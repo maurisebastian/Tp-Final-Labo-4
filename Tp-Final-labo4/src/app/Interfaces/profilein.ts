@@ -9,7 +9,11 @@ export interface Profile {
   cel?: string;
   email?: string;
   role: Role;
+  firstName: string;          // nombre
+  lastName: string;           // apellido
+  favoriteGenres: number[];   // ids de géneros TMDB (acción, drama, etc.)
 }
+
 export interface Review {
   id?: number;
   idProfile: number;
@@ -17,6 +21,6 @@ export interface Review {
   score: number;
   description: string;
   userName?: string;
-  movieName?: string;  
+  movieName?: string;
 }
 
