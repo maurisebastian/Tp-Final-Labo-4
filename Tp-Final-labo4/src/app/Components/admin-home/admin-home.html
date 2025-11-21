@@ -1,0 +1,30 @@
+<main class="admin-home">
+
+  <h1>Panel de administración</h1>
+  <p>Elegí qué querés gestionar.</p>
+
+  <section class="admin-cards-grid">
+
+    <!-- USUARIOS -->
+    <article class="admin-card" (click)="goTo('users')">
+      <h2>Usuarios</h2>
+      <p>Ver, editar y eliminar usuarios registrados.</p>
+    </article>
+
+    <!-- CREAR ADMIN -->
+    <article class="admin-card" (click)="goTo('new-admin')">
+      <h2>Crear admin</h2>
+      <p>Crear nuevos usuarios con rol de administrador.</p>
+    </article>
+
+    <!-- RESEÑAS -->
+    <article class="admin-card" (click)="goTo('reviews')">
+      <h2>Reseñas</h2>
+      <p>Revisar reseñas de películas y moderarlas.</p>
+    </article>
+
+    <!-- (Opcional) REPORTES futuro -->
+    <!-- <article class="admin-card disabled">...</article> -->
+
+  </section>
+</main>

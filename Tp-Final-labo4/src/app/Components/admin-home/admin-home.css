@@ -1,0 +1,102 @@
+/* CONTENEDOR GENERAL */
+.admin-home {
+  max-width: 1200px;
+  margin: 48px auto 80px;
+  padding: 0 40px;
+  color: #e5e7eb;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* TITULO + SUBTITULO */
+.admin-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #f9fafb;
+}
+
+.admin-header p {
+  margin: 0;
+  font-size: 15px;
+  color: #9ca3af;
+}
+
+/* CONTENEDOR DE CARDS */
+.admin-cards {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* CARD BASE */
+.admin-card {
+  border-radius: 18px;
+  padding: 24px 22px;
+  background: radial-gradient(circle at top left, #1f2937 0, #020617 65%);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.admin-card h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #facc15; /* amarillo dorado */
+}
+
+.admin-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+/* HOVER */
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+  border-color: #facc15;
+  background: radial-gradient(circle at top left, #111827 0, #020617 70%);
+}
+
+/* CARD DESHABILITADA (REPORTES FUTURO) */
+.admin-card-disabled {
+  cursor: default;
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.admin-card-disabled:hover {
+  transform: none;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+  border-color: rgba(148, 163, 184, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .admin-home {
+    margin-top: 32px;
+    padding: 0 16px;
+  }
+
+  .admin-header h1 {
+    font-size: 26px;
+  }
+
+  .admin-cards {
+    grid-template-columns: 1fr;
+  }
+}

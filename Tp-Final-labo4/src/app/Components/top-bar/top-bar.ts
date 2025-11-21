@@ -38,9 +38,4 @@ export class TopBar {
     this.router.navigate(['/search', value]);
   }
 
-  // ¿es admin o superadmin?
-  isAdmin(): boolean {
-    const user = this.activeUserSignal();
-    return !!user && (user.role === 'admin' || user.role === 'superadmin');
-  }
 }

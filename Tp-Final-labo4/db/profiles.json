@@ -245,6 +245,83 @@
         10751,
         12
       ]
+    },
+    {
+      "id": "5ea8",
+      "username": "sofiastejskal",
+      "password": "123456",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "fasd@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "fc85",
+      "username": "fsdfs",
+      "password": "123456",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "dsfsd@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "a3c6",
+      "username": "fsdafdsfsdf",
+      "password": "123456",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "sdsadsadas@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "1d76",
+      "username": "aaaaaaaaaaaaaaa",
+      "password": "123456",
+      "date": "2013-11-14",
+      "cel": "5632456345",
+      "email": "aaaaaaa@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "410e",
+      "username": "gfdgdf",
+      "password": "fakepass",
+      "date": "2013-11-07",
+      "cel": "5244564563",
+      "email": "gfdgdfal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        35,
+        18,
+        10749,
+        80
+      ]
+    },
+    {
+      "id": "0bd4",
+      "username": "frsfsdf",
+      "password": "fakepass",
+      "email": "fdsfsdkal@gmail.com",
+      "role": "admin",
+      "firstName": "Admin",
+      "lastName": "Global",
+      "favoriteGenres": [],
+      "date": "1990-01-01",
+      "cel": "00000000"
     }
   ]
 }
