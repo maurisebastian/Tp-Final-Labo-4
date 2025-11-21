@@ -4,6 +4,7 @@ export interface Moviein {
     belongs_to_collection: null;
     budget:                number;
     genres:                Genre[];
+    genre_ids?: number[];   // por si algún endpoint lo trae así
     homepage:              string;
     id:                    number;
     imdb_id:               string;

@@ -189,7 +189,8 @@ export class AdminPanel implements OnInit {
     this.reviewService.getAllReviews().subscribe(revs => {
       // agregar nombre de usuario
       revs.forEach(r => {
-        const user = this.users.find(u => u.id === r.idProfile);
+        const user = this.users.find(u => String(u.id) === String(r.idProfile));
+
         r.userName = user?.username ?? `Perfil ${r.idProfile}`;
       });
 

@@ -214,7 +214,7 @@ export class Signup {
       const newUser: Profile = {
         ...formValue,
         role: 'user',
-         favoriteGenres: [],
+         favoriteGenres: []
         // favoriteGenres se van a elegir luego en otra pantalla
       };
 

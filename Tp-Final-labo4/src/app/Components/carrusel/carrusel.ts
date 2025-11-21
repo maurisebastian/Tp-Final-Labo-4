@@ -2,7 +2,10 @@ import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { TmdbService } from '../../Services/tmdb.service';
+import { AuthService } from '../../auth/auth-service';
 import { Moviein } from '../../Interfaces/moviein';
+import { Profile } from '../../Interfaces/profilein';
+
 import { Footer } from '../../Shared/footer/footer';
 import { TopBar } from '../top-bar/top-bar';
 
@@ -16,55 +19,49 @@ import { TopBar } from '../top-bar/top-bar';
 export class Carrusel implements OnInit, OnDestroy {
 
   private readonly tmdbService = inject(TmdbService);
+  private readonly authService = inject(AuthService);
 
   topRatedMovies: Moviein[] = [];
+  recommendedMovies: Moviein[] = [];
+  hasRecommendations = false;
+
   currentSlideIndex = 0;
   maxVisibleMovies = 5;
 
   autoSlideInterval: any = null;
-  slideDelayMs = 1800; // 🔹 velocidad del auto-slide (1.8 segundos)
+  slideDelayMs = 1800;
 
-
-  // ---------------------------
-  //   CICLO DE VIDA
-  // ---------------------------
   ngOnInit(): void {
     this.loadTopRatedMovies();
     this.startAutoSlide();
+    this.loadRecommendations();
   }
 
   ngOnDestroy(): void {
     this.stopAutoSlide();
   }
 
-  // Helper para no romper en SSR
   private isBrowser(): boolean {
     return typeof document !== 'undefined';
   }
 
-  // ---------------------------
-  //       AUTO SLIDE
-  // ---------------------------
   startAutoSlide(): void {
     if (!this.isBrowser()) return;
 
     this.stopAutoSlide();
 
     this.autoSlideInterval = setInterval(() => {
-  const maxIndex = this.topRatedMovies.length - this.maxVisibleMovies;
+      const maxIndex = this.topRatedMovies.length - this.maxVisibleMovies;
 
-  if (this.topRatedMovies.length === 0) {
-    return;
-  }
+      if (this.topRatedMovies.length === 0) return;
 
-  if (this.currentSlideIndex < maxIndex) {
-    this.nextSlide();
-  } else {
-    this.currentSlideIndex = 0;
-    this.updateCarousel();
-  }
-}, this.slideDelayMs);
-
+      if (this.currentSlideIndex < maxIndex) {
+        this.nextSlide();
+      } else {
+        this.currentSlideIndex = 0;
+        this.updateCarousel();
+      }
+    }, this.slideDelayMs);
   }
 
   stopAutoSlide(): void {
@@ -82,28 +79,46 @@ export class Carrusel implements OnInit, OnDestroy {
     this.startAutoSlide();
   }
 
-  // ---------------------------
-  //     CARGA DE PELÍCULAS
-  // ---------------------------
   loadTopRatedMovies(): void {
-    this.tmdbService.getTopRatedMovies().subscribe(
-      (response: any) => {
-        if (response && response.results) {
-          this.topRatedMovies = response.results.slice(0, 10);
-          console.log('Películas cargadas:', this.topRatedMovies);
-
-          // por las dudas, reseteo carrusel
-          this.currentSlideIndex = 0;
-          this.updateCarousel();
-        }
+    this.tmdbService.getTopRatedMovies().subscribe({
+      next: (response) => {
+        this.topRatedMovies = response.results?.slice(0, 10) ?? [];
+        this.currentSlideIndex = 0;
+        this.updateCarousel();
       },
-      (error) => console.error('Error al obtener las películas:', error)
-    );
+      error: () => console.error('Error al obtener top rated')
+    });
   }
 
-  // ---------------------------
-  //   NAVEGACIÓN MANUAL
-  // ---------------------------
+  private loadRecommendations(): void {
+    const activeSignal = this.authService.getActiveUser();
+    const active: Profile | undefined = activeSignal();
+
+    const genres = active?.favoriteGenres ?? [];
+    if (!genres.length) {
+      this.hasRecommendations = false;
+      return;
+    }
+
+    const mainGenres = genres.slice(0, 3);
+
+    this.tmdbService.getMoviesByGenres(mainGenres).subscribe({
+      next: (response) => {
+        const movies = response.results ?? [];
+        const topIds = new Set(this.topRatedMovies.map(m => m.id));
+
+        this.recommendedMovies = movies
+          .filter((m: Moviein) => !topIds.has(m.id))
+          .slice(0, 12);
+
+        this.hasRecommendations = this.recommendedMovies.length > 0;
+      },
+      error: () => {
+        this.hasRecommendations = false;
+      }
+    });
+  }
+
   prevSlide(): void {
     if (this.currentSlideIndex > 0) {
       this.currentSlideIndex--;
@@ -113,35 +128,32 @@ export class Carrusel implements OnInit, OnDestroy {
 
   nextSlide(): void {
     const maxIndex = this.topRatedMovies.length - this.maxVisibleMovies;
+
     if (this.currentSlideIndex < maxIndex) {
       this.currentSlideIndex++;
       this.updateCarousel();
     }
   }
 
-  // ---------------------------
-  //     MOVER CARRUSEL
-  // ---------------------------
   updateCarousel(): void {
     if (!this.isBrowser()) return;
 
-    const movieList = document.querySelector('.movie-list') as HTMLElement | null;
+    const movieList = document.querySelector('.movie-list') as HTMLElement;
     if (!movieList) return;
 
-    const firstItem = movieList.querySelector('.movie-item') as HTMLElement | null;
+    const firstItem = movieList.querySelector('.movie-item') as HTMLElement;
     if (!firstItem) return;
 
     const itemWidth = firstItem.offsetWidth || 180;
     const styles = getComputedStyle(movieList);
-    const gapStr = (styles.columnGap || styles.gap || '0').replace('px', '');
-    const gap = Number(gapStr) || 0;
 
+    const gap = Number((styles.gap || '0').replace('px', '')) || 0;
     const move = this.currentSlideIndex * (itemWidth + gap);
+
     movieList.style.transform = `translateX(-${move}px)`;
   }
 
   isNextButtonDisabled(): boolean {
-    return this.currentSlideIndex >=
-      this.topRatedMovies.length - this.maxVisibleMovies;
+    return this.currentSlideIndex >= this.topRatedMovies.length - this.maxVisibleMovies;
   }
 }

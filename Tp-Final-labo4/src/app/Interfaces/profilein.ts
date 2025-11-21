@@ -1,18 +1,19 @@
-
 export type Role = 'superadmin' | 'admin' | 'user';
 
 export interface Profile {
-  id?: number;
+  id?: any;               // string 
   username: string;
   password: string;
   date?: string;
   cel?: string;
   email?: string;
   role: Role;
-  firstName: string;          // nombre
-  lastName: string;           // apellido
-  favoriteGenres?: number[];   // ids de géneros TMDB (acción, drama, etc.)
+  firstName?: string;
+  lastName?: string;
+  favoriteGenres?: number[];
 }
+
+
 
 export interface Review {
   id?: number;

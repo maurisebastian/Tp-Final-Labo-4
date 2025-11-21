@@ -32,47 +32,34 @@ export class Genres implements OnInit {
   errorMsg = '';
 
   ngOnInit(): void {
-  this.loadRandomMovies(); // primer carga
-}
+    this.loadRandomMovies();
+  }
 
+  loadRandomMovies(keepSelected: boolean = false): void {
+    this.tmdbService.getRandomMovies().subscribe({
+      next: (response: any) => {
+        const movies: Moviein[] = response.results ?? [];
 
-  // 🔹 Cargar películas y ACUMULAR (no borramos las anteriores)
-  // 🔹 Cargar películas
-//   - si keepSelected = false → carga una tanda nueva
-//   - si keepSelected = true  → mantiene las seleccionadas y reemplaza el resto
-loadRandomMovies(keepSelected: boolean = false): void {
-  this.tmdbService.getRandomMovies().subscribe({
-    next: (response: any) => {
-      const movies: Moviein[] = response.results ?? [];
+        if (!keepSelected) {
+          this.movies = movies;
+          return;
+        }
 
-      if (!keepSelected) {
-        // primera carga o refresh total
-        this.movies = movies;
-        return;
-      }
+        const selectedMovies = this.movies.filter(m =>
+          this.selectedMovieIds.has(m.id)
+        );
+        const selectedIds = new Set(selectedMovies.map(m => m.id));
 
-      // mantener las ya elegidas
-      const selectedMovies = this.movies.filter(m =>
-        this.selectedMovieIds.has(m.id)
-      );
-      const selectedIds = new Set(selectedMovies.map(m => m.id));
+        const newOnes = movies.filter(m => !selectedIds.has(m.id));
 
-      // nuevas pelis que no estén seleccionadas
-      const newOnes = movies.filter(m => !selectedIds.has(m.id));
+        this.movies = [...selectedMovies, ...newOnes];
+      },
+      error: () => {
+        this.errorMsg = 'No se pudieron cargar más películas.';
+      },
+    });
+  }
 
-      // mezclamos: primero las elegidas, luego las nuevas
-      this.movies = [...selectedMovies, ...newOnes];
-    },
-    error: () => {
-      this.errorMsg = 'No se pudieron cargar más películas.';
-    },
-  });
-}
-
-
-
-
-  // Seleccionar / deseleccionar una película
   toggleMovie(movie: Moviein): void {
     if (this.selectedMovieIds.has(movie.id)) {
       this.selectedMovieIds.delete(movie.id);
@@ -86,6 +73,8 @@ loadRandomMovies(keepSelected: boolean = false): void {
   }
 
   savePreferences(): void {
+    console.log('🟣 savePreferences() disparado');
+
     this.errorMsg = '';
 
     if (this.selectedMovieIds.size === 0) {
@@ -96,43 +85,60 @@ loadRandomMovies(keepSelected: boolean = false): void {
     const activeSignal = this.authService.getActiveUser();
     const active = activeSignal();
 
+    console.log('🟣 Usuario activo en Genres:', active);
+
     if (!active) {
       this.router.navigate(['/login']);
       return;
     }
 
-    const selectedMovies = this.movies.filter((m: Moviein) =>
+    const selectedMovies = this.movies.filter(m =>
       this.selectedMovieIds.has(m.id)
     );
 
     const genreSet = new Set<number>();
+
     for (const m of selectedMovies) {
-      (m.genres || []).forEach((g: { id: number }) => genreSet.add(g.id));
+      let genreIds: number[] = [];
+
+      const anyMovie = m as any;
+
+      if (Array.isArray(anyMovie.genre_ids)) {
+        genreIds = anyMovie.genre_ids;
+      } else if (Array.isArray(m.genres)) {
+        genreIds = m.genres.map(g => g.id);
+      }
+
+      genreIds.forEach(id => genreSet.add(id));
     }
 
     const favoriteGenres = Array.from(genreSet);
 
-    const updatedUser: Profile = {
-      ...active,
-      favoriteGenres,
-    };
+    console.log('🟣 Géneros detectados:', favoriteGenres);
+
+    if (!active.id) {
+      this.errorMsg = 'No se pudo identificar tu usuario.';
+      return;
+    }
 
     this.isSaving = true;
 
-    this.profileService.updateProfile(updatedUser).subscribe({
-      next: (ok: boolean) => {
-        this.isSaving = false;
-        if (ok) {
-          activeSignal.set(updatedUser);
-          this.router.navigate(['/']);
-        } else {
-          this.errorMsg = 'No se pudieron guardar las preferencias.';
+    this.profileService.updateFavoriteGenres(active.id, favoriteGenres)
+      .subscribe({
+        next: (ok: boolean) => {
+          this.isSaving = false;
+          if (ok) {
+            const updatedUser: Profile = { ...active, favoriteGenres };
+            activeSignal.set(updatedUser);
+            this.router.navigate(['/']);
+          } else {
+            this.errorMsg = 'No se pudieron guardar las preferencias.';
+          }
+        },
+        error: () => {
+          this.isSaving = false;
+          this.errorMsg = 'Error guardando preferencias.';
         }
-      },
-      error: () => {
-        this.isSaving = false;
-        this.errorMsg = 'No se pudieron guardar las preferencias.';
-      },
-    });
+      });
   }
 }
