@@ -1,0 +1,157 @@
+.admin-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 32px;
+  background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 100%);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+  font-family: "Inter", system-ui, sans-serif;
+  color: #0f172a;
+}
+
+/* ======== SECCIÓN RESEÑAS ======== */
+
+.reviews-section h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.reviews-section p {
+  margin: 4px 0 0;
+  color: #6b7280;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.reviews-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.reviews-filter-input {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  min-width: 180px;
+}
+
+.reviews-filter-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+}
+
+.no-reviews {
+  margin-top: 24px;
+  color: #6b7280;
+}
+
+/* ======== CARD DE CADA PELÍCULA ======== */
+
+.review-group-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 22px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.review-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-group-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.review-count-pill {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* ======== LISTA DE RESEÑAS ======== */
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.review-item {
+  padding: 10px 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-user {
+  font-weight: 600;
+}
+
+.review-rating {
+  font-size: 0.9rem;
+  color: #f59e0b;
+}
+
+.review-comment {
+  font-size: 0.9rem;
+  color: #374151;
+  margin: 4px 0 8px;
+}
+
+/* Botón eliminar reseña */
+.btn-delete-review {
+  padding: 6px 14px;
+  background: #f97373;
+  border: none;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s;
+  box-shadow: 0 3px 10px rgba(248, 113, 113, 0.25);
+}
+
+.btn-delete-review:hover {
+  background: #ef4444;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(239, 68, 68, 0.35);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .admin-page {
+    padding: 20px;
+  }
+
+  .reviews-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reviews-filters {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .reviews-filter-input {
+    width: 100%;
+  }
+}

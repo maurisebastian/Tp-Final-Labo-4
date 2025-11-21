@@ -6,13 +6,10 @@ import { AuthService } from '../../auth/auth-service';
 import { Moviein } from '../../Interfaces/moviein';
 import { Profile } from '../../Interfaces/profilein';
 
-import { Footer } from '../../Shared/footer/footer';
-import { TopBar } from '../top-bar/top-bar';
-
 @Component({
   selector: 'app-carrusel',
   standalone: true,
-  imports: [RouterModule, Footer, TopBar],
+  imports: [RouterModule],
   templateUrl: './carrusel.html',
   styleUrls: ['./carrusel.css'],
 })

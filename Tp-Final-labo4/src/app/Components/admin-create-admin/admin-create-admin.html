@@ -1,0 +1,11 @@
+<main class="admin-page">
+  <h2>Crear nuevo administrador</h2>
+  <p>Solo el Administrador Principal puede crear cuentas con rol de administrador.</p>
+
+  <form [formGroup]="newAdminForm" (submit)="createAdmin($event)" class="new-admin-form">
+    <input type="text" placeholder="Usuario" formControlName="username" />
+    <input type="password" placeholder="Contraseña" formControlName="password" />
+    <input type="email" placeholder="Email" formControlName="email" />
+    <button type="submit">Crear admin</button>
+  </form>
+</main>
