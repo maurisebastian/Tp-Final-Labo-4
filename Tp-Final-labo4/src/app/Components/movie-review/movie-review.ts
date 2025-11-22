@@ -25,12 +25,12 @@ export class MovieReview implements OnInit {
   movieId: number = 0;
   movieDetails: any;
 
-  userId: number | null = null;
+  userId: number | string | null = null;
   activity: MovieActivityInterface | null = null;
 
   ngOnInit() {
     const user = this.auth.getActiveUser()();
-    this.userId = user?.id ? Number(user.id) : null;
+    this.userId = user?.id ?? null;
 
 
     this.route.params.subscribe(params => {
