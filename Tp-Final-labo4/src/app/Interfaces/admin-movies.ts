@@ -1,8 +1,15 @@
 export interface AdminMovie {
-  id?: number | string;
-  tmdbId?: number;       // ID de TMDB (opcional)
+  id?: string | number;
   title: string;
   overview?: string;
   posterPath?: string;
-  isHidden?: boolean;
+  isHidden: boolean;
+  tmdbId?: number;
+}
+
+export interface PopularMovie {
+  idMovie: number;
+  title: string;
+  reviewCount: number;
+  posterPath: string | null;
 }

@@ -1,108 +1,177 @@
 <main class="admin-movies-page">
 
-  <section class="admin-movies-header">
-    <div>
-      <h2>Administrar películas</h2>
-      <p>Agregá, ocultá o eliminá películas administradas por el sistema.</p>
-    </div>
+  <!-- SECCIÓN 1: AGREGAR / ADMINISTRAR PELÍCULAS LOCALES -->
+  <section class="admin-movies-form-card">
+    <h2>Administrar películas</h2>
+    <p>Agregá, ocultá o eliminá películas creadas manualmente en el sistema.</p>
 
-    <form class="movie-form" [formGroup]="form" (submit)="submit($event)">
-      <div class="form-row">
+    <form [formGroup]="form" (submit)="submit($event)" class="admin-movies-form">
+      <input
+        type="text"
+        placeholder="Título de la película"
+        formControlName="title" />
+
+      <div class="admin-movies-row">
         <input
           type="text"
-          placeholder="Título de la película"
-          formControlName="title" />
-      </div>
-
-      <div class="form-row">
-        <input
-          type="number"
-          placeholder="ID de TMDB (opcional)"
+          placeholder="ID TMDB (opcional)"
           formControlName="tmdbId" />
-
         <input
           type="text"
-          placeholder="URL de poster (opcional)"
+          placeholder="URL de póster (opcional)"
           formControlName="posterPath" />
       </div>
 
-      <div class="form-row">
-        <textarea
-          rows="2"
-          placeholder="Descripción (opcional)"
-          formControlName="overview"></textarea>
-      </div>
+      <textarea
+        rows="3"
+        placeholder="Descripción (opcional)"
+        formControlName="overview">
+      </textarea>
 
-      <button type="submit" class="btn-primary">
-        Agregar película
-      </button>
+      <button type="submit" class="btn-primary">Agregar película</button>
     </form>
+
+    <!-- LISTA DE PELÍCULAS LOCALES -->
+    <div class="admin-movies-list-local">
+      <h3>Películas agregadas manualmente</h3>
+
+      @if (movies.length === 0) {
+        <p class="empty-msg">Todavía no agregaste películas.</p>
+      } @else {
+        @for (movie of movies; track movie.id) {
+          <article class="admin-movie-card">
+
+            <div class="admin-movie-main">
+              @if (movie.posterPath) {
+                <img
+                  class="admin-movie-poster"
+                  [src]="movie.posterPath"
+                  [alt]="movie.title" />
+              }
+
+              <div>
+                <h4>{{ movie.title }}</h4>
+
+                @if (movie.tmdbId) {
+                  <span class="badge">TMDB ID: {{ movie.tmdbId }}</span>
+                }
+
+                @if (movie.isHidden) {
+                  <span class="badge badge-hidden">Oculta</span>
+                }
+
+                @if (movie.overview) {
+                  <p class="admin-movie-overview">
+                    {{ movie.overview }}
+                  </p>
+                }
+              </div>
+            </div>
+
+            <div class="admin-movie-actions">
+              @if (movie.tmdbId) {
+                <button type="button" (click)="goToMovie(movie)">
+                  Ver ficha
+                </button>
+              }
+
+              <button type="button" (click)="toggleHidden(movie)">
+                {{ movie.isHidden ? 'Mostrar' : 'Ocultar' }}
+              </button>
+
+              <button type="button" class="danger" (click)="delete(movie)">
+                Eliminar
+              </button>
+            </div>
+
+          </article>
+        }
+      }
+    </div>
   </section>
 
-  @if (isLoading) {
-    <p>Cargando películas...</p>
-  }
+  <!-- SECCIÓN 2: BUSCADOR ÚNICO (TMDB) -->
+  <section class="admin-movies-search">
+    <h2>Buscar películas</h2>
+    <p>Buscá películas por nombre usando TMDB.</p>
 
-  @if (errorMsg) {
-    <p class="error">{{ errorMsg }}</p>
-  }
+    <form (submit)="search($event)" class="search-form">
+      <input
+        type="text"
+        placeholder="Buscar película por nombre..."
+        [formControl]="searchControl" />
+      <button type="submit" class="btn-primary">Buscar</button>
+    </form>
 
-  @if (!isLoading && movies.length === 0) {
-    <p class="empty">No hay películas administradas aún.</p>
-  } @else {
-    <section class="movies-list">
-      @for (movie of movies; track movie.id) {
-
-        <article class="movie-card" [class.hidden]="movie.isHidden">
-          <div class="movie-info">
-            @if (movie.posterPath) {
+    <div class="search-results">
+      @if (searchResults.length > 0) {
+        @for (m of searchResults; track m.id) {
+          <article class="search-card">
+            @if (m.poster_path) {
               <img
-                class="poster"
-                [src]="movie.posterPath"
-                [alt]="movie.title" />
+                class="search-poster"
+                [src]="'https://image.tmdb.org/t/p/w200' + m.poster_path"
+                [alt]="m.title" />
             }
 
-            <div class="movie-text">
-              <h3>{{ movie.title }}</h3>
+            <div class="search-info">
+              <h4>{{ m.title }}</h4>
+              <p class="search-meta">
+                ID TMDB: {{ m.id }} • {{ m.release_date || 'Sin fecha' }}
+              </p>
 
-              @if (movie.tmdbId) {
-                <p class="movie-id">TMDB ID: {{ movie.tmdbId }}</p>
-              }
-
-              @if (movie.overview) {
-                <p class="overview">{{ movie.overview }}</p>
-              }
-            </div>
-          </div>
-
-          <div class="movie-actions">
-            @if (movie.tmdbId) {
               <button
                 type="button"
-                class="btn-secondary"
-                (click)="goToMovie(movie)">
+                class="btn-primary"
+                (click)="goToMovieId(m.id)">
                 Ver ficha
               </button>
+            </div>
+          </article>
+        }
+      } @else if (searchPerformed) {
+        <p class="empty-msg">No se encontraron películas para esa búsqueda.</p>
+      }
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: PELÍCULAS CON MÁS RESEÑAS -->
+  <section class="admin-movies-popular">
+    <h2>Películas con más reseñas</h2>
+    <p>Accedé rápido a las fichas más comentadas por los usuarios.</p>
+
+    @if (popularIsLoading) {
+      <p>Cargando...</p>
+    } @else if (popularMovies.length === 0) {
+      <p class="empty-msg">Todavía no hay reseñas en el sistema.</p>
+    } @else {
+      <div class="popular-list">
+        @for (pm of popularMovies; track pm.idMovie) {
+          <article class="popular-card">
+            @if (pm.posterPath) {
+              <img
+                class="popular-poster"
+                [src]="'https://image.tmdb.org/t/p/w200' + pm.posterPath"
+                [alt]="pm.title" />
             }
 
-            <button
-              type="button"
-              class="btn-secondary"
-              (click)="toggleHidden(movie)">
-              {{ movie.isHidden ? 'Mostrar' : 'Ocultar' }}
-            </button>
+            <div class="popular-info">
+              <h4>{{ pm.title }}</h4>
+              <p class="popular-meta">
+                ID TMDB: {{ pm.idMovie }} • Reseñas: {{ pm.reviewCount }}
+              </p>
 
-            <button
-              type="button"
-              class="btn-danger"
-              (click)="delete(movie)">
-              Eliminar
-            </button>
-          </div>
-        </article>
-
-      }
-    </section>
-  }
+              <button
+                type="button"
+                class="btn-primary"
+                (click)="goToMovieId(pm.idMovie)">
+                Ver ficha y reseñas
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
 
 </main>

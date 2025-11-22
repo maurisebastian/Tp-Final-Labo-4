@@ -122,7 +122,9 @@ export class AdminReports {
   }
 
   goToMovie(report: FullReport) {
-    if (!report.idMovie) return;
-    this.router.navigate(['/movie', report.idMovie]);
-  }
+  if (!report.idMovie) return;
+  this.router.navigate(['/movie-review', report.idMovie]);
+}
+
+
 }

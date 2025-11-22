@@ -51,6 +51,14 @@
       "status": "watched",
       "id": 5,
       "watchedDate": "2025-11-21T23:21:16.097Z"
+    },
+    {
+      "id": "8179",
+      "idProfile": 1,
+      "idMovie": 238,
+      "movieName": "El padrino",
+      "status": "towatch",
+      "watchedDate": "2025-11-22T07:00:01.635Z"
     }
   ],
   "comments": [
@@ -509,6 +517,13 @@
     {
       "id": "b89c",
       "title": "la cucaracha by sofia",
+      "overview": "",
+      "posterPath": "",
+      "isHidden": false
+    },
+    {
+      "id": "b02c",
+      "title": "bañeros 45",
       "overview": "",
       "posterPath": "",
       "isHidden": false
