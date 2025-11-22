@@ -294,10 +294,12 @@ Instalación y ejecución del proyecto
 git clone https://github.com/maurisebastian/Tp-Final-Labo-4.git
 cd Tp-Final-Labo-4
 ---
-Instalar dependencias del proyecto:
+2. Instalar dependencias del proyecto:
 
 npm install
+
 ---
+
 3. Iniciar JSON Server (solo si tu entorno lo requiere)
 
 Instalar JSON Server globalmente:
@@ -307,7 +309,9 @@ npm install -g json-server
 Ejecutar JSON Server en el puerto 3000:
 
 json-server --watch database/db.json --port 3000
+
 ---
+
 4. Iniciar la aplicación Angular
 ng serve -o
 
