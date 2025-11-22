@@ -127,3 +127,27 @@
   width: 100%;
   max-width: none; /* para que use toda la columna izquierda */
 }
+.button {
+  box-shadow: none;
+  background: #f5f5f5;
+  border-radius: 20px;
+  border: 1px solid #d0d0d0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 18px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+              transform 0.08s ease;
+}
+
+.button:hover {
+  background: #e9f0ff;
+  border-color: #4a8cff;
+  color: #2a4f96;
+  transform: translateY(-1px);
+}

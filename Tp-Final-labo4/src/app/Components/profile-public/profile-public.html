@@ -1,0 +1,24 @@
+<h2>Perfil de {{ profile.username }}</h2>
+
+<!-- Perfil privado -->
+<div *ngIf="profile.isPublic === false">
+  <p>Este perfil es privado.</p>
+  <button (click)="toggleFollow()">
+    {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+  </button>
+</div>
+
+<!-- Perfil visible -->
+@if (profile.isPublic !== false) {
+  <div>
+    <button (click)="toggleFollow()">
+      {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+    </button>
+
+    <p>Email: {{ profile.email }}</p>
+    <p>Géneros favoritos: {{ profile.favoriteGenres }}</p>
+
+    <h3>Listas de películas</h3>
+    <app-user-activity [userId]="profile.id"></app-user-activity>
+  </div>
+}
