@@ -1,5 +1,6 @@
-/* src/app/Components/genres/genres.css */
-
+/* =============================== */
+/*        CONTENEDOR GENERAL       */
+/* =============================== */
 .favorite-movies-page {
   max-width: 1200px;
   margin: 40px auto 80px;
@@ -8,124 +9,162 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.favorite-movies-page h2 {
+.title {
   font-size: 28px;
-  margin-bottom: 8px;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
   color: #b3b3b3;
+  font-size: 16px;
+  max-width: 650px;
 }
 
+/* =============================== */
+/*           ERRORES               */
+/* =============================== */
 .alert.error {
-  background-color: rgba(255, 77, 77, 0.1);
-  border: 1px solid #ff4d4d;
+  background-color: rgba(255, 77, 77, 0.12);
+  border: 1px solid rgba(255, 77, 77, 0.55);
   color: #ffb3b3;
-  padding: 10px 14px;
-  border-radius: 8px;
-  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 18px;
   font-size: 14px;
 }
 
+/* =============================== */
+/*              GRID               */
+/* =============================== */
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
+  gap: 22px;
   margin-bottom: 24px;
 }
 
+/* =============================== */
+/*        TARJETAS DE PELI         */
+/* =============================== */
 .movie-card {
   position: relative;
   cursor: pointer;
   border-radius: 18px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  background: rgba(20, 20, 20, 0.65);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.45);
 }
 
 .movie-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 16px 28px rgba(0,0,0,0.55);
+  filter: brightness(1.08);
 }
 
-.movie-card img {
-  display: block;
+.movie-poster {
   width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
 }
 
+/* ------------------------------- */
+/*       TEXTO DE LA TARJETA       */
+/* ------------------------------- */
 .movie-card__info {
-  padding: 10px 12px 14px;
+  padding: 12px 12px 16px;
 }
 
-.movie-card__info h3 {
-  font-size: 14px;
+.movie-title {
+  font-size: 15px;
+  font-weight: 600;
   margin: 0 0 4px;
 }
 
-.movie-card__info p {
+.movie-rating {
   font-size: 13px;
   margin: 0;
-  color: #d0d0d0;
+  color: #cfd0d3;
 }
 
+/* ------------------------------- */
+/*         SELLO SELECTED          */
+/* ------------------------------- */
 .movie-card-badge {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(74, 140, 255, 0.95);
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, #4a8cff, #88a8ff);
   color: #fff;
   font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 999px;
+  padding: 6px 12px;
+  border-radius: 12px;
   font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }
 
-.selection-info {
-  margin-top: 1rem;
-  font-size: 14px;
-  color: #e5e5e5;
-}
-
+/* ------------------------------- */
+/*    EFECTO DE SELECCIÓN TOTAL    */
+/* ------------------------------- */
 .movie-card.selected {
   outline: 4px solid #4a8cff;
-  transform: scale(1.04);
+  transform: scale(1.05);
+  box-shadow: 0 18px 34px rgba(0,0,0,0.65);
 }
 
 .movie-card.selected img {
-  filter: brightness(1.05);
+  filter: brightness(1.12);
 }
 
+/* =============================== */
+/*        CONTADOR DE PELIS        */
+/* =============================== */
+.selection-info {
+  margin-top: 1rem;
+  font-size: 15px;
+  color: #e5e5e5;
+}
+
+/* =============================== */
+/*              BOTONES            */
+/* =============================== */
+.buttons-row {
+  margin-top: 24px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Botón principal */
 .btn-primary {
-  padding: 12px 26px;
+  padding: 12px 28px;
   border-radius: 999px;
   border: none;
   background: linear-gradient(135deg, #4a8cff, #6f8cff);
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.35);
 }
 
 .btn-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: default;
 }
 
-.buttons-row {
-  margin-top: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
+/* Botón secundario */
 .btn-alt {
-  padding: 10px 22px;
+  padding: 10px 24px;
   border-radius: 999px;
   border: none;
   background-color: #5bc0eb;
@@ -133,8 +172,32 @@
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
+  transition: 0.25s ease;
 }
+
 .btn-alt:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+/* =============================== */
+/*           RESPONSIVE            */
+/* =============================== */
+@media (max-width: 600px) {
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 18px;
+  }
+
+  .movie-poster {
+    height: 200px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
 }

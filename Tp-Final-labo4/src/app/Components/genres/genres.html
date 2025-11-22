@@ -1,13 +1,18 @@
 <app-top-bar></app-top-bar>
 
 <div class="favorite-movies-page">
-  <h2>Elegí tus películas favoritas 🎬</h2>
+
+  <h2 class="title">Elegí tus películas favoritas 🎬</h2>
+
   <p class="subtitle">
-    Vamos a usar estas elecciones para calcular tus géneros favoritos
-    y mostrarte mejores sugerencias.
+    Vamos a usar tus elecciones para detectar tus géneros preferidos
+    y recomendarte películas más acertadas 😊
   </p>
 
-  <!-- TARJETAS -->
+  <!-- ============================== -->
+  <!--       GRID DE PELÍCULAS        -->
+  <!-- ============================== -->
+
   <div class="movies-grid">
     @for (movie of movies; track movie.id) {
 
@@ -15,20 +20,24 @@
            [class.selected]="isSelected(movie)"
            (click)="toggleMovie(movie)">
 
+        <!-- Seleccionada -->
         @if (isSelected(movie)) {
           <div class="movie-card-badge">
             ✓ Seleccionada
           </div>
         }
 
+        <!-- Poster -->
         <img
+          class="movie-poster"
           [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
           [alt]="movie.title"
         />
 
+        <!-- Datos -->
         <div class="movie-card__info">
-          <h3>{{ movie.title }}</h3>
-          <p>Puntuación: {{ movie.vote_average }}</p>
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <p class="movie-rating">⭐ {{ movie.vote_average }}</p>
         </div>
 
       </div>
@@ -36,25 +45,43 @@
     }
   </div>
 
+
+  <!-- ============================== -->
+  <!--        SELECCIÓN Y ERRORES     -->
+  <!-- ============================== -->
+
   <div class="selection-info">
-    Películas seleccionadas: {{ selectedMovieIds.size }}
+    Películas seleccionadas: <strong>{{ selectedMovieIds.size }}</strong>
   </div>
 
   @if (errorMsg) {
     <div class="alert error">{{ errorMsg }}</div>
   }
 
+
+  <!-- ============================== -->
+  <!--             BOTONES            -->
+  <!-- ============================== -->
+
   <div class="buttons-row">
-    <button class="btn-alt" type="button" (click)="loadRandomMovies(true)">
+
+    <!-- Mezclar sin perder selección -->
+    <button class="btn-alt"
+            type="button"
+            (click)="loadRandomMovies(true)">
       Ver otras películas
     </button>
 
-    <button class="btn-primary" type="button"
+    <!-- Guardar -->
+    <button class="btn-primary"
+            type="button"
             (click)="savePreferences()"
             [disabled]="selectedMovieIds.size === 0 || isSaving">
-      Guardar preferencias
+      {{ isSaving ? "Guardando..." : "Guardar preferencias" }}
     </button>
+
   </div>
+
 </div>
 
 <app-footer></app-footer>

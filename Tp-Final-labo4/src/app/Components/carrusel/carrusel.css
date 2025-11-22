@@ -1,138 +1,143 @@
-/* ======== CONTENEDOR GENERAL ======== */
+/* ================================
+   CONTENEDOR GENERAL DEL CARRUSEL
+   ================================ */
 .movie-carousel {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 60px 20px 40px;
+  padding: 40px 0 20px;
   font-family: "Segoe UI", Arial, sans-serif;
-  text-align: center;
+  text-align: left;
 }
 
-/* Título elegante */
+/* ================================
+   TÍTULO DE SECCIÓN
+   ================================ */
 .section-title {
-  font-size: 28px;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #eaeaea;
-  margin-bottom: 35px;
+  color: #ffffff;
+  margin-bottom: 18px;
+  padding-left: 12px;
+  border-left: 5px solid #84bbf3;
 }
 
-
-/* ======== LISTA HORIZONTAL ======== */
+/* ================================
+   CONTENEDOR DEL CARRUSEL
+   ================================ */
 .movie-list-container {
+  position: relative;
   overflow: hidden;
   width: 100%;
-  padding: 10px 0;
 }
 
 .movie-list {
   display: flex;
-  gap: 25px;
-  transition: transform 0.3s ease-in-out; 
+  gap: 22px;
+  transition: transform 0.35s ease;
+  padding: 8px 4px;
 }
 
-
-/* ======== TARJETAS DE PELÍCULA ======== */
+/* ================================
+   TARJETAS DE PELÍCULA
+   ================================ */
 .movie-item {
-  width: 165px;
+  width: 150px;
   flex-shrink: 0;
-  text-align: center;
   position: relative;
+  text-align: center;
   transition: transform 0.25s ease, filter 0.25s ease;
 }
 
 .movie-item:hover {
-  transform: translateY(-6px);
-  filter: brightness(1.1);
+  transform: translateY(-6px) scale(1.02);
+  filter: brightness(1.12);
 }
 
 .movie-item img {
   width: 100%;
-  height: 245px;
+  height: 220px;
   border-radius: 14px;
   object-fit: cover;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
 }
 
-
-/* ======== RANKING (#1 #2 #3) ======== */
+/* ================================
+   RANKING (solo top-rated)
+   ================================ */
 .ranking {
   position: absolute;
   top: 8px;
-  left: 10px;
+  left: 8px;
   background: linear-gradient(135deg, #4a8cff, #6baaff);
-  color: white;
   padding: 6px 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
-
-/* ======== TÍTULO ======== */
+/* ================================
+   TÍTULO DE PELÍCULA
+   ================================ */
 .movie-title-link p {
   margin-top: 12px;
-  font-size: 15px;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #eaeaea;
-  transition: color 0.2s ease;
+  transition: color 0.25s ease;
 }
 
 .movie-title-link:hover p {
-  color: #4a8cff;
+  color: #84bbf3;
 }
 
-
-/* ======== PUNTUACIÓN ======== */
-.text-muted {
-  font-size: 13px;
-  color: #bfbfbf !important;
-}
-
-
-/* ======== FLECHAS DEL CARRUSEL ======== */
+/* ================================
+   BOTONES DE NAVEGACIÓN
+   ================================ */
 .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  background-color: rgba(255,255,255,0.95);
-  border-radius: 50%;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  width: 46px;
+  height: 46px;
   border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
   cursor: pointer;
-  font-size: 24px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  z-index: 10;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  font-size: 22px;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  z-index: 5;
 }
 
-.carousel-arrow:hover {
-  background-color: #fff;
+.carousel-arrow:hover:not(:disabled) {
+  background: #ffffff;
   transform: translateY(-50%) scale(1.12);
-}
-
-.left-arrow {
-  left: -15px;
-}
-
-.right-arrow {
-  right: -15px;
 }
 
 .carousel-arrow:disabled {
   opacity: 0.35;
   cursor: default;
-  transform: translateY(-50%);
 }
 
+.left-arrow {
+  left: -10px;
+}
 
-/* ======== RESPONSIVE ======== */
+.right-arrow {
+  right: -10px;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
 @media (max-width: 900px) {
   .movie-item {
-    width: 150px;
+    width: 135px;
   }
   .movie-item img {
-    height: 220px;
+    height: 200px;
   }
 }
 
@@ -141,98 +146,9 @@
     display: none;
   }
   .movie-item {
-    width: 135px;
+    width: 120px;
   }
   .movie-item img {
-    height: 200px;
-  }
-
-}
-
-/* =============================
-   RECOMENDADAS PARA VOS
-   ============================= */
-
-.recommended-section {
-  max-width: 1280px;
-  margin: 30px auto 60px;
-  padding: 0 20px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  text-align: left;
-}
-
-.recommended-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #eaeaea;
-  margin-bottom: 4px;
-}
-
-.recommended-subtitle {
-  font-size: 14px;
-  color: #bfbfbf;
-  margin-bottom: 20px;
-}
-
-.recommended-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 18px;
-}
-
-.recommended-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: rgba(10, 10, 10, 0.6);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  cursor: pointer;
-}
-
-.recommended-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
-  filter: brightness(1.03);
-}
-
-.recommended-image-wrapper {
-  width: 100%;
-  height: 210px;
-  overflow: hidden;
-}
-
-.recommended-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.recommended-info {
-  padding: 10px 12px 12px;
-}
-
-.recommended-info h4 {
-  font-size: 14px;
-  margin: 0 0 4px;
-  color: #f5f5f5;
-}
-
-.recommended-info p {
-  font-size: 13px;
-  margin: 0;
-  color: #cfcfcf;
-}
-
-@media (max-width: 600px) {
-  .recommended-section {
-    margin-top: 24px;
-  }
-
-  .recommended-title {
-    font-size: 20px;
+    height: 180px;
   }
 }

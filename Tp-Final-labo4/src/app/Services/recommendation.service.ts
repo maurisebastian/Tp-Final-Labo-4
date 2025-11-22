@@ -1,80 +1,57 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { ProfileService } from './profile.service';
+import { Injectable, inject } from '@angular/core';
+import { Observable, combineLatest, map } from 'rxjs';
+import { MovieActivity } from './movie-activity';
+import { TmdbService } from './tmdb.service';
+import { AdminMoviesService } from './movies-service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class RecommendationService {
-  private tmdbBase = environment.tmdbApiBase;
-  private key = environment.tmdbApiKey;
+  private activityService = inject(MovieActivity);
+  private tmdbService = inject(TmdbService);
+  private adminMoviesService = inject(AdminMoviesService);
 
-  constructor(
-    private http: HttpClient,
-    private profileService: ProfileService
-  ) {}
+  getRecommendationsForUser(profileId: number): Observable<any[]> {
+    return combineLatest([
+      this.activityService.getActivitiesByUser(profileId),
+      this.tmdbService.getTopRatedMovies(),
+      this.adminMoviesService.getAll()
+    ]).pipe(
+      map(([activities, tmdbTop, localMovies]) => {
 
-  private discoverByGenres(genreIds: number[], maxResults = 8): Observable<any[]> {
-    if (!genreIds || genreIds.length === 0) return of([]);
+        // IDs de películas que YA vio
+        const watchedIds = new Set(
+          activities
+            .filter(a => a.status === 'watched')
+            .map(a => a.idMovie)
+        );
 
-    const params = new HttpParams()
-      .set('api_key', this.key)
-      .set('with_genres', genreIds.join(','))
-      .set('sort_by', 'vote_average.desc')
-      .set('vote_count.gte', '50')
-      .set('language', 'es-ES')
-      .set('page', '1');
+        // TMDB
+        const tmdbMovies = (tmdbTop?.results || []).map((m: any) => ({
+          id: m.id,
+          title: m.title,
+          poster: m.poster_path
+            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+            : null,
+          genres: m.genre_ids || [],
+        }));
 
-    return this.http.get<any>(`${this.tmdbBase}/discover/movie`, { params }).pipe(
-      map(r => r?.results?.slice(0, maxResults) || []),
-      catchError(() => of([]))
-    );
-  }
+        // Local JSON-server
+        const local = localMovies.map((m: any) => ({
+          id: m.id,
+          title: m.title,
+          poster: m.poster || null,
+          genres: m.genres || [],
+        }));
 
-  private topRated(max = 12): Observable<any[]> {
-    const params = new HttpParams()
-      .set('api_key', this.key)
-      .set('language', 'es-ES');
+        const combined = [...tmdbMovies, ...local];
 
-    return this.http.get<any>(`${this.tmdbBase}/movie/top_rated`, { params }).pipe(
-      map(r => r?.results?.slice(0, max) || []),
-      catchError(() => of([]))
-    );
-  }
+        // Filtrar repetidos y ya vistos
+        const filtered = combined.filter(m => !watchedIds.has(m.id));
 
-  getRecommendationsForUser(userId: number, maxResults = 12): Observable<any[]> {
-    return this.profileService.getProfile(userId).pipe(
-      switchMap(profile => {
-        const favs = profile?.favorites || [];
-        const preferredGenres = profile?.preferredGenres || [];
-
-        if (preferredGenres.length > 0) {
-          return this.discoverByGenres(preferredGenres, maxResults);
-        }
-
-        if (favs.length > 0) {
-          const calls = favs.slice(0, 5).map(id => {
-            return this.http.get<any>(
-              `${this.tmdbBase}/movie/${id}`,
-              { params: new HttpParams().set('api_key', this.key).set('language', 'es-ES') }
-            ).pipe(catchError(() => of(null)));
-          });
-
-          return forkJoin(calls).pipe(
-            switchMap(detailsArr => {
-              const genres = Array.from(
-                new Set(detailsArr.filter(Boolean).flatMap((m: any) => m.genres.map((g: any) => g.id)))
-              ).slice(0, 3);
-
-              if (!genres.length) return this.topRated(maxResults);
-
-              return this.discoverByGenres(genres, maxResults);
-            })
-          );
-        }
-
-        return this.topRated(maxResults);
+        // Cortar a 12 resultados
+        return filtered.slice(0, 12);
       })
     );
   }

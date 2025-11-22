@@ -115,7 +115,7 @@ export class Signup {
   }
 
   // ======================
-  //  GETTERS CÓMODOS
+  //  GETTERS
   // ======================
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
@@ -124,7 +124,7 @@ export class Signup {
   get email() { return this.form.controls.email; }
 
   // ======================
-  //  VALIDADORES CUSTOM
+  //  VALIDADORES
   // ======================
   private minAgeValidator(minAge: number): ValidatorFn {
     return (control: AbstractControl) => {
@@ -162,7 +162,7 @@ export class Signup {
   }
 
   // ======================
-  //  HANDLERS DEL FORM
+  //  ENVÍO DE FORMULARIO
   // ======================
   onSignup(event?: Event) {
     if (event) event.preventDefault();
@@ -192,7 +192,6 @@ export class Signup {
         ...this.currentUser,
         ...formValue,
         role: this.currentUser.role,
-        // favoriteGenres se conserva tal como esté en currentUser
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
@@ -209,52 +208,56 @@ export class Signup {
         },
       });
 
-      // ----- MODO REGISTRO -----
-    } else {
-      const newUser: Profile = {
-        ...formValue,
-        role: 'user',
-         favoriteGenres: []
-        // favoriteGenres se van a elegir luego en otra pantalla
-      };
-
-      this.profileService
-        .checkUsernameAndEmail(username, email)
-        .subscribe({
-          next: ({ usernameExists, emailExists }) => {
-            if (usernameExists) {
-              this.signupError = 'El nombre de usuario ya está registrado.';
-              this.username.setErrors({ taken: true });
-              return;
-            }
-
-            if (emailExists) {
-              this.signupError = 'El email ya está registrado.';
-              this.email.setErrors({ taken: true });
-              return;
-            }
-
-            this.profileService.signup(newUser).subscribe({
-              next: (ok) => {
-                if (ok) {
-                  this.router.navigate(['/select-genres']);
-                } else {
-                  this.signupError = 'No se pudo registrar el usuario.';
-                }
-              },
-
-              error: () => {
-                this.signupError = 'No se pudo registrar el usuario.';
-              },
-            });
-          },
-          error: () => {
-            this.signupError = 'Error al validar usuario y email.';
-          },
-        });
+      return;
     }
+
+    // ----- MODO REGISTRO -----
+    const newUser: Profile = {
+      ...formValue,
+      role: 'user',
+      favoriteGenres: [], // se eligen luego
+    };
+
+    this.profileService
+      .checkUsernameAndEmail(username, email)
+      .subscribe({
+        next: ({ usernameExists, emailExists }) => {
+          if (usernameExists) {
+            this.signupError = 'El nombre de usuario ya está registrado.';
+            this.username.setErrors({ taken: true });
+            return;
+          }
+
+          if (emailExists) {
+            this.signupError = 'El email ya está registrado.';
+            this.email.setErrors({ taken: true });
+            return;
+          }
+
+          this.profileService.signup(newUser).subscribe({
+            next: (ok) => {
+              if (ok) {
+                // 🔥 DESPUÉS DEL REGISTRO, IR A ELEGIR GÉNEROS
+                this.router.navigate(['/select-genres']);
+              } else {
+                this.signupError = 'No se pudo registrar el usuario.';
+              }
+            },
+
+            error: () => {
+              this.signupError = 'No se pudo registrar el usuario.';
+            },
+          });
+        },
+        error: () => {
+          this.signupError = 'Error al validar usuario y email.';
+        },
+      });
   }
 
+  // ======================
+  // FORMATO CELULAR
+  // ======================
   onCelInput(event: any) {
     let value = event.target.value.replace(/[^0-9]/g, '');
     if (value.length > 10) value = value.slice(0, 10);

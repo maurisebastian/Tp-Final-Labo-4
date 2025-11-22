@@ -1,6 +1,8 @@
 <app-top-bar></app-top-bar>
 
 <div class="home-container">
+
+  <!-- BIENVENIDA -->
   <section class="welcome-section">
     @if (activeUserSignal()) {
       <h1>¡Bienvenida, {{ activeUserSignal()?.firstName || activeUserSignal()?.username }}! 🍿</h1>
@@ -15,9 +17,34 @@
     }
   </section>
 
+  <!-- ============================ -->
+  <!-- 🏅 CARRUSEL A — MÁS PUNTUADAS -->
+  <!-- ============================ -->
   <section class="carousel-section">
-    <app-carrusel></app-carrusel>
+    <h2 class="section-title">🏅 Las más puntuadas</h2>
+    <app-carrusel [movies]="topRatedMovies"></app-carrusel>
   </section>
+
+  <!-- ====================================== -->
+  <!-- ⭐ CARRUSEL B — RECOMENDADAS POR GÉNEROS -->
+  <!-- ====================================== -->
+  @if (recommendedMovies.length > 0) {
+    <section class="carousel-section">
+      <h2 class="section-title">⭐ Recomendadas según tus géneros favoritos</h2>
+      <app-carrusel [movies]="recommendedMovies"></app-carrusel>
+    </section>
+  }
+
+  <!-- ====================================== -->
+  <!-- 🔥 CARRUSEL C — POPULARES POR GÉNEROS -->
+  <!-- ====================================== -->
+  @if (popularByGenres.length > 0) {
+    <section class="carousel-section">
+      <h2 class="section-title">🔥 Populares según tus géneros favoritos</h2>
+      <app-carrusel [movies]="popularByGenres"></app-carrusel>
+    </section>
+  }
+
 </div>
 
 <app-footer></app-footer>

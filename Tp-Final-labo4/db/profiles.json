@@ -5,7 +5,7 @@
       "idReview": "sK1ndJF",
       "idProfile": "1d76",
       "comment": "te ganaste un like",
-      "id": 1
+      "id": "1"
     }
   ],
   "reviewLikes": [
@@ -13,19 +13,19 @@
       "idProfile": "21a8",
       "idReview": "gmTVN38",
       "date": "2025-11-21T17:47:48.635Z",
-      "id": 1
+      "id": "1"
     },
     {
       "idProfile": "21a8",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T17:51:14.370Z",
-      "id": 2
+      "id": "2"
     },
     {
       "idProfile": "1d76",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T22:22:09.235Z",
-      "id": 3
+      "id": "3"
     }
   ],
   "movieActivity": [
@@ -34,7 +34,7 @@
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "watched",
-      "id": 2,
+      "id": "2",
       "watchedDate": "2025-11-21T23:11:27.253Z"
     },
     {
@@ -42,7 +42,7 @@
       "idMovie": 240,
       "movieName": "El Padrino Parte II",
       "status": "watched",
-      "id": 4,
+      "id": "4",
       "watchedDate": "2025-11-21T23:21:15.339Z"
     },
     {
@@ -50,8 +50,32 @@
       "idMovie": 424,
       "movieName": "La lista de Schindler",
       "status": "watched",
-      "id": 5,
+      "id": "5",
       "watchedDate": "2025-11-21T23:21:16.097Z"
+    },
+    {
+      "id": "e17e",
+      "idProfile": 4e+26,
+      "idMovie": 601980,
+      "movieName": "Grisaia: Phantom Trigger The Animation",
+      "status": "towatch",
+      "watchedDate": null
+    },
+    {
+      "id": "73ca",
+      "idProfile": 4e+26,
+      "idMovie": 601980,
+      "movieName": "Grisaia: Phantom Trigger The Animation",
+      "status": "towatch",
+      "watchedDate": null
+    },
+    {
+      "id": "f6a4",
+      "idProfile": 4e+26,
+      "idMovie": 601980,
+      "movieName": "Grisaia: Phantom Trigger The Animation",
+      "status": "towatch",
+      "watchedDate": null
     }
   ],
   "comments": [
@@ -452,6 +476,36 @@
         18,
         80
       ]
+    },
+    {
+      "id": "4e26",
+      "username": "fernanda",
+      "password": "123456",
+      "date": "1980-02-04",
+      "cel": "2235752481",
+      "email": "fernanda_moyano@hotmail.com",
+      "firstName": "Fernanda",
+      "lastName": "Moyano",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "bd48",
+      "username": "ferchu",
+      "password": "123456",
+      "date": "1980-02-04",
+      "cel": "2235752481",
+      "email": "mfqaprogra@gmail.com",
+      "firstName": "Fernanda",
+      "lastName": "Moyano",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        36,
+        10749,
+        10751,
+        12
+      ]
     }
   ],
   "reviewReports": [
@@ -507,7 +561,7 @@
   ],
   "adminMovies": [
     {
-      "id": 1,
+      "id": "1",
       "tmdbId": 238,
       "title": "El padrino (destacada)",
       "overview": "Ejemplo de película administrada localmente.",

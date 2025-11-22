@@ -12,25 +12,28 @@ export class TmdbService {
   private baseUrl: string = 'https://api.themoviedb.org/3';
   private http = inject(HttpClient);
 
+  // 🔍 Buscar películas por texto
   searchMovies(query: string): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}`
     );
   }
 
+  // ⭐ Las más puntuadas
   getTopRatedMovies(): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=es-US&page=1`
     );
   }
 
+  // 📄 Detalle de película
   getMovieDetails(movieId: number): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/movie/${movieId}?api_key=${this.apiKey}&language=es-US`
     );
   }
 
-  /** 👉 NUEVO: Películas por géneros */
+  // 🎯 Recomendaciones por género del usuario (ordenadas por puntuación)
   getMoviesByGenres(genres: number[], page: number = 1): Observable<any> {
     const genreParam = genres.join(',');
 
@@ -41,11 +44,23 @@ export class TmdbService {
     );
   }
 
-  /** Esto es para la pantalla de selección */
+  // 🎲 Películas aleatorias (para selección de géneros)
   getRandomMovies(): Observable<any> {
     const randomPage = Math.floor(Math.random() * 20) + 1;
     return this.http.get(
       `${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=es-US&page=${randomPage}`
+    );
+  }
+
+  // 💥 NUEVO: POPULARES POR GÉNERO
+  getPopularByGenres(genres: number[], page: number = 1): Observable<any> {
+    const genreParam = genres.join(',');
+
+    return this.http.get(
+      `${this.baseUrl}/discover/movie?api_key=${this.apiKey}` +
+      `&language=es-US&sort_by=popularity.desc` +      // 👈 Popularidad
+      `&with_genres=${genreParam}` +
+      `&page=${page}`
     );
   }
 }

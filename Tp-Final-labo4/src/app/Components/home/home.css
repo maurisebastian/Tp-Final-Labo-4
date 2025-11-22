@@ -1,25 +1,102 @@
+/* ===========================
+   CONTENEDOR GENERAL
+   =========================== */
 .home-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 24px 16px 40px;
+  padding: 40px 20px 80px;
   color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  animation: fadeIn 0.6s ease-out;
 }
 
+/* ===========================
+   SECCIÓN DE BIENVENIDA
+   =========================== */
 .welcome-section {
-  margin-bottom: 24px;
   text-align: left;
+  padding: 20px 0 10px;
 }
 
 .welcome-section h1 {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #ffffff;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
-  opacity: 0.8;
-  font-size: 0.98rem;
+  opacity: 0.85;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  max-width: 700px;
+  color: #dcdcdc;
 }
 
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   SECCIÓN DE CARRUSEL
+   =========================== */
 .carousel-section {
-  margin-top: 16px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ===========================
+   TÍTULOS DE SECCIÓN
+   =========================== */
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  padding-left: 14px;
+  border-left: 6px solid #4a8cff;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 900px) {
+  .home-container {
+    padding: 32px 16px 60px;
+    gap: 3rem;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .welcome-section h1 {
+    font-size: 1.7rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    padding-left: 10px;
+  }
 }
