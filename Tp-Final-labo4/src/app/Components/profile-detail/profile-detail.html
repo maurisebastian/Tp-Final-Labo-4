@@ -4,7 +4,7 @@
 
 <div class="profile-page">
 
-  <!-- COLUMNA IZQUIERDA -->
+   <!-- COLUMNA IZQUIERDA -->
   <div class="left-column">
 
     <!-- Películas vistas y por ver -->
@@ -40,7 +40,24 @@
       </div>
     }
 
-  </div>
+    <!-- MIS REPORTES (solo los ve el usuario) -->
+    <h3 class="section-title">Mis reportes</h3>
+
+    @if (!myReports || myReports.length === 0) {
+      <p class="empty-reviews">Todavía no realizaste ningún reporte.</p>
+    } @else {
+      <ul class="report-list">
+        @for (report of myReports; track report.id) {
+          <li class="report-item">
+            <p><strong>Motivo:</strong> {{ report.reason }}</p>
+            <p><strong>Fecha:</strong> {{ report.createdAt | date:'short' }}</p>
+            <p><strong>Estado:</strong> {{ report.status }}</p>
+          </li>
+        }
+      </ul>
+    }
+
+  </div> 
 
   <!-- COLUMNA DERECHA -->
   <div class="right-column">

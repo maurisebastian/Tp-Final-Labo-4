@@ -1,3 +1,4 @@
+// src/app/Components/profile-detail/profile-detail.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { Profile } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service';
@@ -7,10 +8,15 @@ import { Footer } from "../../Shared/footer/footer";
 import { TmdbService } from '../../Services/tmdb.service';
 import { AuthService } from '../../auth/auth-service';
 import { UserActivity } from "../user-activity/user-activity";
+import { ReviewReportService } from '../../Services/review-report.service';
+import { ReviewReport } from '../../Interfaces/profilein';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-profile-detail',
-  imports: [TopBar, Footer, UserActivity],
+  standalone: true,
+  imports: [TopBar, Footer, UserActivity, DatePipe],
   templateUrl: './profile-detail.html',
   styleUrl: './profile-detail.css',
 })
@@ -20,30 +26,31 @@ export class ProfileDetail implements OnInit {
   private tmdbService = inject(TmdbService);
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
+  private reviewReportService = inject(ReviewReportService);
 
-  [x: string]: any;
   userProfile: Profile | undefined;
   reviews: any[] = [];
+  myReports: ReviewReport[] = [];
   userLoggedIn: boolean = false;
-
 
   ngOnInit(): void {
     this.loadUserProfile();
   }
 
- loadUserProfile() {
-  const user = this.authService.getActiveUser()();
-  
-  if (user) {
-    this.userProfile = user;
-    this.userLoggedIn = true;
+  loadUserProfile() {
+    const userSignal = this.authService.getActiveUser(); // signal
+    const user = userSignal();
 
-    this.loadUserReviews();
+    if (user) {
+      this.userProfile = user;
+      this.userLoggedIn = true;
 
-  } else {
-    this.userLoggedIn = false;
+      this.loadUserReviews();
+      this.loadUserReports(user.id as number);
+    } else {
+      this.userLoggedIn = false;
+    }
   }
-}
 
   toggleVisibility() {
     if (!this.userProfile?.id) return;
@@ -62,24 +69,33 @@ export class ProfileDetail implements OnInit {
   }
 
   loadUserReviews() {
-  if (this.userProfile && this.userProfile.id) {
-    const profileId = this.userProfile.id;
+    if (this.userProfile && this.userProfile.id) {
+      const profileId = this.userProfile.id;
 
-    this.reviewService.getReviewsByUserId(profileId).subscribe((reviews) => {
-      
-      // Guardamos las reseñas
-      this.reviews = reviews;
+      this.reviewService.getReviewsByUserId(profileId).subscribe((reviews) => {
+        this.reviews = reviews;
 
-      // Por cada reseña pedimos el nombre de la película
-      this.reviews.forEach(review => {
-        this.tmdbService.getMovieDetails(review.idMovie).subscribe(movie => {
-          review.movieName = movie.title;   //  Guardamos el título
+        this.reviews.forEach(review => {
+          this.tmdbService.getMovieDetails(review.idMovie).subscribe(movie => {
+            review.movieName = movie.title;
+          });
         });
       });
+    }
+  }
 
+  // 🔹 Mis reportes (privados)
+  loadUserReports(profileId: number) {
+    this.reviewReportService.getReportsByUser(profileId).subscribe({
+      next: (reports) => {
+        this.myReports = reports;
+      },
+      error: (err) => {
+        console.error('Error al cargar los reportes del usuario:', err);
+        this.myReports = [];
+      }
     });
   }
-}
 
   deleteReview(reviewId: number) {
     this.reviewService.deleteReviewById(reviewId).subscribe(
@@ -91,6 +107,4 @@ export class ProfileDetail implements OnInit {
       }
     );
   }
-
-
 }

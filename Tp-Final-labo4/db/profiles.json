@@ -5,7 +5,13 @@
       "idReview": "sK1ndJF",
       "idProfile": "1d76",
       "comment": "te ganaste un like",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "c945",
+      "idReview": "sK1ndJF",
+      "idProfile": "7d00",
+      "comment": "me aprece q esto no esta bueno"
     }
   ],
   "reviewLikes": [
@@ -13,19 +19,19 @@
       "idProfile": "21a8",
       "idReview": "gmTVN38",
       "date": "2025-11-21T17:47:48.635Z",
-      "id": 1
+      "id": "1"
     },
     {
       "idProfile": "21a8",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T17:51:14.370Z",
-      "id": 2
+      "id": "2"
     },
     {
       "idProfile": "1d76",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T22:22:09.235Z",
-      "id": 3
+      "id": "3"
     }
   ],
   "movieActivity": [
@@ -34,7 +40,7 @@
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "watched",
-      "id": 2,
+      "id": "2",
       "watchedDate": "2025-11-21T23:11:27.253Z"
     },
     {
@@ -42,7 +48,7 @@
       "idMovie": 240,
       "movieName": "El Padrino Parte II",
       "status": "watched",
-      "id": 4,
+      "id": "4",
       "watchedDate": "2025-11-21T23:21:15.339Z"
     },
     {
@@ -50,7 +56,7 @@
       "idMovie": 424,
       "movieName": "La lista de Schindler",
       "status": "watched",
-      "id": 5,
+      "id": "5",
       "watchedDate": "2025-11-21T23:21:16.097Z"
     },
     {
@@ -460,7 +466,20 @@
         35,
         18,
         80
-      ]
+      ],
+      "isPublic": false
+    },
+    {
+      "id": "7d00",
+      "username": "sofia",
+      "password": "fakepass",
+      "date": "2013-10-31",
+      "cel": "5244564563",
+      "email": "sofikal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
     }
   ],
   "reviewReports": [
@@ -512,11 +531,31 @@
       "reason": "dfgdfgdfg",
       "createdAt": "2025-11-22T04:39:18.671Z",
       "status": "pending"
+    },
+    {
+      "id": "d995",
+      "type": "review",
+      "idReview": "sK1ndJF",
+      "idMovie": 278,
+      "reporterId": "f4ee",
+      "reason": "no me gusto nada",
+      "createdAt": "2025-11-22T23:03:23.139Z",
+      "status": "resolved"
+    },
+    {
+      "id": "00ec",
+      "type": "review",
+      "idReview": "sK1ndJF",
+      "idMovie": 278,
+      "reporterId": "7d00",
+      "reason": "una cagada",
+      "createdAt": "2025-11-22T23:16:44.820Z",
+      "status": "resolved"
     }
   ],
   "adminMovies": [
     {
-      "id": 1,
+      "id": "1",
       "tmdbId": 238,
       "title": "El padrino (destacada)",
       "overview": "Ejemplo de película administrada localmente.",

@@ -219,15 +219,13 @@ export class ReviewList {
     );
   }
 
-  reportReview(review: any) {
+    reportReview(review: any) {
     if (!this.userLoggedIn || this.userId == null) {
       alert('Debes estar logueado para reportar una reseña.');
       return;
     }
 
-    const reason = prompt(
-      '¿Por qué querés reportar esta reseña?'
-    );
+    const reason = prompt('¿Por qué querés reportar esta reseña?');
     if (!reason || !reason.trim()) return;
 
     this.reportService
@@ -240,8 +238,7 @@ export class ReviewList {
         reason: reason.trim(),
       })
       .subscribe({
-        next: () =>
-          alert('Tu reporte fue enviado al administrador.'),
+        next: () => alert('Tu reporte fue enviado al administrador.'),
         error: (err) => {
           console.error('Error al reportar reseña', err);
           alert('Ocurrió un error al enviar el reporte.');
@@ -255,9 +252,7 @@ export class ReviewList {
       return;
     }
 
-    const reason = prompt(
-      '¿Por qué querés reportar este comentario?'
-    );
+    const reason = prompt('¿Por qué querés reportar este comentario?');
     if (!reason || !reason.trim()) return;
 
     this.reportService
@@ -270,8 +265,7 @@ export class ReviewList {
         reason: reason.trim(),
       })
       .subscribe({
-        next: () =>
-          alert('Tu reporte fue enviado al administrador.'),
+        next: () => alert('Tu reporte fue enviado al administrador.'),
         error: (err) => {
           console.error('Error al reportar comentario', err);
           alert('Ocurrió un error al enviar el reporte.');
