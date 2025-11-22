@@ -288,3 +288,41 @@ Integración TMDB + base interna.
 Formularios avanzados con validaciones complejas.
 
 Persistencia y manejo de sesión.
+---
+Instalación y ejecución del proyecto
+1. Clonar el repositorio
+git clone https://github.com/maurisebastian/Tp-Final-Labo-4.git
+cd Tp-Final-Labo-4
+---
+Instalar dependencias del proyecto:
+
+npm install
+---
+3. Iniciar JSON Server (solo si tu entorno lo requiere)
+
+Instalar JSON Server globalmente:
+
+npm install -g json-server
+
+Ejecutar JSON Server en el puerto 3000:
+
+json-server --watch database/db.json --port 3000
+---
+4. Iniciar la aplicación Angular
+ng serve -o
+
+Entrá a http://localhost:4200
+
+---
+
+Creá una cuenta O utilizá las credenciales de administrador si están definidas.
+
+cuanta admin:
+
+User name: admin
+
+Password: fakepass
+
+¡Disfrutá del proyecto!
+
+
