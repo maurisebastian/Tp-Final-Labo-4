@@ -1,0 +1,104 @@
+/* Fondo general */
+.admin-reports-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #e6e6e6; /* texto claro */
+  font-family: system-ui, sans-serif;
+}
+
+/* Título */
+.admin-reports-container h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+/* Lista de reportes */
+.report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Tarjeta */
+.report-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Texto dentro de cada card */
+.report-card p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* Etiquetas */
+.report-card strong {
+  color: #333;
+}
+
+/* Acciones (botones) */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* Botón Resolved */
+.actions .ok {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+/* Botón Dismissed */
+.actions .cancel {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+/* Hover */
+.actions .ok:hover {
+  background-color: #3d8b40;
+}
+
+.actions .cancel:hover {
+  background-color: #c0392b;
+}
+
+/* Evitar el feo highlight azul */
+::selection {
+  background: rgba(255, 255, 255, 0.3);
+  color: black;
+}
+
+.link-movie {
+  background: transparent;
+  border: none;
+  color: #1976d2;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font: inherit;
+}
+.link-movie:hover {
+  color: #0d47a1;
+}

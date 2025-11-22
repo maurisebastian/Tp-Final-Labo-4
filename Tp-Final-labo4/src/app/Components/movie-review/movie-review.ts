@@ -30,16 +30,19 @@ export class MovieReview implements OnInit {
 
   ngOnInit() {
     const user = this.auth.getActiveUser()();
-    this.userId = user?.id || null;
+    this.userId = user?.id ? Number(user.id) : null;
+
 
     this.route.params.subscribe(params => {
-      this.movieId = +params['id'];
+      this.movieId = Number(params['id'] ?? 0);
       this.loadMovieDetails();
       this.loadActivity();
     });
   }
 
   loadMovieDetails() {
+    if (!this.movieId) return;
+
     this.tmdbService.getMovieDetails(this.movieId).subscribe(
       (response) => (this.movieDetails = response),
       (error) => console.error('Error al obtener los detalles:', error)
@@ -47,7 +50,7 @@ export class MovieReview implements OnInit {
   }
 
   loadActivity() {
-    if (!this.userId) return;
+    if (!this.userId || !this.movieId) return;
 
     this.movieActivity.getActivitiesByUser(this.userId).subscribe(list => {
       this.activity = list.find(a => a.idMovie === this.movieId) || null;
@@ -55,7 +58,7 @@ export class MovieReview implements OnInit {
   }
 
   markAs(status: 'watched' | 'towatch') {
-    if (!this.userId) return;
+    if (!this.userId || !this.movieId) return;
 
     if (!this.activity) {
       const newAct: MovieActivityInterface = {

@@ -7,7 +7,7 @@ import { ProfileDetail } from './Components/profile-detail/profile-detail';
 import { MovieSearch } from './Components/movie-search/movie-search';
 import { userGuard } from './auth/auth-guard-user';
 import { adminGuard } from './auth/auth-guard-admin';
-
+import { AdminMoviesComponent } from './Components/admin-movies/admin-movies';
 import { AdminHomeComponent } from './Components/admin-home/admin-home';
 import { AdminPanel } from './Components/admin-panel/admin-panel';            // SOLO usuarios
 import { AdminUserEdit } from './Components/admin-user-edit/admin-user-edit';
@@ -37,15 +37,20 @@ export const routes: Routes = [
 
   // Edición de usuario
   { path: 'admin/user/:id', component: AdminUserEdit, canActivate: [adminGuard], title: 'admin edit' },
-  {
+  //peliculas administradas por el admin
+    {
+    path: 'admin/movies',
+    component: AdminMoviesComponent,
+  },
+
+ {
   path: 'admin/reports',
   canActivate: [adminGuard],
   title: 'Admin - Reportes',
   loadComponent: () =>
     import('./Components/admin-reports/admin-reports')
-      .then(m => m.AdminReports)
+      .then(m => m.AdminReports),
 },
-
 
 
   {

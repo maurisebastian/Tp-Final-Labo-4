@@ -69,7 +69,7 @@
         </span>
 
       </div>
-      <button class="btn-like" (click)="toggleLike(review)">
+            <button class="btn-like" (click)="toggleLike(review)">
         @if (review.likedByUser) {
         ❤️ {{ review.likesCount }}
         } @else {
@@ -77,11 +77,17 @@
         }
       </button>
 
-      @if (review.idProfile === userId) {
+      <button class="btn-report" (click)="reportReview(review)">
+        🚩 Reportar reseña
+      </button>
+
+            @if (review.idProfile === userId || isAdmin) {
       <button class="btn-delete" (click)="deleteReview(review.id)">
         Eliminar
       </button>
       }
+
+
 
     </div>
 
@@ -95,12 +101,21 @@
       <p class="no-comments">No hay comentarios aún.</p>
       }
 
-      @for (comment of review.comments; track comment.id) {
+            @for (comment of review.comments; track comment.id) {
       <div class="comment-item">
         <strong>{{ comment.userName || comment.idProfile }}:</strong>
         <span>{{ comment.comment }}</span>
+
+        <button
+          type="button"
+          class="btn-report-comment"
+          (click)="reportComment(review, comment)"
+        >
+          🚩
+        </button>
       </div>
       }
+
 
       @if (userLoggedIn) {
       <form (submit)="addComment($event, review)">

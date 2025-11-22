@@ -158,6 +158,20 @@
       "score": 8,
       "description": "con un final que te deja pensando. Totalmente recomendada",
       "id": "BGXZOPd"
+    },
+    {
+      "id": "5e1b",
+      "idProfile": "f4ee",
+      "idMovie": 240,
+      "score": 7,
+      "description": "muy buena!!"
+    },
+    {
+      "id": "4c30",
+      "idProfile": "f4ee",
+      "idMovie": 240,
+      "score": 7,
+      "description": "utfutruu"
     }
   ],
   "profiles": [
@@ -414,6 +428,90 @@
         10749,
         878
       ]
+    },
+    {
+      "id": "f4ee",
+      "username": "dasdasd",
+      "password": "fakepass",
+      "date": "2013-11-22",
+      "cel": "5632456345",
+      "email": "dsadasd@gmail.com",
+      "firstName": "dsadas",
+      "lastName": "sadasd",
+      "role": "user",
+      "favoriteGenres": [
+        35,
+        18,
+        80
+      ]
+    }
+  ],
+  "reviewReports": [
+    {
+      "id": "demo1",
+      "type": "review",
+      "idReview": 1,
+      "idComment": null,
+      "reporterId": 7101,
+      "reason": "Ejemplo de reporte de reseña",
+      "createdAt": "2025-11-21T18:30:00.000Z",
+      "status": "resolved"
+    },
+    {
+      "id": "471e",
+      "type": "review",
+      "idReview": "734f",
+      "reporterId": "f4ee",
+      "reason": "me parece que no se entiende lo que dice",
+      "createdAt": "2025-11-22T03:26:00.294Z",
+      "status": "dismissed"
+    },
+    {
+      "id": "7c34",
+      "type": "review",
+      "idReview": "sK1ndJF",
+      "idMovie": 278,
+      "reporterId": "f4ee",
+      "reason": "no me gusto",
+      "createdAt": "2025-11-22T04:32:31.066Z",
+      "status": "pending"
+    },
+    {
+      "id": "2ab6",
+      "type": "review",
+      "idReview": "4c30",
+      "idMovie": 240,
+      "reporterId": "f4ee",
+      "reason": "no me gustohdgffgh",
+      "createdAt": "2025-11-22T04:34:28.663Z",
+      "status": "pending"
+    },
+    {
+      "id": "8a0b",
+      "type": "review",
+      "idReview": "734f",
+      "idMovie": 389,
+      "reporterId": "f4ee",
+      "reason": "dfgdfgdfg",
+      "createdAt": "2025-11-22T04:39:18.671Z",
+      "status": "pending"
+    }
+  ],
+  "adminMovies": [
+    {
+      "id": 1,
+      "tmdbId": 238,
+      "title": "El padrino (destacada)",
+      "overview": "Ejemplo de película administrada localmente.",
+      "posterPath": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "isHidden": false
+    },
+    {
+      "id": "b89c",
+      "title": "la cucaracha by sofia",
+      "overview": "",
+      "posterPath": "",
+      "isHidden": false
     }
   ]
 }

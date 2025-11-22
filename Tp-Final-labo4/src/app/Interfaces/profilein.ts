@@ -1,7 +1,7 @@
 export type Role = 'superadmin' | 'admin' | 'user';
 
 export interface Profile {
-  id?: any;               // string 
+  id?: string | number;
   username: string;
   password: string;
   date?: string;
@@ -13,34 +13,37 @@ export interface Profile {
   favoriteGenres?: number[];
 }
 
-
-
 export interface Review {
-  id?: number;
-  idProfile: number;
+  id?: string | number;
+  idProfile: string | number;
   idMovie: number;
   score: number;
   description: string;
   userName?: string;
   movieName?: string;
-
-   likesCount?: number;      // cantidad de likes
-  likedByUser?: boolean;    // si el usuario actual dio like
-
- comments?: ReviewComment[];  
+  likesCount?: number;
+  likedByUser?: boolean;
+  comments?: ReviewComment[];
 }
 
 export interface ReviewComment {
-  id?: number;
-  idReview: number;    // Review relacionada
-  idProfile: number;   // Usuario que comenta
-  comment: string;     // Texto del comentario
-  date?: string;       // Opcional
-  userName?: string;   // Opcional, por conveniencia en el front
-
+  id?: string | number;
+  idReview: string | number;
+  idProfile: string | number;
+  comment: string;
+  date?: string;
+  userName?: string;
   likesCount?: number;
 }
 
-
-
-
+export interface ReviewReport {
+  id?: string | number;
+  type: 'review' | 'comment';
+  idReview?: string | number;
+  idComment?: string | number;
+  idMovie?: number;
+  reporterId: string | number;
+  reason: string;
+  createdAt: string;
+  status: 'pending' | 'resolved' | 'dismissed';
+}

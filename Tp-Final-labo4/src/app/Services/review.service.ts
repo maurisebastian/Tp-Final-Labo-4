@@ -4,10 +4,9 @@ import { Observable, catchError, of } from 'rxjs';
 import { Review } from '../Interfaces/profilein';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReviewService {
-
   private baseUrl = 'http://localhost:3000/comments';
   private http = inject(HttpClient);
 
@@ -16,12 +15,12 @@ export class ReviewService {
     return this.http.get<Review[]>(`${this.baseUrl}?idMovie=${movieId}`);
   }
 
-  //  Agregar reseña (ReviewList)
+  // Agregar reseña (ReviewList)
   addReview(reviewData: Review): Observable<Review> {
     return this.http.post<Review>(this.baseUrl, reviewData);
   }
 
-  // Eliminar reseña por ID (lo usan ReviewList y AdminPanel)
+  // Eliminar reseña por ID (lo usan ReviewList y AdminReviews)
   deleteReviewById(reviewId: string | number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${reviewId}`);
   }
@@ -31,10 +30,15 @@ export class ReviewService {
     return this.http.get<Review[]>(`${this.baseUrl}?idProfile=${profileId}`);
   }
 
-  // TODAS las reseñas (para el AdminPanel)
+  // TODAS las reseñas (para AdminReviews)
   getAllReviews(): Observable<Review[]> {
     return this.http.get<Review[]>(this.baseUrl).pipe(
-      catchError(() => of([]))
+      catchError(() => of([])),
     );
+  }
+
+  // Obtener UNA reseña por ID (usado en admin-reports)
+  getReviewById(id: string | number): Observable<Review> {
+    return this.http.get<Review>(`${this.baseUrl}/${id}`);
   }
 }

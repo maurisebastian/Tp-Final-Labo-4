@@ -223,3 +223,18 @@ form {
     grid-template-columns: 1fr;
   }
 }
+
+.btn-report,
+.btn-report-comment {
+  background: transparent;
+  border: none;
+  color: #e53935;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.btn-report:hover,
+.btn-report-comment:hover {
+  text-decoration: underline;
+}

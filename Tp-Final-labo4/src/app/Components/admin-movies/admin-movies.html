@@ -1,0 +1,108 @@
+<main class="admin-movies-page">
+
+  <section class="admin-movies-header">
+    <div>
+      <h2>Administrar películas</h2>
+      <p>Agregá, ocultá o eliminá películas administradas por el sistema.</p>
+    </div>
+
+    <form class="movie-form" [formGroup]="form" (submit)="submit($event)">
+      <div class="form-row">
+        <input
+          type="text"
+          placeholder="Título de la película"
+          formControlName="title" />
+      </div>
+
+      <div class="form-row">
+        <input
+          type="number"
+          placeholder="ID de TMDB (opcional)"
+          formControlName="tmdbId" />
+
+        <input
+          type="text"
+          placeholder="URL de poster (opcional)"
+          formControlName="posterPath" />
+      </div>
+
+      <div class="form-row">
+        <textarea
+          rows="2"
+          placeholder="Descripción (opcional)"
+          formControlName="overview"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Agregar película
+      </button>
+    </form>
+  </section>
+
+  @if (isLoading) {
+    <p>Cargando películas...</p>
+  }
+
+  @if (errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!isLoading && movies.length === 0) {
+    <p class="empty">No hay películas administradas aún.</p>
+  } @else {
+    <section class="movies-list">
+      @for (movie of movies; track movie.id) {
+
+        <article class="movie-card" [class.hidden]="movie.isHidden">
+          <div class="movie-info">
+            @if (movie.posterPath) {
+              <img
+                class="poster"
+                [src]="movie.posterPath"
+                [alt]="movie.title" />
+            }
+
+            <div class="movie-text">
+              <h3>{{ movie.title }}</h3>
+
+              @if (movie.tmdbId) {
+                <p class="movie-id">TMDB ID: {{ movie.tmdbId }}</p>
+              }
+
+              @if (movie.overview) {
+                <p class="overview">{{ movie.overview }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="movie-actions">
+            @if (movie.tmdbId) {
+              <button
+                type="button"
+                class="btn-secondary"
+                (click)="goToMovie(movie)">
+                Ver ficha
+              </button>
+            }
+
+            <button
+              type="button"
+              class="btn-secondary"
+              (click)="toggleHidden(movie)">
+              {{ movie.isHidden ? 'Mostrar' : 'Ocultar' }}
+            </button>
+
+            <button
+              type="button"
+              class="btn-danger"
+              (click)="delete(movie)">
+              Eliminar
+            </button>
+          </div>
+        </article>
+
+      }
+    </section>
+  }
+
+</main>

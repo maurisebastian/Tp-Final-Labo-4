@@ -1,11 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { MovieActivity } from '../../Services/movie-activity';
-import { ProfileService } from '../../Services/profile.service';
 import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-user-activity',
+  standalone: true,
   imports: [],
   templateUrl: './user-activity.html',
   styleUrl: './user-activity.css',
@@ -15,7 +15,8 @@ export class UserActivity {
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
 
-  userId: number | null = null;
+  // 👇 lo dejamos en any para no discutir con TS
+  userId: any = null;
 
   watchedMovies: MovieActivityInterface[] = [];
   toWatchMovies: MovieActivityInterface[] = [];
@@ -44,16 +45,18 @@ export class UserActivity {
   }
 
   toggleDetails(movieId: number) {
-    this.expandedMovieId = this.expandedMovieId === movieId ? null : movieId;
+    this.expandedMovieId =
+      this.expandedMovieId === movieId ? null : movieId;
   }
 
-
- markAsWatched(activityId: number) {
-  this.movieActivity.updateActivity(activityId, {
-    status: 'watched',
-    watchedDate: new Date().toISOString()
-  }).subscribe(() => {
-    this.loadMovieLists();
-  });
-}
+  markAsWatched(activityId: number) {
+    this.movieActivity
+      .updateActivity(activityId, {
+        status: 'watched',
+        watchedDate: new Date().toISOString(),
+      })
+      .subscribe(() => {
+        this.loadMovieLists();
+      });
+  }
 }

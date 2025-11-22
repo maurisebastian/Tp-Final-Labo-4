@@ -38,7 +38,7 @@ export class AdminPanel implements OnInit {
   loadUsers() {
     this.profileService.getAllUsers().subscribe((users) => {
       this.users = users;
-      this.filteredUsers = users; // inicializamos
+      this.filteredUsers = users;
     });
   }
 
@@ -82,7 +82,8 @@ export class AdminPanel implements OnInit {
     const ok = confirm(`¿Seguro que querés eliminar al usuario "${user.username}"?`);
     if (!ok) return;
 
-    this.profileService.deleteUser(user.id).subscribe((result) => {
+    // 👇 el service espera string
+    this.profileService.deleteUser(String(user.id)).subscribe((result) => {
       if (result) {
         this.users = this.users.filter((u) => u.id !== user.id);
         this.filteredUsers = this.filteredUsers.filter((u) => u.id !== user.id);
