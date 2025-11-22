@@ -4,26 +4,27 @@ import { ReviewComment } from '../Interfaces/profilein';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ComentService {
-
   private apiUrlComments = 'http://localhost:3000/reviewComments';
   private readonly http = inject(HttpClient);
 
-  getComments(reviewId: number): Observable<ReviewComment[]> {
-    return this.http.get<ReviewComment[]>(`${this.apiUrlComments}?idReview=${reviewId}`);
+  getComments(reviewId: string | number): Observable<ReviewComment[]> {
+    return this.http.get<ReviewComment[]>(
+      `${this.apiUrlComments}?idReview=${reviewId}`,
+    );
   }
 
   addComment(comment: ReviewComment): Observable<ReviewComment> {
     return this.http.post<ReviewComment>(this.apiUrlComments, comment);
   }
 
-  deleteComment(id: number): Observable<void> {
+  deleteComment(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrlComments}/${id}`);
   }
 
-  // 🔵 NECESARIO PARA admin-reports
+  // NECESARIO PARA admin-reports
   getCommentById(id: string | number): Observable<ReviewComment> {
     return this.http.get<ReviewComment>(`${this.apiUrlComments}/${id}`);
   }

@@ -496,5 +496,22 @@
       "createdAt": "2025-11-22T04:39:18.671Z",
       "status": "pending"
     }
+  ],
+  "adminMovies": [
+    {
+      "id": 1,
+      "tmdbId": 238,
+      "title": "El padrino (destacada)",
+      "overview": "Ejemplo de película administrada localmente.",
+      "posterPath": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "isHidden": false
+    },
+    {
+      "id": "b89c",
+      "title": "la cucaracha by sofia",
+      "overview": "",
+      "posterPath": "",
+      "isHidden": false
+    }
   ]
 }
