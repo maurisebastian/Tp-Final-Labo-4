@@ -1,72 +1,83 @@
-/* Título de sección */
+/* ---- TÍTULO ---- */
 .section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 20px;
-  padding-left: 10px;
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #e2e8f0;
+  text-align: left;
 }
 
-/* Contenedor de tarjetas */
+/* ---- CONTENEDOR DEL BUSCADOR ---- */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-container input {
+  width: 90%;
+  max-width: 450px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #4a5568;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.search-container input::placeholder {
+  color: #cbd5e0;
+}
+
+/* ---- GRID DE TARJETAS ---- */
 .profiles-container {
-  display: grid;
+  display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
-  padding: 10px;
+  padding: 20px;
 }
 
-/* Card individual */
+/* ---- TARJETA ---- */
 .profile-card {
-  background: #0f141d;
-  border: 1px solid #1f2a3b;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px;
   border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .profile-card:hover {
-  background: #172232;
   transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
 }
 
-/* Contenedor de texto */
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Nombre de usuario */
-.username {
+.profile-info .username {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #e3e3e3;
-  margin: 0;
+  color: #f8fafc;
 }
 
-/* Email */
-.email {
+.profile-info .email {
+  color: #cbd5e0;
   font-size: 0.9rem;
-  color: #9bb0c9;
-  margin: 0;
+  margin-bottom: 10px;
 }
 
-/* Botón */
+/* ---- BOTÓN ---- */
 .view-btn {
-  background: #4da3ff;
-  color: white;
-  border: none;
+  width: 100%;
+  padding: 10px;
   border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.95rem;
+  background: #2563eb;
+  border: none;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
-  align-self: flex-start;
   transition: background 0.2s ease;
 }
 
 .view-btn:hover {
-  background: #368fe0;
+  background: #1e40af;
 }
