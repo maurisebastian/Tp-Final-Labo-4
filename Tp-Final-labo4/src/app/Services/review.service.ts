@@ -37,4 +37,10 @@ export class ReviewService {
       catchError(() => of([]))
     );
   }
+
+  // 🔵 Obtener UNA reseña por ID (usado en admin-reports)
+getReviewById(id: string | number): Observable<Review> {
+  return this.http.get<Review>(`${this.baseUrl}/${id}`);
+}
+
 }

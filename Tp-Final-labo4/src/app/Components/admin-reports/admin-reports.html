@@ -16,22 +16,45 @@
   @if (!isLoading && reports.length > 0) {
     <section class="report-list">
       @for (rep of reports; track rep.id) {
+
         <article class="report-card">
+
           <p><strong>Tipo:</strong> {{ rep.type }}</p>
           <p><strong>Motivo:</strong> {{ rep.reason }}</p>
           <p><strong>Reportado por ID:</strong> {{ rep.reporterId }}</p>
-          <p><strong>Fecha:</strong> {{ rep.createdAt | date : 'short' }}</p>
+          <p><strong>Fecha:</strong> {{ rep.createdAt | date:'short' }}</p>
 
+          @if (rep.idMovie) {
+            <p>
+              <strong>Película:</strong>
+              <button
+                type="button"
+                class="link-movie"
+                (click)="goToMovie(rep)">
+                🔗 Ver película
+              </button>
+            </p>
+          }
+
+          <!-- ÚNICA zona de acciones -->
           <div class="actions">
-            <button (click)="changeStatus(rep, 'resolved')" class="ok">
+            <button
+              type="button"
+              class="ok"
+              (click)="changeStatus(rep, 'resolved')">
               ✔ Resolver
             </button>
 
-            <button (click)="changeStatus(rep, 'dismissed')" class="cancel">
+            <button
+              type="button"
+              class="cancel"
+              (click)="changeStatus(rep, 'dismissed')">
               ✖ Descartar
             </button>
           </div>
+
         </article>
+
       }
     </section>
   }

@@ -8,22 +8,23 @@ import { Observable } from 'rxjs';
 })
 export class ComentService {
 
-   private apiUrlComments = 'http://localhost:3000/reviewComments';
+  private apiUrlComments = 'http://localhost:3000/reviewComments';
   private readonly http = inject(HttpClient);
 
-
   getComments(reviewId: number): Observable<ReviewComment[]> {
-  return this.http.get<ReviewComment[]>(
-    `${this.apiUrlComments}?idReview=${reviewId}`
-  );
-}
+    return this.http.get<ReviewComment[]>(`${this.apiUrlComments}?idReview=${reviewId}`);
+  }
 
-addComment(comment: ReviewComment): Observable<ReviewComment> {
-  return this.http.post<ReviewComment>(this.apiUrlComments, comment);
-}
+  addComment(comment: ReviewComment): Observable<ReviewComment> {
+    return this.http.post<ReviewComment>(this.apiUrlComments, comment);
+  }
 
-deleteComment(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.apiUrlComments}/${id}`);
-}
-  
+  deleteComment(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlComments}/${id}`);
+  }
+
+  // 🔵 NECESARIO PARA admin-reports
+  getCommentById(id: string | number): Observable<ReviewComment> {
+    return this.http.get<ReviewComment>(`${this.apiUrlComments}/${id}`);
+  }
 }

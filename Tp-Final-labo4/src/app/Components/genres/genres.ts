@@ -123,7 +123,8 @@ export class Genres implements OnInit {
 
     this.isSaving = true;
 
-    this.profileService.updateFavoriteGenres(active.id, favoriteGenres)
+    // 👇 el service espera string, le pasamos String(id)
+    this.profileService.updateFavoriteGenres(String(active.id), favoriteGenres)
       .subscribe({
         next: (ok: boolean) => {
           this.isSaving = false;
