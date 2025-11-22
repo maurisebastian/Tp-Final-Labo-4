@@ -18,14 +18,14 @@ export class MovieActivity {
   }
 
   // Obtener solo películas vistas
-  getWatchedMovies(userId: number): Observable<MovieActivityInterface[]> {
+  getWatchedMovies(userId: number | string): Observable<MovieActivityInterface[]> {
     return this.http.get<MovieActivityInterface[]>(
       `${this.apiUrl}?idProfile=${userId}&status=watched`
     );
   }
 
   // Obtener solo películas por ver
-  getToWatchMovies(userId: number): Observable<MovieActivityInterface[]> {
+  getToWatchMovies(userId: number | string): Observable<MovieActivityInterface[]> {
     return this.http.get<MovieActivityInterface[]>(
       `${this.apiUrl}?idProfile=${userId}&status=towatch`
     );

@@ -7,17 +7,8 @@
   <!-- COLUMNA IZQUIERDA -->
   <div class="left-column">
 
-    <!-- DETALLES DEL PERFIL -->
-    <div class="profile-card">
-      <h2 class="profile-title">Detalles del perfil</h2>
-
-      <div class="profile-info">
-        <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
-        <p><strong>Email:</strong> {{ userProfile?.email }}</p>
-        <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
-        <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
-      </div>
-    </div>
+    <!-- Películas vistas y por ver -->
+    <app-user-activity></app-user-activity>
 
     <!-- RESEÑAS -->
     <h3 class="section-title">Reseñas</h3>
@@ -48,15 +39,35 @@
         </p>
       </div>
     }
+
   </div>
 
   <!-- COLUMNA DERECHA -->
   <div class="right-column">
-    <app-user-activity></app-user-activity>
+    <!-- DETALLES DEL PERFIL -->
+    <div class="profile-card">
+      <h2 class="profile-title">Detalles del perfil</h2>
+
+      <div class="profile-info">
+        <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
+        <p><strong>Email:</strong> {{ userProfile?.email }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
+        <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
+      </div>
+       <div class="visibility-box">
+    <p><strong>Visibilidad del perfil:</strong></p>
+
+    <button class="visibility-btn" (click)="toggleVisibility()">
+      {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
+    </button>
+  </div>
+
+
+    </div>
+        
   </div>
 
 </div>
-
 } @else {
 
   <p class="login-message">

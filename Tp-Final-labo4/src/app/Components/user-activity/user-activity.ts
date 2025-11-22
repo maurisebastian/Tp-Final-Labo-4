@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { MovieActivity } from '../../Services/movie-activity';
 import { AuthService } from '../../auth/auth-service';
@@ -16,7 +16,7 @@ export class UserActivity {
   private movieActivity = inject(MovieActivity);
 
   // 👇 lo dejamos en any para no discutir con TS
-  userId: any = null;
+@Input() userId: string | number | null | undefined = null;
 
   watchedMovies: MovieActivityInterface[] = [];
   toWatchMovies: MovieActivityInterface[] = [];

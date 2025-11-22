@@ -1,0 +1,31 @@
+<h2 class="public-profile-title">Perfil de {{ profile.username }}</h2>
+
+<!-- PERFIL PRIVADO -->
+@if (profile.isPublic === false) {
+  <div class="private-box">
+    <p class="private-message">Este perfil es privado.</p>
+
+    <button class="follow-btn" (click)="toggleFollow()">
+      {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+    </button>
+  </div>
+}
+
+<!-- PERFIL PÚBLICO -->
+@if (profile.isPublic !== false) {
+  <div class="public-profile">
+
+    <button class="follow-btn" (click)="toggleFollow()">
+      {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+    </button>
+
+    <div class="public-info">
+      <p><strong>Email:</strong> {{ profile.email }}</p>
+      <p><strong>Géneros favoritos:</strong> {{ profile.favoriteGenres || 'Sin géneros' }}</p>
+    </div>
+
+    <h3 class="movie-list-title">Listas de películas</h3>
+
+    <app-user-activity [userId]="profile.id"></app-user-activity>
+  </div>
+}

@@ -11,6 +11,7 @@ export interface Profile {
   firstName?: string;
   lastName?: string;
   favoriteGenres?: number[];
+  isPublic?: boolean;      
 }
 
 export interface Review {

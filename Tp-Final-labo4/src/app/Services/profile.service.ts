@@ -160,4 +160,28 @@ updateProfile(user: Profile, updateActiveUser: boolean = true) {
       catchError(() => of(null as any))
     );
   }
+
+  // ---------- ACTUALIZAR VISIBILIDAD DEL PERFIL (isPublic) ----------
+updateProfileVisibility(userId: string | number, isPublic: boolean) {
+  const payload = { isPublic };
+
+  return this.http
+    .patch<Profile>(`${this.baseUrl}/${userId}`, payload)
+    .pipe(
+      tap((updated) => {
+        console.log(' Visibilidad actualizada:', updated);
+
+        // Si el que cambia es el usuario activo → actualizar señal + localStorage
+        const active = this.auth.getActiveUser()();
+        if (active && active.id === userId) {
+          this.auth.login(updated);
+        }
+      }),
+      map(() => true),
+      catchError((err) => {
+        console.error(' Error al cambiar visibilidad del perfil:', err);
+        return of(false);
+      })
+    );
+}
 }
