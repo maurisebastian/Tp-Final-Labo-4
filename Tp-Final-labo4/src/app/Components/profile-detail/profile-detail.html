@@ -54,6 +54,15 @@
         <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
         <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
       </div>
+       <div class="visibility-box">
+    <p><strong>Visibilidad del perfil:</strong></p>
+
+    <button class="visibility-btn" (click)="toggleVisibility()">
+      {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
+    </button>
+  </div>
+
+
     </div>
         
   </div>

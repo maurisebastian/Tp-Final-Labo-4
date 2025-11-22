@@ -19,6 +19,7 @@ export class ProfileDetail implements OnInit {
   private reviewService = inject(ReviewService);
   private tmdbService = inject(TmdbService);
   private authService = inject(AuthService);
+  private profileService = inject(ProfileService);
 
   [x: string]: any;
   userProfile: Profile | undefined;
@@ -43,6 +44,22 @@ export class ProfileDetail implements OnInit {
     this.userLoggedIn = false;
   }
 }
+
+  toggleVisibility() {
+    if (!this.userProfile?.id) return;
+
+    const newValue = !this.userProfile.isPublic;
+
+    this.profileService.updateProfileVisibility(this.userProfile.id, newValue)
+      .subscribe({
+        next: (ok) => {
+          if (ok) {
+            this.userProfile!.isPublic = newValue;
+          }
+        },
+        error: (err) => console.error("Error cambiando visibilidad:", err)
+      });
+  }
 
   loadUserReviews() {
   if (this.userProfile && this.userProfile.id) {

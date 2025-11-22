@@ -389,7 +389,8 @@
       "firstName": "Sofía",
       "lastName": "Stejskal",
       "role": "user",
-      "favoriteGenres": []
+      "favoriteGenres": [],
+      "isPublic": false
     },
     {
       "id": "410e",
