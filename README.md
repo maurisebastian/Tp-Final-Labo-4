@@ -7,6 +7,8 @@ La plataforma incluye también un completo panel de administración para moderar
 
 Combinando una UI moderna, navegación fluida y persistencia de datos, MovieHub ofrece una experiencia dinámica tanto para usuarios como para administradores.
 ---
+
+Estructura del Proyecto.
 ```
 Tp-Final-Labo-4/
 └── src/
