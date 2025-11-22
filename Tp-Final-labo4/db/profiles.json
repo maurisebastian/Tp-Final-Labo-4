@@ -415,5 +415,17 @@
         878
       ]
     }
+  ],
+  "reviewReports": [
+    {
+      "id": "demo1",
+      "type": "review",
+      "idReview": 1,
+      "idComment": null,
+      "reporterId": 7101,
+      "reason": "Ejemplo de reporte de reseña",
+      "createdAt": "2025-11-21T18:30:00.000Z",
+      "status": "pending"
+    }
   ]
 }

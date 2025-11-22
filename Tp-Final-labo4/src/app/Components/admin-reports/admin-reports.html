@@ -1,1 +1,38 @@
-<p>admin-reports works!</p>
+<main class="admin-reports-container">
+  <h2>Reportes pendientes</h2>
+
+  @if (isLoading) {
+    <p>Cargando reportes...</p>
+  }
+
+  @if (errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!isLoading && reports.length === 0) {
+    <p>No hay reportes pendientes 🎉</p>
+  }
+
+  @if (!isLoading && reports.length > 0) {
+    <section class="report-list">
+      @for (rep of reports; track rep.id) {
+        <article class="report-card">
+          <p><strong>Tipo:</strong> {{ rep.type }}</p>
+          <p><strong>Motivo:</strong> {{ rep.reason }}</p>
+          <p><strong>Reportado por ID:</strong> {{ rep.reporterId }}</p>
+          <p><strong>Fecha:</strong> {{ rep.createdAt | date : 'short' }}</p>
+
+          <div class="actions">
+            <button (click)="changeStatus(rep, 'resolved')" class="ok">
+              ✔ Resolver
+            </button>
+
+            <button (click)="changeStatus(rep, 'dismissed')" class="cancel">
+              ✖ Descartar
+            </button>
+          </div>
+        </article>
+      }
+    </section>
+  }
+</main>

@@ -41,6 +41,17 @@ export interface ReviewComment {
   likesCount?: number;
 }
 
+export interface ReviewReport {
+  id?: string;  // lo crea json-server
+  type: 'review' | 'comment';
+  idReview?: number;
+  idComment?: string | number;
+  reporterId: number;
+  reason: string;
+  createdAt: string;
+  status: 'pending' | 'resolved' | 'dismissed';
+}
+
 
 
 
