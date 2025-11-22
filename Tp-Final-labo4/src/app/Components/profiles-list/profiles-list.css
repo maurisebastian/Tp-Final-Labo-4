@@ -1,0 +1,72 @@
+/* Título de sección */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+/* Contenedor de tarjetas */
+.profiles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Card individual */
+.profile-card {
+  background: #0f141d;
+  border: 1px solid #1f2a3b;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.profile-card:hover {
+  background: #172232;
+  transform: translateY(-4px);
+}
+
+/* Contenedor de texto */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Nombre de usuario */
+.username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e3e3e3;
+  margin: 0;
+}
+
+/* Email */
+.email {
+  font-size: 0.9rem;
+  color: #9bb0c9;
+  margin: 0;
+}
+
+/* Botón */
+.view-btn {
+  background: #4da3ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #368fe0;
+}

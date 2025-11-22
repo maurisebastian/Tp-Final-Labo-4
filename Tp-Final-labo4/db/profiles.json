@@ -1,4 +1,8 @@
 {
+
+
+  "follows": [],
+  
   "reviewComments": [
     {
       "idReview": "sK1ndJF",
@@ -172,6 +176,13 @@
       "idMovie": 240,
       "score": 7,
       "description": "utfutruu"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 597,
+      "score": 7,
+      "description": "muy buena",
+      "id": "47pKW0h"
     }
   ],
   "profiles": [

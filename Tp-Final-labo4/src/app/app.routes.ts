@@ -13,6 +13,8 @@ import { AdminPanel } from './Components/admin-panel/admin-panel';            //
 import { AdminUserEdit } from './Components/admin-user-edit/admin-user-edit';
 import { AdminCreateAdminComponent } from './Components/admin-create-admin/admin-create-admin'; // NUEVO
 import { AdminReviewsComponent } from './Components/admin-reviews/admin-reviews';               // NUEVO
+import { ProfilesList } from './Components/profiles-list/profiles-list';
+import { ProfilePublic } from './Components/profile-public/profile-public';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home page' },
@@ -22,6 +24,18 @@ export const routes: Routes = [
   { path: 'signup', component: Signup, title: 'sign up' },
   { path: 'profile-detail', component: ProfileDetail, canActivate: [userGuard], title: 'profile detail' },
   { path: 'search/:query', component: MovieSearch },
+  {
+   path: 'profiles',
+  component: ProfilesList,
+  canActivate: [userGuard],
+  title: 'Perfiles'},
+  {
+  path: 'profiles/:id',
+  component: ProfilePublic,
+  canActivate: [userGuard],
+  title: 'Perfil público'
+  },
+
 
   // HOME ADMIN
   { path: 'admin', component: AdminHomeComponent, canActivate: [adminGuard], title: 'Admin - Inicio' },
