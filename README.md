@@ -319,9 +319,9 @@ Entrá a http://localhost:4200
 
 ---
 
-Creá una cuenta O utilizá las credenciales de administrador si están definidas.
+Creá una cuenta de usuario
 
-cuanta admin:
+O utilizá la cuenta de administrador:
 
 User name: admin
 
