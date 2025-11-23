@@ -8,6 +8,7 @@ import { AuthService } from '../../auth/auth-service';
 import { MovieActivity } from '../../Services/movie-activity';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
+import { Review } from '../../Interfaces/profilein';
 
 @Component({
   selector: 'app-movie-review',

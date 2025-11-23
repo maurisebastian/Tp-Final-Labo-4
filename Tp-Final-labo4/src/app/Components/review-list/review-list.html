@@ -1,31 +1,47 @@
 <div class="review-section">
 
-  <div class="add-review">
-    <h3 class="section-title">Agrega tu reseña</h3>
+ 
+  <!-- ⭐ SI YA RESEÑÓ, NO MOSTRAR FORMULARIO -->
+  @if (userAlreadyReviewed) {
+    <div class="already-reviewed-box">
+      <h3>Ya dejaste una reseña para esta película</h3>
 
-    <form [formGroup]="reviewForm" (submit)="addReview($event)">
-      <div class="star-rating mb-3">
-        @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
-          <span (click)="setStarRating(star)"
-                class="star"
-                [class.selected]="star <= +reviewForm.controls.score.value">
-            ★
+      <p><strong>Tu calificación:</strong> {{ existingReview?.score }} / 10</p>
+
+      <p class="review-description">{{ existingReview?.description }}</p>
+
+      <p class="info">Solo puedes dejar una reseña por película.</p>
+    </div>
+  }
+  @else {
+    <!-- ⭐ FORMULARIO ORIGINAL -->
+    <div class="add-review">
+      <h3 class="section-title">Agrega tu reseña</h3>
+
+      <form [formGroup]="reviewForm" (submit)="addReview($event)">
+        <div class="star-rating mb-3">
+          @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+            <span (click)="setStarRating(star)"
+                  class="star"
+                  [class.selected]="star <= +reviewForm.controls.score.value">
+              ★
+            </span>
+          }
+          <span class="rating-label">
+            Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
           </span>
-        }
-        <span class="rating-label">
-          Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
-        </span>
-      </div>
+        </div>
 
-      <textarea formControlName="description"
-                class="review-textarea"
-                placeholder="Escribe tu reseña aquí..."></textarea>
+        <textarea formControlName="description"
+                  class="review-textarea"
+                  placeholder="Escribe tu reseña aquí..."></textarea>
 
-      <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
-        Agregar reseña
-      </button>
-    </form>
-  </div>
+        <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
+          Agregar reseña
+        </button>
+      </form>
+    </div>
+  }
 
   <!-- LISTADO -->
   <div class="reviews-list-block">

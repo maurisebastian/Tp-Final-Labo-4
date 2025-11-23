@@ -41,4 +41,10 @@ export class ReviewService {
   getReviewById(id: string | number): Observable<Review> {
     return this.http.get<Review>(`${this.baseUrl}/${id}`);
   }
+  
+  getUserReviewForMovie(userId: string | number, movieId: number) {
+  return this.http.get<Review[]>(
+    `${this.baseUrl}?idProfile=${userId}&idMovie=${movieId}`
+  );
+}
 }

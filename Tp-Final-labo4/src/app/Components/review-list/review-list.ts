@@ -43,6 +43,9 @@ export class ReviewList {
   // ID de la película que viene desde MovieReview
   peliculaID = input<number>();
 
+  userAlreadyReviewed = false;
+  existingReview: Review | null = null;
+
   // estado de usuario
   userId: number | null = null;
   userLoggedIn = false;
@@ -119,6 +122,20 @@ export class ReviewList {
 
       forkJoin(procesos).subscribe((reviewsCompletas) => {
         this.reviews = reviewsCompletas;
+
+        if (this.userId != null) {
+    const match = this.reviews.find(r =>
+      String(r.idProfile) === String(this.userId)
+    );
+
+    if (match) {
+      this.userAlreadyReviewed = true;
+      this.existingReview = match;
+    } else {
+      this.userAlreadyReviewed = false;
+      this.existingReview = null;
+    }
+  }
       });
     });
   }
@@ -196,6 +213,11 @@ export class ReviewList {
   // ====== AGREGAR RESEÑA ======
   addReview(event?: Event) {
     if (event) event.preventDefault();
+    
+    if (this.userAlreadyReviewed) {
+    alert("Solo puedes dejar una reseña por película.");
+    return;
+  }
 
     if (this.reviewForm.invalid) {
       this.reviewForm.markAllAsTouched();
