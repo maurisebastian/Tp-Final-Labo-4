@@ -5,6 +5,7 @@ export interface AdminMovie {
   posterPath?: string;
   isHidden: boolean;
   tmdbId?: number;
+  hiddenReason?: string;   // 🔹 nuevo
 }
 
 export interface PopularMovie {
@@ -13,3 +14,5 @@ export interface PopularMovie {
   reviewCount: number;
   posterPath: string | null;
 }
+
+

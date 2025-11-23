@@ -11,6 +11,12 @@
       "followerId": "6b38",
       "followingId": "4dbc",
       "createdAt": "2025-11-23T18:32:47.429Z"
+    },
+    {
+      "id": "47f8",
+      "followerId": "6b38",
+      "followingId": "21a8",
+      "createdAt": "2025-11-23T19:43:42.168Z"
     }
   ],
   "reviewComments": [

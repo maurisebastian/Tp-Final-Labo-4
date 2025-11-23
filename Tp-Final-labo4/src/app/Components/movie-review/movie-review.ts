@@ -7,6 +7,7 @@ import { ReviewList } from "../review-list/review-list";
 import { AuthService } from '../../auth/auth-service';
 import { MovieActivity } from '../../Services/movie-activity';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
+import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 
 @Component({
   selector: 'app-movie-review',
@@ -21,6 +22,8 @@ export class MovieReview implements OnInit {
   private tmdbService = inject(TmdbService);
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
+  private authService = inject(AuthService);
+  private hiddenMoviesService = inject(HiddenMoviesService);
 
   movieId: number = 0;
   movieDetails: any;
@@ -29,6 +32,23 @@ export class MovieReview implements OnInit {
   // puede ser string o number
   userId: string | number | null = null;
   activity: MovieActivityInterface | null = null;
+
+  // 🔹 ¿el usuario logueado es admin?
+  get isAdmin(): boolean {
+    const user = this.authService.getActiveUser()();
+    return !!user && (user.role === 'admin' || user.role === 'superadmin');
+  }
+
+  // 🔹 ¿esta peli está oculta según HiddenMoviesService?
+  get isHidden(): boolean {
+    return this.hiddenMoviesService.isHidden(this.movieId);
+  }
+
+  // 🔹 Motivo de ocultamiento (si existe)
+  get hiddenReason(): string {
+    const entry = this.hiddenMoviesService.getEntry(this.movieId);
+    return entry?.reason ?? '';
+  }
 
   ngOnInit() {
     const user = this.auth.getActiveUser()();
@@ -58,6 +78,31 @@ export class MovieReview implements OnInit {
     this.tmdbService.getMovieDetails(this.movieId).subscribe(
       (response) => (this.movieDetails = response),
       (error) => console.error('Error al obtener los detalles:', error)
+    );
+  }
+
+  // 🔹 Ocultar / mostrar desde el detalle usando solo TMDB ID
+  toggleHiddenFromDetail(): void {
+    if (!this.isAdmin || !this.movieId) return;
+
+    // Si ya está oculta -> la mostramos
+    if (this.hiddenMoviesService.isHidden(this.movieId)) {
+      this.hiddenMoviesService.unhideMovie(this.movieId);
+      return;
+    }
+
+    // Si está visible -> pedimos motivo y la ocultamos
+    const title = this.movieDetails?.title || 'esta película';
+    const reason = window.prompt(`¿Por qué querés ocultar "${title}"?`);
+
+    if (!reason || !reason.trim()) {
+      return;
+    }
+
+    this.hiddenMoviesService.hideMovie(
+      this.movieId,
+      reason.trim(),
+      this.movieDetails?.title
     );
   }
 

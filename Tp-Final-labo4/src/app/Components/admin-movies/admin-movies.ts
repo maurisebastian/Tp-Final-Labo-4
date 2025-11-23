@@ -8,12 +8,14 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AdminMoviesService } from '../../Services/movies-service';
+import { AdminMoviesService } from '../../Services/movies.service';
 import { AdminMovie } from '../../Interfaces/admin-movies';
 import { AuthService } from '../../auth/auth-service';
 import { TmdbService } from '../../Services/tmdb.service';
 import { ReviewService } from '../../Services/review.service';
 import { Review } from '../../Interfaces/profilein';
+import { HiddenMoviesService, HiddenMovie } from '../../Services/hidden-movies.service';
+
 
 @Component({
   selector: 'app-admin-movies',
@@ -30,11 +32,23 @@ export class AdminMoviesComponent implements OnInit {
   private router = inject(Router);
   private tmdb = inject(TmdbService);
   private reviewService = inject(ReviewService);
+  private hiddenMoviesService = inject(HiddenMoviesService);
 
   // Películas locales
   movies: AdminMovie[] = [];
   isLoading = false;
   errorMsg = '';
+
+
+  hiddenMoviesSignal = this.hiddenMoviesService.hiddenMovies;
+
+  get hasNoHiddenMovies(): boolean {
+    return this.hiddenMoviesSignal().length === 0;
+  }
+
+  unhideTmdbMovie(movie: HiddenMovie): void {
+    this.hiddenMoviesService.unhideMovie(movie.tmdbId);
+  }
 
   // Form para crear películas locales
   form = this.fb.nonNullable.group({
@@ -136,21 +150,55 @@ export class AdminMoviesComponent implements OnInit {
   toggleHidden(movie: AdminMovie): void {
     if (!movie.id) return;
 
-    const newValue = !movie.isHidden;
-    this.moviesService.update(movie.id, { isHidden: newValue }).subscribe({
-      next: (updated) => {
-        movie.isHidden = updated.isHidden;
-      },
-      error: () => {
-        alert('No se pudo actualizar el estado de la película.');
-      },
-    });
+    // si la película está visible -> la vamos a ocultar
+    if (!movie.isHidden) {
+      const reason = window.prompt(
+        `¿Por qué querés ocultar "${movie.title}"?`
+      );
+
+      // si canceló o no escribió nada, no hacemos nada
+      if (!reason || !reason.trim()) {
+        return;
+      }
+
+      const payload: Partial<AdminMovie> = {
+        isHidden: true,
+        hiddenReason: reason.trim(),
+      };
+
+      this.moviesService.update(movie.id, payload).subscribe({
+        next: (updated) => {
+          movie.isHidden = updated.isHidden;
+          movie.hiddenReason = updated.hiddenReason;
+        },
+        error: () => {
+          alert('No se pudo actualizar el estado de la película.');
+        },
+      });
+    } else {
+      // si ya estaba oculta -> la mostramos de nuevo y limpiamos el motivo
+      const payload: Partial<AdminMovie> = {
+        isHidden: false,
+        hiddenReason: '',
+      };
+
+      this.moviesService.update(movie.id, payload).subscribe({
+        next: (updated) => {
+          movie.isHidden = updated.isHidden;
+          movie.hiddenReason = updated.hiddenReason;
+        },
+        error: () => {
+          alert('No se pudo actualizar el estado de la película.');
+        },
+      });
+    }
   }
 
+
   goToMovie(movie: AdminMovie): void {
-  if (!movie.tmdbId) return;
-  this.router.navigate(['/movie-review', movie.tmdbId]);
-}
+    if (!movie.tmdbId) return;
+    this.router.navigate(['/movie-review', movie.tmdbId]);
+  }
 
 
   // ========== BUSCADOR TMDB POR NOMBRE ==========
@@ -178,8 +226,8 @@ export class AdminMoviesComponent implements OnInit {
   }
 
   goToMovieId(id: number): void {
-  this.router.navigate(['/movie-review', id]);
-}
+    this.router.navigate(['/movie-review', id]);
+  }
 
 
   // ========== POPULARES (MÁS RESEÑAS) ==========

@@ -65,6 +65,13 @@
                     {{ movie.overview }}
                   </p>
                 }
+
+                @if (movie.isHidden && movie.hiddenReason) {
+                  <p class="admin-movie-overview">
+                    <strong>Motivo:</strong> {{ movie.hiddenReason }}
+                  </p>
+                }
+
               </div>
             </div>
 
@@ -173,5 +180,38 @@
       </div>
     }
   </section>
+
+    <!-- SECCIÓN 4: PELÍCULAS OCULTAS (NUEVO, TMDB) -->
+  <section class="admin-hidden-movies" style="margin-top:40px;">
+    <h2>Películas ocultas</h2>
+    <p>Listado de películas ocultadas por el administrador (con motivo).</p>
+
+    @if (hasNoHiddenMovies) {
+      <p class="empty-msg">No hay películas ocultas.</p>
+    } @else {
+      @for (movie of hiddenMoviesSignal(); track movie.tmdbId) {
+        <article class="admin-movie-card" style="background:#1e293b;color:white;">
+          <div class="admin-movie-main">
+            <div>
+              <h4>{{ movie.title || ('TMDB ID: ' + movie.tmdbId) }}</h4>
+              <p>ID TMDB: {{ movie.tmdbId }}</p>
+              <p>
+                <strong>Motivo:</strong>
+                {{ movie.reason }}
+              </p>
+            </div>
+          </div>
+
+          <div class="admin-movie-actions">
+            <button type="button" (click)="unhideTmdbMovie(movie)">
+              Mostrar
+            </button>
+          </div>
+        </article>
+      }
+    }
+  </section>
+
+
 
 </main>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Footer } from '../../Shared/footer/footer';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { MovieSearchService, SearchMovie } from '../../Services/movie-search';
+import { MovieSearchService, SearchMovie } from '../../Services/movie-search.service';
 
 @Component({
   selector: 'app-movie-search',
