@@ -1,61 +1,155 @@
 <main class="admin-reports-container">
-  <h2>Reportes pendientes</h2>
+  <h2>Reportes</h2>
 
   @if (isLoading) {
-    <p>Cargando reportes...</p>
+  <p>Cargando reportes...</p>
   }
 
   @if (errorMsg) {
-    <p class="error">{{ errorMsg }}</p>
+  <p class="error">{{ errorMsg }}</p>
   }
 
   @if (!isLoading && reports.length === 0) {
-    <p>No hay reportes pendientes 🎉</p>
+  <p>No hay reportes 🎉</p>
   }
 
   @if (!isLoading && reports.length > 0) {
-    <section class="report-list">
-      @for (rep of reports; track rep.id) {
+  <section class="reports-columns">
 
-        <article class="report-card">
+    <!-- PENDIENTES -->
+    <div class="reports-column">
+      <h3>Pendientes</h3>
 
-          <p><strong>Tipo:</strong> {{ rep.type }}</p>
-          <p><strong>Motivo:</strong> {{ rep.reason }}</p>
-          <p><strong>Reportado por ID:</strong> {{ rep.reporterId }}</p>
-          <p><strong>Fecha:</strong> {{ rep.createdAt | date:'short' }}</p>
+      @if (pendingReports.length === 0) {
+      <p class="empty-msg">No hay reportes pendientes.</p>
+      } @else {
+      @for (rep of pendingReports; track rep.id) {
+      <article class="report-card">
+        <p><strong>Tipo:</strong> {{ rep.type }}</p>
+        <p><strong>Motivo:</strong> {{ rep.reason }}</p>
 
-          @if (rep.idMovie) {
-            <p>
-              <strong>Película:</strong>
-              <button
-                type="button"
-                class="link-movie"
-                (click)="goToMovie(rep)">
-                🔗 Ver película
-              </button>
-            </p>
+        <p>
+          <strong>Reportado por:</strong>
+          <button type="button" class="link-profile" (click)="goToProfile(rep)">
+            {{ rep.reporterName || ('ID ' + rep.reporterId) }}
+          </button>
+        </p>
+
+        <p><strong>Fecha:</strong> {{ rep.createdAt | date:'short' }}</p>
+
+        @if (rep.idMovie) {
+        <p>
+          <strong>Película:</strong>
+          <button type="button" class="link-movie" (click)="goToMovie(rep)">
+            Ver película
+          </button>
+        </p>
+        }
+
+        <div class="actions">
+          <button type="button" class="ok" (click)="changeStatus(rep, 'resolved')">✔ Resolver</button>
+          <button type="button" class="cancel" (click)="changeStatus(rep, 'dismissed')">✖ Descartar</button>
+
+          @if (isSuperAdmin) {
+          <button type="button" class="delete" (click)="deleteReport(rep)">🗑 Eliminar</button>
           }
+        </div>
 
-          <!-- ÚNICA zona de acciones -->
-          <div class="actions">
-            <button
-              type="button"
-              class="ok"
-              (click)="changeStatus(rep, 'resolved')">
-              ✔ Resolver
-            </button>
-
-            <button
-              type="button"
-              class="cancel"
-              (click)="changeStatus(rep, 'dismissed')">
-              ✖ Descartar
-            </button>
-          </div>
-
-        </article>
-
+      </article>
       }
-    </section>
+      }
+    </div>
+
+    <!-- RESUELTOS -->
+    <div class="reports-column">
+      <h3>Resueltos</h3>
+
+      @if (resolvedReports.length === 0) {
+      <p class="empty-msg">No hay reportes resueltos.</p>
+      } @else {
+      @for (rep of resolvedReports; track rep.id) {
+      <article class="report-card resolved">
+        <p><strong>Tipo:</strong> {{ rep.type }}</p>
+        <p><strong>Motivo:</strong> {{ rep.reason }}</p>
+
+        <p>
+          <strong>Reportado por:</strong>
+          <button type="button" class="link-profile" (click)="goToProfile(rep)">
+            {{ rep.reporterName || ('ID ' + rep.reporterId) }}
+          </button>
+        </p>
+
+        <p><strong>Fecha:</strong> {{ rep.createdAt | date:'short' }}</p>
+
+        @if (rep.idMovie) {
+        <p>
+          <strong>Película:</strong>
+          <button type="button" class="link-movie" (click)="goToMovie(rep)">
+            Ver película
+          </button>
+        </p>
+        }
+
+        <div class="actions">
+          <button type="button" class="back" (click)="changeStatus(rep, 'pending')">
+            ↩ Volver a pendiente
+          </button>
+
+          @if (isSuperAdmin) {
+          <button type="button" class="delete" (click)="deleteReport(rep)">🗑 Eliminar</button>
+          }
+        </div>
+
+      </article>
+      }
+      }
+    </div>
+
+    <!-- DESCARTADOS -->
+    <div class="reports-column">
+      <h3>Descartados</h3>
+
+      @if (dismissedReports.length === 0) {
+      <p class="empty-msg">No hay reportes descartados.</p>
+      } @else {
+      @for (rep of dismissedReports; track rep.id) {
+      <article class="report-card dismissed">
+        <p><strong>Tipo:</strong> {{ rep.type }}</p>
+        <p><strong>Motivo:</strong> {{ rep.reason }}</p>
+
+        <p>
+          <strong>Reportado por:</strong>
+          <button type="button" class="link-profile" (click)="goToProfile(rep)">
+            {{ rep.reporterName || ('ID ' + rep.reporterId) }}
+          </button>
+        </p>
+
+        <p><strong>Fecha:</strong> {{ rep.createdAt | date:'short' }}</p>
+
+        @if (rep.idMovie) {
+        <p>
+          <strong>Película:</strong>
+          <button type="button" class="link-movie" (click)="goToMovie(rep)">
+            Ver película
+          </button>
+        </p>
+        }
+
+        <div class="actions">
+          <button type="button" class="back" (click)="changeStatus(rep, 'pending')">
+            ↩ Volver a pendiente
+          </button>
+
+          @if (isSuperAdmin) {
+          <button type="button" class="delete" (click)="deleteReport(rep)">🗑 Eliminar</button>
+          }
+        </div>
+
+      </article>
+      }
+      }
+    </div>
+
+  </section>
   }
 </main>

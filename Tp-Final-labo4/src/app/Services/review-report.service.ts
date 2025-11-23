@@ -11,7 +11,12 @@ export class ReviewReportService {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:3000/reviewReports';
 
-  // 🔹 Reportes pendientes para el admin
+  // 🆕 Traer TODOS los reportes (para las 3 columnas)
+  getAllReports(): Observable<ReviewReport[]> {
+    return this.http.get<ReviewReport[]>(this.baseUrl);
+  }
+
+  // 🔹 Reportes pendientes para el admin (si en algún lado lo necesitás)
   getPendingReports(): Observable<ReviewReport[]> {
     return this.http.get<ReviewReport[]>(`${this.baseUrl}?status=pending`);
   }
@@ -44,4 +49,9 @@ export class ReviewReportService {
       `${this.baseUrl}?reporterId=${profileId}`
     );
   }
+
+  deleteReport(id: string | number) {
+  return this.http.delete(`${this.baseUrl}/${id}`);
+}
+
 }

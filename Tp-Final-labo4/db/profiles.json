@@ -1,16 +1,16 @@
 {
   "follows": [
     {
-      "followerId": "N9RUtmI",
-      "followingId": "1d76",
-      "createdAt": "2025-11-23T06:05:43.887Z",
-      "id": 1
+      "id": "aceb",
+      "followerId": "6b38",
+      "followingId": "NnUCsx5",
+      "createdAt": "2025-11-23T18:32:05.697Z"
     },
     {
-      "followerId": "1d76",
-      "followingId": "N9RUtmI",
-      "createdAt": "2025-11-23T16:58:23.094Z",
-      "id": 2
+      "id": "8ed4",
+      "followerId": "6b38",
+      "followingId": "4dbc",
+      "createdAt": "2025-11-23T18:32:47.429Z"
     }
   ],
   "reviewComments": [
@@ -48,27 +48,15 @@
     },
     {
       "idProfile": "1d76",
-      "idReview": "XF6bNAx",
-      "date": "2025-11-22T21:01:28.741Z",
-      "id": 4
+      "idReview": "sK1ndJF",
+      "date": "2025-11-21T22:22:09.235Z",
+      "id": "3"
     },
     {
       "idProfile": "1d76",
-      "idReview": "sK1ndJF",
-      "date": "2025-11-23T04:57:28.190Z",
-      "id": 5
-    },
-    {
-      "idProfile": "N9RUtmI",
       "idReview": "XF6bNAx",
-      "date": "2025-11-23T06:07:16.992Z",
-      "id": 6
-    },
-    {
-      "idProfile": "N9RUtmI",
-      "idReview": "47pKW0h",
-      "date": "2025-11-23T06:07:19.096Z",
-      "id": 7
+      "date": "2025-11-22T21:01:28.741Z",
+      "id": "4"
     }
   ],
   "movieActivity": [
@@ -98,7 +86,7 @@
     },
     {
       "id": "8179",
-      "idProfile": "1d76",
+      "idProfile": 1,
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "towatch",
@@ -119,46 +107,6 @@
       "movieName": "Loyalty and Respect",
       "status": "towatch",
       "watchedDate": null
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 389,
-      "movieName": "12 hombres sin piedad",
-      "status": "towatch",
-      "watchedDate": null,
-      "id": "_PbZIzr"
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 278,
-      "movieName": "Cadena perpetua",
-      "status": "watched",
-      "watchedDate": "2025-11-23T05:51:06.803Z",
-      "id": "k_RE-WV"
-    },
-    {
-      "idProfile": "N9RUtmI",
-      "idMovie": 278,
-      "movieName": "Cadena perpetua",
-      "status": "towatch",
-      "watchedDate": null,
-      "id": "VTrLQ9_"
-    },
-    {
-      "idProfile": "N9RUtmI",
-      "idMovie": 238,
-      "movieName": "El padrino",
-      "status": "watched",
-      "watchedDate": "2025-11-23T05:38:27.475Z",
-      "id": "k53qcY7"
-    },
-    {
-      "idProfile": "N9RUtmI",
-      "idMovie": 597,
-      "movieName": "Titanic",
-      "status": "towatch",
-      "watchedDate": null,
-      "id": "UhhqL_W"
     }
   ],
   "comments": [
@@ -301,6 +249,13 @@
       "idMovie": 240,
       "score": 8,
       "description": "lkhjkjhgkjh"
+    },
+    {
+      "id": "153e",
+      "idProfile": "6b38",
+      "idMovie": 508943,
+      "score": 6,
+      "description": "uyghtuj"
     }
   ],
   "profiles": [
@@ -502,7 +457,7 @@
     },
     {
       "id": "1d76",
-      "username": "pepe",
+      "username": "aaaaaaaaaaaaaaa",
       "password": "123456",
       "date": "2013-11-14",
       "cel": "5632456345",
@@ -511,7 +466,7 @@
       "lastName": "Stejskal",
       "role": "user",
       "favoriteGenres": [],
-      "isPublic": true
+      "isPublic": false
     },
     {
       "id": "410e",
@@ -646,17 +601,16 @@
       "isPublic": true
     },
     {
-      "username": "kiko",
-      "password": "123456",
-      "date": "1994-08-21",
-      "cel": "2342342342",
-      "email": "kiko@gmail.com",
-      "firstName": "matias",
-      "lastName": "lodeiro",
-      "role": "user",
+      "id": "bc89",
+      "username": "adminsofi",
+      "password": "fakepass",
+      "email": "adminsofi@gmail.com",
+      "role": "admin",
+      "firstName": "Admin",
+      "lastName": "Global",
       "favoriteGenres": [],
-      "id": "N9RUtmI",
-      "isPublic": true
+      "date": "1990-01-01",
+      "cel": "00000000"
     }
   ],
   "reviewReports": [
@@ -678,7 +632,7 @@
       "reporterId": "f4ee",
       "reason": "no me gusto",
       "createdAt": "2025-11-22T04:32:31.066Z",
-      "status": "pending"
+      "status": "dismissed"
     },
     {
       "id": "2ab6",
