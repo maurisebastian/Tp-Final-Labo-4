@@ -30,10 +30,13 @@
 
   @if (activeUserSignal()) {
 
-    <!-- IR A LA LISTA DE PERFILES -->
-    <a [routerLink]="['/profiles']" class="profile-link">
-      <span class="profile-text">Busca amigos!</span>
-    </a>
+    <!-- SOLO mostrar “Buscar amigos…” si NO estoy ya en /profiles -->
+    @if (!router.url.includes('profiles')) {
+
+      <a [routerLink]="['/profiles']" class="friend-search-pill">
+        <span class="friend-search-placeholder">🔍 Buscar amigos...</span>
+      </a>
+    }
 
     <!-- PERFIL PROPIO -->
     <a [routerLink]="['/profile-detail']" class="profile-link">

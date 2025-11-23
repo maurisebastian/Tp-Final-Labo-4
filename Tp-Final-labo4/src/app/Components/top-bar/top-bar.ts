@@ -14,7 +14,7 @@ import { AuthService } from '../../auth/auth-service';
 export class TopBar {
 
   private fb = inject(FormBuilder);
-  private router = inject(Router);
+  router = inject(Router);
   private authService = inject(AuthService);
 
   // usuario logueado (signal)
