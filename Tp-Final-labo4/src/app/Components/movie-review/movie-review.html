@@ -7,6 +7,23 @@
 
     <div class="movie-details-content">
         <h1>{{ movieDetails.title }}</h1>
+
+        <!-- 🔹 BOTÓN ADMIN: OCULTAR / MOSTRAR + MOTIVO -->
+        @if (isAdmin) {
+          <div class="movie-admin-banner">
+            <button type="button" (click)="toggleHiddenFromDetail()">
+              {{ isHidden ? 'Mostrar película al público' : 'Ocultar película' }}
+            </button>
+
+            @if (isHidden && hiddenReason) {
+              <p class="hidden-info">
+                Esta película está oculta para los usuarios.<br />
+                <strong>Motivo:</strong> {{ hiddenReason }}
+              </p>
+            }
+          </div>
+        }
+
         <p><strong>Resumen:</strong> {{ movieDetails.overview }}</p>
         <p><strong>Fecha de lanzamiento:</strong> {{ movieDetails.release_date }}</p>
         <p><strong>Duración:</strong> {{ movieDetails.runtime }} minutos</p>
@@ -69,7 +86,6 @@
         } @else {
         <p>Inicia sesión para guardar esta película.</p>
         }
-
 
     </div>
 </div>

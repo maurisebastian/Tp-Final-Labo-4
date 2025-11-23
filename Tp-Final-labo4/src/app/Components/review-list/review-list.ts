@@ -18,7 +18,7 @@ import {
 import { ReviewService } from '../../Services/review.service';
 import { ProfileService } from '../../Services/profile.service';
 import { AuthService } from '../../auth/auth-service';
-import { ReviewLikeService } from '../../Services/review-like-service';
+import { ReviewLikeService } from '../../Services/review-like.service';
 import { ComentService } from '../../Services/coment-service';
 import { ReviewReportService } from '../../Services/review-report.service';
 
