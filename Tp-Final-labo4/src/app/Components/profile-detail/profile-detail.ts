@@ -19,6 +19,7 @@ import { AuthService } from '../../auth/auth-service';
 import { UserActivity } from '../user-activity/user-activity';
 import { ReviewReportService } from '../../Services/review-report.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FollowComponent } from "../follow-component/follow-component";
 
 @Component({
   selector: 'app-profile-detail',
@@ -30,7 +31,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     DatePipe,
     CommonModule,
     ReactiveFormsModule,
-  ],
+    FollowComponent
+],
   templateUrl: './profile-detail.html',
   styleUrl: './profile-detail.css',
 })
