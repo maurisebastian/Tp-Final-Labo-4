@@ -14,6 +14,7 @@ export class UserActivity {
 
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
+  canEdit = false;
 
   @Input() userId: string | number | null | undefined = null;
 
@@ -23,13 +24,16 @@ export class UserActivity {
   expandedMovieId: number | null = null;
 
   ngOnInit(): void {
-    const activeUser = this.auth.getActiveUser()();
-    this.userId = activeUser?.id ?? null;
+  const activeUser = this.auth.getActiveUser()();
 
-    if (this.userId) {
-      this.loadMovieLists();
-    }
+  // ⭐ canEdit solo si estoy viendo mi propio perfil
+  this.canEdit = String(activeUser?.id) === String(this.userId);
+
+  if (this.userId) {
+    this.loadMovieLists();
   }
+}
+
 
   loadMovieLists() {
     if (!this.userId) return;

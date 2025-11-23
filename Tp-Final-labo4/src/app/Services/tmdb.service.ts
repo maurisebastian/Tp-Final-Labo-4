@@ -82,4 +82,9 @@ export class TmdbService {
   );
 }
 
+getMovieById(id: number) {
+  return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=TU_API_KEY&language=es-ES`);
+}
+
+
 }

@@ -1,4 +1,3 @@
-// src/app/Components/profile-public/profile-public.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +8,18 @@ import { UserActivity } from '../user-activity/user-activity';
 
 import { Profile } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service';
+
+// ⭐ LISTA DE GÉNEROS — ACÁ ESTÁ LA SOLUCIÓN
+const GENRES = [
+  { id: 28, name: 'Acción' },
+  { id: 12, name: 'Aventura' },
+  { id: 16, name: 'Animación' },
+  { id: 35, name: 'Comedia' },
+  { id: 80, name: 'Crimen' },
+  { id: 18, name: 'Drama' },
+  { id: 10749, name: 'Romance' },
+  { id: 53, name: 'Suspenso' },
+];
 
 @Component({
   selector: 'app-profile-public',
@@ -26,21 +37,19 @@ export class ProfilePublic implements OnInit {
   isPrivate = false;
   notFound = false;
 
-  // por ahora el follow es solo visual
   isFollowing = false;
+
+  // ⭐ acá queda el array verdadero, NO el componente
+  genreNames = GENRES;
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
-
-    console.log('ProfilePublic -> idParam de la ruta:', idParam, 'tipo:', typeof idParam);
 
     if (!idParam) {
       this.notFound = true;
       return;
     }
 
-    // ⚠️ IMPORTANTE: NO convertir a Number.
-    // Tus ids en db.json son strings como "NnUCsx5", "1d76", etc.
     const id: string = idParam;
 
     this.profileService.getUserById(id).subscribe({
@@ -50,21 +59,23 @@ export class ProfilePublic implements OnInit {
           return;
         }
 
-        console.log('ProfilePublic -> perfil cargado:', p);
-
         this.profile = p;
         this.isPrivate = p.isPublic === false;
       },
-      error: (err) => {
-        console.error('Error cargando perfil público:', err);
+      error: () => {
         this.notFound = true;
       },
     });
   }
 
-  // botón seguir (por ahora solo cambia el texto)
   toggleFollow() {
     this.isFollowing = !this.isFollowing;
-    console.log('Seguir/Dejar de seguir a', this.profile?.id, '->', this.isFollowing);
+  }
+
+  // ⭐ Función para traducir ID → nombre
+  getGenreName(id: number | string): string {
+    const numericId = typeof id === 'string' ? Number(id) : id;
+    const genre = this.genreNames.find(g => g.id === numericId);
+    return genre ? genre.name : String(id);
   }
 }

@@ -47,5 +47,6 @@ export interface ReviewReport {
   reason: string;                       // motivo del reporte
   createdAt: string;                    // fecha
   status: 'pending' | 'resolved' | 'dismissed';
+  movieTitle?: string;
 }
 

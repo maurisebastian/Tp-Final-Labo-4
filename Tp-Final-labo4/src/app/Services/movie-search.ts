@@ -25,34 +25,34 @@ export class MovieSearchService {
     const normalizedQuery = query.toLowerCase().trim();
     if (!normalizedQuery) return of([]);
 
-    // 1) Buscamos películas por título, películas locales y actores
     return forkJoin({
       tmdb: this.tmdb.searchMovies(query),
       local: this.local.searchByTitle(query),
       actors: this.tmdb.searchActors(query),
     }).pipe(
       switchMap((res: any) => {
-        const tmdbResults = (res.tmdb?.results ?? []) as any[];
-        const actorsResults = (res.actors?.results ?? []) as any[];
+        const tmdbResults = (res.tmdb?.results ?? []);
+        const localResults = (res.local ?? []);
+        const actorResults = (res.actors?.results ?? []);
 
-        // 🎬 Películas locales (admin) – filtradas por título
-        const filteredLocal = (res.local as LocalMovie[]).filter((m) =>
-          m.title.toLowerCase().includes(normalizedQuery)
-        );
+        // --- Películas Locales ---
+        const localMapped: SearchMovie[] = localResults
+          .filter((m: LocalMovie) =>
+            m.title.toLowerCase().includes(normalizedQuery)
+          )
+          .map((m: LocalMovie) => ({
+            id: m.id,
+            title: m.title,
+            overview: m.overview,
+            posterPath: null,
+            posterUrl: m.posterUrl ?? null,
+            voteAverage: null,
+            isLocal: true,
+            tmdbId: m.tmdbId,
+          }));
 
-        const localMapped: SearchMovie[] = filteredLocal.map((m) => ({
-          id: m.id,
-          title: m.title,
-          overview: m.overview,
-          posterPath: null,
-          posterUrl: m.posterUrl ?? null,
-          voteAverage: null,
-          isLocal: true,
-          tmdbId: m.tmdbId,
-        }));
-
-        // 🎬 Películas por título de TMDB (plan B si no hay actor)
-        const tmdbMappedFromTitle: SearchMovie[] = tmdbResults.map((m) => ({
+        // --- Películas por título en TMDB ---
+        const tmdbMapped: SearchMovie[] = tmdbResults.map((m: any) => ({
           id: m.id,
           title: m.title,
           overview: m.overview,
@@ -63,20 +63,20 @@ export class MovieSearchService {
           tmdbId: m.id,
         }));
 
-        // 👤 ¿Encontramos algún actor?
-        const firstActor = actorsResults[0];
-
-        // ❌ Si no hay ningún actor, devolvemos lo de siempre
-        if (!firstActor) {
-          return of([...localMapped, ...tmdbMappedFromTitle]);
+        // Si NO hay actores → devolvemos solo películas
+        if (actorResults.length === 0) {
+          return of([...localMapped, ...tmdbMapped]);
         }
 
-        // ✅ Si hay actor, pedimos TODAS las pelis donde actúa
+        // Si hay actor → buscamos películas del actor,
+        // pero NO reemplazamos — sumamos
+        const firstActor = actorResults[0];
+
         return this.tmdb.getMoviesByActor(firstActor.id).pipe(
           map((credits: any) => {
-            const actorMovies = (credits?.cast ?? []) as any[];
+            const actorMovies = credits?.cast ?? [];
 
-            const actorMapped: SearchMovie[] = actorMovies.map((m) => ({
+            const actorMapped: SearchMovie[] = actorMovies.map((m: any) => ({
               id: m.id,
               title: m.title,
               overview: m.overview,
@@ -87,20 +87,21 @@ export class MovieSearchService {
               tmdbId: m.id,
             }));
 
-            // 🧠 Merge: primero locales, después películas del actor
-            // (sin duplicar ids por las dudas)
             const merged = new Map<number | string, SearchMovie>();
 
-            const pushList = (list: SearchMovie[]) => {
-              list.forEach((item) => {
-                if (!merged.has(item.id)) {
-                  merged.set(item.id, item);
-                }
+            const add = (list: SearchMovie[]) => {
+              list.forEach(item => {
+                if (!merged.has(item.id)) merged.set(item.id, item);
               });
             };
 
-            pushList(localMapped);
-            pushList(actorMapped.length ? actorMapped : tmdbMappedFromTitle);
+            // Orden final:
+            // 1) Locales
+            // 2) Películas por nombre
+            // 3) Películas del actor (si corresponde)
+            add(localMapped);
+            add(tmdbMapped);
+            add(actorMapped);
 
             return Array.from(merged.values());
           })

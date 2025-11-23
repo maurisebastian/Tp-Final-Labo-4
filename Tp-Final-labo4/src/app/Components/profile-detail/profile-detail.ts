@@ -9,7 +9,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { Profile } from '../../Interfaces/profilein';
+import { Profile, ReviewReport } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service';
 import { ReviewService } from '../../Services/review.service';
 import { TopBar } from '../top-bar/top-bar';
@@ -18,9 +18,7 @@ import { TmdbService } from '../../Services/tmdb.service';
 import { AuthService } from '../../auth/auth-service';
 import { UserActivity } from '../user-activity/user-activity';
 import { ReviewReportService } from '../../Services/review-report.service';
-import { ReviewReport } from '../../Interfaces/profilein';
 import { ActivatedRoute, Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-profile-detail',
@@ -37,6 +35,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './profile-detail.css',
 })
 export class ProfileDetail implements OnInit {
+
   // servicios
   private reviewService = inject(ReviewService);
   private tmdbService = inject(TmdbService);
@@ -45,8 +44,7 @@ export class ProfileDetail implements OnInit {
   private reviewReportService = inject(ReviewReportService);
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
-  private router = inject(Router); 
-
+  private router = inject(Router);
 
   // estado
   userProfile: Profile | undefined;
@@ -54,12 +52,12 @@ export class ProfileDetail implements OnInit {
   myReports: ReviewReport[] = [];
   userLoggedIn = false;
 
-  // 👉 estado de edición
+  // estado edición
   isEditMode = false;
   profileError = '';
   profileSuccess = '';
 
-  // límites para fecha de nacimiento
+  // límites fecha nacimiento
   readonly minBirthDate = '1900-01-01';
   readonly maxBirthDate = this.buildMaxDate(12);
 
@@ -105,7 +103,7 @@ export class ProfileDetail implements OnInit {
     lastName: ['', Validators.required],
   });
 
-  // getters cómodos para template
+  // getters cómodos
   get username() { return this.form.controls.username; }
   get password() { return this.form.controls.password; }
   get date() { return this.form.controls.date; }
@@ -113,23 +111,22 @@ export class ProfileDetail implements OnInit {
   get email() { return this.form.controls.email; }
 
   ngOnInit(): void {
-  const editParam = this.route.snapshot.queryParamMap.get('edit');
-  this.loadUserProfile();
+    const editParam = this.route.snapshot.queryParamMap.get('edit');
+    this.loadUserProfile();
 
-  if (editParam === 'true') {
-    this.enableEdit();   // 👈 entra directo al modo edición
+    if (editParam === 'true') {
+      this.enableEdit();
+    }
   }
-}
 
   loadUserProfile() {
-    const userSignal = this.authService.getActiveUser(); // signal
+    const userSignal = this.authService.getActiveUser();
     const user = userSignal();
 
     if (user) {
       this.userProfile = user as Profile;
       this.userLoggedIn = true;
 
-      // rellenar el form con los datos actuales
       this.form.patchValue({
         username: user.username,
         password: user.password,
@@ -147,7 +144,7 @@ export class ProfileDetail implements OnInit {
     }
   }
 
-  // ====== VISIBILIDAD DEL PERFIL ======
+  // ===== VISIBILIDAD PERFIL =====
   toggleVisibility() {
     if (!this.userProfile?.id) return;
 
@@ -165,7 +162,7 @@ export class ProfileDetail implements OnInit {
       });
   }
 
-  // ====== RESEÑAS DEL USUARIO ======
+  // ===== RESEÑAS DEL USUARIO =====
   loadUserReviews() {
     if (this.userProfile && this.userProfile.id) {
       const profileId = this.userProfile.id;
@@ -174,11 +171,9 @@ export class ProfileDetail implements OnInit {
         this.reviews = reviews;
 
         this.reviews.forEach((review) => {
-          this.tmdbService
-            .getMovieDetails(review.idMovie)
-            .subscribe((movie) => {
-              review.movieName = movie.title;
-            });
+          this.tmdbService.getMovieDetails(review.idMovie).subscribe((movie) => {
+            review.movieName = movie.title;
+          });
         });
       });
     }
@@ -195,11 +190,25 @@ export class ProfileDetail implements OnInit {
     );
   }
 
-  // ====== REPORTES DEL USUARIO ======
+  // ===== REPORTES DEL USUARIO =====
   loadUserReports(profileId: number) {
     this.reviewReportService.getReportsByUser(profileId).subscribe({
       next: (reports) => {
         this.myReports = reports;
+
+        // Traer título de la peli para cada reporte que tenga idMovie
+        this.myReports.forEach((rep: any) => {
+          if (rep.idMovie) {
+            this.tmdbService.getMovieDetails(rep.idMovie).subscribe({
+              next: (movie) => {
+                rep.movieTitle = movie.title;
+              },
+              error: (err) => {
+                console.error('Error cargando título de película para reporte', err);
+              },
+            });
+          }
+        });
       },
       error: (err) => {
         console.error('Error al cargar los reportes del usuario:', err);
@@ -208,7 +217,7 @@ export class ProfileDetail implements OnInit {
     });
   }
 
-  // ====== MODO EDICIÓN PERFIL ======
+  // ===== MODO EDICIÓN PERFIL =====
   enableEdit() {
     this.profileError = '';
     this.profileSuccess = '';
@@ -258,9 +267,6 @@ export class ProfileDetail implements OnInit {
         if (ok) {
           this.profileSuccess = 'Perfil actualizado correctamente.';
           this.userProfile = updatedUser;
-
-          // si en algún momento agregan algo tipo authService.setActiveUser,
-          // acá se podría llamar para actualizar el signal
           this.isEditMode = false;
         } else {
           this.profileError = 'No se pudo actualizar el perfil.';
@@ -272,7 +278,7 @@ export class ProfileDetail implements OnInit {
     });
   }
 
-  // ====== VALIDADORES Y UTILIDADES ======
+  // ===== VALIDADORES Y UTILIDADES =====
   private minAgeValidator(minAge: number): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -314,7 +320,8 @@ export class ProfileDetail implements OnInit {
     this.form.controls['cel'].setValue(value, { emitEvent: false });
   }
 
-  goToMovie(movieId: number) {
+  // aceptar undefined sin romper
+  goToMovie(movieId?: number) {
     if (!movieId) return;
     this.router.navigate(['/movie-review', movieId]);
   }

@@ -80,6 +80,14 @@
       "movieName": "El Padrino Parte II",
       "status": "watched",
       "watchedDate": "2025-11-23T03:02:18.809Z"
+    },
+    {
+      "id": "8455",
+      "idProfile": "4dbc",
+      "idMovie": 52887,
+      "movieName": "Loyalty and Respect",
+      "status": "towatch",
+      "watchedDate": null
     }
   ],
   "comments": [
@@ -577,15 +585,6 @@
       "reason": "Ejemplo de reporte de reseña",
       "createdAt": "2025-11-21T18:30:00.000Z",
       "status": "resolved"
-    },
-    {
-      "id": "471e",
-      "type": "review",
-      "idReview": "734f",
-      "reporterId": "f4ee",
-      "reason": "me parece que no se entiende lo que dice",
-      "createdAt": "2025-11-22T03:26:00.294Z",
-      "status": "dismissed"
     },
     {
       "id": "7c34",
