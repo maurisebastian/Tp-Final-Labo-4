@@ -5,6 +5,12 @@
       "followingId": "1d76",
       "createdAt": "2025-11-23T06:05:43.887Z",
       "id": 1
+    },
+    {
+      "followerId": "1d76",
+      "followingId": "N9RUtmI",
+      "createdAt": "2025-11-23T16:58:23.094Z",
+      "id": 2
     }
   ],
   "reviewComments": [
