@@ -175,10 +175,12 @@ export class AdminReports {
   }
 
   goToProfile(report: FullReport) {
-    if (!report.reporterId) return;
-    // Ajustá el path si tu ruta es otra
-    this.router.navigate(['/profile', report.reporterId]);
-  }
+  if (!report.reporterId) return;
+
+  // ESTA ES LA RUTA CORRECTA
+  this.router.navigate(['/profiles', report.reporterId]);
+}
+
 
   // Helpers para las 3 columnas
   get pendingReports(): FullReport[] {
