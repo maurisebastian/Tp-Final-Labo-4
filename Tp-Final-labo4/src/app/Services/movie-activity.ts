@@ -13,7 +13,7 @@ export class MovieActivity {
   private readonly http = inject(HttpClient);
 
   // Obtener TODAS las actividades del usuario
-  getActivitiesByUser(userId: number): Observable<MovieActivityInterface[]> {
+  getActivitiesByUser(userId: number | string): Observable<MovieActivityInterface[]> {
     return this.http.get<MovieActivityInterface[]>(`${this.apiUrl}?idProfile=${userId}`);
   }
 
