@@ -8,6 +8,9 @@ import { UserActivity } from '../user-activity/user-activity';
 
 import { Profile } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service';
+import { FollowService } from '../../Services/follow-service';
+import { AuthService } from '../../auth/auth-service';
+import { FollowComponent } from '../follow-component/follow-component';
 
 // ⭐ LISTA DE GÉNEROS — ACÁ ESTÁ LA SOLUCIÓN
 const GENRES = [
@@ -24,7 +27,7 @@ const GENRES = [
 @Component({
   selector: 'app-profile-public',
   standalone: true,
-  imports: [TopBar, Footer, UserActivity, CommonModule],
+  imports: [TopBar, Footer, UserActivity,FollowComponent, CommonModule],
   templateUrl: './profile-public.html',
   styleUrl: './profile-public.css',
 })
@@ -32,6 +35,11 @@ export class ProfilePublic implements OnInit {
 
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
+  private followService = inject(FollowService);
+  private auth = inject(AuthService);
+
+  activeUserId: string | number | null = null;
+
 
   profile: Profile | null = null;
   isPrivate = false;
@@ -43,6 +51,9 @@ export class ProfilePublic implements OnInit {
   genreNames = GENRES;
 
   ngOnInit(): void {
+
+    const activeUser = this.auth.getActiveUser()();
+    this.activeUserId = activeUser?.id ?? null;
     const idParam = this.route.snapshot.paramMap.get('id');
 
     if (!idParam) {
@@ -61,16 +72,35 @@ export class ProfilePublic implements OnInit {
 
         this.profile = p;
         this.isPrivate = p.isPublic === false;
+
+         if (this.activeUserId) {
+        this.followService
+          .isFollowing(this.activeUserId, p.id!)
+          .subscribe(isF => {
+            this.isFollowing = isF;
+          });
+      }
+        
       },
       error: () => {
         this.notFound = true;
       },
     });
   }
+async toggleFollow() {
+  if (!this.activeUserId || !this.profile) return;
 
-  toggleFollow() {
-    this.isFollowing = !this.isFollowing;
+  const follower = this.activeUserId;
+  const following = this.profile.id!;
+
+  if (this.isFollowing) {
+    await this.followService.unfollow(follower, following);
+    this.isFollowing = false;
+  } else {
+    await this.followService.follow(follower, following);
+    this.isFollowing = true;
   }
+}
 
   // ⭐ Función para traducir ID → nombre
   getGenreName(id: number | string): string {

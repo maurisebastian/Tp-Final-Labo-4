@@ -63,3 +63,19 @@
   font-weight: 700;
   color: #ffffff;
 }
+.follow-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.left-part {
+  flex: 0 0 auto; /* Botón fijo */
+}
+
+.right-part {
+  flex: 1;
+  text-align: right; /* Lo empuja a la derecha */
+}

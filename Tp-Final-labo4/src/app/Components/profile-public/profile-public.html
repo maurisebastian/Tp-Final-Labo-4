@@ -25,9 +25,20 @@
 
   <div class="public-profile">
 
-    <button class="follow-btn" (click)="toggleFollow()">
-      {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
-    </button>
+    <div class="follow-row">
+
+      <div class="left-part">
+        <button class="follow-btn" (click)="toggleFollow()">
+          {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+        </button>
+      </div>
+
+      <div class="right-part">
+        <app-follow-component [userId]="profile.id"></app-follow-component>
+      </div>
+
+    </div>
+
 
     <div class="public-info">
       <p><strong>Email:</strong> {{ profile.email }}</p>
@@ -40,7 +51,6 @@
         @for (g of profile.favoriteGenres; track g; let i = $index) {
         {{ getGenreName(g) }}
         @if (i < profile.favoriteGenres.length - 1) { , } } } @else { Sin géneros } </p>
-
     </div>
 
     <h3 class="movie-list-title">Listas de películas</h3>

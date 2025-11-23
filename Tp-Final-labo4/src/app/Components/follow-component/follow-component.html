@@ -1,0 +1,23 @@
+<div class="followers-box">
+
+  <h3>Seguidores ({{ followers.length }})</h3>
+
+  @if (loading) {
+    <p>Cargando seguidores...</p>
+  }
+  @else if (followers.length === 0) {
+    <p>No tiene seguidores aún.</p>
+  }
+  @else {
+
+    <ul class="followers-list">
+      @for (f of followers; track f.id) {
+        <li class="follower-card">
+          <strong>{{ f.username }}</strong>
+          <span>{{ f.email }}</span>
+        </li>
+      }
+    </ul>
+
+  }
+</div>
