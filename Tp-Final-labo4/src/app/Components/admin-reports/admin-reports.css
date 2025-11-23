@@ -102,3 +102,73 @@
 .link-movie:hover {
   color: #0d47a1;
 }
+
+.reports-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.reports-column {
+  flex: 1;
+}
+
+.reports-column h3 {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.report-card.resolved {
+  border-left: 4px solid #4caf50;
+}
+
+.report-card.dismissed {
+  border-left: 4px solid #e74c3c;
+}
+
+.empty-msg {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* link a perfil */
+.link-profile {
+  background: transparent;
+  border: none;
+  color: #1976d2;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font: inherit;
+}
+
+.link-profile:hover {
+  color: #0d47a1;
+}
+
+.actions .back {
+  background-color: #888;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.actions .delete {
+  background-color: #b71c1c;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.actions .delete:hover {
+  background-color: #7f0000;
+}
