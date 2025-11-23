@@ -13,16 +13,40 @@
       "createdAt": "2025-11-23T18:32:47.429Z"
     },
     {
-      "id": "47f8",
-      "followerId": "6b38",
-      "followingId": "21a8",
-      "createdAt": "2025-11-23T19:43:42.168Z"
+      "followerId": "1d76",
+      "followingId": "def6",
+      "createdAt": "2025-11-23T19:41:36.823Z",
+      "id": "PCj0P-j"
     },
     {
-      "id": "1327",
-      "followerId": "6b38",
-      "followingId": "def6",
-      "createdAt": "2025-11-23T21:40:08.961Z"
+      "followerId": "21a8",
+      "followingId": "ZfpoMDx",
+      "createdAt": "2025-11-23T19:47:55.383Z",
+      "id": "g5C0DdE"
+    },
+    {
+      "followerId": "ZfpoMDx",
+      "followingId": "ae65",
+      "createdAt": "2025-11-23T20:12:07.775Z",
+      "id": "Ecy1MAW"
+    },
+    {
+      "followerId": "def6",
+      "followingId": "ae65",
+      "createdAt": "2025-11-23T20:26:37.581Z",
+      "id": "vCRU_MM"
+    },
+    {
+      "followerId": "def6",
+      "followingId": "ZfpoMDx",
+      "createdAt": "2025-11-23T20:27:50.122Z",
+      "id": "aSKL9jZ"
+    },
+    {
+      "followerId": "def6",
+      "followingId": "4e48",
+      "createdAt": "2025-11-23T20:30:27.258Z",
+      "id": "qiJEMnT"
     }
   ],
   "reviewComments": [
@@ -119,6 +143,22 @@
       "movieName": "Loyalty and Respect",
       "status": "towatch",
       "watchedDate": null
+    },
+    {
+      "idProfile": "ZfpoMDx",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "ObhOHEF"
+    },
+    {
+      "idProfile": "21a8",
+      "idMovie": 240,
+      "movieName": "El Padrino Parte II",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "_BI1w6e"
     }
   ],
   "comments": [
@@ -268,6 +308,27 @@
       "idMovie": 508943,
       "score": 6,
       "description": "uyghtuj"
+    },
+    {
+      "idProfile": "ZfpoMDx",
+      "idMovie": 240,
+      "score": 7,
+      "description": "asdasdasd",
+      "id": "zI_B5lG"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 424,
+      "score": 4,
+      "description": "interesante muy ! ",
+      "id": "N2MPScf"
+    },
+    {
+      "idProfile": "ZfpoMDx",
+      "idMovie": 278,
+      "score": 7,
+      "description": "interesante",
+      "id": "kMEm8uC"
     }
   ],
   "profiles": [
@@ -291,8 +352,8 @@
     },
     {
       "id": "def6",
-      "username": "dsad",
-      "password": "fgsfgdsg",
+      "username": "pepe",
+      "password": "1234567",
       "date": "2013-11-08",
       "cel": "5244564563",
       "email": "dsadasal@gmail.com",
@@ -623,6 +684,18 @@
       "favoriteGenres": [],
       "date": "1990-01-01",
       "cel": "00000000"
+    },
+    {
+      "username": "kiko",
+      "password": "1234567",
+      "date": "1994-10-10",
+      "cel": "2342342342",
+      "email": "kiko@gmail.com",
+      "firstName": "matias",
+      "lastName": "lodeiro",
+      "role": "user",
+      "favoriteGenres": [],
+      "id": "ZfpoMDx"
     }
   ],
   "reviewReports": [

@@ -212,46 +212,46 @@ export class ReviewList {
 
   // ====== AGREGAR RESEÑA ======
   addReview(event?: Event) {
-    if (event) event.preventDefault();
-    
-    if (this.userAlreadyReviewed) {
+  if (event) event.preventDefault();
+  
+  if (this.userAlreadyReviewed) {
     alert("Solo puedes dejar una reseña por película.");
     return;
   }
 
-    if (this.reviewForm.invalid) {
-      this.reviewForm.markAllAsTouched();
-      return;
-    }
-
-    if (!this.userLoggedIn || this.userId == null) {
-      alert('Debes estar logueado para dejar una reseña.');
-      return;
-    }
-
-    const movieId = this.peliculaID();
-    if (movieId === undefined) {
-      console.error('No se encontró el ID de la película');
-      return;
-    }
-
-    const newReviewData: Review = {
-      idProfile: this.userId,
-      idMovie: movieId,
-      score: Number(this.reviewForm.value.score),
-      description: this.reviewForm.value.description ?? '',
-    };
-
-    this.reviewService.addReview(newReviewData).subscribe({
-      next: (response) => {
-        this.reviews.push(response);
-        this.reviewForm.reset();
-        this.starRating = 0;
-      },
-      error: (err) => console.error('Error al agregar la reseña:', err),
-    });
+  if (this.reviewForm.invalid) {
+    this.reviewForm.markAllAsTouched();
+    return;
   }
 
+  if (!this.userLoggedIn || this.userId == null) {
+    alert('Debes estar logueado para dejar una reseña.');
+    return;
+  }
+
+  const movieId = this.peliculaID();
+  if (movieId === undefined) {
+    console.error('No se encontró el ID de la película');
+    return;
+  }
+
+  const newReviewData: Review = {
+    idProfile: this.userId,
+    idMovie: movieId,
+    score: Number(this.reviewForm.value.score),
+    description: this.reviewForm.value.description ?? '',
+  };
+
+  this.reviewService.addReview(newReviewData).subscribe({
+    next: () => {
+      // 🟢 Esto hace que el formulario desaparezca sin recargar
+      this.loadReviews();
+      this.reviewForm.reset();
+      this.starRating = 0;
+    },
+    error: (err) => console.error('Error al agregar la reseña:', err),
+  });
+}
   // ====== ELIMINAR RESEÑA ======
   deleteReview(reviewId: string | number) {
     this.reviewService.deleteReviewById(reviewId as any).subscribe({
