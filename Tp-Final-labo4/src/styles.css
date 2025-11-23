@@ -126,3 +126,9 @@ button:hover {
   cursor: not-allowed;
   box-shadow: none;
 }
+
+/* Texto oscuro solo dentro del componente de seguidores en el perfil público */
+.profile-public-page app-follow-component,
+.profile-public-page app-follow-component * {
+  color: #111827 !important;  /* gris casi negro */
+}
