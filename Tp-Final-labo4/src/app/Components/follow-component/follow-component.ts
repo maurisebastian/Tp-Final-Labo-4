@@ -34,6 +34,7 @@ export class FollowComponent implements OnInit {
     } 
 
     this.loadFollowers();
+    this.loadFollowing();
   }
   goToProfile(id: string | number) {
   this.router.navigate(['/profiles', id]);
