@@ -19,12 +19,46 @@
         <span>{{ f.email }}</span>
       </div>
 
-      <button class="go-profile-btn" *ngIf="showProfileButton" (click)="goToProfile(f.id!)">
-        Ver perfil
-      </button>
+      @if (showProfileButton) {
+  <button class="go-profile-btn" (click)="goToProfile(f.id!)">
+    Ver perfil
+  </button>
+}
     </li>
     }
   </ul>
 
   }
+
+
+
+    <hr>
+
+  <!-- SEGUIDOS -->
+  <h3>Seguidos ({{ following.length }})</h3>
+
+  @if (following.length === 0) {
+    <p>No sigue a nadie aún.</p>
+  }
+  @else {
+    <ul class="followers-list">
+      @for (p of following; track p.id) {
+        <li class="follower-card">
+
+          <div class="follower-info">
+            <strong>{{ p.username }}</strong>
+            <span>{{ p.email }}</span>
+          </div>
+
+          @if (showProfileButton) {
+            <button class="go-profile-btn" (click)="goToProfile(p.id!)">
+              Ver perfil
+            </button>
+          }
+
+        </li>
+      }
+    </ul>
+  }
+
 </div>

@@ -24,6 +24,7 @@ export class FollowComponent implements OnInit {
   @Input() showProfileButton: boolean = true;
 
   followers: Profile[] = [];
+  following: Profile[] = []; 
   loading = true;
 
   ngOnInit(): void {
@@ -56,6 +57,17 @@ export class FollowComponent implements OnInit {
         this.loading = false;
       })
       .catch(() => this.loading = false);
+  }
+    loadFollowing() {  
+    this.followService.getFollowing(String(this.userId))
+      .then(async (follows) => {
+        const profiles: Profile[] = [];
+        for (const f of follows) {
+          const profile = await this.profileService.getUserById(f.followingId).toPromise();
+          if (profile) profiles.push(profile);
+        }
+        this.following = profiles;
+      });
   }
 
 }
