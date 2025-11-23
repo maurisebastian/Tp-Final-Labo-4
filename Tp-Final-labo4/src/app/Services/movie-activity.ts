@@ -41,9 +41,9 @@ export class MovieActivity {
     return this.http.patch<MovieActivityInterface>(`${this.apiUrl}/${id}`, activity);
   }
 
-  // Eliminar registro
-  deleteActivity(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+  deleteActivity(id: number) {
+  return this.http.delete(`${this.apiUrl}/${id}`);
+}
+
   
 }

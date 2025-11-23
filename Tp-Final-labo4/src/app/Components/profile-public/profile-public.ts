@@ -1,57 +1,70 @@
-import { Component, inject } from '@angular/core';
+// src/app/Components/profile-public/profile-public.ts
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+
+import { TopBar } from '../top-bar/top-bar';
+import { Footer } from '../../Shared/footer/footer';
+import { UserActivity } from '../user-activity/user-activity';
+
 import { Profile } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service';
-import { FollowService } from '../../Services/follow-service';
-import { AuthService } from '../../auth/auth-service';
-import { ActivatedRoute } from '@angular/router';
-import { UserActivity } from "../user-activity/user-activity";
 
 @Component({
   selector: 'app-profile-public',
-  imports: [UserActivity],
+  standalone: true,
+  imports: [TopBar, Footer, UserActivity, CommonModule],
   templateUrl: './profile-public.html',
   styleUrl: './profile-public.css',
 })
-export class ProfilePublic {
+export class ProfilePublic implements OnInit {
 
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
-  private followService = inject(FollowService);
-  private auth = inject(AuthService);
 
-  profile!: Profile
+  profile: Profile | null = null;
+  isPrivate = false;
+  notFound = false;
+
+  // por ahora el follow es solo visual
   isFollowing = false;
-  activeId = this.auth.getActiveUser()()?.id;
 
- ngOnInit() {
-  const id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
 
-  // Obtener perfil del usuario
-  this.profileService.getUserById(id!).subscribe({
-    next: (profile) => {
-      this.profile = profile;
+    console.log('ProfilePublic -> idParam de la ruta:', idParam, 'tipo:', typeof idParam);
 
-      // Luego de obtener el perfil, verificamos follow
-      this.followService.isFollowing(this.activeId!, id!).subscribe({
-        next: (isFollow) => {
-          this.isFollowing = isFollow;
+    if (!idParam) {
+      this.notFound = true;
+      return;
+    }
+
+    // ⚠️ IMPORTANTE: NO convertir a Number.
+    // Tus ids en db.json son strings como "NnUCsx5", "1d76", etc.
+    const id: string = idParam;
+
+    this.profileService.getUserById(id).subscribe({
+      next: (p) => {
+        if (!p) {
+          this.notFound = true;
+          return;
         }
-      });
-    },
-    error: (err) => {
-      console.error("Error cargando perfil", err);
-    }
-  });
-}
 
-  async toggleFollow() {
-    if (this.isFollowing) {
-      await this.followService.unfollow(this.activeId!, this.profile.id!);
-      this.isFollowing = false;
-    } else {
-      await this.followService.follow(this.activeId!, this.profile.id!);
-      this.isFollowing = true;
-    }
+        console.log('ProfilePublic -> perfil cargado:', p);
+
+        this.profile = p;
+        this.isPrivate = p.isPublic === false;
+      },
+      error: (err) => {
+        console.error('Error cargando perfil público:', err);
+        this.notFound = true;
+      },
+    });
   }
 
+  // botón seguir (por ahora solo cambia el texto)
+  toggleFollow() {
+    this.isFollowing = !this.isFollowing;
+    console.log('Seguir/Dejar de seguir a', this.profile?.id, '->', this.isFollowing);
+  }
 }

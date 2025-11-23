@@ -15,6 +15,10 @@ import { AdminCreateAdminComponent } from './Components/admin-create-admin/admin
 import { AdminReviewsComponent } from './Components/admin-reviews/admin-reviews';               // NUEVO
 import { ProfilesList } from './Components/profiles-list/profiles-list';
 import { ProfilePublic } from './Components/profile-public/profile-public';
+import { ActorSearch } from './Components/actor-search/actor-search';
+import { ActorDetail } from './Components/actor-detail/actor-detail'; // 
+
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home page' },
@@ -72,6 +76,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./Components/genres/genres').then((m) => m.Genres),
   },
+  // 🔍 Búsqueda de actores
+{
+  path: 'actors',
+  component: ActorSearch,
+  title: 'Buscar actores'
+},
+
+// ⭐ Detalle de actor + películas en las que aparece
+{
+  path: 'actor/:id',
+  loadComponent: () =>
+    import('./Components/actor-detail/actor-detail')
+      .then(m => m.ActorDetail),
+  title: 'Detalle de actor'
+},
+
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

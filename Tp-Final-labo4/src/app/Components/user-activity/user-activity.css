@@ -1,77 +1,171 @@
+/* ====== CONTENEDOR GENERAL ====== */
+
 .activity-container {
-  background: #a57e7e;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  background: radial-gradient(circle at top left,
+              rgba(91, 192, 235, 0.2),
+              rgba(15, 23, 42, 0.95));
+  padding: 1.5rem 1.75rem;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: #e5e7eb;
 }
 
-h3 {
-  margin-top: 20px;
-  color: #333;
-  font-size: 18px;
-  font-weight: 600;
+/* títulos dentro de la tarjeta, no todos los h3 del mundo */
+.activity-container h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f9fafb;
 }
 
-/* Ítems generales */
+/* separación entre secciones */
+.activity-container h3 + p,
+.activity-container h3 + ul {
+  margin-top: 0.15rem;
+}
+
+.activity-container h3:nth-of-type(2) {
+  margin-top: 1.25rem;
+}
+
+/* texto de “no tienes películas…” */
+.activity-container p {
+  font-size: 0.9rem;
+  color: #cbd5f5;
+}
+
+/* ====== LISTAS ====== */
+
+.activity-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .movie-item {
-  color: #444;              /* letra NO tan oscura */
-  font-size: 15px;
-  margin: 6px 0;
+  margin-bottom: 0.5rem;
+  border-radius: 14px;
+  padding: 0.65rem 0.9rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+              background 0.15s ease-out;
 }
 
-/* Películas por ver */
-.to-watch-item {
-  padding: 6px 0;
-  border-bottom: 1px solid #efefef;
+.movie-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+  background: rgba(15, 23, 42, 0.98);
 }
 
-/* Botón "Vista" */
-.mark-watched-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: 0.2s;
-}
+/* vistas vs por ver: leves diferencias de borde */
 
-.mark-watched-btn:hover {
-  background: #218838;
-}
-
-/* Películas vistas (colapsables) */
 .watched-item {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  border-left: 4px solid #22c55e;
+}
+
+.to-watch-item {
+  border-left: 4px solid #facc15;
+}
+
+/* ====== HEADER DE LA PELI (TÍTULO + FLECHITA O BOTONES) ====== */
+
+.movie-row,
+.movie-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .watched-header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
   cursor: pointer;
-  font-weight: 500;
-  color: #333;        /* más suave */
+  font-weight: 600;
+  color: #e5e7eb;
 }
 
 .watched-header:hover {
-  color: #222;
-}
-
-.watched-details {
-  margin-top: 5px;
-  margin-left: 10px;
-  color: #666;        /* gris claro */
-  font-size: 14px;
+  color: #ffffff;
 }
 
 .arrow {
-  font-size: 12px;
-  margin-left: 6px;
-  color: #777;
+  font-size: 0.7rem;
+  color: #9ca3af;
 }
 
+/* detalles de “Fecha: …” */
+
+.watched-details {
+  margin-left: 0.2rem;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+/* ====== BOTONES ====== */
+
+.mark-watched-btn,
+.remove-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.25rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  white-space: nowrap;
+}
+
+/* “Vista” – verde */
+.mark-watched-btn {
+  background: #22c55e;
+  color: #0b1120;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+}
+
+.mark-watched-btn:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+/* “Quitar” – rojo */
+.remove-btn {
+  background-color: #ef4444;
+  color: #f9fafb;
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.35);
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* ====== RESPONSIVE ====== */
+
+@media (max-width: 768px) {
+  .activity-container {
+    padding: 1.25rem 1rem;
+  }
+
+  .movie-item {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .movie-row,
+  .movie-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .mark-watched-btn,
+  .remove-btn {
+    font-size: 0.75rem;
+  }
+}

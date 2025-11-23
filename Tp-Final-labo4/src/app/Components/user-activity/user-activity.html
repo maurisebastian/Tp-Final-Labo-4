@@ -3,41 +3,59 @@
     <h3>Películas Vistas</h3>
 
     @if (watchedMovies.length === 0) {
-    <p class="movie-item">No has marcado películas como vistas aún.</p>
+      <p class="movie-item">No has marcado películas como vistas aún.</p>
     } @else {
-    <ul>
+      <ul>
         @for (movie of watchedMovies; track movie.id) {
-        <li class="movie-item watched-item">
-            <div class="watched-header" (click)="toggleDetails(movie.id!)">
+          <li class="movie-item watched-item">
+
+            <div class="movie-row">
+              <div class="watched-header" (click)="toggleDetails(movie.id!)">
                 {{ movie.movieName || 'Cargando...' }}
                 <span class="arrow">{{ expandedMovieId === movie.id ? '▲' : '▼' }}</span>
+              </div>
+
+              <!-- ⭐ BOTÓN QUITAR -->
+              <button class="remove-btn" (click)="removeActivity(movie.id!)">
+                Quitar
+              </button>
             </div>
 
             @if (expandedMovieId === movie.id) {
-            <div class="watched-details">
+              <div class="watched-details">
                 <p>Fecha: {{ movie.watchedDate || 'Sin fecha' }}</p>
-            </div>
+              </div>
             }
-        </li>
+          </li>
         }
-    </ul>
+      </ul>
     }
 
     <h3>Películas por Ver</h3>
 
     @if (toWatchMovies.length === 0) {
-    <p>No tienes películas por ver.</p>
+      <p>No tienes películas por ver.</p>
     } @else {
-    <ul>
+      <ul>
         @for (movie of toWatchMovies; track movie.id) {
-        <li class="movie-item to-watch-item">
+          <li class="movie-item to-watch-item">
+            
             <span>{{ movie.movieName || 'Cargando...' }}</span>
-            <button class="mark-watched-btn" (click)="markAsWatched(movie.id!)">
+
+            <div class="movie-actions">
+              <button class="mark-watched-btn" (click)="markAsWatched(movie.id!)">
                 ✓ Vista
-            </button>
-        </li>
+              </button>
+
+              <!-- ⭐ BOTÓN QUITAR -->
+              <button class="remove-btn" (click)="removeActivity(movie.id!)">
+                Quitar
+              </button>
+            </div>
+
+          </li>
         }
-    </ul>
+      </ul>
     }
 
 </div>

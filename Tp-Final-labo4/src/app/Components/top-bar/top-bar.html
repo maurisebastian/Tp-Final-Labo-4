@@ -25,30 +25,27 @@
     }
   </div>
 
-  <!-- DERECHA: PERFIL + ADMIN -->
-  <div class="topbar-right">
+ <!-- DERECHA: PERFIL + ADMIN -->
+<div class="topbar-right">
 
-    <!-- SOLO mostrar Perfil si hay usuario -->
-    @if (activeUserSignal()) {
-      
-         <!-- IR A LA LISTA DE PERFILES -->
-      <a [routerLink]="['/profiles']" class="profile-link">
-        <span class="profile-text">Perfiles</span>
-      </a>
+  @if (activeUserSignal()) {
 
-      <!-- PERFIL PROPIO -->
+    <!-- IR A LA LISTA DE PERFILES -->
+    <a [routerLink]="['/profiles']" class="profile-link">
+      <span class="profile-text">Perfiles</span>
+    </a>
 
-
+    <!-- PERFIL PROPIO -->
     <a [routerLink]="['/profile-detail']" class="profile-link">
       <span class="profile-text">
         Perfil ({{ activeUserSignal()?.username }})
       </span>
       <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar" />
     </a>
-    }
+  }
+
+</div>
 
 
-
-  </div>
 
 </div>

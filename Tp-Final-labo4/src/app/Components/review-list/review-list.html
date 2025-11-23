@@ -1,134 +1,109 @@
 <div class="review-section">
 
-  <!-- Card: formulario para agregar reseña -->
   <div class="add-review">
-
     <h3 class="section-title">Agrega tu reseña</h3>
 
     <form [formGroup]="reviewForm" (submit)="addReview($event)">
-
       <div class="star-rating mb-3">
-
-        @for (star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
-        <span (click)="setStarRating(star)" class="star" [class.selected]="star <= +reviewForm.controls.score.value">
-          ★
-        </span>
+        @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+          <span (click)="setStarRating(star)"
+                class="star"
+                [class.selected]="star <= +reviewForm.controls.score.value">
+            ★
+          </span>
         }
-
         <span class="rating-label">
           Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
         </span>
       </div>
 
-      @if (reviewForm.get('score')?.invalid && reviewForm.get('score')?.touched) {
-      <div class="text-danger">
-        * La calificación es obligatoria y debe estar entre 1 y 10.
-      </div>
-      }
-
-      <textarea formControlName="description" placeholder="Escribe tu reseña aquí..."
-        class="review-textarea"></textarea>
-
-      @if (reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched) {
-      <div class="text-danger">
-        * La descripción es obligatoria y debe tener al menos 5 caracteres.
-      </div>
-      }
+      <textarea formControlName="description"
+                class="review-textarea"
+                placeholder="Escribe tu reseña aquí..."></textarea>
 
       <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
         Agregar reseña
       </button>
-
     </form>
-
   </div>
 
-  <!-- Card: listado de reseñas -->
+  <!-- LISTADO -->
   <div class="reviews-list-block">
 
     <h3 class="section-title">Reseñas</h3>
 
     @if (reviews.length === 0) {
-    <span class="empty-reviews">
-      No hay reseñas disponibles para esta película.
-    </span>
+      <span class="empty-reviews">No hay reseñas disponibles para esta película.</span>
     }
 
     @for (review of reviews; track review.id) {
 
-    <div class="card-reseñas">
+      <div class="card-reseñas">
+        <div class="review-info">
 
-      <div class="review-info">
+          <strong>
+            Usuario:
+            <button type="button" class="user-link"
+                    (click)="goToUserProfile(review.idProfile)">
+              {{ review.userName || ('Usuario #' + review.idProfile) }}
+            </button>
+          </strong>
 
-        <strong>
-          Usuario: {{ review.userName || review.idProfile }}
-        </strong>
+          <span class="review-score">
+            <strong>Calificación:</strong> {{ review.score }} / 10
+          </span>
 
-        <span class="review-score">
-          <strong>Calificación:</strong> {{ review.score }} / 10
-        </span>
+        </div>
 
-      </div>
-            <button class="btn-like" (click)="toggleLike(review)">
-        @if (review.likedByUser) {
-        ❤️ {{ review.likesCount }}
-        } @else {
-        🤍 {{ review.likesCount }}
-        }
-      </button>
-
-      <button class="btn-report" (click)="reportReview(review)">
-        🚩 Reportar reseña
-      </button>
-
-            @if (review.idProfile === userId || isAdmin) {
-      <button class="btn-delete" (click)="deleteReview(review.id)">
-        Eliminar
-      </button>
-      }
-
-
-
-    </div>
-
-    <p class="review-description">{{ review.description }}</p>
-
-    <!-- COMENTARIOS DE LA REVIEW -->
-
-    <div class="comments-block">
-
-      @if (review.comments?.length === 0) {
-      <p class="no-comments">No hay comentarios aún.</p>
-      }
-
-            @for (comment of review.comments; track comment.id) {
-      <div class="comment-item">
-        <strong>{{ comment.userName || comment.idProfile }}:</strong>
-        <span>{{ comment.comment }}</span>
-
-        <button
-          type="button"
-          class="btn-report-comment"
-          (click)="reportComment(review, comment)"
-        >
-          🚩
+        <button class="btn-like" (click)="toggleLike(review)">
+          @if (review.likedByUser) { ❤️ {{ review.likesCount }} }
+          @else { 🤍 {{ review.likesCount }} }
         </button>
+
+        <button class="btn-report" (click)="reportReview(review)">🚩 Reportar reseña</button>
+
+        @if (review.idProfile === userId || isAdmin) {
+          <button class="btn-delete" (click)="deleteReview(review.id)">Eliminar</button>
+        }
       </div>
-      }
 
+      <p class="review-description">{{ review.description }}</p>
 
-      @if (userLoggedIn) {
-      <form (submit)="addComment($event, review)">
-        <input type="text" [formControl]="getControl(review.id!)" class="form-control"
-          placeholder="Escribe un comentario...">
-        <button type="submit">Comentar</button>
-      </form>
-      }
-    </div>
+      <!-- COMENTARIOS -->
+      <div class="comments-block">
 
+        @if (review.comments?.length === 0) {
+          <p class="no-comments">No hay comentarios aún.</p>
+        }
+
+        @for (comment of review.comments; track comment.id) {
+          <div class="comment-item">
+            <strong>
+              <button type="button" class="user-link"
+                      (click)="goToUserProfile(comment.idProfile)">
+                {{ comment.userName || ('Usuario #' + comment.idProfile) }}
+              </button>:
+            </strong>
+
+            <span>{{ comment.comment }}</span>
+
+            <button type="button" class="btn-report-comment"
+                    (click)="reportComment(review, comment)">🚩</button>
+          </div>
+        }
+
+        @if (userLoggedIn) {
+          <form (submit)="addComment($event, review)">
+            <input type="text"
+                   [formControl]="getControl(review.id!)"
+                   class="form-control"
+                   placeholder="Escribe un comentario...">
+            <button type="submit">Comentar</button>
+          </form>
+        }
+
+      </div>
     }
-
   </div>
-
 
 </div>

@@ -24,19 +24,30 @@ export class MovieReview implements OnInit {
 
   movieId: number = 0;
   movieDetails: any;
+  cast: any[] = [];
 
-  userId: number | null = null;
+  // puede ser string o number
+  userId: string | number | null = null;
   activity: MovieActivityInterface | null = null;
 
   ngOnInit() {
     const user = this.auth.getActiveUser()();
-    this.userId = user?.id ? Number(user.id) : null;
+    console.log('MovieReview - activeUser:', user);
 
+    // tomamos id o idProfile SIN convertir a número
+    const rawId =
+      user
+        ? (user as any).id ?? (user as any).idProfile
+        : null;
+
+    this.userId = rawId ?? null;
+    console.log('MovieReview - userId calculado:', this.userId);
 
     this.route.params.subscribe(params => {
       this.movieId = Number(params['id'] ?? 0);
       this.loadMovieDetails();
       this.loadActivity();
+      this.loadCast();
     });
   }
 
@@ -52,7 +63,8 @@ export class MovieReview implements OnInit {
   loadActivity() {
     if (!this.userId || !this.movieId) return;
 
-    this.movieActivity.getActivitiesByUser(this.userId).subscribe(list => {
+    // usamos userId tal cual, casteado a any para que TS no moleste
+    this.movieActivity.getActivitiesByUser(this.userId as any).subscribe(list => {
       this.activity = list.find(a => a.idMovie === this.movieId) || null;
     });
   }
@@ -60,9 +72,11 @@ export class MovieReview implements OnInit {
   markAs(status: 'watched' | 'towatch') {
     if (!this.userId || !this.movieId) return;
 
+    const idProfile = this.userId as any;
+
     if (!this.activity) {
       const newAct: MovieActivityInterface = {
-        idProfile: this.userId,
+        idProfile,
         idMovie: this.movieId,
         movieName: this.movieDetails?.title,
         status,
@@ -80,10 +94,21 @@ export class MovieReview implements OnInit {
 
       if (status === 'watched') {
         payload.watchedDate = new Date().toISOString();
+      } else {
+        payload.watchedDate = null;
       }
 
       this.movieActivity.updateActivity(this.activity.id!, payload)
         .subscribe(() => this.loadActivity());
     }
+  }
+
+  // 👉 SOLO dejamos esto para los actores
+  loadCast() {
+    if (!this.movieId) return;
+
+    this.tmdbService.getMovieCredits(this.movieId).subscribe(credits => {
+      this.cast = (credits?.cast ?? []).slice(0, 8);
+    });
   }
 }

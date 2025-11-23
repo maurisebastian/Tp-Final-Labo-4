@@ -15,8 +15,7 @@ export class UserActivity {
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
 
-  // 👇 lo dejamos en any para no discutir con TS
-@Input() userId: string | number | null | undefined = null;
+  @Input() userId: string | number | null | undefined = null;
 
   watchedMovies: MovieActivityInterface[] = [];
   toWatchMovies: MovieActivityInterface[] = [];
@@ -35,11 +34,11 @@ export class UserActivity {
   loadMovieLists() {
     if (!this.userId) return;
 
-    this.movieActivity.getWatchedMovies(this.userId).subscribe((data) => {
+    this.movieActivity.getWatchedMovies(this.userId as any).subscribe((data) => {
       this.watchedMovies = data;
     });
 
-    this.movieActivity.getToWatchMovies(this.userId).subscribe((data) => {
+    this.movieActivity.getToWatchMovies(this.userId as any).subscribe((data) => {
       this.toWatchMovies = data;
     });
   }
@@ -57,6 +56,14 @@ export class UserActivity {
       })
       .subscribe(() => {
         this.loadMovieLists();
+      });
+  }
+
+  // 👇 NUEVO: quitar la actividad (vista o por ver)
+  removeActivity(activityId: number) {
+    this.movieActivity.deleteActivity(activityId)
+      .subscribe(() => {
+        this.loadMovieLists(); // refresca listas
       });
   }
 }

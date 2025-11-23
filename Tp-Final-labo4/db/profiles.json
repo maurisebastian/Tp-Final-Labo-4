@@ -12,6 +12,12 @@
       "idReview": "sK1ndJF",
       "idProfile": "7d00",
       "comment": "me aprece q esto no esta bueno"
+    },
+    {
+      "id": "0ac1",
+      "idReview": "sK1ndJF",
+      "idProfile": "6b38",
+      "comment": "rere"
     }
   ],
   "reviewLikes": [
@@ -194,6 +200,20 @@
       "score": 7,
       "description": "muy buena",
       "id": "47pKW0h"
+    },
+    {
+      "id": "1f0d",
+      "idProfile": "6b38",
+      "idMovie": 240,
+      "score": 8,
+      "description": "utryurtyt"
+    },
+    {
+      "id": "9a74",
+      "idProfile": "6b38",
+      "idMovie": 240,
+      "score": 8,
+      "description": "lkhjkjhgkjh"
     }
   ],
   "profiles": [
@@ -467,7 +487,7 @@
         18,
         80
       ],
-      "isPublic": false
+      "isPublic": true
     },
     {
       "id": "7d00",
@@ -480,6 +500,63 @@
       "lastName": "Stejskal",
       "role": "user",
       "favoriteGenres": []
+    },
+    {
+      "id": "c57c",
+      "username": "hjgghjgh",
+      "password": "fakepass",
+      "date": "2013-11-15",
+      "cel": "5632456345",
+      "email": "jhgjghl@gmail.com",
+      "firstName": "jhgjgh",
+      "lastName": "ghjgh",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        53,
+        80,
+        10749,
+        16,
+        28,
+        14
+      ]
+    },
+    {
+      "id": "6b38",
+      "username": "ytryrtytr",
+      "password": "fakepass",
+      "date": "2013-11-19",
+      "cel": "5244564563",
+      "email": "sofiaytryrt@gmail.com",
+      "firstName": "yrtyrt",
+      "lastName": "yrtyrty",
+      "role": "user",
+      "favoriteGenres": [
+        12,
+        14,
+        35,
+        10752,
+        18
+      ],
+      "isPublic": true
+    },
+    {
+      "id": "4dbc",
+      "username": "sofiaste",
+      "password": "fakepass",
+      "date": "2013-11-14",
+      "cel": "5244564563",
+      "email": "fsdfsdal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        28,
+        80,
+        18,
+        35
+      ],
+      "isPublic": true
     }
   ],
   "reviewReports": [

@@ -1,0 +1,54 @@
+<main class="actor-detail-page">
+
+  @if (actor) {
+    <section class="actor-header">
+      <img
+        [src]="actor.profile_path
+          ? 'https://image.tmdb.org/t/p/w300' + actor.profile_path
+          : 'assets/placeholder-actor.png'"
+        [alt]="actor.name"
+        class="actor-photo"
+      />
+      <div>
+        <h2>{{ actor.name }}</h2>
+
+        @if (actor.known_for_department) {
+          <p>
+            {{ actor.known_for_department }}
+          </p>
+        }
+
+        @if (actor.biography) {
+          <p>
+            {{ actor.biography }}
+          </p>
+        }
+      </div>
+    </section>
+  }
+
+  <section class="actor-movies">
+    <h3>Películas donde participa</h3>
+
+    @if (!movies || movies.length === 0) {
+      <p>No se encontraron películas para este actor.</p>
+    } @else {
+      <div class="movies-grid">
+        @for (movie of movies; track movie.id) {
+          <article class="movie-card">
+            <a [routerLink]="['/movie-review', movie.id]">
+              <img
+                [src]="movie.poster_path
+                  ? 'https://image.tmdb.org/t/p/w200' + movie.poster_path
+                  : 'assets/placeholder-poster.png'"
+                [alt]="movie.title"
+              />
+              <h4>{{ movie.title }}</h4>
+            </a>
+          </article>
+        }
+      </div>
+    }
+  </section>
+
+</main>

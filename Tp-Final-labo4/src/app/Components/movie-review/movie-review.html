@@ -1,4 +1,5 @@
 <app-top-bar></app-top-bar>
+
 @if (movieDetails) {
 
 <div class="movie-details">
@@ -16,6 +17,29 @@
         <span>* {{ genre.name }}</span>
         }
 
+        <!-- ⭐ REPARTO -->
+        <section class="cast-section">
+            <h2>Reparto principal</h2>
+
+            @if (cast && cast.length) {
+            <div class="cast-grid">
+                @for (actor of cast; track actor.id) {
+                <article class="cast-card">
+                    <img [src]="actor.profile_path
+                  ? 'https://image.tmdb.org/t/p/w185' + actor.profile_path
+                  : 'assets/placeholder-actor.png'" [alt]="actor.name" />
+
+                    <p class="cast-name">{{ actor.name }}</p>
+                    <p class="cast-character">Como: {{ actor.character }}</p>
+                </article>
+                }
+            </div>
+            } @else {
+            <p>No hay información de actores disponible.</p>
+            }
+        </section>
+        <!-- ⭐ FIN REPARTO -->
+
         <hr>
 
         @if (userId) {
@@ -28,23 +52,29 @@
             <button class="btn-activity towatch" (click)="markAs('towatch')">
                 ➕ Guardar para ver más tarde
             </button>
-           @if (activity?.watchedDate) {
-        <p class="watch-date">
-            Vista el:
-           <strong>{{ activity?.watchedDate | date:'shortDate' }}</strong>
-          </p>
-          }
+
+            <!-- Mensajes de estado de la película -->
+            @if (activity?.status === 'watched') {
+            <p class="watch-date done">
+                ✔ Vista el:
+                <strong>{{ activity?.watchedDate | date:'shortDate' }}</strong>
+            </p>
+            } @else if (activity?.status === 'towatch') {
+            <p class="watch-date pending">
+                ➕ Guardada para ver más tarde
+            </p>
+            }
+
         </div>
         } @else {
         <p>Inicia sesión para guardar esta película.</p>
         }
 
+
     </div>
 </div>
 
 }
-
-
 
 <app-review-list [peliculaID]="movieId"></app-review-list>
 

@@ -1,58 +1,115 @@
+/* ====== INFO DE LA PELÍCULA ====== */
+
 .movie-details {
-  max-width: 1100px;
-  margin: 40px auto 60px;
-  padding: 32px;
-  box-sizing: border-box;
-
   display: flex;
-  gap: 32px;
   align-items: flex-start;
-  justify-content: center;
-
-  background-color: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-  color: var(--colorFuente);
+  gap: 2rem;
+  padding: 1.5rem 0 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Poster de la película */
 .movie-details img {
+  width: 260px;         /* un poco más chica */
+  height: auto;
   border-radius: 18px;
-  max-width: 320px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  margin-right: 1.5rem;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
 }
 
-/* Contenido textual */
-.movie-details-content {
-  max-width: 650px;
-  text-align: left;
-}
-
-/* Título */
-.movie-details-content h1 {
-  font-size: 2.3rem;
-  margin-bottom: 16px;
-  font-weight: 700;
-  color: var(--colorFuente); /* antes var(--accent) */
-}
-
-/* Párrafos de info */
-.movie-details-content p {
-  font-size: 0.98rem;
-  line-height: 1.6;
-  margin-bottom: 8px;
-  color: #444444;
-}
-
-/* Último párrafo (géneros) un poco más pegado */
-.movie-details-content p:last-child {
-  margin-bottom: 4px;
-}
-
+.movie-details-content p,
+.movie-details-content h1,
 .movie-details-content span {
-  font-size: 0.9rem;
+  color: var(--colorFuente, #1b4965) !important;
 }
 
-.movie-details-content span + span {
-  margin-left: 6px;
+/* ====== REPARTO / ACTORES ====== */
+
+.cast-section {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cast-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--colorFuente, #1b4965);
+}
+
+/* Grilla más chica y centrada */
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Card de actor más compacta */
+.cast-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 0.6rem 0.6rem 0.9rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  max-width: 150px;
+}
+
+/* Hover suave */
+.cast-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del actor MÁS BAJA */
+.cast-card img {
+  width: 100%;
+  height: 210px;              /* altura fija */
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Nombre y personaje */
+.cast-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 0.2rem;
+}
+
+.cast-character {
+  font-size: 0.8rem;
+  color: #666666;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .movie-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .movie-details img {
+    margin-right: 0;
+  }
+
+  .cast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .cast-card {
+    max-width: 170px;
+  }
 }
