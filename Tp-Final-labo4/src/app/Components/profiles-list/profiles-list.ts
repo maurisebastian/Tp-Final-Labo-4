@@ -20,21 +20,30 @@ export class ProfilesList implements OnInit {
 
   activeUserId = this.auth.getActiveUser()()?.id;
 
-  // Nuevo FormControl
   searchControl = new FormControl('');
 
   ngOnInit() {
 
-    // 1. Cargar usuarios
+    // Cargar usuarios
     this.profileService.getAllUsers().subscribe({
       next: (p) => {
-        this.profiles = p.filter(user => user.id !== this.activeUserId);
+
+        // Filtrar:
+        // - NO admins
+        // - NO superadmins
+        // - NO usuario activo
+        this.profiles = p.filter(user =>
+          user.role !== 'admin' &&
+          user.role !== 'superadmin' &&
+          user.id !== this.activeUserId
+        );
+
         this.filteredProfiles = this.profiles.slice(0, 12);
       },
       error: (err) => console.error('Error cargando perfiles', err)
     });
 
-    // 2. Escuchar búsquedas
+    // Buscar respetando filtro original
     this.searchControl.valueChanges.subscribe(text => {
       const query = (text ?? '').toLowerCase().trim();
 
@@ -46,5 +55,3 @@ export class ProfilesList implements OnInit {
     });
   }
 }
-
-

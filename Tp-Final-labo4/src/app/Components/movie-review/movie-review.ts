@@ -26,21 +26,14 @@ export class MovieReview implements OnInit {
   movieDetails: any;
   cast: any[] = [];
 
-<<<<<<< HEAD
   // puede ser string o number
   userId: string | number | null = null;
-=======
-  userId: number | string | null = null;
->>>>>>> origin/main
   activity: MovieActivityInterface | null = null;
 
   ngOnInit() {
     const user = this.auth.getActiveUser()();
-<<<<<<< HEAD
     console.log('MovieReview - activeUser:', user);
-=======
     this.userId = user?.id ?? null;
->>>>>>> origin/main
 
     // tomamos id o idProfile SIN convertir a número
     const rawId =
