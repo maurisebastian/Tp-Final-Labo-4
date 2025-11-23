@@ -35,15 +35,15 @@
     },
     {
       "idProfile": "1d76",
-      "idReview": "sK1ndJF",
-      "date": "2025-11-21T22:22:09.235Z",
-      "id": 3
-    },
-    {
-      "idProfile": "1d76",
       "idReview": "XF6bNAx",
       "date": "2025-11-22T21:01:28.741Z",
       "id": 4
+    },
+    {
+      "idProfile": "1d76",
+      "idReview": "sK1ndJF",
+      "date": "2025-11-23T04:57:28.190Z",
+      "id": 5
     }
   ],
   "movieActivity": [
@@ -73,7 +73,7 @@
     },
     {
       "id": "8179",
-      "idProfile": 1,
+      "idProfile": "1d76",
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "towatch",
@@ -94,6 +94,46 @@
       "movieName": "Loyalty and Respect",
       "status": "towatch",
       "watchedDate": null
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 389,
+      "movieName": "12 hombres sin piedad",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "_PbZIzr"
+    },
+    {
+      "idProfile": "1d76",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "k_RE-WV"
+    },
+    {
+      "idProfile": "N9RUtmI",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "VTrLQ9_"
+    },
+    {
+      "idProfile": "N9RUtmI",
+      "idMovie": 238,
+      "movieName": "El padrino",
+      "status": "watched",
+      "watchedDate": "2025-11-23T05:38:27.475Z",
+      "id": "k53qcY7"
+    },
+    {
+      "idProfile": "N9RUtmI",
+      "idMovie": 597,
+      "movieName": "Titanic",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "UhhqL_W"
     }
   ],
   "comments": [
@@ -437,7 +477,7 @@
     },
     {
       "id": "1d76",
-      "username": "aaaaaaaaaaaaaaa",
+      "username": "pepe",
       "password": "123456",
       "date": "2013-11-14",
       "cel": "5632456345",
@@ -446,7 +486,7 @@
       "lastName": "Stejskal",
       "role": "user",
       "favoriteGenres": [],
-      "isPublic": false
+      "isPublic": true
     },
     {
       "id": "410e",
@@ -578,6 +618,19 @@
         18,
         35
       ],
+      "isPublic": true
+    },
+    {
+      "username": "kiko",
+      "password": "123456",
+      "date": "1994-08-21",
+      "cel": "2342342342",
+      "email": "kiko@gmail.com",
+      "firstName": "matias",
+      "lastName": "lodeiro",
+      "role": "user",
+      "favoriteGenres": [],
+      "id": "N9RUtmI",
       "isPublic": true
     }
   ],

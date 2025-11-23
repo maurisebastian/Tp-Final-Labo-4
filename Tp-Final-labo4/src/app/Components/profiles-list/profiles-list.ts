@@ -4,10 +4,11 @@ import { AuthService } from '../../auth/auth-service';
 import { Profile } from '../../Interfaces/profilein';
 import { RouterLink } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TopBar } from "../top-bar/top-bar";
 
 @Component({
   selector: 'app-profiles-list',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TopBar],
   templateUrl: './profiles-list.html',
   styleUrl: './profiles-list.css',
 })

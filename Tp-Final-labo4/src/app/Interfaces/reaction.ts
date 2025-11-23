@@ -11,6 +11,6 @@ export interface MovieActivityInterface {
   idMovie: number;
   movieName: string;
   status: 'watched' | 'towatch';
-  watchedDate?: string | null;   // <-- AÑADIR ESTO
+  watchedDate?: string | null; 
 }
 

@@ -1,16 +1,17 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { MovieActivity } from '../../Services/movie-activity';
 import { AuthService } from '../../auth/auth-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-activity',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule],
   templateUrl: './user-activity.html',
   styleUrl: './user-activity.css',
 })
-export class UserActivity {
+export class UserActivity implements OnInit {
 
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
@@ -25,10 +26,16 @@ export class UserActivity {
 
   ngOnInit(): void {
   const activeUser = this.auth.getActiveUser()();
+   console.log("🔍 UserActivity cargado con userId =", this.userId);
 
   // ⭐ canEdit solo si estoy viendo mi propio perfil
   this.canEdit = String(activeUser?.id) === String(this.userId);
 
+  if (this.userId) {
+    this.loadMovieLists();
+  }
+}
+ngOnChanges() {
   if (this.userId) {
     this.loadMovieLists();
   }
@@ -38,11 +45,11 @@ export class UserActivity {
   loadMovieLists() {
     if (!this.userId) return;
 
-    this.movieActivity.getWatchedMovies(this.userId as any).subscribe((data) => {
+    this.movieActivity.getWatchedMovies(String(this.userId)).subscribe((data) => {
       this.watchedMovies = data;
     });
 
-    this.movieActivity.getToWatchMovies(this.userId as any).subscribe((data) => {
+    this.movieActivity.getToWatchMovies(String(this.userId)).subscribe((data) => {
       this.toWatchMovies = data;
     });
   }
