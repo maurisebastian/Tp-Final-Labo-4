@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Footer } from '../../Shared/footer/footer';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 
 import { MovieSearchService, SearchMovie } from '../../Services/movie-search.service';
 
@@ -18,11 +19,21 @@ export class MovieSearch implements OnInit {
   private movieSearchService = inject(MovieSearchService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private hiddenMoviesService = inject(HiddenMoviesService);
 
   busqueda = new FormControl('', Validators.required);
   resultados: SearchMovie[] = [];
 
+  // ⭐ IDs ocultos (TMDB)
+  hiddenTmdbIds: number[] = [];
+
   ngOnInit(): void {
+
+    // ⭐ 1) Cargar IDs ocultos
+    const hiddenList = this.hiddenMoviesService.hiddenMovies();
+    this.hiddenTmdbIds = hiddenList.map(m => Number(m.tmdbId));
+
+    // Escuchar la ruta /search/:query
     this.route.paramMap.subscribe(params => {
       const query = params.get('query') ?? '';
 
@@ -56,7 +67,12 @@ export class MovieSearch implements OnInit {
     this.movieSearchService.searchAll(query)
       .subscribe({
         next: (movies) => {
-          this.resultados = movies;
+
+          // ⭐ 2) Filtrar las películas ocultas
+          this.resultados = movies.filter((m: SearchMovie) =>
+            !this.hiddenTmdbIds.includes(Number(m.id))
+          );
+
           console.log('Buscando:', query, this.resultados);
         },
         error: (err) => {
