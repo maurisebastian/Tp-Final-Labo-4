@@ -3,21 +3,62 @@
   <h3>Seguidores ({{ followers.length }})</h3>
 
   @if (loading) {
-    <p>Cargando seguidores...</p>
+  <p>Cargando seguidores...</p>
   }
   @else if (followers.length === 0) {
-    <p>No tiene seguidores aún.</p>
+  <p>No tiene seguidores aún.</p>
   }
   @else {
 
+  <ul class="followers-list">
+    @for (f of followers; track f.id) {
+    <li class="follower-card">
+
+      <div class="follower-info">
+        <strong>{{ f.username }}</strong>
+        <span>{{ f.email }}</span>
+      </div>
+
+      @if (showProfileButton) {
+  <button class="go-profile-btn" (click)="goToProfile(f.id!)">
+    Ver perfil
+  </button>
+}
+    </li>
+    }
+  </ul>
+
+  }
+
+
+
+    <hr>
+
+  <!-- SEGUIDOS -->
+  <h3>Seguidos ({{ following.length }})</h3>
+
+  @if (following.length === 0) {
+    <p>No sigue a nadie aún.</p>
+  }
+  @else {
     <ul class="followers-list">
-      @for (f of followers; track f.id) {
+      @for (p of following; track p.id) {
         <li class="follower-card">
-          <strong>{{ f.username }}</strong>
-          <span>{{ f.email }}</span>
+
+          <div class="follower-info">
+            <strong>{{ p.username }}</strong>
+            <span>{{ p.email }}</span>
+          </div>
+
+          @if (showProfileButton) {
+            <button class="go-profile-btn" (click)="goToProfile(p.id!)">
+              Ver perfil
+            </button>
+          }
+
         </li>
       }
     </ul>
-
   }
+
 </div>

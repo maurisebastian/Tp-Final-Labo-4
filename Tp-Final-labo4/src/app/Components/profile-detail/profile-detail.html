@@ -117,7 +117,7 @@
             {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
           </button>
         </div>
-        <app-follow-component [userId]="userProfile?.id"></app-follow-component>
+        <app-follow-component [userId]="userProfile?.id"  [showProfileButton]="true"></app-follow-component>
 
       } @else {
 
