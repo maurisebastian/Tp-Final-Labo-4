@@ -38,13 +38,15 @@ export interface ReviewComment {
 }
 
 export interface ReviewReport {
-  id?: string | number;
-  type: 'review' | 'comment';
-  idReview?: string | number;
-  idComment?: string | number;
-  idMovie?: number;
-  reporterId: string | number;
-  reason: string;
-  createdAt: string;
+  id: string;                           // lo crea JSON Server
+  type: 'review' | 'comment';           // qué se reporta
+  idReview?: number;                    // reseña asociada
+  idComment?: number;                   // comentario asociado (si aplica)
+  idMovie?: number;                     // película asociada
+  reporterId: number;                   // QUIÉN reportó
+  reason: string;                       // motivo del reporte
+  createdAt: string;                    // fecha
   status: 'pending' | 'resolved' | 'dismissed';
+  movieTitle?: string;
 }
+

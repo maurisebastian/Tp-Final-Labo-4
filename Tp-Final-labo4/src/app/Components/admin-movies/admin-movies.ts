@@ -4,12 +4,16 @@ import {
   FormBuilder,
   ReactiveFormsModule,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AdminMoviesService } from '../../Services/movies-service';
 import { AdminMovie } from '../../Interfaces/admin-movies';
 import { AuthService } from '../../auth/auth-service';
+import { TmdbService } from '../../Services/tmdb.service';
+import { ReviewService } from '../../Services/review.service';
+import { Review } from '../../Interfaces/profilein';
 
 @Component({
   selector: 'app-admin-movies',
@@ -24,17 +28,35 @@ export class AdminMoviesComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private tmdb = inject(TmdbService);
+  private reviewService = inject(ReviewService);
 
+  // Películas locales
   movies: AdminMovie[] = [];
   isLoading = false;
   errorMsg = '';
 
+  // Form para crear películas locales
   form = this.fb.nonNullable.group({
     title: ['', Validators.required],
     tmdbId: [''],
     posterPath: [''],
     overview: [''],
   });
+
+  // ===== BUSCADOR TMDB =====
+  searchControl = new FormControl<string>('');
+  searchResults: any[] = [];
+  searchPerformed = false;
+
+  // ===== POPULARES (más reseñas) =====
+  popularMovies: {
+    idMovie: number;
+    title: string;
+    reviewCount: number;
+    posterPath?: string | null;
+  }[] = [];
+  popularIsLoading = false;
 
   ngOnInit(): void {
     const active = this.authService.getActiveUser()();
@@ -44,7 +66,10 @@ export class AdminMoviesComponent implements OnInit {
     }
 
     this.loadMovies();
+    this.loadPopularMovies();
   }
+
+  // ========== PELÍCULAS LOCALES ==========
 
   loadMovies(): void {
     this.isLoading = true;
@@ -78,6 +103,7 @@ export class AdminMoviesComponent implements OnInit {
       posterPath: raw.posterPath?.trim() || '',
       isHidden: false,
       tmdbId: raw.tmdbId ? Number(raw.tmdbId) : undefined,
+      // futuro: genresIds, castIds, etc.
     };
 
     this.moviesService.create(newMovie).subscribe({
@@ -122,7 +148,111 @@ export class AdminMoviesComponent implements OnInit {
   }
 
   goToMovie(movie: AdminMovie): void {
-    if (!movie.tmdbId) return;
-    this.router.navigate(['/movie', movie.tmdbId]);
+  if (!movie.tmdbId) return;
+  this.router.navigate(['/movie-review', movie.tmdbId]);
+}
+
+
+  // ========== BUSCADOR TMDB POR NOMBRE ==========
+
+  search(event: Event): void {
+    event.preventDefault();
+
+    const query = (this.searchControl.value || '').trim();
+    if (!query) {
+      this.searchResults = [];
+      this.searchPerformed = false;
+      return;
+    }
+
+    this.tmdb.searchMovies(query).subscribe({
+      next: (resp: any) => {
+        this.searchResults = resp.results || [];
+        this.searchPerformed = true;
+      },
+      error: () => {
+        this.searchResults = [];
+        this.searchPerformed = true;
+      },
+    });
+  }
+
+  goToMovieId(id: number): void {
+  this.router.navigate(['/movie-review', id]);
+}
+
+
+  // ========== POPULARES (MÁS RESEÑAS) ==========
+
+  private loadPopularMovies(): void {
+    this.popularIsLoading = true;
+
+    this.reviewService.getAllReviews().subscribe({
+      next: (reviews: Review[]) => {
+        if (!reviews || reviews.length === 0) {
+          this.popularMovies = [];
+          this.popularIsLoading = false;
+          return;
+        }
+
+        // agrupar por idMovie y contar reseñas
+        const mapCounts = new Map<number, number>();
+        for (const r of reviews) {
+          const id = Number(r.idMovie);
+          mapCounts.set(id, (mapCounts.get(id) || 0) + 1);
+        }
+
+        const ids = Array.from(mapCounts.keys());
+
+        // levantar detalles + poster para cada una
+        const temp: {
+          idMovie: number;
+          title: string;
+          reviewCount: number;
+          posterPath?: string | null;
+        }[] = [];
+
+        let pending = ids.length;
+
+        ids.forEach((idMovie) => {
+          this.tmdb.getMovieDetails(idMovie).subscribe({
+            next: (movie: any) => {
+              temp.push({
+                idMovie,
+                title: movie.title || `ID ${idMovie}`,
+                reviewCount: mapCounts.get(idMovie) || 0,
+                posterPath: movie.poster_path,
+              });
+              pending--;
+              if (pending === 0) {
+                // ordenar por mayor cantidad de reseñas
+                this.popularMovies = temp.sort(
+                  (a, b) => b.reviewCount - a.reviewCount
+                );
+                this.popularIsLoading = false;
+              }
+            },
+            error: () => {
+              temp.push({
+                idMovie,
+                title: `ID ${idMovie}`,
+                reviewCount: mapCounts.get(idMovie) || 0,
+              });
+              pending--;
+              if (pending === 0) {
+                this.popularMovies = temp.sort(
+                  (a, b) => b.reviewCount - a.reviewCount
+                );
+                this.popularIsLoading = false;
+              }
+            },
+          });
+        });
+      },
+      error: () => {
+        this.popularMovies = [];
+        this.popularIsLoading = false;
+      },
+    });
   }
 }

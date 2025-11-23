@@ -49,13 +49,17 @@
     }
   </h2>
 
-  <div class="results-grid">
+    <div class="results-grid">
     @for (item of resultados; track item.id) {
       <div class="result-card">
         <a [routerLink]="['/movie-review', item.id]">
           <img
-            [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
-            alt="{{ item.title }}"
+            [src]="
+              item.isLocal
+                ? (item.posterUrl || 'assets/placeholder-poster.png')
+                : 'https://image.tmdb.org/t/p/w500' + (item.posterPath || '')
+            "
+            [alt]="item.title"
             class="result-poster">
         </a>
 
@@ -64,11 +68,17 @@
         </a>
 
         <p class="result-score">
-          Puntuación: {{ item.vote_average }}
+          Puntuación:
+          {{
+            item.voteAverage !== null && item.voteAverage !== undefined
+              ? item.voteAverage
+              : 'N/A'
+          }}
         </p>
       </div>
     }
   </div>
+
 </div>
 
 <app-footer></app-footer>

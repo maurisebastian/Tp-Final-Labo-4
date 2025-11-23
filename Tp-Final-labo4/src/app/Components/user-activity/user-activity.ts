@@ -14,9 +14,9 @@ export class UserActivity {
 
   private auth = inject(AuthService);
   private movieActivity = inject(MovieActivity);
+  canEdit = false;
 
-  // 👇 lo dejamos en any para no discutir con TS
-@Input() userId: string | number | null | undefined = null;
+  @Input() userId: string | number | null | undefined = null;
 
   watchedMovies: MovieActivityInterface[] = [];
   toWatchMovies: MovieActivityInterface[] = [];
@@ -24,22 +24,25 @@ export class UserActivity {
   expandedMovieId: number | null = null;
 
   ngOnInit(): void {
-    const activeUser = this.auth.getActiveUser()();
-    this.userId = activeUser?.id ?? null;
+  const activeUser = this.auth.getActiveUser()();
 
-    if (this.userId) {
-      this.loadMovieLists();
-    }
+  // ⭐ canEdit solo si estoy viendo mi propio perfil
+  this.canEdit = String(activeUser?.id) === String(this.userId);
+
+  if (this.userId) {
+    this.loadMovieLists();
   }
+}
+
 
   loadMovieLists() {
     if (!this.userId) return;
 
-    this.movieActivity.getWatchedMovies(this.userId).subscribe((data) => {
+    this.movieActivity.getWatchedMovies(this.userId as any).subscribe((data) => {
       this.watchedMovies = data;
     });
 
-    this.movieActivity.getToWatchMovies(this.userId).subscribe((data) => {
+    this.movieActivity.getToWatchMovies(this.userId as any).subscribe((data) => {
       this.toWatchMovies = data;
     });
   }
@@ -57,6 +60,14 @@ export class UserActivity {
       })
       .subscribe(() => {
         this.loadMovieLists();
+      });
+  }
+
+  // 👇 NUEVO: quitar la actividad (vista o por ver)
+  removeActivity(activityId: number) {
+    this.movieActivity.deleteActivity(activityId)
+      .subscribe(() => {
+        this.loadMovieLists(); // refresca listas
       });
   }
 }

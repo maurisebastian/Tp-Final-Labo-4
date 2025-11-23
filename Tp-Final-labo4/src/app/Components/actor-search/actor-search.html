@@ -1,0 +1,34 @@
+<main class="actor-search-page">
+  <form class="search-box" (submit)="onSubmit($event)">
+    <input
+      type="text"
+      [formControl]="busqueda"
+      placeholder="Buscar actor o actriz"
+      class="search-input"
+    />
+    <button type="submit" class="search-btn" [disabled]="busqueda.invalid">
+      Buscar
+    </button>
+  </form>
+
+  @if (busqueda.hasError('required') && busqueda.touched) {
+    <p class="error-text">Ingresá un nombre para buscar.</p>
+  }
+
+  <section class="results-grid">
+    @for (actor of resultados; track actor.id) {
+      <article class="actor-card" (click)="verActor(actor)">
+        <img
+          [src]="actor.profile_path
+            ? 'https://image.tmdb.org/t/p/w185' + actor.profile_path
+            : 'assets/placeholder-actor.png'"
+          [alt]="actor.name"
+        />
+        <h3>{{ actor.name }}</h3>
+        <p *ngIf="actor.known_for_department">
+          {{ actor.known_for_department }}
+        </p>
+      </article>
+    }
+  </section>
+</main>

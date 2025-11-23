@@ -5,7 +5,19 @@
       "idReview": "sK1ndJF",
       "idProfile": "1d76",
       "comment": "te ganaste un like",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "c945",
+      "idReview": "sK1ndJF",
+      "idProfile": "7d00",
+      "comment": "me aprece q esto no esta bueno"
+    },
+    {
+      "id": "0ac1",
+      "idReview": "sK1ndJF",
+      "idProfile": "6b38",
+      "comment": "rere"
     }
   ],
   "reviewLikes": [
@@ -13,18 +25,21 @@
       "idProfile": "21a8",
       "idReview": "gmTVN38",
       "date": "2025-11-21T17:47:48.635Z",
-      "id": 1
+      "id": "1"
     },
     {
       "idProfile": "21a8",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T17:51:14.370Z",
-      "id": 2
+      "id": "2"
     },
     {
       "idProfile": "1d76",
       "idReview": "sK1ndJF",
       "date": "2025-11-21T22:22:09.235Z",
+<<<<<<< HEAD
+      "id": "3"
+=======
       "id": 3
     },
     {
@@ -32,6 +47,7 @@
       "idReview": "XF6bNAx",
       "date": "2025-11-22T21:01:28.741Z",
       "id": 4
+>>>>>>> origin/main
     }
   ],
   "movieActivity": [
@@ -40,7 +56,7 @@
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "watched",
-      "id": 2,
+      "id": "2",
       "watchedDate": "2025-11-21T23:11:27.253Z"
     },
     {
@@ -48,7 +64,7 @@
       "idMovie": 240,
       "movieName": "El Padrino Parte II",
       "status": "watched",
-      "id": 4,
+      "id": "4",
       "watchedDate": "2025-11-21T23:21:15.339Z"
     },
     {
@@ -56,8 +72,32 @@
       "idMovie": 424,
       "movieName": "La lista de Schindler",
       "status": "watched",
-      "id": 5,
+      "id": "5",
       "watchedDate": "2025-11-21T23:21:16.097Z"
+    },
+    {
+      "id": "8179",
+      "idProfile": 1,
+      "idMovie": 238,
+      "movieName": "El padrino",
+      "status": "towatch",
+      "watchedDate": "2025-11-22T07:00:01.635Z"
+    },
+    {
+      "id": "04c9",
+      "idProfile": "f4ee",
+      "idMovie": 240,
+      "movieName": "El Padrino Parte II",
+      "status": "watched",
+      "watchedDate": "2025-11-23T03:02:18.809Z"
+    },
+    {
+      "id": "8455",
+      "idProfile": "4dbc",
+      "idMovie": 52887,
+      "movieName": "Loyalty and Respect",
+      "status": "towatch",
+      "watchedDate": null
     }
   ],
   "comments": [
@@ -186,6 +226,20 @@
       "score": 7,
       "description": "muy buena",
       "id": "47pKW0h"
+    },
+    {
+      "id": "1f0d",
+      "idProfile": "6b38",
+      "idMovie": 240,
+      "score": 8,
+      "description": "utryurtyt"
+    },
+    {
+      "id": "9a74",
+      "idProfile": "6b38",
+      "idMovie": 240,
+      "score": 8,
+      "description": "lkhjkjhgkjh"
     }
   ],
   "profiles": [
@@ -458,7 +512,77 @@
         35,
         18,
         80
+      ],
+      "isPublic": true
+    },
+    {
+      "id": "7d00",
+      "username": "sofia",
+      "password": "fakepass",
+      "date": "2013-10-31",
+      "cel": "5244564563",
+      "email": "sofikal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "c57c",
+      "username": "hjgghjgh",
+      "password": "fakepass",
+      "date": "2013-11-15",
+      "cel": "5632456345",
+      "email": "jhgjghl@gmail.com",
+      "firstName": "jhgjgh",
+      "lastName": "ghjgh",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        53,
+        80,
+        10749,
+        16,
+        28,
+        14
       ]
+    },
+    {
+      "id": "6b38",
+      "username": "ytryrtytr",
+      "password": "fakepass",
+      "date": "2013-11-19",
+      "cel": "5244564563",
+      "email": "sofiaytryrt@gmail.com",
+      "firstName": "yrtyrt",
+      "lastName": "yrtyrty",
+      "role": "user",
+      "favoriteGenres": [
+        12,
+        14,
+        35,
+        10752,
+        18
+      ],
+      "isPublic": true
+    },
+    {
+      "id": "4dbc",
+      "username": "sofiaste",
+      "password": "fakepass",
+      "date": "2013-11-14",
+      "cel": "5244564563",
+      "email": "fsdfsdal@gmail.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        28,
+        80,
+        18,
+        35
+      ],
+      "isPublic": true
     }
   ],
   "reviewReports": [
@@ -471,15 +595,6 @@
       "reason": "Ejemplo de reporte de reseña",
       "createdAt": "2025-11-21T18:30:00.000Z",
       "status": "resolved"
-    },
-    {
-      "id": "471e",
-      "type": "review",
-      "idReview": "734f",
-      "reporterId": "f4ee",
-      "reason": "me parece que no se entiende lo que dice",
-      "createdAt": "2025-11-22T03:26:00.294Z",
-      "status": "dismissed"
     },
     {
       "id": "7c34",
@@ -510,11 +625,31 @@
       "reason": "dfgdfgdfg",
       "createdAt": "2025-11-22T04:39:18.671Z",
       "status": "pending"
+    },
+    {
+      "id": "d995",
+      "type": "review",
+      "idReview": "sK1ndJF",
+      "idMovie": 278,
+      "reporterId": "f4ee",
+      "reason": "no me gusto nada",
+      "createdAt": "2025-11-22T23:03:23.139Z",
+      "status": "resolved"
+    },
+    {
+      "id": "00ec",
+      "type": "review",
+      "idReview": "sK1ndJF",
+      "idMovie": 278,
+      "reporterId": "7d00",
+      "reason": "una cagada",
+      "createdAt": "2025-11-22T23:16:44.820Z",
+      "status": "resolved"
     }
   ],
   "adminMovies": [
     {
-      "id": 1,
+      "id": "1",
       "tmdbId": 238,
       "title": "El padrino (destacada)",
       "overview": "Ejemplo de película administrada localmente.",
@@ -524,6 +659,13 @@
     {
       "id": "b89c",
       "title": "la cucaracha by sofia",
+      "overview": "",
+      "posterPath": "",
+      "isHidden": false
+    },
+    {
+      "id": "b02c",
+      "title": "bañeros 45",
       "overview": "",
       "posterPath": "",
       "isHidden": false

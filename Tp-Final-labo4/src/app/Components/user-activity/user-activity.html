@@ -8,9 +8,20 @@
     <ul>
         @for (movie of watchedMovies; track movie.id) {
         <li class="movie-item watched-item">
-            <div class="watched-header" (click)="toggleDetails(movie.id!)">
-                {{ movie.movieName || 'Cargando...' }}
-                <span class="arrow">{{ expandedMovieId === movie.id ? '▲' : '▼' }}</span>
+
+            <div class="movie-row">
+                <div class="watched-header" (click)="toggleDetails(movie.id!)">
+                    {{ movie.movieName || 'Cargando...' }}
+                    <span class="arrow">{{ expandedMovieId === movie.id ? '▲' : '▼' }}</span>
+                </div>
+
+                <!-- ⭐ BOTÓN QUITAR -->
+                @if (canEdit) {
+                <button class="remove-btn" (click)="removeActivity(movie.id!)">
+                    Quitar
+                </button>
+                }
+
             </div>
 
             @if (expandedMovieId === movie.id) {
@@ -31,10 +42,24 @@
     <ul>
         @for (movie of toWatchMovies; track movie.id) {
         <li class="movie-item to-watch-item">
+
             <span>{{ movie.movieName || 'Cargando...' }}</span>
-            <button class="mark-watched-btn" (click)="markAsWatched(movie.id!)">
-                ✓ Vista
-            </button>
+
+            <div class="movie-actions">
+
+                @if (canEdit) {
+                <button class="mark-watched-btn" (click)="markAsWatched(movie.id!)">
+                    ✓ Vista
+                </button>
+
+                <button class="remove-btn" (click)="removeActivity(movie.id!)">
+                    Quitar
+                </button>
+                }
+
+            </div>
+
+
         </li>
         }
     </ul>

@@ -30,7 +30,7 @@ export class TmdbService {
     );
   }
 
-  /** 👉 NUEVO: Películas por géneros */
+  /**  NUEVO: Películas por géneros */
   getMoviesByGenres(genres: number[], page: number = 1): Observable<any> {
     const genreParam = genres.join(',');
 
@@ -48,4 +48,43 @@ export class TmdbService {
       `${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=es-US&page=${randomPage}`
     );
   }
+
+   getMovieCredits(movieId: number): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/movie/${movieId}/credits?api_key=${this.apiKey}&language=es-US`
+    );
+  }
+
+  /** Buscar actores por nombre */
+  searchActors(query: string) {
+    return this.http.get(
+      `${this.baseUrl}/search/person?api_key=${this.apiKey}&language=es-US&query=${query}`
+    );
+  }
+
+    // Películas en las que participa un actor
+  getMoviesByActor(actorId: number) {
+    return this.http.get(
+      `${this.baseUrl}/person/${actorId}/movie_credits?api_key=${this.apiKey}&language=es-US`
+    );
+  }
+
+
+  /**  Detalle de un actor (bio, foto, etc.) */
+  getActorDetails(actorId: number): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/person/${actorId}?api_key=${this.apiKey}&language=es-US`
+    );
+  }
+  getActorMovies(actorId: number) {
+  return this.http.get(
+    `${this.baseUrl}/person/${actorId}/movie_credits?api_key=${this.apiKey}&language=es-US`
+  );
+}
+
+getMovieById(id: number) {
+  return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=TU_API_KEY&language=es-ES`);
+}
+
+
 }

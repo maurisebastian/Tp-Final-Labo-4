@@ -38,4 +38,16 @@ export class TopBar {
     this.router.navigate(['/search', value]);
   }
 
+  goToEditProfile() {
+  const user = this.activeUserSignal();
+  if (!user) {
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  this.router.navigate(['/profile-detail'], {
+    queryParams: { edit: true }
+  });
+}
+
 }

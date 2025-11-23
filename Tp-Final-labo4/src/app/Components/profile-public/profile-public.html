@@ -1,18 +1,28 @@
-<h2 class="public-profile-title">Perfil de {{ profile.username }}</h2>
+<app-top-bar></app-top-bar>
 
-<!-- PERFIL PRIVADO -->
-@if (profile.isPublic === false) {
+<main class="profile-public-page">
+
+  @if (notFound) {
+  <div class="private-box">
+    <p class="private-message">Perfil no encontrado.</p>
+  </div>
+  }
+  @else if (!profile) {
+  <div class="private-box">
+    <p class="private-message">Cargando perfil...</p>
+  </div>
+  }
+  @else {
+
+  <h2 class="public-profile-title">Perfil de {{ profile.username }}</h2>
+
+  @if (isPrivate) {
   <div class="private-box">
     <p class="private-message">Este perfil es privado.</p>
-
-    <button class="follow-btn" (click)="toggleFollow()">
-      {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
-    </button>
   </div>
-}
+  }
+  @else {
 
-<!-- PERFIL PÚBLICO -->
-@if (profile.isPublic !== false) {
   <div class="public-profile">
 
     <button class="follow-btn" (click)="toggleFollow()">
@@ -21,11 +31,27 @@
 
     <div class="public-info">
       <p><strong>Email:</strong> {{ profile.email }}</p>
-      <p><strong>Géneros favoritos:</strong> {{ profile.favoriteGenres || 'Sin géneros' }}</p>
+
+      <p>
+        <strong>Géneros favoritos:</strong>
+
+        @if (profile.favoriteGenres && profile.favoriteGenres.length > 0) {
+
+        @for (g of profile.favoriteGenres; track g; let i = $index) {
+        {{ getGenreName(g) }}
+        @if (i < profile.favoriteGenres.length - 1) { , } } } @else { Sin géneros } </p>
+
     </div>
 
     <h3 class="movie-list-title">Listas de películas</h3>
 
     <app-user-activity [userId]="profile.id"></app-user-activity>
+
   </div>
-}
+  }
+
+  }
+
+</main>
+
+<app-footer></app-footer>
