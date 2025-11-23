@@ -3,21 +3,28 @@
   <h3>Seguidores ({{ followers.length }})</h3>
 
   @if (loading) {
-    <p>Cargando seguidores...</p>
+  <p>Cargando seguidores...</p>
   }
   @else if (followers.length === 0) {
-    <p>No tiene seguidores aún.</p>
+  <p>No tiene seguidores aún.</p>
   }
   @else {
 
-    <ul class="followers-list">
-      @for (f of followers; track f.id) {
-        <li class="follower-card">
-          <strong>{{ f.username }}</strong>
-          <span>{{ f.email }}</span>
-        </li>
-      }
-    </ul>
+  <ul class="followers-list">
+    @for (f of followers; track f.id) {
+    <li class="follower-card">
+
+      <div class="follower-info">
+        <strong>{{ f.username }}</strong>
+        <span>{{ f.email }}</span>
+      </div>
+
+      <button class="go-profile-btn" *ngIf="showProfileButton" (click)="goToProfile(f.id!)">
+        Ver perfil
+      </button>
+    </li>
+    }
+  </ul>
 
   }
 </div>

@@ -11,6 +11,24 @@
       "followerId": "6b38",
       "followingId": "4dbc",
       "createdAt": "2025-11-23T18:32:47.429Z"
+    },
+    {
+      "followerId": "1d76",
+      "followingId": "def6",
+      "createdAt": "2025-11-23T19:41:36.823Z",
+      "id": "PCj0P-j"
+    },
+    {
+      "followerId": "21a8",
+      "followingId": "ZfpoMDx",
+      "createdAt": "2025-11-23T19:47:55.383Z",
+      "id": "g5C0DdE"
+    },
+    {
+      "followerId": "def6",
+      "followingId": "ZfpoMDx",
+      "createdAt": "2025-11-23T19:51:13.628Z",
+      "id": "G-_rX_X"
     }
   ],
   "reviewComments": [
@@ -107,6 +125,14 @@
       "movieName": "Loyalty and Respect",
       "status": "towatch",
       "watchedDate": null
+    },
+    {
+      "idProfile": "ZfpoMDx",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "ObhOHEF"
     }
   ],
   "comments": [
@@ -279,8 +305,8 @@
     },
     {
       "id": "def6",
-      "username": "dsad",
-      "password": "fgsfgdsg",
+      "username": "pepe",
+      "password": "1234567",
       "date": "2013-11-08",
       "cel": "5244564563",
       "email": "dsadasal@gmail.com",
@@ -611,6 +637,18 @@
       "favoriteGenres": [],
       "date": "1990-01-01",
       "cel": "00000000"
+    },
+    {
+      "username": "kiko",
+      "password": "1234567",
+      "date": "1994-10-10",
+      "cel": "2342342342",
+      "email": "kiko@gmail.com",
+      "firstName": "matias",
+      "lastName": "lodeiro",
+      "role": "user",
+      "favoriteGenres": [],
+      "id": "ZfpoMDx"
     }
   ],
   "reviewReports": [

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { TopBar } from '../top-bar/top-bar';
 import { Footer } from '../../Shared/footer/footer';
@@ -27,7 +27,7 @@ const GENRES = [
 @Component({
   selector: 'app-profile-public',
   standalone: true,
-  imports: [TopBar, Footer, UserActivity,FollowComponent, CommonModule],
+  imports: [TopBar, Footer, UserActivity,FollowComponent, CommonModule, RouterModule],
   templateUrl: './profile-public.html',
   styleUrl: './profile-public.css',
 })
