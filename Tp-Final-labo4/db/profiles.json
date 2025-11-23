@@ -72,6 +72,14 @@
       "movieName": "El padrino",
       "status": "towatch",
       "watchedDate": "2025-11-22T07:00:01.635Z"
+    },
+    {
+      "id": "04c9",
+      "idProfile": "f4ee",
+      "idMovie": 240,
+      "movieName": "El Padrino Parte II",
+      "status": "watched",
+      "watchedDate": "2025-11-23T03:02:18.809Z"
     }
   ],
   "comments": [

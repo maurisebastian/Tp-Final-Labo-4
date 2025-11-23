@@ -19,7 +19,7 @@ import { AuthService } from '../../auth/auth-service';
 import { UserActivity } from '../user-activity/user-activity';
 import { ReviewReportService } from '../../Services/review-report.service';
 import { ReviewReport } from '../../Interfaces/profilein';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -45,6 +45,7 @@ export class ProfileDetail implements OnInit {
   private reviewReportService = inject(ReviewReportService);
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
+  private router = inject(Router); 
 
 
   // estado
@@ -311,5 +312,10 @@ export class ProfileDetail implements OnInit {
     let value = event.target.value.replace(/[^0-9]/g, '');
     if (value.length > 10) value = value.slice(0, 10);
     this.form.controls['cel'].setValue(value, { emitEvent: false });
+  }
+
+  goToMovie(movieId: number) {
+    if (!movieId) return;
+    this.router.navigate(['/movie-review', movieId]);
   }
 }
