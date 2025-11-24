@@ -92,15 +92,6 @@
   gap: 20px;
 }
 
-.profile-card {
-  background: #ffffff;
-  color: #000;
-  padding: 20px;
-  border-radius: 16px;
-  font-size: 1rem;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.25);
-}
-
 .profile-title {
   margin-bottom: 15px;
   text-align: center;
@@ -142,4 +133,134 @@
 
 .visibility-btn:hover {
   background: #1e40af;
+}
+.profile-card {
+  background: radial-gradient(circle at top left, #020617 0%, #0b1220 40%, #020617 100%);
+  color: #e5e7eb;
+  padding: 20px 22px 24px;
+  border-radius: 18px;
+  font-size: 1rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.profile-card h2,
+.profile-card h3 {
+  color: #f9fafb !important;
+}
+
+/* título */
+.profile-title {
+  margin: 0 0 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #f9fafb;
+}
+
+/* encabezado con nombre + mail */
+.profile-header-box {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.profile-email {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+.profile-name,
+.profile-email {
+  color: #e5e7eb !important;
+}
+
+
+/* grilla de datos */
+.profile-info {
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
+  padding-top: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+}
+
+.info-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f9fafb !important;
+  text-align: right;
+}
+
+
+/* visibilidad */
+.visibility-box {
+  margin-top: 4px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.9);
+}
+
+.visibility-label {
+  font-size: 0.85rem;
+  color: #e5e7eb;
+  margin: 0 0 6px;
+}
+
+.visibility-btn {
+  margin-top: 4px;
+  padding: 9px 14px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  color: #f9fafb;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.visibility-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.55);
+}
+
+/* seguidores */
+.followers-section {
+  margin-top: 4px;
+}
+
+.followers-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #f9fafb;
+}
+
+/* Solo para el componente de seguidores dentro del panel derecho */
+.profile-card app-follow-component,
+.profile-card app-follow-component * {
+  color: #111827 !important;  /* gris oscuro elegante */
 }

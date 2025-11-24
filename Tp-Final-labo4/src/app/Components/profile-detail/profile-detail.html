@@ -14,66 +14,60 @@
     <h3 class="section-title">Reseñas</h3>
 
     @if (reviews.length === 0) {
-      <p class="empty-reviews">No tienes reseñas disponibles.</p>
+    <p class="empty-reviews">No tienes reseñas disponibles.</p>
     }
 
     @for (review of reviews; track $index) {
-      <div class="review-card">
+    <div class="review-card">
 
-        <div class="review-header">
-          <strong>Película: </strong>
-          <button
-            type="button"
-            class="link-movie"
-            (click)="goToMovie(review.idMovie)">
-            {{ review.movieName }}
-          </button>
+      <div class="review-header">
+        <strong>Película: </strong>
+        <button type="button" class="link-movie" (click)="goToMovie(review.idMovie)">
+          {{ review.movieName }}
+        </button>
 
-          <span class="review-score">
-            Calificación: {{ review.score }} / 10
-          </span>
+        <span class="review-score">
+          Calificación: {{ review.score }} / 10
+        </span>
 
-          <button class="delete-btn" (click)="deleteReview(review.id)">
-            Eliminar
-          </button>
-        </div>
-
-        <p class="review-text">
-          {{ review.description }}
-        </p>
+        <button class="delete-btn" (click)="deleteReview(review.id)">
+          Eliminar
+        </button>
       </div>
+
+      <p class="review-text">
+        {{ review.description }}
+      </p>
+    </div>
     }
 
     <!-- MIS REPORTES (solo los ve el usuario) -->
     <h2 class="section-title">Mis reportes</h2>
 
     @if (myReports.length === 0) {
-      <p class="empty-reviews">No has hecho reportes todavía.</p>
+    <p class="empty-reviews">No has hecho reportes todavía.</p>
     }
 
     <ul class="report-list">
       @for (r of myReports; track r.id) {
 
-        <li class="report-item">
+      <li class="report-item">
 
-          <p><strong>Película:</strong>
-            @if (r.idMovie) {
-              <button
-                type="button"
-                class="btn-link-peli"
-                (click)="goToMovie(r.idMovie)">
-                {{ r.movieTitle || 'Cargando...' }}
-              </button>
-            } @else {
-              <span>No asociada a una película</span>
-            }
-          </p>
+        <p><strong>Película:</strong>
+          @if (r.idMovie) {
+          <button type="button" class="btn-link-peli" (click)="goToMovie(r.idMovie)">
+            {{ r.movieTitle || 'Cargando...' }}
+          </button>
+          } @else {
+          <span>No asociada a una película</span>
+          }
+        </p>
 
-          <p><strong>Motivo:</strong> {{ r.reason }}</p>
-          <p><strong>Fecha:</strong> {{ r.createdAt | date:'short' }}</p>
-          <p><strong>Estado:</strong> {{ r.status }}</p>
+        <p><strong>Motivo:</strong> {{ r.reason }}</p>
+        <p><strong>Fecha:</strong> {{ r.createdAt | date:'short' }}</p>
+        <p><strong>Estado:</strong> {{ r.status }}</p>
 
-        </li>
+      </li>
 
       }
     </ul>
@@ -87,198 +81,196 @@
 
       @if (!isEditMode) {
 
-        <!-- MODO VER DETALLE -->
-        <div class="profile-card-header">
-          <h2 class="profile-title">Detalles del perfil</h2>
+      <!-- MODO VER DETALLE -->
+      <div class="profile-card-header">
+        <h2 class="profile-title">Detalles del perfil</h2>
 
-          <button class="btn-outline" (click)="enableEdit()">
-            Editar perfil
-          </button>
-        </div>
+        <button class="btn-outline" (click)="enableEdit()">
+          Editar perfil
+        </button>
+      </div>
 
-        <div class="profile-info">
-          <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
-          <p><strong>Email:</strong> {{ userProfile?.email }}</p>
-          <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
-          <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
+      <div class="profile-info">
+        <p><strong>Usuario:</strong> {{ userProfile?.username }}</p>
+        <p><strong>Email:</strong> {{ userProfile?.email }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ userProfile?.date }}</p>
+        <p><strong>Celular:</strong> {{ userProfile?.cel }}</p>
 
-          @if (userProfile?.firstName || userProfile?.lastName) {
-            <p>
-              <strong>Nombre:</strong>
-              {{ userProfile?.firstName }} {{ userProfile?.lastName }}
-            </p>
+        @if (userProfile?.firstName || userProfile?.lastName) {
+        <p>
+          <strong>Nombre:</strong>
+          {{ userProfile?.firstName }} {{ userProfile?.lastName }}
+        </p>
+        }
+
+        <!-- 🟢 NUEVO: géneros favoritos -->
+        <p>
+          <strong>Géneros favoritos:</strong>
+          @if (favoriteGenreNames.length > 0) {
+          {{ favoriteGenreNames.join(', ') }}
+          } @else {
+          Sin géneros seleccionados
           }
-        </div>
+        </p>
+      </div>
 
-        <div class="visibility-box">
-          <p><strong>Visibilidad del perfil:</strong></p>
 
-          <button class="visibility-btn" (click)="toggleVisibility()">
-            {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
-          </button>
-        </div>
-        <app-follow-component [userId]="userProfile?.id"  [showProfileButton]="true"></app-follow-component>
+      <div class="visibility-box">
+        <p><strong>Visibilidad del perfil:</strong></p>
+
+        <button class="visibility-btn" (click)="toggleVisibility()">
+          {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
+        </button>
+      </div>
+      <app-follow-component [userId]="userProfile?.id" [showProfileButton]="true"></app-follow-component>
 
       } @else {
 
-        <!-- MODO EDITAR PERFIL -->
-        <div class="profile-card-header">
-          <h2 class="profile-title">Editar perfil</h2>
+      <!-- MODO EDITAR PERFIL -->
+      <div class="profile-card-header">
+        <h2 class="profile-title">Editar perfil</h2>
 
-          <button class="btn-text" type="button" (click)="cancelEdit()">
-            Cancelar
-          </button>
+        <button class="btn-text" type="button" (click)="cancelEdit()">
+          Cancelar
+        </button>
+      </div>
+
+      @if (profileError) {
+      <div class="alert error-global">
+        {{ profileError }}
+      </div>
+      }
+
+      @if (profileSuccess) {
+      <div class="alert success-global">
+        {{ profileSuccess }}
+      </div>
+      }
+
+      <form [formGroup]="form" (submit)="saveProfile($event)" class="profile-edit-form fancy-form">
+
+        <!-- Usuario -->
+        <div class="form-field">
+          <label for="username">Usuario</label>
+          <input id="username" type="text" formControlName="username" />
+
+          @if (username.touched && username.invalid) {
+          <div class="error">
+            @if (username.hasError('required')) {
+            <span>El nombre de usuario es obligatorio.</span>
+            }
+            @if (username.hasError('minlength')) {
+            <span>Debe tener al menos 4 caracteres.</span>
+            }
+            @if (username.hasError('maxlength')) {
+            <span>No puede tener más de 16 caracteres.</span>
+            }
+            @if (username.hasError('pattern')) {
+            <span>No se permiten espacios en el nombre de usuario.</span>
+            }
+          </div>
+          }
         </div>
 
-        @if (profileError) {
-          <div class="alert error-global">
-            {{ profileError }}
-          </div>
-        }
+        <!-- Contraseña -->
+        <div class="form-field">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" formControlName="password" />
 
-        @if (profileSuccess) {
-          <div class="alert success-global">
-            {{ profileSuccess }}
-          </div>
-        }
-
-        <form
-          [formGroup]="form"
-          (submit)="saveProfile($event)"
-          class="profile-edit-form fancy-form">
-
-          <!-- Usuario -->
-          <div class="form-field">
-            <label for="username">Usuario</label>
-            <input id="username" type="text" formControlName="username" />
-
-            @if (username.touched && username.invalid) {
-              <div class="error">
-                @if (username.hasError('required')) {
-                  <span>El nombre de usuario es obligatorio.</span>
-                }
-                @if (username.hasError('minlength')) {
-                  <span>Debe tener al menos 4 caracteres.</span>
-                }
-                @if (username.hasError('maxlength')) {
-                  <span>No puede tener más de 16 caracteres.</span>
-                }
-                @if (username.hasError('pattern')) {
-                  <span>No se permiten espacios en el nombre de usuario.</span>
-                }
-              </div>
+          @if (password.touched && password.invalid) {
+          <div class="error">
+            @if (password.hasError('required')) {
+            <span>La contraseña es obligatoria.</span>
+            }
+            @if (password.hasError('minlength')) {
+            <span>Debe tener al menos 6 caracteres.</span>
+            }
+            @if (password.hasError('maxlength')) {
+            <span>No puede tener más de 20 caracteres.</span>
+            }
+            @if (password.hasError('pattern')) {
+            <span>No se permiten espacios en la contraseña.</span>
             }
           </div>
+          }
+        </div>
 
-          <!-- Contraseña -->
-          <div class="form-field">
-            <label for="password">Contraseña</label>
-            <input id="password" type="password" formControlName="password" />
+        <!-- Fecha de nacimiento -->
+        <div class="form-field">
+          <label for="date">Fecha de nacimiento</label>
+          <input id="date" type="date" formControlName="date" [min]="minBirthDate" [max]="maxBirthDate" />
 
-            @if (password.touched && password.invalid) {
-              <div class="error">
-                @if (password.hasError('required')) {
-                  <span>La contraseña es obligatoria.</span>
-                }
-                @if (password.hasError('minlength')) {
-                  <span>Debe tener al menos 6 caracteres.</span>
-                }
-                @if (password.hasError('maxlength')) {
-                  <span>No puede tener más de 20 caracteres.</span>
-                }
-                @if (password.hasError('pattern')) {
-                  <span>No se permiten espacios en la contraseña.</span>
-                }
-              </div>
+          @if (date.touched && date.invalid) {
+          <div class="error">
+            @if (date.hasError('required')) {
+            <span>La fecha de nacimiento es obligatoria.</span>
+            }
+            @if (date.hasError('minAge')) {
+            <span>Debes ser mayor de 12 años.</span>
+            }
+            @if (date.hasError('yearMin')) {
+            <span>El año debe ser mayor o igual a 1900.</span>
             }
           </div>
+          }
+        </div>
 
-          <!-- Fecha de nacimiento -->
-          <div class="form-field">
-            <label for="date">Fecha de nacimiento</label>
-            <input
-              id="date"
-              type="date"
-              formControlName="date"
-              [min]="minBirthDate"
-              [max]="maxBirthDate" />
+        <!-- Celular -->
+        <div class="form-field">
+          <label for="cel">Celular</label>
+          <input id="cel" type="text" formControlName="cel" maxlength="10" (input)="onCelInput($event)" />
 
-            @if (date.touched && date.invalid) {
-              <div class="error">
-                @if (date.hasError('required')) {
-                  <span>La fecha de nacimiento es obligatoria.</span>
-                }
-                @if (date.hasError('minAge')) {
-                  <span>Debes ser mayor de 12 años.</span>
-                }
-                @if (date.hasError('yearMin')) {
-                  <span>El año debe ser mayor o igual a 1900.</span>
-                }
-              </div>
+          @if (cel.touched && cel.invalid) {
+          <div class="error">
+            @if (cel.hasError('required')) {
+            <span>El celular es obligatorio.</span>
+            }
+            @if (cel.hasError('minlength')) {
+            <span>Debe tener al menos 5 dígitos.</span>
+            }
+            @if (cel.hasError('maxlength')) {
+            <span>No puede tener más de 10 dígitos.</span>
+            }
+            @if (cel.hasError('pattern')) {
+            <span>Solo se permiten números.</span>
             }
           </div>
+          }
+        </div>
 
-          <!-- Celular -->
-          <div class="form-field">
-            <label for="cel">Celular</label>
-            <input
-              id="cel"
-              type="text"
-              formControlName="cel"
-              maxlength="10"
-              (input)="onCelInput($event)" />
+        <!-- Email -->
+        <div class="form-field form-field--full">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" />
 
-            @if (cel.touched && cel.invalid) {
-              <div class="error">
-                @if (cel.hasError('required')) {
-                  <span>El celular es obligatorio.</span>
-                }
-                @if (cel.hasError('minlength')) {
-                  <span>Debe tener al menos 5 dígitos.</span>
-                }
-                @if (cel.hasError('maxlength')) {
-                  <span>No puede tener más de 10 dígitos.</span>
-                }
-                @if (cel.hasError('pattern')) {
-                  <span>Solo se permiten números.</span>
-                }
-              </div>
+          @if (email.touched && email.invalid) {
+          <div class="error">
+            @if (email.hasError('required')) {
+            <span>El email es obligatorio.</span>
+            }
+            @if (email.hasError('email')) {
+            <span>El formato de email no es válido.</span>
             }
           </div>
+          }
+        </div>
 
-          <!-- Email -->
-          <div class="form-field form-field--full">
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" />
+        <!-- Nombre y apellido -->
+        <div class="form-field">
+          <label for="firstName">Nombre</label>
+          <input id="firstName" type="text" formControlName="firstName" />
+        </div>
 
-            @if (email.touched && email.invalid) {
-              <div class="error">
-                @if (email.hasError('required')) {
-                  <span>El email es obligatorio.</span>
-                }
-                @if (email.hasError('email')) {
-                  <span>El formato de email no es válido.</span>
-                }
-              </div>
-            }
-          </div>
+        <div class="form-field">
+          <label for="lastName">Apellido</label>
+          <input id="lastName" type="text" formControlName="lastName" />
+        </div>
 
-          <!-- Nombre y apellido -->
-          <div class="form-field">
-            <label for="firstName">Nombre</label>
-            <input id="firstName" type="text" formControlName="firstName" />
-          </div>
+        <button type="submit" [disabled]="form.invalid">
+          Guardar cambios
+        </button>
 
-          <div class="form-field">
-            <label for="lastName">Apellido</label>
-            <input id="lastName" type="text" formControlName="lastName" />
-          </div>
-
-          <button type="submit" [disabled]="form.invalid">
-            Guardar cambios
-          </button>
-
-        </form>
+      </form>
 
       }
 

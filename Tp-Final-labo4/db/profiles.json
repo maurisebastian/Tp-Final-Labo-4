@@ -362,93 +362,6 @@
       "favoriteGenres": []
     },
     {
-      "id": "ae65",
-      "username": "ffdsfds",
-      "password": "fgsfgdsg",
-      "date": "2013-10-31",
-      "cel": "5632456345",
-      "email": "sofiastejskal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "4e48",
-      "username": "dfgdgfdgfd",
-      "password": "fgsfgdsg",
-      "date": "2013-10-30",
-      "cel": "5244564563",
-      "email": "vcxvxcl@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "2bd1",
-      "username": "ffdsfsd",
-      "password": "fgsfgdsg",
-      "date": "2013-11-14",
-      "cel": "5632456345",
-      "email": "cxzczxczx@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        28,
-        35
-      ]
-    },
-    {
-      "id": "e65d",
-      "username": "fdfsdfsdf",
-      "password": "fgsfgdsg",
-      "date": "2013-11-14",
-      "cel": "5244564563",
-      "email": "fdsfsdfal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "38ef",
-      "username": "fdsfsdfsd",
-      "password": "fdsfsdfsd",
-      "date": "2013-10-31",
-      "cel": "2296500000",
-      "email": "fsdfds@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "808a",
-      "username": "gfdgfdgfg",
-      "password": "fgsfgdsg",
-      "date": "2013-11-07",
-      "cel": "5244564563",
-      "email": "fdgdfgal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "880e",
-      "username": "gdfgfdgdffdg",
-      "password": "fgsfgdsg",
-      "date": "2013-11-05",
-      "cel": "5244564563",
-      "email": "sgfdgdfgkal@gmail.com",
-      "firstName": "gdfgdf",
-      "lastName": "dfgdfg",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
       "id": "96a5",
       "username": "dsadsa",
       "password": "fakepass",
@@ -457,18 +370,6 @@
       "email": "dsa@gmail.com",
       "firstName": "dsadas",
       "lastName": "dasdas",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "eabd",
-      "username": "dasdas",
-      "password": "dasdsa",
-      "date": "2013-11-13",
-      "cel": "5244564563",
-      "email": "dasal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
       "role": "user",
       "favoriteGenres": []
     },
@@ -510,18 +411,6 @@
       "date": "2013-11-14",
       "cel": "5632456345",
       "email": "dsfsd@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "a3c6",
-      "username": "fsdafdsfsdf",
-      "password": "123456",
-      "date": "2013-11-14",
-      "cel": "5632456345",
-      "email": "sdsadsadas@gmail.com",
       "firstName": "Sofía",
       "lastName": "Stejskal",
       "role": "user",
@@ -614,45 +503,6 @@
       "lastName": "Stejskal",
       "role": "user",
       "favoriteGenres": []
-    },
-    {
-      "id": "c57c",
-      "username": "hjgghjgh",
-      "password": "fakepass",
-      "date": "2013-11-15",
-      "cel": "5632456345",
-      "email": "jhgjghl@gmail.com",
-      "firstName": "jhgjgh",
-      "lastName": "ghjgh",
-      "role": "user",
-      "favoriteGenres": [
-        18,
-        53,
-        80,
-        10749,
-        16,
-        28,
-        14
-      ]
-    },
-    {
-      "id": "6b38",
-      "username": "ytryrtytr",
-      "password": "fakepass",
-      "date": "2013-11-19",
-      "cel": "5244564563",
-      "email": "sofiaytryrt@gmail.com",
-      "firstName": "yrtyrt",
-      "lastName": "yrtyrty",
-      "role": "user",
-      "favoriteGenres": [
-        12,
-        14,
-        35,
-        10752,
-        18
-      ],
-      "isPublic": true
     },
     {
       "id": "4dbc",
