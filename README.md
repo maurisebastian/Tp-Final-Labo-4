@@ -1,346 +1,426 @@
 🎬 MovieHub – Plataforma Social de Películas, Reseñas y Moderación
 
-MovieHub es una aplicación web desarrollada con Angular que permite a los usuarios explorar películas, dejar reseñas, reaccionar a comentarios, seguir a otros usuarios y gestionar sus propios perfiles.
-Cada usuario cuenta con un perfil público o privado, pudiendo optar por compartir con otros su actividad, reseñas y listas personalizadas de películas vistas o por ver.
-
-Además del sistema social, MovieHub integra un panel de administración completo, desde donde los administradores pueden:
-
-Moderar reseñas y reportes enviados por usuarios
-
-Administrar perfiles y roles
-
-Gestionar películas creadas manualmente dentro de la plataforma
-
-Ocultar o mostrar títulos del catálogo
-
-Revisar actividad y contenido generado por la comunidad
-
-El enfoque principal de MovieHub es combinar una experiencia social con herramientas sólidas de moderación, creando un ecosistema seguro y organizado alrededor del mundo del cine.
-
-Combinando una UI moderna, navegación fluida y persistencia de datos, MovieHub ofrece una experiencia dinámica tanto para usuarios como para administradores.
----
-
-Estructura del Proyecto.
-```
-Tp-Final-Labo-4/
-└── src/
-├── app/
-│ ├── app.config.ts
-│ ├── app.routes.ts
-│ ├── app.html
-│ ├── app.css
-│
-│ ├── auth/
-│ │ ├── auth.service.ts
-│ │ ├── auth-guard.ts
-│ │ └── auth-interceptor.ts
-│
-│ ├── Components/
-│ │ ├── home/
-│ │ ├── movie-review/
-│ │ ├── carrusel/
-│ │ ├── genres/
-│ │ ├── movie-search/
-│ │ ├── profile-detail/
-│ │ ├── user-activity/
-│ │ ├── login/
-│ │ ├── signup/
-│ │ ├── admin-home/
-│ │ ├── admin-reviews/
-│ │ ├── admin-reports/
-│ │ ├── admin-movies/
-│ │ └── admin-user-edit/
-│
-│ ├── Interfaces/
-│ │ ├── admin-movies.ts
-│ │ ├── movieIn.ts
-│ │ ├── profileIn.ts
-│ │ └── reaction.ts
-│
-│ ├── Services/
-│ │ ├── movies-service.ts
-│ │ ├── review.service.ts
-│ │ ├── review-like-service.ts
-│ │ ├── review-report-service.ts
-│ │ ├── coment-service.ts
-│ │ ├── movie-activity.ts
-│ │ ├── profile-service.ts
-│ │ └── tmdb.service.ts
-│
-│ ├── Shared/
-│ │ ├── footer/
-│ │ └── navbar/
-│
-├── assets/
-└── styles.css
-```
----
-MovieHub — Estado actual y mejoras implementadas
+MovieHub es una aplicación web desarrollada en Angular 20+ que combina:
 
-Este documento resume las funcionalidades implementadas y las que se encuentran pendientes, según lo solicitado por la cátedra.
----
+🎞 Exploración de películas (desde TMDB y películas locales creadas por Admin)
 
-1. Autenticación y manejo de sesión
+⭐ Reseñas, puntuaciones, likes y comentarios
 
-Implementado:
+🧑‍🤝‍🧑 Seguimiento entre usuarios (followers / following)
 
-Registro y login con validación de campos (email, contraseña, usuario, celular y fecha con edad mínima).
+🧾 Listas de “vistas” y “por ver”
 
-Persistencia mediante localStorage.
+🛡 Moderación completa de reseñas, reportes y usuarios
 
-Revalidación del usuario activo al retroceder en el navegador.
+🎭 Sistema de recomendaciones por géneros favoritos y por actores favoritos
 
-Roles definidos: usuario, administrador, superadministrador.
+Cada usuario cuenta con un perfil público o privado, que muestra:
 
-Bases preparadas para finalizar guards de rutas según roles.
----
+Reseñas que escribió
+
+Actividad de películas (vistas / por ver)
+
+Seguidores y seguidos
+
+Géneros y actores favoritos
+
+La plataforma también cuenta con un panel de administración desde donde un admin puede:
+
+Moderar reseñas y reportes
+
+Editar o eliminar usuarios
+
+Crear administradores
+
+Crear, editar, ocultar o mostrar películas locales
+
+Revisar actividad del sistema
 
-2. Gestión de perfiles
+MovieHub combina una experiencia social real con moderación sólida, uso completo de TMDB y una UI moderna con carruseles dinámicos y datos persistidos vía JSON Server.
 
-Implementado:
+🧰 Tecnologías utilizadas
 
-Edición de perfil con formularios reactivos.
+Angular 20+
 
-Validación para evitar correos duplicados.
+Standalone Components
 
-Validación personalizada de edad mínima.
+Formularios reactivos
 
-Pendiente:
+Guards de autenticación y roles
 
-Sección de reportes generados por el usuario.
+TypeScript
 
-Sección de listas del usuario (películas para ver, películas gustadas).
----
+JSON Server como backend REST local
 
-3. Sistema de reseñas
+TMDB API
 
-Implementado:
+CSS puro + HTML (sin frameworks externos)
 
-Reseñas vinculadas correctamente a películas.
+LocalStorage para persistencia de sesión
 
-Administración de reseñas desde el panel del administrador.
+🗂 Estructura real del proyecto
+TP-FINAL-LABO4/
+└── Tp-Final-labo4/
+    ├── db/
+    │   └── profiles.json              # Base de datos JSON Server
+    │
+    ├── src/
+    │   ├── app/
+    │   │   ├── app.config.ts
+    │   │   ├── app.routes.ts
+    │   │   ├── app.html
+    │   │   ├── app.css
+    │   │
+    │   │   ├── auth/
+    │   │   │   ├── auth-service.ts
+    │   │   │   ├── auth-guard-user.ts
+    │   │   │   ├── auth-guard-admin.ts
+    │   │   │   └── (otros relacionados)
+    │   │
+    │   │   ├── Components/
+    │   │   │   ├── actor-detail/
+    │   │   │   ├── actor-search/
+    │   │   │   ├── admin-create-admin/
+    │   │   │   ├── admin-home/
+    │   │   │   ├── admin-local-movie/
+    │   │   │   ├── admin-movies/
+    │   │   │   ├── admin-panel/
+    │   │   │   ├── admin-reports/
+    │   │   │   ├── admin-reviews/
+    │   │   │   ├── admin-user-edit/
+    │   │   │   ├── carrusel/
+    │   │   │   ├── follow-component/
+    │   │   │   ├── genres/
+    │   │   │   ├── home/
+    │   │   │   ├── login/
+    │   │   │   ├── movie-review/
+    │   │   │   ├── movie-search/
+    │   │   │   ├── profile-detail/
+    │   │   │   ├── profile-public/
+    │   │   │   ├── profiles-list/
+    │   │   │   ├── review-list/
+    │   │   │   ├── signup/
+    │   │   │   ├── top-bar/
+    │   │   │   └── user-activity/
+    │   │
+    │   │   ├── Interfaces/
+    │   │   │   ├── moviein.ts
+    │   │   │   ├── profilein.ts
+    │   │   │   ├── admin-movies.ts
+    │   │   │   ├── follow.ts
+    │   │   │   └── reaction.ts
+    │   │
+    │   │   ├── Services/
+    │   │   │   ├── tmdb.service.ts
+    │   │   │   ├── profile.service.ts
+    │   │   │   ├── review.service.ts
+    │   │   │   ├── review-like.service.ts
+    │   │   │   ├── comment.service.ts
+    │   │   │   ├── review-report.service.ts
+    │   │   │   ├── movie-activity.ts
+    │   │   │   ├── movies.service.ts
+    │   │   │   ├── follows.service.ts
+    │   │   │   └── hidden-movies.service.ts
+    │   │
+    │   └── assets/
+    │       └── placeholders y recursos
 
-Pendiente:
+✅ Funcionalidades implementadas
+🔐 1. Autenticación y manejo de sesión
 
-Limitar a una reseña por película por usuario.
+Login y registro con validaciones completas
 
-Funcionalidad de editar reseña y mostrar "(Editado)".
----
+Edad mínima automática según la fecha ingresada
 
-4. JSON Server como base de datos local
+Persistencia de sesión con localStorage
 
-Implementado:
+Roles:
 
-Endpoints: /profiles, /review, /reviewComments, /movieActivity, /reviewLikes, /reviewReports.
+user
 
-Generación de IDs únicos.
+admin
 
-Persistencia funcional para usuarios y reseñas.
----
+superadmin
 
-5. Integración con TMDB
+Guards:
 
-Implementado:
+userGuard
 
-Búsqueda por título.
+adminGuard
 
-Obtención de detalles básicos: sinopsis, géneros y poster.
+Prevención de volver a sesiones viejas usando el botón “atrás”
 
-Pendiente:
+👤 2. Perfiles
 
-Mostrar actores de cada película.
+Edición de perfil completa (form reactivo)
 
-Utilizar actores en búsquedas o recomendaciones.
+Perfiles públicos o privados (isPublic)
 
-Ampliar metadata disponible.
----
+Vista pública con:
 
-6. Sistema de favoritos
+datos del usuario
 
-Pendiente:
+reseñas
 
-Marcar películas como favoritas.
+seguidores / seguidos
 
-Mostrar favoritos en el perfil.
+actividad de películas
 
-Integrar favoritos en recomendaciones personalizadas.
----
+Perfil actual editable desde el menú
 
-7. Página principal y carruseles
+⭐ 3. Sistema de reseñas
 
-Implementado:
+Cada reseña incluye:
 
-Carrusel “Top 10 general”.
+idMovie
 
-Pendiente:
+idProfile
 
-Carrusel “Recomendadas para vos”.
+puntuación (score)
 
-Integración con géneros favoritos, puntuaciones y favoritos.
----
+texto descriptivo
 
-8. Sistema de recomendación personalizada
+Funcionalidades:
 
-Implementado parcialmente:
+Un usuario solo puede dejar una reseña por película
 
-Estructura base preparada.
+Modo edición de reseña
 
-Pendiente:
+Likes de reseñas
 
-Considerar géneros favoritos.
+Comentarios a reseñas
 
-Considerar puntuaciones del usuario.
+Reportes con estados: pending, resolved, dismissed
 
-Considerar películas favoritas.
+🧑‍🤝‍🧑 4. Seguidores / Seguidos
 
-Considerar películas vistas.
+Endpoint /follows
 
-Mostrar recomendaciones personalizadas por usuario.
----
+Seguir y dejar de seguir usuarios
 
-9. Películas agregadas manualmente por el administrador
+Listados completos en el perfil:
 
-Implementado:
+Seguidores
 
-Crear películas locales con:
+Seguidos
 
-título
+Links directos al perfil de cada usuario
 
-poster opcional
+🎬 5. TMDB: películas y actores
 
-descripción
+Búsqueda por título
 
-ID propio
+Detalle de película
 
-Pendiente:
+Créditos, géneros, sinopsis y cartel principal
 
-Cargar y mostrar actores para películas locales.
+Búsqueda de actores (actor-search)
 
-Integrar estas películas en recomendaciones.
+Detalle del actor con:
 
-Integración completa con reseñas como en películas TMDB.
----
+foto
 
-10. Panel de administración
+biografía
 
-Implementado:
+películas donde actúa
 
-Ver usuarios.
+🎯 6. Recomendaciones (GÉNEROS + ACTORES)
 
-Eliminar usuarios.
+MovieHub genera recomendaciones basadas en:
 
-Crear administradores.
+A) Géneros favoritos
 
-Ver todas las reseñas.
+Obtenidos a partir de la selección inicial en /genres.
 
-Pendiente:
+Se muestran en el carrusel:
 
-Mejorar diseño a formato “cards”.
+“Recomendadas para vos”
 
-Vista ampliada al hacer clic en cada card.
+B) Actores favoritos
 
-Mostrar reportes de reseñas para moderación.
----
+Detectados desde las películas elegidas en /genres.
 
-11. Interfaz y experiencia de usuario
+Carrusel:
 
-Implementado:
+“Descubrí por tus actores favoritos”
 
-Variables globales de colores.
+C) Top general
 
-Barra superior reorganizada.
+Usa TMDB Top Rated
+(oculta películas que el admin marcó como hidden)
 
-Formularios unificados.
+Todos los carruseles:
 
-Pendiente:
+tienen navegación con flechas
 
-Rediseño general de la aplicación (rama css-completo).
+algunos tienen auto-slide
 
-Mejorar coherencia visual entre pantallas.
----
+filtran películas ocultas
 
-12. Refactorización técnica
+🎞 7. Películas locales (Admin)
 
-Implementado:
+Los administradores pueden:
 
-Migración a componentes standalone.
+Crear películas locales
 
-Servicios centralizados (TMDB, perfiles, reseñas).
+Editarlas
 
-Código reorganizado y simplificado.
+Eliminarlas
 
-Pendiente:
+Ocultarlas / mostrarlas (isHidden)
 
-Unificar vistas similares (detalle y edición de perfil).
----
+Ver y gestionar toda la colección local
 
-13. Integración entre vistas
+Estas películas conviven con las de TMDB en:
 
-Implementado parcialmente:
+Detalles de película
 
-Navegación general entre módulos.
+Reseñas
 
-Pendiente:
+Actividad del usuario
 
-Unificar vista de detalle y edición de perfil.
+🏛 8. Panel de administración
 
-Integrar correctamente películas locales y TMDB en la vista de detalle.
+Incluye:
 
-Integrar favoritos, actores y listas en el flujo del usuario.
----
+👥 Usuarios
 
-14. Lógica de negocio general
+Listado completo
 
-Implementado:
+Filtrado por nombre, email o ID
 
-CRUD de usuarios, reseñas y películas locales.
+Edición
 
-Roles y permisos diferenciados.
+Eliminación
 
-Integración TMDB + base interna.
+Creación de administradores
 
-Formularios avanzados con validaciones complejas.
+✍️ Reseñas
 
-Persistencia y manejo de sesión.
----
-Instalación y ejecución del proyecto
-1. Clonar el repositorio
+Listado general
+
+Agrupación por película
+
+Eliminación
+
+🚨 Reportes
+
+Listado de todos los reportes
+
+Cambios de estado
+
+Motivo y usuario que reportó
+
+🎬 Películas locales
+
+Creación, edición, borrado
+
+Ocultar / mostrar
+
+🎯 9. Actividad del usuario
+
+Endpoint /movieActivity:
+
+Guardado como watched o towatch
+
+Fecha automática cuando corresponde
+
+Listas en el perfil:
+
+Películas vistas
+
+Películas por ver
+
+🎨 10. UI y experiencia
+
+Top Bar dinámica
+
+Carruseles modernos
+
+Formularios con mensajes claros de error
+
+Diseño consistente para reseñas, actividad y perfiles
+
+Componentes standalone reutilizables
+
+🔧 JSON Server – Base de datos local
+
+Archivo principal:
+
+db/profiles.json
+
+
+Colecciones incluidas:
+
+profiles
+
+comments (reseñas)
+
+reviewComments
+
+reviewLikes
+
+reviewReports
+
+movieActivity
+
+follows
+
+adminMovies
+
+🚀 Instalación y ejecución
+1) Clonar el repositorio
 git clone https://github.com/maurisebastian/Tp-Final-Labo-4.git
-cd Tp-Final-Labo-4
----
-2. Instalar dependencias del proyecto:
+cd Tp-Final-Labo-4/Tp-Final-labo4
 
+2) Instalar dependencias
 npm install
 
----
+3) Iniciar JSON Server
+json-server --watch db/profiles.json --port 3000
 
-3. Iniciar JSON Server (solo si tu entorno lo requiere)
 
-Instalar JSON Server globalmente:
+Endpoints disponibles:
 
-npm install -g json-server
+http://localhost:3000/profiles
 
-Ejecutar JSON Server en el puerto 3000:
+http://localhost:3000/comments
 
-json-server --watch database/db.json --port 3000
+http://localhost:3000/reviewLikes
 
----
+http://localhost:3000/reviewReports
 
-4. Iniciar la aplicación Angular
+etc.
+
+4) Iniciar Angular
 ng serve -o
 
-Entrá a http://localhost:4200
 
----
+URL:
+👉 http://localhost:4200
 
-Creá una cuenta de usuario
+👤 Usuarios de prueba
 
-O utilizá la cuenta de administrador:
+Superadmin
 
-User name: admin
-
-Password: fakepass
-
-¡Disfrutá del proyecto!
+usuario: admin
+password: fakepass
 
 
+Usuarios normales
+
+usuario: sofia
+password: fakepass
+
+usuario: fernandamoya
+password: fakepass
+
+🎉 Gracias por leer
+
+MovieHub es una plataforma social de cine con:
+
+✅ experiencia moderna
+✅ recomendaciones personalizadas
+✅ moderación completa
+✅ componentes Angular standalone
+✅ integración TMDB + base local
