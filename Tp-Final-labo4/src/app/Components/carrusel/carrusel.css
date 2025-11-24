@@ -180,3 +180,55 @@
   color: #bfbfbf;
   margin-bottom: 20px;
 }
+/* ---------------------------------- */
+/* ALINEACIONES */
+/* ---------------------------------- */
+
+.section-title.left {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.recommended-title.center,
+.recommended-subtitle.center {
+  text-align: center;
+  width: 100%;
+}
+/* Tamaños de títulos */
+.small-title {
+  font-size: 1.2rem;   /* más chico */
+  font-weight: 600;
+}
+
+.big-title {
+  font-size: 2rem;     /* más grande */
+  font-weight: 700;
+}
+
+.big-subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: -5px;
+  opacity: 0.9;
+}
+
+/* Alineaciones */
+.section-title.left {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.recommended-title.center,
+.recommended-subtitle.center {
+  text-align: center;
+  width: 100%;
+}
+ .actor-section {
+  max-width: 1280px;
+  margin: 20px auto 40px;
+  padding: 0 20px;
+}
+
+.actor-section .section-title {
+  margin-bottom: 8px;
+}

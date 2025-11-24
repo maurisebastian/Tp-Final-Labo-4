@@ -8,7 +8,7 @@ export interface ReviewLike {
 export interface MovieActivityInterface {
   id?: number;
   idProfile: number | string;
-  idMovie: number;
+  idMovie: string | number;
   movieName: string;
   status: 'watched' | 'towatch';
   watchedDate?: string | null; 

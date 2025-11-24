@@ -110,15 +110,13 @@ export class TmdbService {
       `${this.baseUrl}/person/${actorId}?api_key=${this.apiKey}&language=es-US`
     );
   }
-  getActorMovies(actorId: number) {
+
+getMovieById(id: number) {
   return this.http.get(
-    `${this.baseUrl}/person/${actorId}/movie_credits?api_key=${this.apiKey}&language=es-US`
+    `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}&language=es-ES`
   );
 }
 
-getMovieById(id: number) {
-  return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=TU_API_KEY&language=es-ES`);
-}
 
 
 }
