@@ -62,7 +62,8 @@ export class ProfilePublic implements OnInit {
         }
 
         this.profile = p;
-        this.isPrivate = p.isPublic === false;
+
+        this.isPrivate = (p.isPublic === false) && !this.auth.isAdmin();
 
         if (this.activeUserId) {
           this.followService

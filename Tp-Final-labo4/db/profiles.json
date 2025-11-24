@@ -1,22 +1,70 @@
 {
   "follows": [
     {
-      "id": "f1",
-      "followerId": "8358",
-      "followingId": "b54d",
-      "createdAt": "2025-11-24T19:55:42.201Z"
-    },
-    {
-      "id": "f2",
+      "id": "f100",
       "followerId": "b54d",
-      "followingId": "8358",
-      "createdAt": "2025-11-24T20:10:12.501Z"
+      "followingId": "8358"
     },
     {
-      "id": "f3",
+      "id": "f101",
       "followerId": "281a",
-      "followingId": "8358",
-      "createdAt": "2025-11-24T20:15:45.901Z"
+      "followingId": "8358"
+    },
+    {
+      "id": "f102",
+      "followerId": "8358",
+      "followingId": "b54d"
+    },
+    {
+      "id": "f103",
+      "followerId": "jbUZV20",
+      "followingId": "b54d"
+    },
+    {
+      "id": "f104",
+      "followerId": "xnRnEg6",
+      "followingId": "281a"
+    },
+    {
+      "id": "f105",
+      "followerId": "oe5BF45",
+      "followingId": "281a"
+    },
+    {
+      "id": "f106",
+      "followerId": "M9rnNpT",
+      "followingId": "jbUZV20"
+    },
+    {
+      "id": "f107",
+      "followerId": "8uNCAU7",
+      "followingId": "jbUZV20"
+    },
+    {
+      "id": "f108",
+      "followerId": "gkB2-2a",
+      "followingId": "xnRnEg6"
+    },
+    {
+      "id": "f109",
+      "followerId": "EYnfiYV",
+      "followingId": "xnRnEg6"
+    },
+    {
+      "id": "f110",
+      "followerId": "pwDug19",
+      "followingId": "oe5BF45"
+    },
+    {
+      "id": "f111",
+      "followerId": "_-MNsZD",
+      "followingId": "oe5BF45"
+    },
+    {
+      "followerId": "jWTuKTn",
+      "followingId": "_-MNsZD",
+      "createdAt": "2025-11-24T21:01:35.694Z",
+      "id": "T0kOZFw"
     }
   ],
   "reviewComments": [
@@ -89,25 +137,277 @@
   ],
   "comments": [
     {
-      "id": "c1",
+      "id": "r1",
       "idProfile": "8358",
       "idMovie": 238,
       "score": 9,
-      "description": "Clásico absoluto. La volvería a ver mil veces."
+      "description": "Una obra maestra del cine. La actuación de Brando es increíble."
     },
     {
-      "id": "c2",
-      "idProfile": "b54d",
-      "idMovie": 129,
+      "id": "r2",
+      "idProfile": "8358",
+      "idMovie": 278,
       "score": 10,
-      "description": "Animación hermosa y una historia que te queda para siempre."
+      "description": "Mi película favorita. Emocionante y profunda de principio a fin."
     },
     {
-      "id": "c3",
+      "id": "r3",
+      "idProfile": "8358",
+      "idMovie": 389,
+      "score": 8,
+      "description": "Atmosférica y tensa. Una experiencia increíble."
+    },
+    {
+      "id": "r4",
+      "idProfile": "b54d",
+      "idMovie": 238,
+      "score": 10,
+      "description": "El padrino me marcó para siempre. Cine perfecto."
+    },
+    {
+      "id": "r5",
+      "idProfile": "b54d",
+      "idMovie": 240,
+      "score": 9,
+      "description": "Gran secuela, una historia durísima y genialmente contada."
+    },
+    {
+      "id": "r6",
+      "idProfile": "b54d",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Impactante, incómoda y brillante a la vez."
+    },
+    {
+      "id": "r7",
       "idProfile": "281a",
       "idMovie": 278,
+      "score": 9,
+      "description": "Una historia de esperanza que siempre me emociona."
+    },
+    {
+      "id": "r8",
+      "idProfile": "281a",
+      "idMovie": 389,
+      "score": 7,
+      "description": "Muy buena, aunque algunas partes me resultaron intensas."
+    },
+    {
+      "id": "r9",
+      "idProfile": "281a",
+      "idMovie": 240,
       "score": 8,
-      "description": "Muy buena, me mantuvo enganchada de principio a fin."
+      "description": "Una secuela impecable, muy bien actuada."
+    },
+    {
+      "id": "r10",
+      "idProfile": "jbUZV20",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Una de las películas más perturbadoras que vi."
+    },
+    {
+      "id": "r11",
+      "idProfile": "jbUZV20",
+      "idMovie": 238,
+      "score": 10,
+      "description": "Imposible no valorar esta obra maestra."
+    },
+    {
+      "id": "r12",
+      "idProfile": "jbUZV20",
+      "idMovie": 278,
+      "score": 9,
+      "description": "Una historia increíblemente inspiradora."
+    },
+    {
+      "id": "r13",
+      "idProfile": "xnRnEg6",
+      "idMovie": 389,
+      "score": 9,
+      "description": "Una obra de ciencia ficción impecable."
+    },
+    {
+      "id": "r14",
+      "idProfile": "xnRnEg6",
+      "idMovie": 240,
+      "score": 8,
+      "description": "Gran secuela con una narrativa madura."
+    },
+    {
+      "id": "r15",
+      "idProfile": "xnRnEg6",
+      "idMovie": 238,
+      "score": 10,
+      "description": "Cine del más alto nivel."
+    },
+    {
+      "id": "r16",
+      "idProfile": "oe5BF45",
+      "idMovie": 278,
+      "score": 10,
+      "description": "No me canso de verla. Emotiva y poderosa."
+    },
+    {
+      "id": "r17",
+      "idProfile": "oe5BF45",
+      "idMovie": 424,
+      "score": 7,
+      "description": "Difícil de digerir, pero brillantemente filmada."
+    },
+    {
+      "id": "r18",
+      "idProfile": "oe5BF45",
+      "idMovie": 389,
+      "score": 9,
+      "description": "Suspenso puro."
+    },
+    {
+      "id": "r19",
+      "idProfile": "jWTuKTn",
+      "idMovie": 238,
+      "score": 9,
+      "description": "Un clásico que siempre disfruto."
+    },
+    {
+      "id": "r20",
+      "idProfile": "jWTuKTn",
+      "idMovie": 278,
+      "score": 8,
+      "description": "Muy buena, profunda e inolvidable."
+    },
+    {
+      "id": "r21",
+      "idProfile": "jWTuKTn",
+      "idMovie": 389,
+      "score": 8,
+      "description": "Alien me dejó tenso todo el tiempo."
+    },
+    {
+      "id": "r22",
+      "idProfile": "M9rnNpT",
+      "idMovie": 240,
+      "score": 9,
+      "description": "Excelente desarrollo de personajes."
+    },
+    {
+      "id": "r23",
+      "idProfile": "M9rnNpT",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Una crítica social durísima."
+    },
+    {
+      "id": "r24",
+      "idProfile": "M9rnNpT",
+      "idMovie": 278,
+      "score": 10,
+      "description": "Mi película favorita."
+    },
+    {
+      "id": "r25",
+      "idProfile": "8uNCAU7",
+      "idMovie": 389,
+      "score": 8,
+      "description": "Me hizo saltar de la silla más de una vez."
+    },
+    {
+      "id": "r26",
+      "idProfile": "8uNCAU7",
+      "idMovie": 238,
+      "score": 10,
+      "description": "Interpretaciones magistrales."
+    },
+    {
+      "id": "r27",
+      "idProfile": "8uNCAU7",
+      "idMovie": 240,
+      "score": 9,
+      "description": "Una secuela impresionante."
+    },
+    {
+      "id": "r28",
+      "idProfile": "gkB2-2a",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Una experiencia intensa."
+    },
+    {
+      "id": "r29",
+      "idProfile": "gkB2-2a",
+      "idMovie": 238,
+      "score": 9,
+      "description": "Un clásico que nunca falla."
+    },
+    {
+      "id": "r30",
+      "idProfile": "gkB2-2a",
+      "idMovie": 278,
+      "score": 8,
+      "description": "Muy buena y emocionalmente fuerte."
+    },
+    {
+      "id": "r31",
+      "idProfile": "EYnfiYV",
+      "idMovie": 240,
+      "score": 9,
+      "description": "Una secuela distinta, profunda y excelente."
+    },
+    {
+      "id": "r32",
+      "idProfile": "EYnfiYV",
+      "idMovie": 278,
+      "score": 10,
+      "description": "Una historia súper inspiradora."
+    },
+    {
+      "id": "r33",
+      "idProfile": "EYnfiYV",
+      "idMovie": 389,
+      "score": 7,
+      "description": "Buena, pero un poco pesada en algunas partes."
+    },
+    {
+      "id": "r34",
+      "idProfile": "pwDug19",
+      "idMovie": 238,
+      "score": 10,
+      "description": "Una obra que todos deberían ver."
+    },
+    {
+      "id": "r35",
+      "idProfile": "pwDug19",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Perturbadora pero brillante."
+    },
+    {
+      "id": "r36",
+      "idProfile": "pwDug19",
+      "idMovie": 389,
+      "score": 9,
+      "description": "Suspenso perfecto."
+    },
+    {
+      "id": "r37",
+      "idProfile": "_-MNsZD",
+      "idMovie": 278,
+      "score": 10,
+      "description": "Inolvidable."
+    },
+    {
+      "id": "r38",
+      "idProfile": "_-MNsZD",
+      "idMovie": 238,
+      "score": 9,
+      "description": "Brillante en todo sentido."
+    },
+    {
+      "id": "r39",
+      "idProfile": "_-MNsZD",
+      "idMovie": 389,
+      "score": 8,
+      "description": "Muy buena atmósfera."
     }
   ],
   "profiles": [
@@ -130,7 +430,14 @@
       "firstName": "Sofía",
       "lastName": "Stejskal",
       "role": "user",
-      "favoriteGenres": [18, 12, 28, 878, 53, 9648],
+      "favoriteGenres": [
+        18,
+        12,
+        28,
+        878,
+        53,
+        9648
+      ],
       "favoriteActors": [
         54693,
         19492,
@@ -156,7 +463,15 @@
       "firstName": "Fernanda",
       "lastName": "Moya",
       "role": "user",
-      "favoriteGenres": [878, 12, 18, 16, 14, 10751, 10402],
+      "favoriteGenres": [
+        878,
+        12,
+        18,
+        16,
+        14,
+        10751,
+        10402
+      ],
       "favoriteActors": [
         1190668,
         505710,
@@ -180,9 +495,472 @@
       "firstName": "Camila",
       "lastName": "Pérez",
       "role": "user",
-      "favoriteGenres": [35, 18, 10749],
-      "favoriteActors": [500, 6193, 287],
+      "favoriteGenres": [
+        35,
+        18,
+        10749
+      ],
+      "favoriteActors": [
+        500,
+        6193,
+        287
+      ],
       "isPublic": false
+    },
+    {
+      "username": "pepe",
+      "password": "123456",
+      "date": "1994-10-10",
+      "cel": "223432354",
+      "email": "pepe1994@gmail.com",
+      "firstName": "German",
+      "lastName": "Lodeiro",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        53,
+        10749,
+        80,
+        9648
+      ],
+      "id": "jbUZV20",
+      "favoriteActors": [
+        819,
+        287,
+        1283,
+        7470,
+        7499,
+        24366,
+        20030,
+        27643,
+        68635,
+        120152,
+        85008,
+        1299243,
+        1299244,
+        123820,
+        93252,
+        192,
+        12052,
+        12055,
+        30487
+      ]
+    },
+    {
+      "username": "matias",
+      "password": "123456",
+      "date": "1998-10-10",
+      "cel": "223239843",
+      "email": "matiasmdp@gmail.com",
+      "firstName": "matias",
+      "lastName": "Romero",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        36,
+        9648,
+        53,
+        35
+      ],
+      "id": "xnRnEg6",
+      "favoriteActors": [
+        55512,
+        55514,
+        8471,
+        55513,
+        8475,
+        3860313,
+        3661746,
+        100766,
+        117975,
+        20331,
+        116994,
+        936254,
+        144275,
+        1167727,
+        966683
+      ]
+    },
+    {
+      "username": "Martín",
+      "password": "FAKEPASS",
+      "date": "2001-04-04",
+      "cel": "223764532",
+      "email": "martinacosta@gmail.com",
+      "firstName": "martin",
+      "lastName": "Acosta",
+      "role": "user",
+      "favoriteGenres": [
+        16,
+        10751,
+        18,
+        12,
+        14,
+        28,
+        35,
+        10749
+      ],
+      "id": "oe5BF45",
+      "favoriteActors": [
+        613,
+        617,
+        616,
+        622,
+        624,
+        100764,
+        100765,
+        100766,
+        20707,
+        46624
+      ]
+    },
+    {
+      "username": "mauri",
+      "password": "fakepass",
+      "date": "1992-02-19",
+      "cel": "223574332",
+      "email": "maurimauri@gmail.com",
+      "firstName": "mauri",
+      "lastName": "martinez",
+      "role": "user",
+      "favoriteGenres": [
+        37,
+        80,
+        18,
+        10751,
+        10749,
+        28
+      ],
+      "id": "jWTuKTn",
+      "favoriteActors": [
+        190,
+        4078,
+        14276,
+        5814,
+        14277,
+        9560,
+        7499,
+        6161,
+        9562,
+        4443,
+        1205,
+        11148,
+        20376,
+        11398,
+        18917,
+        62564,
+        236851,
+        28412,
+        11085,
+        4251,
+        139,
+        140,
+        2535,
+        147,
+        589
+      ]
+    },
+    {
+      "username": "nico",
+      "password": "fakepass",
+      "date": "2003-07-31",
+      "cel": "22362467",
+      "email": "nicodelmar@gmail.com",
+      "firstName": "Nicolás",
+      "lastName": "Herrera",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        53,
+        28,
+        36,
+        35,
+        14,
+        10749,
+        16,
+        12,
+        878
+      ],
+      "id": "M9rnNpT",
+      "favoriteActors": [
+        819,
+        287,
+        1283,
+        7470,
+        7499,
+        70131,
+        76977,
+        76976,
+        10071,
+        125721,
+        8600,
+        87341,
+        123757,
+        123758,
+        102551,
+        587506,
+        543505,
+        130640,
+        932967,
+        226366,
+        2,
+        3,
+        4,
+        3799,
+        6
+      ],
+      "isPublic": false
+    },
+    {
+      "username": "juli",
+      "password": "fakepass",
+      "date": "2002-02-20",
+      "cel": "223895434",
+      "email": "julifernad@gmail.com",
+      "firstName": "Julieta",
+      "lastName": "Fernández",
+      "role": "user",
+      "favoriteGenres": [
+        80,
+        18,
+        12,
+        16,
+        14,
+        35
+      ],
+      "id": "8uNCAU7",
+      "favoriteActors": [
+        1118644,
+        143370,
+        143371,
+        1118645,
+        1118646,
+        190,
+        448,
+        192,
+        449,
+        450,
+        613,
+        617,
+        616,
+        622,
+        624,
+        37505,
+        139573,
+        39008,
+        175980,
+        176011
+      ]
+    },
+    {
+      "username": "tomy",
+      "password": "fakepass",
+      "date": "1998-06-07",
+      "cel": "223456523",
+      "email": "tomasvarela@gmail.com",
+      "firstName": "Tomás",
+      "lastName": "Varela",
+      "role": "user",
+      "favoriteGenres": [
+        80,
+        18,
+        878,
+        10770,
+        10749,
+        10752,
+        14,
+        16,
+        10751
+      ],
+      "id": "gkB2-2a",
+      "favoriteActors": [
+        561869,
+        35705,
+        62649,
+        1680339,
+        4238,
+        136532,
+        1080542,
+        12982,
+        543261,
+        107734,
+        3380,
+        10606,
+        3361,
+        10607,
+        10608,
+        24551,
+        122429,
+        34374,
+        122430,
+        134263,
+        76913,
+        643,
+        146044,
+        548608,
+        15170,
+        55662,
+        55664,
+        55663,
+        55665,
+        613
+      ]
+    },
+    {
+      "username": "agusss",
+      "password": "fakepass",
+      "date": "2004-11-24",
+      "cel": "223345423",
+      "email": "agustinaaagus@gmail.com",
+      "firstName": "Agustina",
+      "lastName": "Duarte",
+      "role": "user",
+      "favoriteGenres": [
+        28,
+        12,
+        14,
+        10749,
+        18,
+        53,
+        80,
+        35,
+        878
+      ],
+      "id": "EYnfiYV",
+      "favoriteActors": [
+        880,
+        73968,
+        90633,
+        1313559,
+        117642,
+        53807,
+        1190668,
+        72873,
+        20577,
+        935096,
+        6968,
+        131,
+        19492,
+        49,
+        18288,
+        14869,
+        854,
+        9067,
+        24820,
+        85956,
+        1019,
+        4457,
+        1112385,
+        1188827,
+        47156,
+        8741,
+        6657,
+        8742,
+        6649,
+        8743,
+        206,
+        204,
+        205,
+        103,
+        109
+      ]
+    },
+    {
+      "username": "bruni",
+      "password": "fakepass",
+      "date": "1997-08-24",
+      "cel": "223283454",
+      "email": "bru_salva@gmail.com",
+      "firstName": "Bruno",
+      "lastName": "Salvatierra",
+      "role": "user",
+      "favoriteGenres": [
+        35,
+        80,
+        10749,
+        18,
+        53
+      ],
+      "id": "pwDug19",
+      "favoriteActors": [
+        980,
+        973,
+        974,
+        975,
+        976,
+        53807,
+        1190668,
+        72873,
+        20577,
+        935096,
+        6968,
+        131,
+        19492,
+        49,
+        18288,
+        14869,
+        854,
+        9067,
+        24820,
+        85956,
+        8741,
+        6657,
+        8742,
+        6649,
+        8743,
+        1338,
+        1337,
+        12462,
+        12463,
+        12674
+      ]
+    },
+    {
+      "username": "mell",
+      "password": "fakepass",
+      "date": "1995-11-09",
+      "cel": "223493265",
+      "email": "mellmelina@gmail.com",
+      "firstName": "Melina",
+      "lastName": "Cabrera",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        28,
+        12,
+        36,
+        10752,
+        35,
+        80
+      ],
+      "id": "_-MNsZD",
+      "favoriteActors": [
+        5402,
+        27440,
+        543085,
+        31989,
+        5404,
+        16962,
+        70336,
+        70337,
+        70338,
+        1432841,
+        13848,
+        14435,
+        14437,
+        14438,
+        14439,
+        54693,
+        7056,
+        54811,
+        1294982,
+        1819918,
+        4111,
+        11916,
+        3854,
+        73595,
+        73596
+      ]
     }
   ],
   "reviewReports": [
