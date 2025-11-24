@@ -21,26 +21,35 @@
   </div>
 
   }
-    @else if  (isEditing) {
-    <div class="add-review">
-      <h3 class="section-title">Editar reseña</h3>
-      <form [formGroup]="reviewForm" (submit)="saveEdit()">
-        <div class="star-rating mb-3">
-          @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
-            <span (click)="setStarRating(star)" class="star"
-                  [class.selected]="star <= +reviewForm.controls.score.value">★</span>
-          }
-          <span class="rating-label">
-            Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
+ @else if (isEditing) {
+  <div class="add-review" id="editForm">
+    <h3 class="section-title">Editar reseña</h3>
+
+    <form [formGroup]="reviewForm" (submit)="saveEdit()">
+      <div class="star-rating mb-3">
+        @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+          <span (click)="setStarRating(star)"
+                class="star"
+                [class.selected]="star <= +reviewForm.controls.score.value">
+            ★
           </span>
-        </div>
-        <textarea formControlName="description" class="review-textarea"
-                  placeholder="Escribe tu reseña aquí..."></textarea>
-        <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">Guardar cambios</button>
-        <button type="button" class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
-      </form>
-    </div>
-  }
+        }
+      </div>
+
+      <textarea formControlName="description"
+                class="review-textarea"
+                placeholder="Escribe tu reseña aquí..."></textarea>
+
+      <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
+        Guardar cambios
+      </button>
+
+      <button type="button" class="btn-cancel" (click)="cancelEdit()">
+        Cancelar
+      </button>
+    </form>
+  </div>
+}
   @else {
   <!--  FORMULARIO ORIGINAL -->
   <div class="add-review">

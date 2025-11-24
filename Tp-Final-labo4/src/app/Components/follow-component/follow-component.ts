@@ -3,7 +3,7 @@ import { Profile } from '../../Interfaces/profilein';
 import { FollowService } from '../../Services/follow-service';
 import { ProfileService } from '../../Services/profile.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-follow-component',
@@ -16,10 +16,9 @@ export class FollowComponent implements OnInit, OnChanges {
 
   private followService = inject(FollowService);
   private profileService = inject(ProfileService);
-  private router = inject(Router);
 
   @Input() userId: string | number | undefined;
-  @Input() showProfileButton: boolean = true;
+  @Input() showdeletebutton: boolean = true;
 
   followers: Profile[] = [];
   following: Profile[] = [];
@@ -56,6 +55,16 @@ export class FollowComponent implements OnInit, OnChanges {
       })
       .catch(() => this.loading = false);
   }
+
+  removeFollower(followerId: string | number) {
+  if (!confirm("¿Eliminar este seguidor?")) return;
+
+  this.followService.unfollow(followerId, this.userId!)
+    .then(() => {
+      this.followers = this.followers.filter(f => f.id !== followerId);
+    })
+    .catch(err => console.error("Error al eliminar seguidor:", err));
+}
 
   loadFollowing() {
     this.followService.getFollowing(String(this.userId))

@@ -19,11 +19,17 @@
         <span><strong>Mail:</strong> {{ f.email }}</span>
       </div>
 
-      @if (showProfileButton) {
+
       <button class="go-profile-btn" [routerLink]="['/profiles', f.id]">
         Ver perfil
       </button>
+
+   @if (showdeletebutton) {
+        <button class="delete-follow-btn" (click)="removeFollower(f.id!)">
+          Eliminar
+        </button>
       }
+
 
     </li>
     }
@@ -51,11 +57,11 @@
         <span><strong>Mail:</strong> {{ p.email }}</span>
       </div>
 
-      @if (showProfileButton) {
+
       <button class="go-profile-btn" [routerLink]="['/profiles', p.id]">
         Ver perfil
       </button>
-      }
+
 
     </li>
     }

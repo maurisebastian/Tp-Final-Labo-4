@@ -1,420 +1,113 @@
 {
   "follows": [
     {
-      "id": "aceb",
-      "followerId": "6b38",
-      "followingId": "NnUCsx5",
-      "createdAt": "2025-11-23T18:32:05.697Z"
+      "id": "f1",
+      "followerId": "8358",
+      "followingId": "b54d",
+      "createdAt": "2025-11-24T19:55:42.201Z"
     },
     {
-      "id": "8ed4",
-      "followerId": "6b38",
-      "followingId": "4dbc",
-      "createdAt": "2025-11-23T18:32:47.429Z"
+      "id": "f2",
+      "followerId": "b54d",
+      "followingId": "8358",
+      "createdAt": "2025-11-24T20:10:12.501Z"
     },
     {
-      "followerId": "1d76",
-      "followingId": "def6",
-      "createdAt": "2025-11-23T19:41:36.823Z",
-      "id": "PCj0P-j"
-    },
-    {
-      "followerId": "21a8",
-      "followingId": "ZfpoMDx",
-      "createdAt": "2025-11-23T19:47:55.383Z",
-      "id": "g5C0DdE"
-    },
-    {
-      "followerId": "ZfpoMDx",
-      "followingId": "ae65",
-      "createdAt": "2025-11-23T20:12:07.775Z",
-      "id": "Ecy1MAW"
-    },
-    {
-      "followerId": "def6",
-      "followingId": "ae65",
-      "createdAt": "2025-11-23T20:26:37.581Z",
-      "id": "vCRU_MM"
-    },
-    {
-      "followerId": "def6",
-      "followingId": "ZfpoMDx",
-      "createdAt": "2025-11-23T20:27:50.122Z",
-      "id": "aSKL9jZ"
-    },
-    {
-      "followerId": "def6",
-      "followingId": "4e48",
-      "createdAt": "2025-11-23T20:30:27.258Z",
-      "id": "qiJEMnT"
-    },
-    {
-      "id": "7177",
-      "followerId": "4dbc",
-      "followingId": "def6",
-      "createdAt": "2025-11-24T02:34:49.685Z"
-    },
-    {
-      "id": "e76f",
+      "id": "f3",
       "followerId": "281a",
-      "followingId": "def6",
-      "createdAt": "2025-11-24T03:13:46.042Z"
+      "followingId": "8358",
+      "createdAt": "2025-11-24T20:15:45.901Z"
     }
   ],
   "reviewComments": [
     {
-      "idReview": "sK1ndJF",
-      "idProfile": "1d76",
-      "comment": "te ganaste un like",
-      "id": "1"
+      "id": "rc1",
+      "idReview": "c1",
+      "idProfile": "b54d",
+      "comment": "Coincido, es una peli que hay que ver al menos una vez."
     },
     {
-      "id": "c945",
-      "idReview": "sK1ndJF",
-      "idProfile": "7d00",
-      "comment": "me aprece q esto no esta bueno"
-    },
-    {
-      "id": "0ac1",
-      "idReview": "sK1ndJF",
-      "idProfile": "6b38",
-      "comment": "rere"
-    },
-    {
-      "id": "c458",
-      "idReview": "9ac3",
-      "idProfile": "281a",
-      "comment": "jhgjgh"
-    },
-    {
-      "id": "d8fe",
-      "idReview": "d0ae",
-      "idProfile": "281a",
-      "comment": "klujkl"
-    },
-    {
-      "id": "ef6f",
-      "idReview": "d0ae",
-      "idProfile": "281a",
-      "comment": "jhgjgh"
+      "id": "rc2",
+      "idReview": "c2",
+      "idProfile": "8358",
+      "comment": "No la tenía en el radar, me la anoto."
     }
   ],
   "reviewLikes": [
     {
-      "idProfile": "21a8",
-      "idReview": "gmTVN38",
-      "date": "2025-11-21T17:47:48.635Z",
-      "id": "1"
+      "id": "rl1",
+      "idProfile": "8358",
+      "idReview": "c1",
+      "date": "2025-11-24T18:47:48.635Z"
     },
     {
-      "idProfile": "21a8",
-      "idReview": "sK1ndJF",
-      "date": "2025-11-21T17:51:14.370Z",
-      "id": "2"
+      "id": "rl2",
+      "idProfile": "b54d",
+      "idReview": "c2",
+      "date": "2025-11-24T19:01:14.370Z"
     },
     {
-      "idProfile": "1d76",
-      "idReview": "sK1ndJF",
-      "date": "2025-11-21T22:22:09.235Z",
-      "id": "3"
-    },
-    {
-      "idProfile": "1d76",
-      "idReview": "XF6bNAx",
-      "date": "2025-11-22T21:01:28.741Z",
-      "id": "4"
+      "id": "rl3",
+      "idProfile": "281a",
+      "idReview": "c3",
+      "date": "2025-11-24T19:22:09.235Z"
     }
   ],
   "movieActivity": [
     {
-      "idProfile": "1d76",
+      "id": "ma1",
+      "idProfile": "8358",
       "idMovie": 238,
       "movieName": "El padrino",
       "status": "watched",
-      "id": "2",
       "watchedDate": "2025-11-21T23:11:27.253Z"
     },
     {
-      "idProfile": "1d76",
-      "idMovie": 240,
-      "movieName": "El Padrino Parte II",
-      "status": "watched",
-      "id": "4",
-      "watchedDate": "2025-11-21T23:21:15.339Z"
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 424,
-      "movieName": "La lista de Schindler",
-      "status": "watched",
-      "id": "5",
-      "watchedDate": "2025-11-21T23:21:16.097Z"
-    },
-    {
-      "id": "8179",
-      "idProfile": 1,
-      "idMovie": 238,
-      "movieName": "El padrino",
-      "status": "towatch",
-      "watchedDate": "2025-11-22T07:00:01.635Z"
-    },
-    {
-      "id": "04c9",
-      "idProfile": "f4ee",
-      "idMovie": 240,
-      "movieName": "El Padrino Parte II",
-      "status": "watched",
-      "watchedDate": "2025-11-23T03:02:18.809Z"
-    },
-    {
-      "id": "8455",
-      "idProfile": "4dbc",
-      "idMovie": 52887,
-      "movieName": "Loyalty and Respect",
-      "status": "watched",
-      "watchedDate": "2025-11-24T02:36:19.652Z"
-    },
-    {
-      "idProfile": "ZfpoMDx",
+      "id": "ma2",
+      "idProfile": "8358",
       "idMovie": 278,
-      "movieName": "Cadena perpetua",
+      "movieName": "Sueños de libertad",
       "status": "towatch",
-      "watchedDate": null,
-      "id": "ObhOHEF"
+      "watchedDate": null
     },
     {
-      "idProfile": "21a8",
-      "idMovie": 240,
-      "movieName": "El Padrino Parte II",
-      "status": "towatch",
-      "watchedDate": null,
-      "id": "_BI1w6e"
-    },
-    {
-      "idProfile": "def6",
-      "idMovie": 424,
-      "movieName": "La lista de Schindler",
-      "status": "watched",
-      "watchedDate": "2025-11-24T00:15:54.851Z",
-      "id": "lIo0UKH"
-    },
-    {
-      "id": "73d9",
-      "idProfile": "281a",
-      "idMovie": 278,
-      "movieName": "Cadena perpetua",
-      "status": "watched",
-      "watchedDate": "2025-11-24T04:40:43.627Z"
-    },
-    {
-      "id": "7c71",
-      "idProfile": "281a",
-      "idMovie": 102634,
-      "movieName": "La cucaracha",
-      "status": "watched",
-      "watchedDate": "2025-11-24T06:26:32.950Z"
-    },
-    {
-      "id": "9117",
-      "idProfile": "281a",
+      "id": "ma3",
+      "idProfile": "b54d",
       "idMovie": 129,
       "movieName": "El viaje de Chihiro",
       "status": "watched",
-      "watchedDate": "2025-11-24T06:30:41.736Z"
+      "watchedDate": "2025-11-22T18:30:01.635Z"
     },
     {
-      "id": "322b",
-      "idProfile": "4dbc",
+      "id": "ma4",
+      "idProfile": "281a",
       "idMovie": 19404,
       "movieName": "Un amor contra viento y marea",
       "status": "towatch",
       "watchedDate": null
-    },
-    {
-      "id": "4f6b",
-      "idProfile": "281a",
-      "idMovie": "b89c",
-      "movieName": "la cucaracha by sofia",
-      "status": "towatch",
-      "watchedDate": null
-    },
-    {
-      "id": "89db",
-      "idProfile": "281a",
-      "idMovie": 397567,
-      "movieName": "Along with the Gods: Los dos mundos",
-      "status": "watched",
-      "watchedDate": "2025-11-24T15:49:49.534Z"
     }
   ],
   "comments": [
     {
-      "idProfile": 1,
-      "idMovie": 597,
-      "score": 0,
-      "description": "muy buena peli, la vi 10 veces ",
-      "id": "XF6bNAx"
-    },
-    {
-      "id": "734f",
-      "idProfile": 1,
-      "idMovie": 389,
-      "score": 6,
-      "description": "dsfas fasd dfa"
-    },
-    {
-      "id": "d4b0",
-      "idProfile": 1,
+      "id": "c1",
+      "idProfile": "8358",
       "idMovie": 238,
-      "score": 5,
-      "description": "que onda"
-    },
-    {
-      "id": "03df",
-      "idProfile": "d49b",
-      "idMovie": 238,
-      "score": 7,
-      "description": "mm a ver "
-    },
-    {
-      "id": "ea13",
-      "idProfile": "7b97",
-      "idMovie": 4688,
-      "score": 10,
-      "description": "la amo"
-    },
-    {
-      "idProfile": "21a8",
-      "idMovie": 240,
-      "score": 7,
-      "description": "muy buena",
-      "id": "VcVPvdX"
-    },
-    {
-      "idProfile": "21a8",
-      "idMovie": 278,
-      "score": 8,
-      "description": "me gusto mucho ! ",
-      "id": "gmTVN38"
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 278,
-      "score": 8,
-      "description": "con un final que te deja pensando. Totalmente recomendada",
-      "id": "BGXZOPd"
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 597,
-      "score": 7,
-      "description": "muy buena",
-      "id": "47pKW0h"
-    },
-    {
-      "id": "153e",
-      "idProfile": "6b38",
-      "idMovie": 508943,
-      "score": 6,
-      "description": "uyghtuj"
-    },
-    {
-      "idProfile": "ZfpoMDx",
-      "idMovie": 240,
-      "score": 7,
-      "description": "asdasdasd",
-      "id": "zI_B5lG"
-    },
-    {
-      "idProfile": "1d76",
-      "idMovie": 424,
-      "score": 4,
-      "description": "interesante muy ! ",
-      "id": "N2MPScf"
-    },
-    {
-      "idProfile": "ZfpoMDx",
-      "idMovie": 278,
-      "score": 7,
-      "description": "interesante",
-      "id": "Zs9w86Z"
-    },
-    {
-      "id": "9033",
-      "idProfile": "281a",
-      "idMovie": 238,
-      "score": 8,
-      "description": "vcxvxcvxc"
-    },
-    {
-      "id": "197a",
-      "idProfile": "281a",
-      "idMovie": 155,
-      "score": 7,
-      "description": "jhgjghjgh"
-    },
-    {
-      "id": "c3c1",
-      "idProfile": "281a",
-      "idMovie": "b89c",
-      "score": 8,
-      "description": "hjkhjkhj"
-    },
-    {
-      "id": "fe13",
-      "idProfile": "281a",
-      "idMovie": 129,
       "score": 9,
-      "description": "jhgjghjghj"
+      "description": "Clásico absoluto. La volvería a ver mil veces."
     },
     {
-      "id": "d0ae",
-      "idProfile": "4dbc",
+      "id": "c2",
+      "idProfile": "b54d",
+      "idMovie": 129,
+      "score": 10,
+      "description": "Animación hermosa y una historia que te queda para siempre."
+    },
+    {
+      "id": "c3",
+      "idProfile": "281a",
       "idMovie": 278,
-      "score": 6,
-      "description": "hgfhfg fhghfg"
-    },
-    {
-      "id": "8682",
-      "idProfile": "4dbc",
-      "idMovie": 19404,
       "score": 8,
-      "description": "hgfhfg fh ghf"
-    },
-    {
-      "id": "165c",
-      "idProfile": "281a",
-      "idMovie": 278,
-      "score": 7,
-      "description": "fghjgfjhgjgh"
-    },
-    {
-      "id": "9bb3",
-      "idProfile": "281a",
-      "idMovie": 397567,
-      "score": 6,
-      "description": "7rytyurt"
-    },
-    {
-      "id": "4de3",
-      "idProfile": "281a",
-      "idMovie": 11362,
-      "score": 8,
-      "description": "khjkhjkhj"
-    },
-    {
-      "id": "wwIgiSw",
-      "idProfile": "def6",
-      "idMovie": 278,
-      "score": 1,
-      "description": "asdasdasdasd"
-    },
-    {
-      "id": "c4a1",
-      "idProfile": "e16e",
-      "idMovie": 599379,
-      "score": 6,
-      "description": "gfdgdfg.uj ghjhg"
+      "description": "Muy buena, me mantuvo enganchada de principio a fin."
     }
   ],
   "profiles": [
@@ -428,349 +121,91 @@
       "role": "superadmin"
     },
     {
-      "username": "mauri",
-      "password": "123456",
-      "date": "1991-11-21",
-      "cel": "223123",
-      "email": "mauri@gmail.com",
-      "role": "admin",
-      "id": "NnUCsx5"
-    },
-    {
-      "id": "def6",
-      "username": "pepe",
-      "password": "1234567",
-      "date": "2013-11-08",
-      "cel": "5244564563",
-      "email": "pepe@gmail.com",
-      "firstName": "caro",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "96a5",
-      "username": "eugenia",
-      "password": "fakepass",
-      "date": "2013-11-14",
-      "cel": "5244564563",
-      "email": "eugenia@gmail.com",
-      "firstName": "dsadas",
-      "lastName": "dasdas",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "ce12",
-      "username": "lulu",
-      "password": "dsadsada",
-      "date": "2013-11-08",
-      "cel": "5632456345",
-      "email": "lulu@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        35,
-        10402,
-        18,
-        16,
-        10751,
-        12
-      ]
-    },
-    {
-      "id": "5ea8",
-      "username": "sofiastejskal",
-      "password": "123456",
-      "date": "2013-11-14",
-      "cel": "5632456345",
-      "email": "fasd@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "1d76",
-      "username": "aaaaaaaaaaaaaaa",
-      "password": "123456",
-      "date": "2013-11-14",
-      "cel": "5632456345",
-      "email": "aaaaaaa@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [],
-      "isPublic": false
-    },
-    {
-      "id": "21a8",
-      "username": "sofi",
-      "password": "fakepass",
-      "date": "2013-11-07",
-      "cel": "5632456345",
-      "email": "sofdsfsdal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        35,
-        18,
-        10749,
-        878
-      ]
-    },
-    {
-      "id": "7d00",
+      "id": "8358",
       "username": "sofia",
       "password": "fakepass",
-      "date": "2013-10-31",
-      "cel": "5244564563",
-      "email": "sofikal@gmail.com",
+      "date": "1997-02-10",
+      "cel": "22365289",
+      "email": "sofiastejskal@gmail.com",
       "firstName": "Sofía",
       "lastName": "Stejskal",
       "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "4dbc",
-      "username": "sofiaste",
-      "password": "fakepass",
-      "date": "2013-11-14",
-      "cel": "5244564563",
-      "email": "fsdfsdal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        28,
-        80,
-        18,
-        35
-      ],
-      "isPublic": true,
+      "favoriteGenres": [18, 12, 28, 878, 53, 9648],
       "favoriteActors": [
-        500,
+        54693,
+        19492,
+        18997,
+        6944,
+        83002,
+        12248,
         6193,
-        287
-      ]
+        103,
+        2282,
+        2201,
+        1812
+      ],
+      "isPublic": true
     },
     {
-      "id": "bc89",
-      "username": "adminsofi",
+      "id": "b54d",
+      "username": "fernandamoya",
       "password": "fakepass",
-      "email": "adminsofi@gmail.com",
-      "role": "admin",
-      "firstName": "Admin",
-      "lastName": "Global",
-      "favoriteGenres": [],
-      "date": "1990-01-01",
-      "cel": "00000000"
-    },
-    {
-      "username": "kiko",
-      "password": "1234567",
-      "date": "1994-10-10",
-      "cel": "2342342342",
-      "email": "kiko@gmail.com",
-      "firstName": "matias",
-      "lastName": "lodeiro",
+      "date": "1990-02-01",
+      "cel": "25362894",
+      "email": "fernandamoyal@gmail.com",
+      "firstName": "Fernanda",
+      "lastName": "Moya",
       "role": "user",
-      "favoriteGenres": [],
-      "id": "ZfpoMDx"
-    },
-    {
-      "id": "b5a6",
-      "username": "camila97",
-      "password": "fakepass",
-      "date": "2013-11-14",
-      "cel": "2235689",
-      "email": "camila@gmail.com",
-      "firstName": "camila",
-      "lastName": "perez",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
-      "id": "9f13",
-      "username": "camila970",
-      "password": "fakepass",
-      "date": "2013-11-14",
-      "cel": "2235689",
-      "email": "camila023@gmail.com",
-      "firstName": "camila",
-      "lastName": "perez",
-      "role": "user",
-      "favoriteGenres": []
+      "favoriteGenres": [878, 12, 18, 16, 14, 10751, 10402],
+      "favoriteActors": [
+        1190668,
+        505710,
+        933238,
+        3810,
+        16851,
+        555778,
+        225863,
+        1217614,
+        109488
+      ],
+      "isPublic": true
     },
     {
       "id": "281a",
       "username": "camila",
       "password": "fakepass",
-      "date": "2013-11-07",
-      "cel": "223123",
-      "email": "camilal@gmail.com",
+      "date": "1995-06-15",
+      "cel": "1122334455",
+      "email": "camila@example.com",
       "firstName": "Camila",
-      "lastName": "perez",
+      "lastName": "Pérez",
       "role": "user",
-      "favoriteGenres": [
-        18,
-        53,
-        12,
-        14,
-        28,
-        10752,
-        10402
-      ]
-    },
-    {
-      "id": "79cb",
-      "username": "fernanda",
-      "password": "fakepass",
-      "date": "2013-10-28",
-      "cel": "5244564563",
-      "email": "fernandal@gmail.com",
-      "firstName": "fernanda",
-      "lastName": "moya",
-      "role": "user",
-      "favoriteGenres": [
-        12,
-        14,
-        18,
-        9648,
-        53,
-        36
-      ],
-      "favoriteActors": [
-        500,
-        6193,
-        287
-      ]
-    },
-    {
-      "id": "f6a4",
-      "username": "fsdfsdfd",
-      "password": "fakepass",
-      "date": "2013-11-21",
-      "cel": "5244564563",
-      "email": "sdfdsf@fsd.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        18,
-        35,
-        36
-      ]
-    },
-    {
-      "id": "e16e",
-      "username": "fdfsdfsd",
-      "password": "fakepass",
-      "date": "2013-11-14",
-      "cel": "12345678",
-      "email": "fdsfsd@gmail.com",
-      "firstName": "dsfsd",
-      "lastName": "dsfsdf",
-      "role": "user",
-      "favoriteGenres": [
-        80,
-        18,
-        35,
-        12,
-        14,
-        9648,
-        53
-      ],
-      "favoriteActors": [
-        6193,
-        21007,
-        234352,
-        10297,
-        3497,
-        10980,
-        10990,
-        10989,
-        5469,
-        4566,
-        82700,
-        34053,
-        110129,
-        724188,
-        28509
-      ]
+      "favoriteGenres": [35, 18, 10749],
+      "favoriteActors": [500, 6193, 287],
+      "isPublic": false
     }
   ],
   "reviewReports": [
     {
-      "id": "demo1",
+      "id": "rr1",
       "type": "review",
-      "idReview": 1,
+      "idReview": "c3",
       "idComment": null,
-      "reporterId": 7101,
-      "reason": "Ejemplo de reporte de reseña",
-      "createdAt": "2025-11-21T18:30:00.000Z",
-      "status": "resolved"
-    },
-    {
-      "id": "7c34",
-      "type": "review",
-      "idReview": "sK1ndJF",
       "idMovie": 278,
-      "reporterId": "f4ee",
-      "reason": "no me gusto",
-      "createdAt": "2025-11-22T04:32:31.066Z",
+      "reporterId": "b54d",
+      "reason": "No concuerdo con la reseña, pero no es ofensiva.",
+      "createdAt": "2025-11-24T18:30:00.000Z",
       "status": "dismissed"
     },
     {
-      "id": "2ab6",
+      "id": "rr2",
       "type": "review",
-      "idReview": "4c30",
-      "idMovie": 240,
-      "reporterId": "f4ee",
-      "reason": "no me gustohdgffgh",
-      "createdAt": "2025-11-22T04:34:28.663Z",
-      "status": "pending"
-    },
-    {
-      "id": "8a0b",
-      "type": "review",
-      "idReview": "734f",
-      "idMovie": 389,
-      "reporterId": "f4ee",
-      "reason": "dfgdfgdfg",
-      "createdAt": "2025-11-22T04:39:18.671Z",
-      "status": "pending"
-    },
-    {
-      "id": "d995",
-      "type": "review",
-      "idReview": "sK1ndJF",
-      "idMovie": 278,
-      "reporterId": "f4ee",
-      "reason": "no me gusto nada",
-      "createdAt": "2025-11-22T23:03:23.139Z",
-      "status": "resolved"
-    },
-    {
-      "id": "00ec",
-      "type": "review",
-      "idReview": "sK1ndJF",
-      "idMovie": 278,
-      "reporterId": "7d00",
-      "reason": "una cagada",
-      "createdAt": "2025-11-22T23:16:44.820Z",
-      "status": "resolved"
-    },
-    {
-      "id": "7369",
-      "type": "review",
-      "idReview": "gmTVN38",
-      "idMovie": 278,
-      "reporterId": "4dbc",
-      "reason": "ghjjkhgjkh",
-      "createdAt": "2025-11-24T02:36:37.992Z",
+      "idReview": "c1",
+      "idComment": null,
+      "idMovie": 238,
+      "reporterId": "281a",
+      "reason": "Spoilers en la descripción.",
+      "createdAt": "2025-11-24T19:05:12.000Z",
       "status": "pending"
     }
   ],
@@ -785,15 +220,15 @@
     },
     {
       "id": "b89c",
-      "title": "la cucaracha by sofia",
-      "overview": "",
+      "title": "La cucaracha by Sofía",
+      "overview": "Película creada de forma local para pruebas del panel de administración.",
       "posterPath": "",
       "isHidden": false
     },
     {
       "id": "b02c",
-      "title": "bañeros 45",
-      "overview": "",
+      "title": "Bañeros 45",
+      "overview": "Comedia local ficticia usada como ejemplo en el TP.",
       "posterPath": "",
       "isHidden": false
     }

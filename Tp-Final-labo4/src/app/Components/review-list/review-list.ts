@@ -311,6 +311,7 @@ editReviewId: number | string | null = null;
 editingReview: any = null;
 startEdit(review: any) {
   this.isEditing = true;
+
   this.editReviewId = review.id;
   this.editingReview = review;
   this.starRating = review.score;
@@ -318,6 +319,14 @@ startEdit(review: any) {
     score: review.score,
     description: review.description
   });
+
+    // Esperar a que el DOM actualice y luego scrollear
+  setTimeout(() => {
+    const form = document.getElementById('editForm');
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 50);
 }
 
 cancelEdit() {

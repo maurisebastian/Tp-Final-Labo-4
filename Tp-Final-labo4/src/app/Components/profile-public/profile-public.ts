@@ -12,7 +12,7 @@ import { ProfileService } from '../../Services/profile.service';
 import { FollowService } from '../../Services/follow-service';
 import { AuthService } from '../../auth/auth-service';
 import { FollowComponent } from '../follow-component/follow-component';
-import { TmdbService } from '../../Services/tmdb.service'; // 🟢 IMPORTANTE
+import { TmdbService } from '../../Services/tmdb.service'; 
 
 @Component({
   selector: 'app-profile-public',
