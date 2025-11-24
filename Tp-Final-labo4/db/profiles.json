@@ -47,6 +47,12 @@
       "followingId": "4e48",
       "createdAt": "2025-11-23T20:30:27.258Z",
       "id": "qiJEMnT"
+    },
+    {
+      "id": "7177",
+      "followerId": "4dbc",
+      "followingId": "def6",
+      "createdAt": "2025-11-24T02:34:49.685Z"
     }
   ],
   "reviewComments": [
@@ -141,8 +147,8 @@
       "idProfile": "4dbc",
       "idMovie": 52887,
       "movieName": "Loyalty and Respect",
-      "status": "towatch",
-      "watchedDate": null
+      "status": "watched",
+      "watchedDate": "2025-11-24T02:36:19.652Z"
     },
     {
       "idProfile": "ZfpoMDx",
@@ -745,6 +751,16 @@
       "reason": "una cagada",
       "createdAt": "2025-11-22T23:16:44.820Z",
       "status": "resolved"
+    },
+    {
+      "id": "7369",
+      "type": "review",
+      "idReview": "gmTVN38",
+      "idMovie": 278,
+      "reporterId": "4dbc",
+      "reason": "ghjjkhgjkh",
+      "createdAt": "2025-11-24T02:36:37.992Z",
+      "status": "pending"
     }
   ],
   "adminMovies": [
