@@ -159,6 +159,14 @@
       "status": "towatch",
       "watchedDate": null,
       "id": "_BI1w6e"
+    },
+    {
+      "idProfile": "def6",
+      "idMovie": 424,
+      "movieName": "La lista de Schindler",
+      "status": "watched",
+      "watchedDate": "2025-11-24T00:15:54.851Z",
+      "id": "lIo0UKH"
     }
   ],
   "comments": [

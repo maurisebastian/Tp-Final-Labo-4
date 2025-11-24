@@ -50,25 +50,24 @@ export class ProfilePublic implements OnInit {
   // ⭐ acá queda el array verdadero, NO el componente
   genreNames = GENRES;
 ngOnInit(): void {
-
   const activeUser = this.auth.getActiveUser()();
   this.activeUserId = activeUser?.id ?? null;
 
-  // 👇 ESCUCHA CAMBIOS EN LA RUTA
+  // 🔥 Detecta cambios en la URL (cuando hacés "Ver perfil")
   this.route.paramMap.subscribe(params => {
-    
     const id = params.get('id');
+
     if (!id) {
       this.notFound = true;
       return;
     }
 
-    // vuelve a cargar el perfil
     this.loadProfile(id);
   });
 }
 
-private loadProfile(id: string) {
+
+loadProfile(id: string) {
   this.profileService.getUserById(id).subscribe({
     next: (p) => {
       if (!p) {
@@ -92,7 +91,6 @@ private loadProfile(id: string) {
     },
   });
 }
-
 
 async toggleFollow() {
   if (!this.activeUserId || !this.profile) return;
