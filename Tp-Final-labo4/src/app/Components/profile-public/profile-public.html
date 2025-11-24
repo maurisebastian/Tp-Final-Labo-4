@@ -39,9 +39,11 @@
           @if (i < profile.favoriteGenres.length - 1) { , } } } @else { Sin géneros } </p>
       </div>
 
-      <button class="follow-btn" (click)="toggleFollow()">
-        {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
-      </button>
+      @if (profile.id !== activeUserId) {
+  <button class="follow-btn" (click)="toggleFollow()">
+    {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+  </button>
+}
 
     </div>
 

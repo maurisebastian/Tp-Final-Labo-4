@@ -33,7 +33,7 @@ export class FollowComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && !changes['userId'].firstChange) {
-      // 🔥 Cuando cambia el ID, recargamos todo
+   
       this.loadFollowers();
       this.loadFollowing();
     }

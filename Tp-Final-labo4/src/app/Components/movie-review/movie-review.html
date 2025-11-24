@@ -3,91 +3,93 @@
 @if (movieDetails) {
 
 <div class="movie-details">
-    <img [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path" [alt]="movieDetails.title" />
+  <img [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path" [alt]="movieDetails.title" />
 
-    <div class="movie-details-content">
-        <h1>{{ movieDetails.title }}</h1>
+  <div class="movie-details-content">
+    <h1>{{ movieDetails.title }}</h1>
 
-        <!-- 🔹 BOTÓN ADMIN: OCULTAR / MOSTRAR + MOTIVO -->
-        @if (isAdmin) {
-          <div class="movie-admin-banner">
-            <button type="button" (click)="toggleHiddenFromDetail()">
-              {{ isHidden ? 'Mostrar película al público' : 'Ocultar película' }}
-            </button>
+    <!-- 🔹 BOTÓN ADMIN: OCULTAR / MOSTRAR + MOTIVO -->
+    @if (isAdmin) {
+    <div class="movie-admin-banner">
+      <button type="button" (click)="toggleHiddenFromDetail()">
+        {{ isHidden ? 'Mostrar película al público' : 'Ocultar película' }}
+      </button>
 
-            @if (isHidden && hiddenReason) {
-              <p class="hidden-info">
-                Esta película está oculta para los usuarios.<br />
-                <strong>Motivo:</strong> {{ hiddenReason }}
-              </p>
-            }
-          </div>
-        }
+      @if (isHidden && hiddenReason) {
+      <p class="hidden-info">
+        Esta película está oculta para los usuarios.<br />
+        <strong>Motivo:</strong> {{ hiddenReason }}
+      </p>
+      }
+    </div>
+    }
 
-        <p><strong>Resumen:</strong> {{ movieDetails.overview }}</p>
-        <p><strong>Fecha de lanzamiento:</strong> {{ movieDetails.release_date }}</p>
-        <p><strong>Duración:</strong> {{ movieDetails.runtime }} minutos</p>
-        <p><strong>Calificación:</strong> {{ movieDetails.vote_average }}</p>
+    <p><strong>Resumen:</strong> {{ movieDetails.overview }}</p>
+    <p><strong>Fecha de lanzamiento:</strong> {{ movieDetails.release_date }}</p>
+    <p><strong>Duración:</strong> {{ movieDetails.runtime }} minutos</p>
+    <p><strong>Calificación:</strong> {{ movieDetails.vote_average }}</p>
 
-        <p><strong>Géneros:</strong></p>
-        @for (genre of movieDetails.genres; track $index) {
-        <span>* {{ genre.name }}</span>
-        }
+    <p><strong>Géneros:</strong></p>
+    @for (genre of movieDetails.genres; track $index) {
+    <span>* {{ genre.name }}</span>
+    }
 
-        <!-- ⭐ REPARTO -->
-        <section class="cast-section">
-            <h2>Reparto principal</h2>
+    <!-- ⭐ REPARTO -->
+    <section class="cast-section">
+      <h2>Reparto principal</h2>
 
-            @if (cast && cast.length) {
-            <div class="cast-grid">
-                @for (actor of cast; track actor.id) {
-                <article class="cast-card">
-                    <img [src]="actor.profile_path
+      @if (cast && cast.length) {
+      <div class="cast-grid">
+        @for (actor of cast; track actor.id) {
+        <article class="cast-card">
+          <img [src]="actor.profile_path
                   ? 'https://image.tmdb.org/t/p/w185' + actor.profile_path
                   : 'assets/placeholder-actor.png'" [alt]="actor.name" />
 
-                    <p class="cast-name">{{ actor.name }}</p>
-                    <p class="cast-character">Como: {{ actor.character }}</p>
-                </article>
-                }
-            </div>
-            } @else {
-            <p>No hay información de actores disponible.</p>
-            }
-        </section>
-        <!-- ⭐ FIN REPARTO -->
-
-        <hr>
-
-        @if (userId) {
-        <div class="activity-buttons">
-
-            <button class="btn-activity watched" (click)="markAs('watched')">
-                ✔ Marcar como vista
-            </button>
-
-            <button class="btn-activity towatch" (click)="markAs('towatch')">
-                ➕ Guardar para ver más tarde
-            </button>
-
-            <!-- Mensajes de estado de la película -->
-            @if (activity?.status === 'watched') {
-            <p class="watch-date done">
-                ✔ Vista el:
-                <strong>{{ activity?.watchedDate | date:'shortDate' }}</strong>
-            </p>
-            } @else if (activity?.status === 'towatch') {
-            <p class="watch-date pending">
-                ➕ Guardada para ver más tarde
-            </p>
-            }
-
-        </div>
-        } @else {
-        <p>Inicia sesión para guardar esta película.</p>
+          <p class="cast-name">{{ actor.name }}</p>
+          <p class="cast-character">Como: {{ actor.character }}</p>
+        </article>
         }
+      </div>
+      } @else {
+      <p>No hay información de actores disponible.</p>
+      }
+    </section>
+    <!-- ⭐ FIN REPARTO -->
+
+    <hr>
+
+    @if (userId ) {
+    <div class="activity-buttons">
+      
+         @if (!isAdmin) {
+      <button class="btn-activity watched" (click)="markAs('watched')">
+        ✔ Marcar como vista
+      </button>
+    }
+      @if (!isAdmin) {
+      <button class="btn-activity towatch" (click)="markAs('towatch')">
+        ➕ Guardar para ver más tarde
+      </button>
+      }
+      <!-- Mensajes de estado de la película -->
+      @if (activity?.status === 'watched') {
+      <p class="watch-date done">
+        ✔ Vista el:
+        <strong>{{ activity?.watchedDate | date:'shortDate' }}</strong>
+      </p>
+      } @else if (activity?.status === 'towatch') {
+      <p class="watch-date pending">
+        ➕ Guardada para ver más tarde
+      </p>
+      }
 
     </div>
+    } @else {
+    <p>Inicia sesión para guardar esta película.</p>
+    }
+
+  </div>
 </div>
 
 }

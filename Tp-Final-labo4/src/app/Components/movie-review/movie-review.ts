@@ -51,6 +51,8 @@ export class MovieReview implements OnInit {
     return entry?.reason ?? '';
   }
 
+  
+
   ngOnInit() {
     const user = this.auth.getActiveUser()();
     console.log('MovieReview - activeUser:', user);
