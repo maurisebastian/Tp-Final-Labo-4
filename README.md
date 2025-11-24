@@ -1,9 +1,21 @@
-MovieHub – Plataforma de Reseñas, Listas y Moderación de Películas
+🎬 MovieHub – Plataforma Social de Películas, Reseñas y Moderación
 
-MovieHub es una aplicación web desarrollada con Angular que permite a los usuarios explorar películas, dejar reseñas, comentar, gestionar perfiles y crear listas personalizadas de títulos vistos o por ver.
-Además, cada usuario contará con un perfil visible por otros, lo que permitirá compartir públicamente —si el usuario no desactiva la opción— sus listas de películas vistas y por ver. Esta funcionalidad se encuentra actualmente en desarrollo.
+MovieHub es una aplicación web desarrollada con Angular que permite a los usuarios explorar películas, dejar reseñas, reaccionar a comentarios, seguir a otros usuarios y gestionar sus propios perfiles.
+Cada usuario cuenta con un perfil público o privado, pudiendo optar por compartir con otros su actividad, reseñas y listas personalizadas de películas vistas o por ver.
 
-La plataforma incluye también un completo panel de administración para moderar reseñas, gestionar reportes, administrar usuarios y manejar películas creadas manualmente dentro del sistema.
+Además del sistema social, MovieHub integra un panel de administración completo, desde donde los administradores pueden:
+
+Moderar reseñas y reportes enviados por usuarios
+
+Administrar perfiles y roles
+
+Gestionar películas creadas manualmente dentro de la plataforma
+
+Ocultar o mostrar títulos del catálogo
+
+Revisar actividad y contenido generado por la comunidad
+
+El enfoque principal de MovieHub es combinar una experiencia social con herramientas sólidas de moderación, creando un ecosistema seguro y organizado alrededor del mundo del cine.
 
 Combinando una UI moderna, navegación fluida y persistencia de datos, MovieHub ofrece una experiencia dinámica tanto para usuarios como para administradores.
 ---
