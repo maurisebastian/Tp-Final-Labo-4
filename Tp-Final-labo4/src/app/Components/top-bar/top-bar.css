@@ -1,13 +1,17 @@
-/* CONTENEDOR GENERAL DEL TOP BAR */
+/* CONTENEDOR GENERAL DEL TOP BAR (BARRA COMPLETA) */
 .topbar-container {
+  width: 100%;
   max-width: 1200px;
-  margin: 16px auto 0;
-  padding: 0 24px;
+  margin: 12px auto 0;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   font-family: "Segoe UI", Arial, sans-serif;
+  background: #020617;                 /* fondo oscuro tipo app */
+  border-radius: 999px;                /* pill gigante */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 /* ===== IZQUIERDA: LOGO + NOMBRE APP ===== */
@@ -35,8 +39,9 @@
 .app-title {
   font-weight: 600;
   font-size: 18px;
-  color: #f9fafb;          /* texto clarito */
+  color: #f9fafb;
 }
+
 /* ===== CENTRO: BUSCADOR ===== */
 
 .topbar-center {
@@ -45,7 +50,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 
 .search-wrapper {
   display: flex;
@@ -58,24 +62,28 @@
   flex: 1;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid #ccc;
-  background: #fafafa;
+  border: 1px solid #374151;
+  background: #020617;
+  color: #f9fafb;
   font-size: 14px;
   transition: 0.2s;
 }
 
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
 .search-input:focus {
   outline: none;
-  border-color: #4a8cff;
-  background: #ffffff;
-  box-shadow: 0 0 5px rgba(74, 144, 255, 0.4);
+  border-color: #4f46e5;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.6);
 }
 
 .search-btn {
   padding: 8px 16px;
   border-radius: 999px;
   border: none;
-  background: #4a8cff;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
@@ -84,30 +92,30 @@
 }
 
 .search-btn:hover:enabled {
-  background: #3a78e0;
+  transform: translateY(-1px);
+  filter: brightness(1.08);
 }
 
 .search-btn:disabled {
-  background: #c3c3c3;
+  background: #6b7280;
   cursor: not-allowed;
 }
 
 .search-error {
   margin-top: 4px;
   font-size: 12px;
-  color: #b00000;
+  color: #f97373;
 }
 
-/* ===== DERECHA: PERFIL + ADMIN ===== */
+/* ===== DERECHA: PERFIL + ADMIN / AMIGOS ===== */
 
 .topbar-right {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  min-width: 120px; /* o directamente eliminar */
+  min-width: 140px;
 }
-
 
 /* Perfil */
 .profile-link {
@@ -119,19 +127,19 @@
 
 .profile-text {
   font-size: 14px;
-  color: #e5e7eb;          /* gris claro */
+  color: #e5e7eb;
 }
 
 .profile-avatar {
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 2px solid #4a8cff;
-  background: #e6f0ff;
+  border: 2px solid #4f46e5;
+  background: #111827;
   object-fit: cover;
 }
 
-/* Botón “Panel Admin” */
+/* Botón “Panel Admin” (si después lo agregás de nuevo) */
 .admin-pill {
   display: inline-flex;
   align-items: center;
@@ -158,38 +166,15 @@
   height: 20px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .topbar-container {
-  width: 100%;
-  max-width: 1400px;          /* podés dejar 1200 si querés */
-  margin: 16px auto 0;
-  padding: 0 40px;            /* un poco más de aire */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  font-family: "Segoe UI", Arial, sans-serif;
-}
-
-
-
-  .topbar-right {
-    justify-content: center;
-  }
-}
-
-/* ------------------------------
-   BOTÓN TIPO BARRA DE BÚSQUEDA
-   ------------------------------ */
+/* BOTÓN TIPO BARRA DE BÚSQUEDA (Buscar amigos...) */
 
 .friend-search-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   text-decoration: none;
   cursor: pointer;
@@ -199,7 +184,7 @@
 
 .friend-search-placeholder {
   font-size: 14px;
-  color: #d1d5db; /* gris clarito tipo placeholder */
+  color: #d1d5db;
 }
 
 .friend-search-pill:hover {
@@ -207,4 +192,30 @@
   border-color: rgba(255, 255, 255, 0.28);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .topbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 24px;      /* menos “pastilla” en mobile */
+    gap: 12px;
+  }
+
+  .topbar-center {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+
+  .topbar-right {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }

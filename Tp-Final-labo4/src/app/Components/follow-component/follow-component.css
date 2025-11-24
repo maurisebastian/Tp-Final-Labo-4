@@ -74,3 +74,25 @@ app-follow-component {
   z-index: 200;
   pointer-events: auto !important;
 }
+/* Mail como link */
+.profile-link {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profile-link:hover {
+  text-decoration: none;
+}
+
+/* Alinear un poquito mejor */
+.follower-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.email {
+  font-size: 0.9rem;
+}

@@ -3,14 +3,48 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class TmdbService {
 
   private apiKey: string = 'c130076811f0e957626523dba642db29';
   private baseUrl: string = 'https://api.themoviedb.org/3';
   private http = inject(HttpClient);
+  private readonly genres = [
+    { id: 28, name: 'Acción' },
+    { id: 12, name: 'Aventura' },
+    { id: 16, name: 'Animación' },
+    { id: 35, name: 'Comedia' },
+    { id: 80, name: 'Crimen' },
+    { id: 99, name: 'Documental' },
+    { id: 18, name: 'Drama' },
+    { id: 10751, name: 'Familia' },
+    { id: 14, name: 'Fantasía' },
+    { id: 36, name: 'Historia' },
+    { id: 27, name: 'Terror' },
+    { id: 10402, name: 'Música' },
+    { id: 9648, name: 'Misterio' },
+    { id: 10749, name: 'Romance' },
+    { id: 878, name: 'Ciencia ficción' },
+    { id: 10770, name: 'TV Movie' },
+    { id: 53, name: 'Suspenso' },
+    { id: 10752, name: 'Bélica' },
+    { id: 37, name: 'Western' }
+  ];
+
+  // 🔹 Devolver todos los géneros
+  getGenres() {
+    return this.genres;
+  }
+
+  // 🔹 Devolver el nombre de un género por ID
+  getGenreName(id: number): string | undefined {
+    return this.genres.find(g => g.id === id)?.name;
+  }
 
   searchMovies(query: string): Observable<any> {
     return this.http.get(

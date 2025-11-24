@@ -32,7 +32,7 @@ import { FollowComponent } from "../follow-component/follow-component";
     CommonModule,
     ReactiveFormsModule,
     FollowComponent
-],
+  ],
   templateUrl: './profile-detail.html',
   styleUrl: './profile-detail.css',
 })
@@ -47,6 +47,9 @@ export class ProfileDetail implements OnInit {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+
+  favoriteGenreNames: string[] = [];
 
   // estado
   userProfile: Profile | undefined;
@@ -129,6 +132,16 @@ export class ProfileDetail implements OnInit {
       this.userProfile = user as Profile;
       this.userLoggedIn = true;
 
+      // 🟢 géneros favoritos
+      if (user.favoriteGenres && Array.isArray(user.favoriteGenres)) {
+        this.favoriteGenreNames = user.favoriteGenres.map((id: any) =>
+          this.tmdbService.getGenreName(Number(id)) ?? ''
+        );
+
+      } else {
+        this.favoriteGenreNames = [];
+      }
+
       this.form.patchValue({
         username: user.username,
         password: user.password,
@@ -145,6 +158,7 @@ export class ProfileDetail implements OnInit {
       this.userLoggedIn = false;
     }
   }
+
 
   // ===== VISIBILIDAD PERFIL =====
   toggleVisibility() {
