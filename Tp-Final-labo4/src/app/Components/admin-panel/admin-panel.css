@@ -205,3 +205,14 @@
     width: 100%;
   }
 }
+
+.user-link {
+  color: #7aa7ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.user-link:hover {
+  text-decoration: underline;
+  color: #a5c8ff;
+}

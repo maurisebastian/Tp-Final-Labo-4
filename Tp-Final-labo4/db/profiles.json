@@ -53,6 +53,12 @@
       "followerId": "4dbc",
       "followingId": "def6",
       "createdAt": "2025-11-24T02:34:49.685Z"
+    },
+    {
+      "id": "e76f",
+      "followerId": "281a",
+      "followingId": "def6",
+      "createdAt": "2025-11-24T03:13:46.042Z"
     }
   ],
   "reviewComments": [
@@ -689,6 +695,50 @@
       "role": "user",
       "favoriteGenres": [],
       "id": "ZfpoMDx"
+    },
+    {
+      "id": "b5a6",
+      "username": "camila97",
+      "password": "fakepass",
+      "date": "2013-11-14",
+      "cel": "2235689",
+      "email": "camila@gmail.com",
+      "firstName": "camila",
+      "lastName": "perez",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "9f13",
+      "username": "camila970",
+      "password": "fakepass",
+      "date": "2013-11-14",
+      "cel": "2235689",
+      "email": "camila023@gmail.com",
+      "firstName": "camila",
+      "lastName": "perez",
+      "role": "user",
+      "favoriteGenres": []
+    },
+    {
+      "id": "281a",
+      "username": "camila",
+      "password": "fakepass",
+      "date": "2013-11-07",
+      "cel": "223123",
+      "email": "camilal@gmail.com",
+      "firstName": "Camila",
+      "lastName": "perez",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        53,
+        12,
+        14,
+        28,
+        10752,
+        10402
+      ]
     }
   ],
   "reviewReports": [
