@@ -402,7 +402,6 @@ Panel admin (según rol)
 
 ---
 
-Footer reutilizable.
 
 Formularios con mensajes de error claros y validaciones visuales.
 
@@ -493,28 +492,7 @@ Usuario:  admin
 
 Password: fakepass
 
-
-🔮 Mejoras futuras / trabajo pendiente
-
-Unificar completamente:
-
-Vista de detalle de perfil y edición de perfil.
-
-Mejorar aún más la UI:
-
-Rama de trabajo mejoras-tp / css-completo con rediseño general.
-
-Profundizar la lógica de recomendación:
-
-Combinar géneros, actores, listas “vistas/por ver” y likes.
-
-Agregar más estadísticas de usuario:
-
-Cantidad de películas vistas.
-
-Género más visto.
-
-Racha de actividad, etc.
+---
 
 ¡Gracias por leer! 🎥🍿
 MovieHub busca simular una plataforma social de cine con foco en la experiencia del usuario y en la moderación responsable del contenido.
