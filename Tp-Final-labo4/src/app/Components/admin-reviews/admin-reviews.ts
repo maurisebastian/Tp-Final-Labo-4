@@ -7,7 +7,7 @@ import { ProfileService } from '../../Services/profile.service';
 import { TmdbService } from '../../Services/tmdb.service';
 import { AuthService } from '../../auth/auth-service';
 import { Router } from '@angular/router';
-
+import { RouterLink } from '@angular/router';
 import { Profile, Review } from '../../Interfaces/profilein';
 
 // Extendemos Review con campos solo de frontend
@@ -19,7 +19,7 @@ type ReviewWithMeta = Review & {
 @Component({
   selector: 'app-admin-reviews',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './admin-reviews.html',
   styleUrl: './admin-reviews.css',
 })
@@ -37,7 +37,9 @@ export class AdminReviewsComponent implements OnInit {
   reviews: ReviewWithMeta[] = [];
   groupedReviews: { [movieId: string]: ReviewWithMeta[] } = {};
   filteredGroupedReviews: { [movieId: string]: ReviewWithMeta[] } = {};
-  movieTitles: { [id: number]: string } = {};
+  movieTitles: any = {};
+
+
 
   // ===== BÚSQUEDA =====
   userSearch = '';
