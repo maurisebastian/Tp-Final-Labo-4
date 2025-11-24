@@ -91,7 +91,7 @@ export class AdminMoviesComponent implements OnInit {
 
     this.moviesService.getAll().subscribe({
       next: (list) => {
-        this.movies = list;
+        this.movies = list.filter(m => !m.isHidden);
         this.isLoading = false;
       },
       error: () => {
@@ -170,6 +170,7 @@ export class AdminMoviesComponent implements OnInit {
         next: (updated) => {
           movie.isHidden = updated.isHidden;
           movie.hiddenReason = updated.hiddenReason;
+          this.loadMovies();
         },
         error: () => {
           alert('No se pudo actualizar el estado de la película.');
@@ -186,6 +187,7 @@ export class AdminMoviesComponent implements OnInit {
         next: (updated) => {
           movie.isHidden = updated.isHidden;
           movie.hiddenReason = updated.hiddenReason;
+          this.loadMovies();
         },
         error: () => {
           alert('No se pudo actualizar el estado de la película.');
@@ -240,6 +242,9 @@ export class AdminMoviesComponent implements OnInit {
 private loadPopularMovies(): void {
   this.popularIsLoading = true;
 
+  // 🔥 IDs TMDB de películas ocultas
+  const hiddenTmdbIds = this.hiddenMoviesSignal().map(h => h.tmdbId);
+
   this.reviewService.getAllReviews().subscribe({
     next: (reviews: Review[]) => {
       if (!reviews || reviews.length === 0) {
@@ -248,22 +253,21 @@ private loadPopularMovies(): void {
         return;
       }
 
-      // agrupar por idMovie y contar reseñas (solo TMDB numéricos)
       const mapCounts = new Map<number, number>();
 
       for (const r of reviews) {
-        // ignorar reseñas sin idMovie
         if (r.idMovie == null) continue;
 
         const numId = Number(r.idMovie);
-
-        // 👇 IGNORAR pelis locales (id string) y cualquier cosa rara
         if (Number.isNaN(numId)) continue;
 
         mapCounts.set(numId, (mapCounts.get(numId) || 0) + 1);
       }
 
-      const ids = Array.from(mapCounts.keys());
+      // 🔥 excluir las pelis ocultas
+      const ids = Array
+        .from(mapCounts.keys())
+        .filter(id => !hiddenTmdbIds.includes(id));
 
       if (ids.length === 0) {
         this.popularMovies = [];
@@ -271,7 +275,6 @@ private loadPopularMovies(): void {
         return;
       }
 
-      // levantar detalles + poster para cada TMDB
       const temp: {
         idMovie: number;
         title: string;
