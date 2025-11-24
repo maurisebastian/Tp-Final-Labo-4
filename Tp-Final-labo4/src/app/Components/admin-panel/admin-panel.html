@@ -3,12 +3,8 @@
   <p>Ver, editar y eliminar usuarios registrados.</p>
 
   <div class="users-search-box">
-  <input
-    type="text"
-    placeholder="Buscar usuario por nombre, email o ID..."
-    (input)="onSearch($event.target.value)"
-  />
-</div>
+    <input type="text" placeholder="Buscar usuario por nombre, email o ID..." (input)="onSearch($event.target.value)" />
+  </div>
 
 
   <table class="users-table">
@@ -25,22 +21,28 @@
     <tbody>
       @for (user of filteredUsers; track user.id) {
 
-        <tr>
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            @if (user.role === 'superadmin') {
-              <span class="superadmin-label">Superadmin</span>
-            } @else {
-              {{ user.role }}
-            }
-          </td>
-          <td>
-            <button class="btn-edit" (click)="goToEditUser(user)">Editar</button>
-            <button class="btn-delete" (click)="deleteUser(user)">Eliminar</button>
-          </td>
-        </tr>
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>
+  <a [routerLink]="['/profile', user.id]" class="user-link">
+    {{ user.username }}
+  </a>
+</td>
+
+
+        <td>{{ user.email }}</td>
+        <td>
+          @if (user.role === 'superadmin') {
+          <span class="superadmin-label">Superadmin</span>
+          } @else {
+          {{ user.role }}
+          }
+        </td>
+        <td>
+          <button class="btn-edit" (click)="goToEditUser(user)">Editar</button>
+          <button class="btn-delete" (click)="deleteUser(user)">Eliminar</button>
+        </td>
+      </tr>
       }
     </tbody>
   </table>
