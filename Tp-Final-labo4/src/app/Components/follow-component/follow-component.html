@@ -61,6 +61,11 @@
       <button class="go-profile-btn" [routerLink]="['/profiles', p.id]">
         Ver perfil
       </button>
+         @if (showdeletebutton) {
+      <button class="delete-follow-btn" (click)="unfollowUser(p.id!)">
+        Dejar de seguir
+      </button>
+    }
 
 
     </li>

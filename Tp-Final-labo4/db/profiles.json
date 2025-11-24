@@ -16,11 +16,6 @@
       "followingId": "b54d"
     },
     {
-      "id": "f103",
-      "followerId": "jbUZV20",
-      "followingId": "b54d"
-    },
-    {
       "id": "f104",
       "followerId": "xnRnEg6",
       "followingId": "281a"
@@ -65,6 +60,18 @@
       "followingId": "_-MNsZD",
       "createdAt": "2025-11-24T21:01:35.694Z",
       "id": "T0kOZFw"
+    },
+    {
+      "followerId": "M9rnNpT",
+      "followingId": "_-MNsZD",
+      "createdAt": "2025-11-24T21:12:11.553Z",
+      "id": "wpj_lLj"
+    },
+    {
+      "followerId": "jbUZV20",
+      "followingId": "b54d",
+      "createdAt": "2025-11-24T21:37:00.605Z",
+      "id": "7HRuuYV"
     }
   ],
   "reviewComments": [
@@ -408,6 +415,27 @@
       "idMovie": 389,
       "score": 8,
       "description": "Muy buena atmósfera."
+    },
+    {
+      "idProfile": "gkB2-2a",
+      "idMovie": 597,
+      "score": 9,
+      "description": "buena pelicula",
+      "id": "g-CBmZ2"
+    },
+    {
+      "idProfile": "8uNCAU7",
+      "idMovie": 642,
+      "score": 8,
+      "description": "todo muy bueno",
+      "id": "3AgZmxU"
+    },
+    {
+      "idProfile": "jbUZV20",
+      "idMovie": 787,
+      "score": 5,
+      "description": "se hace muy larga la peli",
+      "id": "CH9Ldfp"
     }
   ],
   "profiles": [

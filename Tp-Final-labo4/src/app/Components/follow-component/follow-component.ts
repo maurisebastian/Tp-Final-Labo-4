@@ -65,6 +65,15 @@ export class FollowComponent implements OnInit, OnChanges {
     })
     .catch(err => console.error("Error al eliminar seguidor:", err));
 }
+unfollowUser(followingId: string | number) {
+  if (!confirm("¿Dejar de seguir a este usuario?")) return;
+
+  this.followService.unfollow(this.userId!, followingId)
+    .then(() => {
+      this.following = this.following.filter(f => f.id !== followingId);
+    })
+    .catch(err => console.error("Error al dejar de seguir:", err));
+}
 
   loadFollowing() {
     this.followService.getFollowing(String(this.userId))
