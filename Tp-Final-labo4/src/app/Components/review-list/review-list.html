@@ -13,6 +13,14 @@
       <p class="info">Solo puedes dejar una reseña por película.</p>
     </div>
   }
+  @else if (isAdmin) {
+
+  <!-- 🚫 LOS ADMIN NO PUEDEN RESEÑAR -->
+  <div class="already-reviewed-box">
+    <h3>Los administradores no pueden dejar reseñas.</h3>
+  </div>
+
+}
   @else {
     <!--  FORMULARIO ORIGINAL -->
     <div class="add-review">
@@ -70,13 +78,19 @@
           </span>
 
         </div>
-
+        @if (!isAdmin) {
         <button class="btn-like" (click)="toggleLike(review)">
           @if (review.likedByUser) { ❤️ {{ review.likesCount }} }
           @else { 🤍 {{ review.likesCount }} }
         </button>
-
+        }
+        
+        @if (!isAdmin) {
         <button class="btn-report" (click)="reportReview(review)">🚩 Reportar reseña</button>
+
+        }
+
+        
 
         @if (review.idProfile === userId || isAdmin) {
           <button class="btn-delete" (click)="deleteReview(review.id)">Eliminar</button>
@@ -108,7 +122,7 @@
           </div>
         }
 
-        @if (userLoggedIn) {
+        @if (userLoggedIn && !isAdmin) {
           <form (submit)="addComment($event, review)">
             <input type="text"
                    [formControl]="getControl(review.id!)"

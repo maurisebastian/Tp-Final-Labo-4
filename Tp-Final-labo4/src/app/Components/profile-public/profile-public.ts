@@ -49,44 +49,51 @@ export class ProfilePublic implements OnInit {
 
   // ⭐ acá queda el array verdadero, NO el componente
   genreNames = GENRES;
+ngOnInit(): void {
 
-  ngOnInit(): void {
+  const activeUser = this.auth.getActiveUser()();
+  this.activeUserId = activeUser?.id ?? null;
 
-    const activeUser = this.auth.getActiveUser()();
-    this.activeUserId = activeUser?.id ?? null;
-    const idParam = this.route.snapshot.paramMap.get('id');
-
-    if (!idParam) {
+  // 👇 ESCUCHA CAMBIOS EN LA RUTA
+  this.route.paramMap.subscribe(params => {
+    
+    const id = params.get('id');
+    if (!id) {
       this.notFound = true;
       return;
     }
 
-    const id: string = idParam;
+    // vuelve a cargar el perfil
+    this.loadProfile(id);
+  });
+}
 
-    this.profileService.getUserById(id).subscribe({
-      next: (p) => {
-        if (!p) {
-          this.notFound = true;
-          return;
-        }
+private loadProfile(id: string) {
+  this.profileService.getUserById(id).subscribe({
+    next: (p) => {
+      if (!p) {
+        this.notFound = true;
+        return;
+      }
 
-        this.profile = p;
-        this.isPrivate = p.isPublic === false;
+      this.profile = p;
+      this.isPrivate = p.isPublic === false;
 
-         if (this.activeUserId) {
+      if (this.activeUserId) {
         this.followService
           .isFollowing(this.activeUserId, p.id!)
           .subscribe(isF => {
             this.isFollowing = isF;
           });
       }
-        
-      },
-      error: () => {
-        this.notFound = true;
-      },
-    });
-  }
+    },
+    error: () => {
+      this.notFound = true;
+    },
+  });
+}
+
+
 async toggleFollow() {
   if (!this.activeUserId || !this.profile) return;
 

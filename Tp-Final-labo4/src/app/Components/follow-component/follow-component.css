@@ -37,6 +37,40 @@
   margin-right: 10px;
 }
 
+.follower-info {
+  display: flex;
+  gap: 10px;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 15px;
+}
+button.go-profile-btn {
+  position: relative;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+
 app-follow-component {
   max-width: 300px;
+}
+:host {
+  position: relative;
+  z-index: 50;
+  pointer-events: auto !important;
+}
+
+.follower-card,
+.followers-list,
+.followers-box {
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
+}
+
+.go-profile-btn {
+  position: relative;
+  z-index: 200;
+  pointer-events: auto !important;
 }

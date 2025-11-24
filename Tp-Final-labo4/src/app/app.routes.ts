@@ -28,16 +28,18 @@ export const routes: Routes = [
   { path: 'signup', component: Signup, title: 'sign up' },
   { path: 'profile-detail', component: ProfileDetail, canActivate: [userGuard], title: 'profile detail' },
   { path: 'search/:query', component: MovieSearch },
-  {
-   path: 'profiles',
-  component: ProfilesList,
-  canActivate: [userGuard],
-  title: 'Perfiles'},
+ 
   {
   path: 'profiles/:id',
   component: ProfilePublic,
   canActivate: [userGuard],
   title: 'Perfil público'
+  },
+  {
+   path: 'profiles',
+  component: ProfilesList,
+  canActivate: [userGuard],
+  title: 'Perfiles'
   },
 
 

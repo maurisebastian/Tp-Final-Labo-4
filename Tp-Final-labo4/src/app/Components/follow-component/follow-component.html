@@ -15,15 +15,16 @@
     <li class="follower-card">
 
       <div class="follower-info">
-        <strong>{{ f.username }}</strong>
-        <span>{{ f.email }}</span>
+        <span class="username">{{ f.username }}</span>
+        <span><strong>Mail:</strong> {{ f.email }}</span>
       </div>
 
       @if (showProfileButton) {
-  <button class="go-profile-btn" (click)="goToProfile(f.id!)">
-    Ver perfil
-  </button>
-}
+      <button class="go-profile-btn" [routerLink]="['/profiles', f.id]">
+        Ver perfil
+      </button>
+      }
+
     </li>
     }
   </ul>
@@ -32,33 +33,33 @@
 
 
 
-    <hr>
+  <hr>
 
   <!-- SEGUIDOS -->
   <h3>Seguidos ({{ following.length }})</h3>
 
   @if (following.length === 0) {
-    <p>No sigue a nadie aún.</p>
+  <p>No sigue a nadie aún.</p>
   }
   @else {
-    <ul class="followers-list">
-      @for (p of following; track p.id) {
-        <li class="follower-card">
+  <ul class="followers-list">
+    @for (p of following; track p.id) {
+    <li class="follower-card">
 
-          <div class="follower-info">
-            <strong>{{ p.username }}</strong>
-            <span>{{ p.email }}</span>
-          </div>
+      <div class="follower-info">
+        <span class="username">{{ p.username }}</span>
+        <span><strong>Mail:</strong> {{ p.email }}</span>
+      </div>
 
-          @if (showProfileButton) {
-            <button class="go-profile-btn" (click)="goToProfile(p.id!)">
-              Ver perfil
-            </button>
-          }
-
-        </li>
+      @if (showProfileButton) {
+      <button class="go-profile-btn" [routerLink]="['/profiles', p.id]">
+        Ver perfil
+      </button>
       }
-    </ul>
+
+    </li>
+    }
+  </ul>
   }
 
 </div>

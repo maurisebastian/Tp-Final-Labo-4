@@ -101,3 +101,8 @@
 .followers-card app-follow-component * {
   color: #0f172a !important; /* gris oscuro elegante */
 }
+.followers-card {
+  position: relative;
+  z-index: 0;
+  pointer-events: auto;
+}

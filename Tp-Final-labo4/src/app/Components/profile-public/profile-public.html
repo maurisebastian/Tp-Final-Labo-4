@@ -3,69 +3,64 @@
 <main class="profile-public-page">
 
   @if (notFound) {
-    <div class="private-box">
-      <p class="private-message">Perfil no encontrado.</p>
-    </div>
+  <div class="private-box">
+    <p class="private-message">Perfil no encontrado.</p>
+  </div>
   }
   @else if (!profile) {
-    <div class="private-box">
-      <p class="private-message">Cargando perfil...</p>
-    </div>
+  <div class="private-box">
+    <p class="private-message">Cargando perfil...</p>
+  </div>
   }
   @else {
 
-    <h2 class="public-profile-title">Perfil de {{ profile.username }}</h2>
+  <h2 class="public-profile-title">Perfil de {{ profile.username }}</h2>
 
-    @if (isPrivate) {
-      <div class="private-box">
-        <p class="private-message">Este perfil es privado.</p>
-      </div>
-    }
-    @else {
+  @if (isPrivate) {
+  <div class="private-box">
+    <p class="private-message">Este perfil es privado.</p>
+  </div>
+  }
+  @else {
 
-      <div class="public-profile">
+  <div class="public-profile">
 
-        <!-- HEADER: info + botón seguir -->
-        <div class="public-header">
+    <!-- HEADER: info + botón seguir -->
+    <div class="public-header">
 
-          <div class="public-main-info">
-            <p><strong>Email:</strong> {{ profile.email }}</p>
+      <div class="public-main-info">
+        <p><strong>Email:</strong> {{ profile.email }}</p>
 
-            <p>
-              <strong>Géneros favoritos:</strong>
-              @if (profile.favoriteGenres && profile.favoriteGenres.length > 0) {
-                @for (g of profile.favoriteGenres; track g; let i = $index) {
-                  {{ getGenreName(g) }}
-                  @if (i < profile.favoriteGenres.length - 1) { , }
-                }
-              } @else { Sin géneros }
-            </p>
-          </div>
-
-          <button class="follow-btn" (click)="toggleFollow()">
-            {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
-          </button>
-
-        </div>
-
-        <!-- SOLO ESTA CAJITA DE SEGUIDORES -->
-        <section class="followers-card">
-          <h3 class="section-title">Seguidores / Seguidos</h3>
-          <app-follow-component
-            [userId]="profile.id!"
-            [showProfileButton]="false">
-          </app-follow-component>
-        </section>
-
-        <!-- LISTAS DE PELÍCULAS -->
-        <section class="activity-section">
-          <h3 class="section-title">Listas de películas</h3>
-          <app-user-activity [userId]="profile.id"></app-user-activity>
-        </section>
-
+        <p>
+          <strong>Géneros favoritos:</strong>
+          @if (profile.favoriteGenres && profile.favoriteGenres.length > 0) {
+          @for (g of profile.favoriteGenres; track g; let i = $index) {
+          {{ getGenreName(g) }}
+          @if (i < profile.favoriteGenres.length - 1) { , } } } @else { Sin géneros } </p>
       </div>
 
-    }
+      <button class="follow-btn" (click)="toggleFollow()">
+        {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+      </button>
+
+    </div>
+
+    <!-- SOLO ESTA CAJITA DE SEGUIDORES -->
+    <section class="followers-card">
+      <h3 class="section-title">Seguidores / Seguidos</h3>
+      <app-follow-component [userId]="profile.id!" [showProfileButton]="true">
+      </app-follow-component>
+    </section>
+
+    <!-- LISTAS DE PELÍCULAS -->
+    <section class="activity-section">
+      <h3 class="section-title">Listas de películas</h3>
+      <app-user-activity [userId]="profile.id"></app-user-activity>
+    </section>
+
+  </div>
+
+  }
 
   }
 

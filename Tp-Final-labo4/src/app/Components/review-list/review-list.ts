@@ -214,6 +214,11 @@ export class ReviewList {
   addReview(event?: Event) {
   if (event) event.preventDefault();
   
+    if (this.isAdmin) {
+    alert("Los administradores no pueden dejar reseñas.");
+    return;
+  }
+  
   if (this.userAlreadyReviewed) {
     alert("Solo puedes dejar una reseña por película.");
     return;
