@@ -408,6 +408,13 @@
       "idMovie": 278,
       "score": 1,
       "description": "asdasdasdasd"
+    },
+    {
+      "id": "c4a1",
+      "idProfile": "e16e",
+      "idMovie": 599379,
+      "score": 6,
+      "description": "gfdgdfg.uj ghjhg"
     }
   ],
   "profiles": [
@@ -639,6 +646,59 @@
         500,
         6193,
         287
+      ]
+    },
+    {
+      "id": "f6a4",
+      "username": "fsdfsdfd",
+      "password": "fakepass",
+      "date": "2013-11-21",
+      "cel": "5244564563",
+      "email": "sdfdsf@fsd.com",
+      "firstName": "Sofía",
+      "lastName": "Stejskal",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        35,
+        36
+      ]
+    },
+    {
+      "id": "e16e",
+      "username": "fdfsdfsd",
+      "password": "fakepass",
+      "date": "2013-11-14",
+      "cel": "12345678",
+      "email": "fdsfsd@gmail.com",
+      "firstName": "dsfsd",
+      "lastName": "dsfsdf",
+      "role": "user",
+      "favoriteGenres": [
+        80,
+        18,
+        35,
+        12,
+        14,
+        9648,
+        53
+      ],
+      "favoriteActors": [
+        6193,
+        21007,
+        234352,
+        10297,
+        3497,
+        10980,
+        10990,
+        10989,
+        5469,
+        4566,
+        82700,
+        34053,
+        110129,
+        724188,
+        28509
       ]
     }
   ],

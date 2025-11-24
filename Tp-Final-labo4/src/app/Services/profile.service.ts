@@ -1,7 +1,7 @@
 // src/app/Services/profile.service.ts
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, of, forkJoin, tap } from 'rxjs';
+import { map, catchError, of, forkJoin, tap, Observable } from 'rxjs';
 import { Profile } from '../Interfaces/profilein';
 import { AuthService } from '../auth/auth-service';
 
@@ -114,7 +114,7 @@ updateProfile(user: Profile, updateActiveUser: boolean = true) {
 
 
   // ---------- SOLO FAVORITE GENRES (pantalla select-genres) ----------
-  updateFavoriteGenres(userId: string, favoriteGenres: number[]) {
+ /* updateFavoriteGenres(userId: string, favoriteGenres: number[]) {
 
     const payload = { favoriteGenres };
 
@@ -132,7 +132,27 @@ updateProfile(user: Profile, updateActiveUser: boolean = true) {
           return of(false);
         })
       );
+  }*/
+
+       updateFavoritePreferences(
+    profileId: string,
+    favoriteGenres: number[],
+    favoriteActors: number[]
+  ): Observable<boolean> {
+    return this.http
+      .patch<Profile>(`${this.baseUrl}/${profileId}`, {
+        favoriteGenres,
+        favoriteActors,
+      })
+      .pipe(
+        map(() => true),
+        catchError(err => {
+          console.error('Error actualizando preferencias:', err);
+          return of(false);
+        })
+      );
   }
+
 
   deleteUser(id: string) {
     if (id === '1') return of(false);
