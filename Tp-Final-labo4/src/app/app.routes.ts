@@ -16,7 +16,8 @@ import { AdminReviewsComponent } from './Components/admin-reviews/admin-reviews'
 import { ProfilesList } from './Components/profiles-list/profiles-list';
 import { ProfilePublic } from './Components/profile-public/profile-public';
 import { ActorSearch } from './Components/actor-search/actor-search';
-import { ActorDetail } from './Components/actor-detail/actor-detail'; // 
+import { ActorDetail } from './Components/actor-detail/actor-detail'; 
+import { AdminLocalMovieComponent } from './Components/admin-local-movie/admin-local-movie';
 
 
 
@@ -93,7 +94,12 @@ export const routes: Routes = [
       .then(m => m.ActorDetail),
   title: 'Detalle de actor'
 },
-
+{
+  path: 'admin/local-movie/:id',
+  component: AdminLocalMovieComponent,
+  canActivate: [adminGuard],
+  title: 'Admin - Película local'
+},
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

@@ -196,9 +196,13 @@ export class AdminMoviesComponent implements OnInit {
 
 
   goToMovie(movie: AdminMovie): void {
-    if (!movie.tmdbId) return;
-    this.router.navigate(['/movie-review', movie.tmdbId]);
-  }
+  // Si tiene TMDB → usamos ese ID
+  // Si es solo local → usamos el id de la película local
+  const id = movie.tmdbId ?? movie.id;
+  if (!id) return;
+
+  this.router.navigate(['/movie-review', id]);
+}
 
 
   // ========== BUSCADOR TMDB POR NOMBRE ==========
@@ -303,4 +307,10 @@ export class AdminMoviesComponent implements OnInit {
       },
     });
   }
+
+  editMovie(movie: AdminMovie): void {
+  if (!movie.id) return;
+  this.router.navigate(['/admin/local-movie', movie.id]);
+}
+
 }

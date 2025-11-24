@@ -1,0 +1,47 @@
+<main class="local-movie-page">
+
+  @if (isLoading) {
+    <p>Cargando...</p>
+  } @else if (errorMsg) {
+    <p>{{ errorMsg }}</p>
+  } @else if (movie) {
+
+    <section class="local-movie-card">
+
+      <h2>Editar película: {{ movie.title }}</h2>
+
+      <form [formGroup]="form" (submit)="save($event)" class="local-movie-form">
+
+        <label>
+          Título
+          <input type="text" formControlName="title" />
+        </label>
+
+        <label>
+          Descripción
+          <textarea rows="3" formControlName="overview"></textarea>
+        </label>
+
+        <label>
+          URL de póster
+          <input type="text" formControlName="posterPath" />
+        </label>
+
+        <label>
+          TMDB ID (opcional)
+          <input type="text" formControlName="tmdbId" />
+        </label>
+
+        <div class="buttons">
+          <button type="submit">Guardar cambios</button>
+          <a routerLink="/admin/movies" class="btn-back">
+            Cancelar
+          </a>
+        </div>
+      </form>
+
+    </section>
+
+  }
+
+</main>

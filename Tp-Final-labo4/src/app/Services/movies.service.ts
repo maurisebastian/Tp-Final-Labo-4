@@ -36,4 +36,10 @@ findByTmdbId(tmdbId: number): Observable<AdminMovie | null> {
       );
   }
 
+  getById(id: number | string): Observable<AdminMovie> {
+  return this.http.get<AdminMovie>(`${this.baseUrl}/${id}`);
+}
+
+
+
 }

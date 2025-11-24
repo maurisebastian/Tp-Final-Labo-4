@@ -179,6 +179,14 @@
       "status": "watched",
       "watchedDate": "2025-11-24T00:15:54.851Z",
       "id": "lIo0UKH"
+    },
+    {
+      "id": "73d9",
+      "idProfile": "281a",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "watched",
+      "watchedDate": "2025-11-24T04:40:43.627Z"
     }
   ],
   "comments": [
@@ -355,7 +363,7 @@
       "password": "1234567",
       "date": "2013-11-08",
       "cel": "5244564563",
-      "email": "dsadasal@gmail.com",
+      "email": "pepe@gmail.com",
       "firstName": "caro",
       "lastName": "Stejskal",
       "role": "user",
@@ -363,11 +371,11 @@
     },
     {
       "id": "96a5",
-      "username": "dsadsa",
+      "username": "eugenia",
       "password": "fakepass",
       "date": "2013-11-14",
       "cel": "5244564563",
-      "email": "dsa@gmail.com",
+      "email": "eugenia@gmail.com",
       "firstName": "dsadas",
       "lastName": "dasdas",
       "role": "user",
@@ -379,7 +387,7 @@
       "password": "dsadsada",
       "date": "2013-11-08",
       "cel": "5632456345",
-      "email": "dsadasstejskal@gmail.com",
+      "email": "lulu@gmail.com",
       "firstName": "Sofía",
       "lastName": "Stejskal",
       "role": "user",
@@ -405,18 +413,6 @@
       "favoriteGenres": []
     },
     {
-      "id": "fc85",
-      "username": "fsdfs",
-      "password": "123456",
-      "date": "2013-11-14",
-      "cel": "5632456345",
-      "email": "dsfsd@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": []
-    },
-    {
       "id": "1d76",
       "username": "aaaaaaaaaaaaaaa",
       "password": "123456",
@@ -428,35 +424,6 @@
       "role": "user",
       "favoriteGenres": [],
       "isPublic": false
-    },
-    {
-      "id": "410e",
-      "username": "gfdgdf",
-      "password": "fakepass",
-      "date": "2013-11-07",
-      "cel": "5244564563",
-      "email": "gfdgdfal@gmail.com",
-      "firstName": "Sofía",
-      "lastName": "Stejskal",
-      "role": "user",
-      "favoriteGenres": [
-        35,
-        18,
-        10749,
-        80
-      ]
-    },
-    {
-      "id": "0bd4",
-      "username": "frsfsdf",
-      "password": "fakepass",
-      "email": "fdsfsdkal@gmail.com",
-      "role": "admin",
-      "firstName": "Admin",
-      "lastName": "Global",
-      "favoriteGenres": [],
-      "date": "1990-01-01",
-      "cel": "00000000"
     },
     {
       "id": "21a8",
@@ -474,23 +441,6 @@
         10749,
         878
       ]
-    },
-    {
-      "id": "f4ee",
-      "username": "dasdasd",
-      "password": "fakepass",
-      "date": "2013-11-22",
-      "cel": "5632456345",
-      "email": "dsadasd@gmail.com",
-      "firstName": "dsadas",
-      "lastName": "sadasd",
-      "role": "user",
-      "favoriteGenres": [
-        35,
-        18,
-        80
-      ],
-      "isPublic": true
     },
     {
       "id": "7d00",
