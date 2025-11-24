@@ -1,0 +1,36 @@
+.local-movie-page {
+  padding: 24px;
+  color: #e5e7eb;
+}
+
+.local-movie-card {
+  background: #020617;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.local-movie-header {
+  display: flex;
+  gap: 16px;
+}
+
+.local-movie-poster {
+  width: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #0f172a;
+}
+
+.btn-back {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  text-decoration: none;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}

@@ -123,7 +123,7 @@ export class AdminUserEdit implements OnInit {
       next: (ok) => {
         if (ok) {
           alert('Usuario actualizado correctamente.');
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/admin','users']);
         } else {
           alert('No se pudo actualizar el usuario.');
         }
@@ -135,6 +135,6 @@ export class AdminUserEdit implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin','users']);
   }
 }

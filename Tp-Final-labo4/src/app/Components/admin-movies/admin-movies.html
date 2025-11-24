@@ -61,11 +61,13 @@
         </div>
 
         <div class="admin-movie-actions">
-          @if (movie.tmdbId) {
           <button type="button" (click)="goToMovie(movie)">
             Ver ficha
           </button>
-          }
+
+          <button type="button" (click)="editMovie(movie)">
+            Editar
+          </button>
 
           <button type="button" (click)="toggleHidden(movie)">
             {{ movie.isHidden ? 'Mostrar' : 'Ocultar' }}
@@ -75,6 +77,8 @@
             Eliminar
           </button>
         </div>
+
+
 
       </article>
       }
