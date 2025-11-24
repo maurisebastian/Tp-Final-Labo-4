@@ -187,6 +187,14 @@
       "movieName": "Cadena perpetua",
       "status": "watched",
       "watchedDate": "2025-11-24T04:40:43.627Z"
+    },
+    {
+      "idProfile": "def6",
+      "idMovie": 278,
+      "movieName": "Cadena perpetua",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "58290Yi"
     }
   ],
   "comments": [
@@ -343,6 +351,20 @@
       "idMovie": null,
       "score": 6,
       "description": "muy buena"
+    },
+    {
+      "idProfile": "ZfpoMDx",
+      "idMovie": 424,
+      "score": 8,
+      "description": "muy bunea",
+      "id": "vmCOoj4"
+    },
+    {
+      "id": "cz-8PQw",
+      "idProfile": "def6",
+      "idMovie": 278,
+      "score": 10,
+      "description": "asdasdasasddsadas"
     }
   ],
   "profiles": [

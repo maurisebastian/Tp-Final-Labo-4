@@ -19,7 +19,9 @@ export class ReviewService {
   addReview(reviewData: Review): Observable<Review> {
     return this.http.post<Review>(this.baseUrl, reviewData);
   }
-
+ updateReview(review: Review): Observable<Review> {
+  return this.http.put<Review>(`${this.baseUrl}/${review.id}`, review);
+}
   // Eliminar reseña por ID (lo usan ReviewList y AdminReviews)
   deleteReviewById(reviewId: string | number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${reviewId}`);

@@ -249,7 +249,7 @@ export class ReviewList {
 
   this.reviewService.addReview(newReviewData).subscribe({
     next: () => {
-      // 🟢 Esto hace que el formulario desaparezca sin recargar
+      //  Esto hace que el formulario desaparezca sin recargar
       this.loadReviews();
       this.reviewForm.reset();
       this.starRating = 0;
@@ -266,6 +266,60 @@ export class ReviewList {
       error: (err) => console.error('Error al eliminar la reseña:', err),
     });
   }
+
+isEditing = false;
+editReviewId: number | string | null = null;
+editingReview: any = null;
+
+startEdit(review: any) {
+  this.isEditing = true;
+  this.editReviewId = review.id;
+
+  this.editingReview = review; 
+
+  this.starRating = review.score;
+
+  this.reviewForm.setValue({
+    score: review.score,
+    description: review.description
+  });
+}
+
+cancelEdit() {
+  this.isEditing = false;
+  this.editReviewId = null;
+  this.editingReview = null;
+  this.reviewForm.reset();
+  this.starRating = 0;
+}
+
+saveEdit() {
+  if (this.reviewForm.invalid) {
+    this.reviewForm.markAllAsTouched();
+    return;
+  }
+
+  const updatedReview: Review = {
+    id: this.editReviewId!,
+    idProfile: this.userId!,
+    idMovie: this.peliculaID()!,
+    score: this.reviewForm.value.score!,
+    description: this.reviewForm.value.description!
+  };
+
+  this.reviewService.updateReview(updatedReview).subscribe({
+    next: () => {
+      this.isEditing = false;
+      this.editReviewId = null;
+      this.editingReview = null;
+
+      this.loadReviews();
+      this.reviewForm.reset();
+      this.starRating = 0;
+    },
+    error: (err) => console.error('Error al editar reseña:', err),
+  });
+}
 
   // ====== REPORTAR RESEÑA ======
   reportReview(review: any) {
@@ -339,6 +393,5 @@ export class ReviewList {
       this.router.navigate(['/profiles', idProfile]);
     }
   }
-
 
 }

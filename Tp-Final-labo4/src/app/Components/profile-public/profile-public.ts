@@ -26,7 +26,7 @@ export class ProfilePublic implements OnInit {
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
   private followService = inject(FollowService);
-  private auth = inject(AuthService);
+  public auth = inject(AuthService);
   private tmdbService = inject(TmdbService); // 🟢 INYECTADO
 
   activeUserId: string | number | null = null;
