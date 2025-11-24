@@ -1,17 +1,17 @@
 <div class="review-section">
 
- 
+
   <!--  SI YA RESEÑÓ, NO MOSTRAR FORMULARIO -->
-  @if (userAlreadyReviewed) {
-    <div class="already-reviewed-box">
-      <h3>Ya dejaste una reseña para esta película</h3>
+  @if (userAlreadyReviewed   && !isEditing) {
+  <div class="already-reviewed-box">
+    <h3>Ya dejaste una reseña para esta película</h3>
 
-      <p><strong>Tu calificación:</strong> {{ existingReview?.score }} / 10</p>
+    <p><strong>Tu calificación:</strong> {{ existingReview?.score }} / 10</p>
 
-      <p class="review-description">{{ existingReview?.description }}</p>
+    <p class="review-description">{{ existingReview?.description }}</p>
 
-      <p class="info">Solo puedes dejar una reseña por película.</p>
-    </div>
+    <p class="info">Solo puedes dejar una reseña por película.</p>
+  </div>
   }
   @else if (isAdmin) {
 
@@ -20,35 +20,52 @@
     <h3>Los administradores no pueden dejar reseñas.</h3>
   </div>
 
-}
-  @else {
-    <!--  FORMULARIO ORIGINAL -->
+  }
+    @else if  (isEditing) {
     <div class="add-review">
-      <h3 class="section-title">Agrega tu reseña</h3>
-
-      <form [formGroup]="reviewForm" (submit)="addReview($event)">
+      <h3 class="section-title">Editar reseña</h3>
+      <form [formGroup]="reviewForm" (submit)="saveEdit()">
         <div class="star-rating mb-3">
           @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
-            <span (click)="setStarRating(star)"
-                  class="star"
-                  [class.selected]="star <= +reviewForm.controls.score.value">
-              ★
-            </span>
+            <span (click)="setStarRating(star)" class="star"
+                  [class.selected]="star <= +reviewForm.controls.score.value">★</span>
           }
           <span class="rating-label">
             Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
           </span>
         </div>
-
-        <textarea formControlName="description"
-                  class="review-textarea"
+        <textarea formControlName="description" class="review-textarea"
                   placeholder="Escribe tu reseña aquí..."></textarea>
-
-        <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
-          Agregar reseña
-        </button>
+        <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">Guardar cambios</button>
+        <button type="button" class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
       </form>
     </div>
+  }
+  @else {
+  <!--  FORMULARIO ORIGINAL -->
+  <div class="add-review">
+    <h3 class="section-title">Agrega tu reseña</h3>
+
+    <form [formGroup]="reviewForm" (submit)="addReview($event)">
+      <div class="star-rating mb-3">
+        @for (star of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+        <span (click)="setStarRating(star)" class="star" [class.selected]="star <= +reviewForm.controls.score.value">
+          ★
+        </span>
+        }
+        <span class="rating-label">
+          Calificación: {{ reviewForm.get('score')?.value || 0 }} / 10
+        </span>
+      </div>
+
+      <textarea formControlName="description" class="review-textarea"
+        placeholder="Escribe tu reseña aquí..."></textarea>
+
+      <button type="submit" class="btn-primary" [disabled]="reviewForm.invalid">
+        Agregar reseña
+      </button>
+    </form>
+  </div>
   }
 
   <!-- LISTADO -->
@@ -57,82 +74,102 @@
     <h3 class="section-title">Reseñas</h3>
 
     @if (reviews.length === 0) {
-      <span class="empty-reviews">No hay reseñas disponibles para esta película.</span>
+    <span class="empty-reviews">No hay reseñas disponibles para esta película.</span>
     }
 
     @for (review of reviews; track review.id) {
 
-      <div class="card-reseñas">
-        <div class="review-info">
+    <div class="card-reseñas">
+      <div class="review-info">
 
-          <strong>
-            Usuario:
-            <button type="button" class="user-link"
-                    (click)="goToUserProfile(review.idProfile)">
-              {{ review.userName || ('Usuario #' + review.idProfile) }}
-            </button>
-          </strong>
+        <strong>
+          Usuario:
+          <button type="button" class="user-link" (click)="goToUserProfile(review.idProfile)">
+            {{ review.userName || ('Usuario #' + review.idProfile) }}
+          </button>
+        </strong>
 
-          <span class="review-score">
-            <strong>Calificación:</strong> {{ review.score }} / 10
-          </span>
+        <span class="review-score">
+          <strong>Calificación:</strong> {{ review.score }} / 10
+        </span>
 
-        </div>
-        @if (!isAdmin) {
-        <button class="btn-like" (click)="toggleLike(review)">
-          @if (review.likedByUser) { ❤️ {{ review.likesCount }} }
-          @else { 🤍 {{ review.likesCount }} }
+      </div>
+      @if (!isAdmin) {
+      <button class="btn-like" (click)="toggleLike(review)">
+        @if (review.likedByUser) { ❤️ {{ review.likesCount }} }
+        @else { 🤍 {{ review.likesCount }} }
+      </button>
+      }
+
+      @if (!isAdmin && canReportReview(review)) {
+      <button class="btn-report" (click)="reportReview(review)">
+        🚩 Reportar reseña
+      </button>
+      }
+
+
+
+
+      @if (review.idProfile === (userId) && !isAdmin) {
+  <!-- DUEÑO de la reseña (no admin) -->
+  <button class="btn-edit" (click)="startEdit(review)">Editar</button>
+  <button class="btn-delete" (click)="deleteReview(review.id)">Eliminar</button>
+}
+@else if (isAdmin) {
+  <!-- ADMIN: SOLO puede eliminar cualquier reseña -->
+  <button class="btn-delete" (click)="deleteReview(review.id)">Eliminar</button>
+}
+
+    </div>
+
+    <p class="review-description">{{ review.description }}</p>
+
+    <!-- COMENTARIOS -->
+    <div class="comments-block">
+
+      @if (review.comments?.length === 0) {
+      <p class="no-comments">No hay comentarios aún.</p>
+      }
+
+      @for (comment of review.comments; track comment.id) {
+      <div class="comment-item">
+        <strong>
+          <button type="button" class="user-link" (click)="goToUserProfile(comment.idProfile)">
+            {{ comment.userName || ('Usuario #' + comment.idProfile) }}
+          </button>:
+        </strong>
+
+        <span>{{ comment.comment }}</span>
+
+        <!-- 🚩 SOLO si NO es tu comentario y NO sos admin -->
+        @if (!isAdmin && canReportComment(comment)) {
+        <button type="button" class="btn-report-comment" (click)="reportComment(review, comment)">
+          🚩
         </button>
         }
-        
-        @if (!isAdmin) {
-        <button class="btn-report" (click)="reportReview(review)">🚩 Reportar reseña</button>
 
+        <!-- 🗑 ELIMINAR → si es tu comentario o sos admin -->
+        @if (comment.idProfile == userId || isAdmin) {
+        <button type="button" class="btn-delete-comment" (click)="deleteComment(review, comment)">
+          🗑 Eliminar
+        </button>
         }
 
-        
-
-        @if (review.idProfile === userId || isAdmin) {
-          <button class="btn-delete" (click)="deleteReview(review.id)">Eliminar</button>
-        }
-      </div>
-
-      <p class="review-description">{{ review.description }}</p>
-
-      <!-- COMENTARIOS -->
-      <div class="comments-block">
-
-        @if (review.comments?.length === 0) {
-          <p class="no-comments">No hay comentarios aún.</p>
-        }
-
-        @for (comment of review.comments; track comment.id) {
-          <div class="comment-item">
-            <strong>
-              <button type="button" class="user-link"
-                      (click)="goToUserProfile(comment.idProfile)">
-                {{ comment.userName || ('Usuario #' + comment.idProfile) }}
-              </button>:
-            </strong>
-
-            <span>{{ comment.comment }}</span>
-
-            <button type="button" class="btn-report-comment"
-                    (click)="reportComment(review, comment)">🚩</button>
-          </div>
-        }
-
-        @if (userLoggedIn && !isAdmin) {
-          <form (submit)="addComment($event, review)">
-            <input type="text"
-                   [formControl]="getControl(review.id!)"
-                   class="form-control"
-                   placeholder="Escribe un comentario...">
-            <button type="submit">Comentar</button>
-          </form>
-        }
 
       </div>
+      }
+
+
+
+      @if (userLoggedIn && !isAdmin) {
+      <form (submit)="addComment($event, review)">
+        <input type="text" [formControl]="getControl(review.id!)" class="form-control"
+          placeholder="Escribe un comentario...">
+        <button type="submit">Comentar</button>
+      </form>
+      }
+
+    </div>
     }
   </div>
 

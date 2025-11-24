@@ -236,77 +236,92 @@ export class AdminMoviesComponent implements OnInit {
 
   // ========== POPULARES (MÁS RESEÑAS) ==========
 
-  private loadPopularMovies(): void {
-    this.popularIsLoading = true;
+  // ========== POPULARES (MÁS RESEÑAS) ==========
+private loadPopularMovies(): void {
+  this.popularIsLoading = true;
 
-    this.reviewService.getAllReviews().subscribe({
-      next: (reviews: Review[]) => {
-        if (!reviews || reviews.length === 0) {
-          this.popularMovies = [];
-          this.popularIsLoading = false;
-          return;
-        }
-
-        // agrupar por idMovie y contar reseñas
-        const mapCounts = new Map<number, number>();
-        for (const r of reviews) {
-          const id = Number(r.idMovie);
-          mapCounts.set(id, (mapCounts.get(id) || 0) + 1);
-        }
-
-        const ids = Array.from(mapCounts.keys());
-
-        // levantar detalles + poster para cada una
-        const temp: {
-          idMovie: number;
-          title: string;
-          reviewCount: number;
-          posterPath?: string | null;
-        }[] = [];
-
-        let pending = ids.length;
-
-        ids.forEach((idMovie) => {
-          this.tmdb.getMovieDetails(idMovie).subscribe({
-            next: (movie: any) => {
-              temp.push({
-                idMovie,
-                title: movie.title || `ID ${idMovie}`,
-                reviewCount: mapCounts.get(idMovie) || 0,
-                posterPath: movie.poster_path,
-              });
-              pending--;
-              if (pending === 0) {
-                // ordenar por mayor cantidad de reseñas
-                this.popularMovies = temp.sort(
-                  (a, b) => b.reviewCount - a.reviewCount
-                );
-                this.popularIsLoading = false;
-              }
-            },
-            error: () => {
-              temp.push({
-                idMovie,
-                title: `ID ${idMovie}`,
-                reviewCount: mapCounts.get(idMovie) || 0,
-              });
-              pending--;
-              if (pending === 0) {
-                this.popularMovies = temp.sort(
-                  (a, b) => b.reviewCount - a.reviewCount
-                );
-                this.popularIsLoading = false;
-              }
-            },
-          });
-        });
-      },
-      error: () => {
+  this.reviewService.getAllReviews().subscribe({
+    next: (reviews: Review[]) => {
+      if (!reviews || reviews.length === 0) {
         this.popularMovies = [];
         this.popularIsLoading = false;
-      },
-    });
-  }
+        return;
+      }
+
+      // agrupar por idMovie y contar reseñas (solo TMDB numéricos)
+      const mapCounts = new Map<number, number>();
+
+      for (const r of reviews) {
+        // ignorar reseñas sin idMovie
+        if (r.idMovie == null) continue;
+
+        const numId = Number(r.idMovie);
+
+        // 👇 IGNORAR pelis locales (id string) y cualquier cosa rara
+        if (Number.isNaN(numId)) continue;
+
+        mapCounts.set(numId, (mapCounts.get(numId) || 0) + 1);
+      }
+
+      const ids = Array.from(mapCounts.keys());
+
+      if (ids.length === 0) {
+        this.popularMovies = [];
+        this.popularIsLoading = false;
+        return;
+      }
+
+      // levantar detalles + poster para cada TMDB
+      const temp: {
+        idMovie: number;
+        title: string;
+        reviewCount: number;
+        posterPath?: string | null;
+      }[] = [];
+
+      let pending = ids.length;
+
+      ids.forEach((idMovie) => {
+        this.tmdb.getMovieDetails(idMovie).subscribe({
+          next: (movie: any) => {
+            temp.push({
+              idMovie,
+              title: movie.title || `ID ${idMovie}`,
+              reviewCount: mapCounts.get(idMovie) || 0,
+              posterPath: movie.poster_path,
+            });
+            pending--;
+            if (pending === 0) {
+              this.popularMovies = temp.sort(
+                (a, b) => b.reviewCount - a.reviewCount
+              );
+              this.popularIsLoading = false;
+            }
+          },
+          error: () => {
+            temp.push({
+              idMovie,
+              title: `ID ${idMovie}`,
+              reviewCount: mapCounts.get(idMovie) || 0,
+            });
+            pending--;
+            if (pending === 0) {
+              this.popularMovies = temp.sort(
+                (a, b) => b.reviewCount - a.reviewCount
+              );
+              this.popularIsLoading = false;
+            }
+          },
+        });
+      });
+    },
+    error: () => {
+      this.popularMovies = [];
+      this.popularIsLoading = false;
+    },
+  });
+}
+
 
   editMovie(movie: AdminMovie): void {
   if (!movie.id) return;

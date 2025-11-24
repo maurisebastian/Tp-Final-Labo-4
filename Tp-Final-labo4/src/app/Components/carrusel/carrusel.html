@@ -1,58 +1,16 @@
-<!--=========================
-     CARRUSEL TOP RATED
-   ========================= -->
-@if (topRatedMovies.length > 0) {
-<div class="movie-carousel" (mouseenter)="pauseAutoSlide()" (mouseleave)="resumeAutoSlide()">
-  <h2 class="section-title">Top más puntuadas</h2>
-
-  <!-- FLECHA IZQUIERDA -->
-  <button class="carousel-arrow left-arrow" (click)="prevSlide()">
-    &#9664;
-  </button>
-
-  <div class="movie-list-container">
-    <div class="movie-list top list">
-      @for (movie of topRatedMovies; track movie.id; let i = $index) {
-      <div class="movie-item">
-        <div class="ranking">#{{ i + 1 }}</div>
-
-        <a [routerLink]="['/movie-review', movie.id]">
-          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
-        </a>
-
-        <a class="movie-title-link" [routerLink]="['/movie-review', movie.id]">
-          <p>{{ movie.title }}</p>
-        </a>
-
-        <p class="text-muted">Puntuación: {{ movie.vote_average }}</p>
-      </div>
-      }
-    </div>
-  </div>
-
-  <!-- FLECHA DERECHA -->
-  <button class="carousel-arrow right-arrow" (click)="nextSlide()" [disabled]="isNextButtonDisabled()">
-    &#9654;
-  </button>
-</div>
-} @else {
-<p class="loading-text">Cargando películas...</p>
-}
-
 <!-- =========================
-     RECOMENDADAS PARA VOS
+     RECOMENDADAS PARA VOS (ARRIBA)
    ========================= -->
 @if (hasRecommendations) {
 <section class="recommended-section">
 
-  <h3 class="recommended-title">Recomendadas para vos</h3>
-  <p class="recommended-subtitle">
-    Basadas en tus géneros favoritos y tus elecciones anteriores.
+  <h3 class="recommended-title center big-title">Recomendadas para vos</h3>
+  <p class="recommended-subtitle center big-subtitle">
+    Basadas en tus géneros favoritos y tus elecciones!
   </p>
 
-  <!-- CARRUSEL RECOMENDADAS -->
   <div class="movie-carousel" (mouseenter)="pauseRecommendedAutoSlide()" (mouseleave)="resumeRecommendedAutoSlide()">
-    <!-- FLECHA IZQUIERDA -->
+
     <button class="carousel-arrow left-arrow" (click)="prevRecommendedSlide()">
       &#9664;
     </button>
@@ -77,11 +35,99 @@
       </div>
     </div>
 
-    <!-- FLECHA DERECHA -->
     <button class="carousel-arrow right-arrow" (click)="nextRecommendedSlide()"
       [disabled]="isRecommendedNextButtonDisabled()">
       &#9654;
     </button>
   </div>
 </section>
+}
+
+<!-- =========================
+     ⭐ NUEVO: POR ACTORES FAVORITOS
+   ========================= -->
+@if (actorBasedMovies.length > 0) {
+<section class="actor-section">
+
+ <h2 class="section-title left">
+  Descubrí por tus actores favoritos
+</h2>
+  
+
+  <div class="movie-carousel">
+
+    <button class="carousel-arrow left-arrow" (click)="prevActorSlide()">
+      &#9664;
+    </button>
+
+    <div class="movie-list-container">
+      <div class="movie-list actor-list">
+        @for (movie of actorBasedMovies; track movie.id; let i = $index) {
+        <div class="movie-item">
+          <a [routerLink]="['/movie-review', movie.id]">
+            <img
+              [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
+              alt="{{ movie.title }}" />
+          </a>
+
+          <a class="movie-title-link" [routerLink]="['/movie-review', movie.id]">
+            <p>{{ movie.title }}</p>
+          </a>
+
+          <p class="text-muted">
+            Puntuación: {{ movie.vote_average }}
+          </p>
+        </div>
+        }
+      </div>
+    </div>
+
+    <button class="carousel-arrow right-arrow"
+            (click)="nextActorSlide()"
+            [disabled]="isActorNextButtonDisabled()">
+      &#9654;
+    </button>
+  </div>
+</section>
+}
+
+
+<!--=========================
+     CARRUSEL TOP RATED (ABAJO)
+   ========================= -->
+@if (topRatedMovies.length > 0) {
+<div class="movie-carousel" (mouseenter)="pauseAutoSlide()" (mouseleave)="resumeAutoSlide()">
+
+  <h2 class="section-title left">Top más puntuadas</h2>
+
+  <button class="carousel-arrow left-arrow" (click)="prevSlide()">
+    &#9664;
+  </button>
+
+  <div class="movie-list-container">
+    <div class="movie-list top-list">
+      @for (movie of topRatedMovies; track movie.id; let i = $index) {
+      <div class="movie-item">
+        <div class="ranking">#{{ i + 1 }}</div>
+
+        <a [routerLink]="['/movie-review', movie.id]">
+          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
+        </a>
+
+        <a class="movie-title-link" [routerLink]="['/movie-review', movie.id]">
+          <p>{{ movie.title }}</p>
+        </a>
+
+        <p class="text-muted">Puntuación: {{ movie.vote_average }}</p>
+      </div>
+      }
+    </div>
+  </div>
+
+  <button class="carousel-arrow right-arrow" (click)="nextSlide()" [disabled]="isNextButtonDisabled()">
+    &#9654;
+  </button>
+</div>
+} @else {
+<p class="loading-text">Cargando películas...</p>
 }

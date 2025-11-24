@@ -9,67 +9,73 @@
       </div>
 
       <div class="reviews-filters">
-        <input type="text" class="reviews-filter-input" placeholder="Buscar por usuario..."
+        <input
+          type="text"
+          class="reviews-filter-input"
+          placeholder="Buscar por usuario..."
           (input)="onUserSearch($event)" />
 
-        <input type="text" class="reviews-filter-input" placeholder="Buscar por película..."
+        <input
+          type="text"
+          class="reviews-filter-input"
+          placeholder="Buscar por película..."
           (input)="onMovieSearch($event)" />
       </div>
     </div>
 
     @if (movieIds.length === 0) {
-    <p class="no-reviews">
-      No hay reseñas que coincidan con el filtro.
-    </p>
+      <p class="no-reviews">
+        No hay reseñas que coincidan con el filtro.
+      </p>
     } @else {
 
-    @for (movieId of movieIds; track movieId) {
+      @for (movieId of movieIds; track movieId) {
 
-    <article class="review-group-card">
+        <article class="review-group-card">
 
-      <div class="review-group-header">
-        <h3 class="review-group-title">
-          <a class="movie-link" [routerLink]="['/movie-review', movieId]">
-            Película: {{ movieTitles[movieId] }}
-          </a>
-        </h3>
+          <div class="review-group-header">
+            <h3 class="review-group-title">
+              Película:
+              <a [routerLink]="['/movie-review', movieId]">
+                {{ getMovieTitle(movieId) || 'Película local' }}
+              </a>
+            </h3>
 
-
-
-        <span class="review-count-pill">
-          {{ filteredGroupedReviews[movieId].length }} reseña(s)
-        </span>
-      </div>
-
-      <ul class="review-list">
-        @for (review of filteredGroupedReviews[movieId]; track review.id) {
-        <li class="review-item">
-
-          <div class="review-header">
-            <span class="review-user">
-              Usuario: {{ review.userName ?? ('Perfil ' + review.idProfile) }}
-            </span>
-
-            <span class="review-rating">
-              {{ review.score }} / 10
+            <span class="review-count-pill">
+              {{ filteredGroupedReviews[movieId].length }} reseña(s)
             </span>
           </div>
 
-          <p class="review-comment">
-            {{ review.description }}
-          </p>
+          <ul class="review-list">
+            @for (review of filteredGroupedReviews[movieId]; track review.id) {
+              <li class="review-item">
 
-          <button class="btn-delete-review" (click)="deleteReview(review)">
-            Eliminar reseña
-          </button>
+                <div class="review-header">
+                  <span class="review-user">
+                    Usuario: {{ review.userName ?? ('Perfil ' + review.idProfile) }}
+                  </span>
 
-        </li>
-        }
-      </ul>
+                  <span class="review-rating">
+                    {{ review.score }} / 10
+                  </span>
+                </div>
 
-    </article>
+                <p class="review-comment">
+                  {{ review.description }}
+                </p>
 
-    }
+                <button class="btn-delete-review" (click)="deleteReview(review)">
+                  Eliminar reseña
+                </button>
+
+              </li>
+            }
+          </ul>
+
+        </article>
+
+      }
+
     }
 
   </section>

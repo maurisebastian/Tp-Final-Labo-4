@@ -11,13 +11,14 @@ export interface Profile {
   firstName?: string;
   lastName?: string;
   favoriteGenres?: number[];
-  isPublic?: boolean;      
+  favoriteActors?: number[];
+  isPublic?: boolean;
 }
 
 export interface Review {
   id?: string | number;
   idProfile: string | number;
-  idMovie: number;
+  idMovie: number | string;          // 👈 CAMBIO IMPORTANTE
   score: number;
   description: string;
   userName?: string;
@@ -38,15 +39,17 @@ export interface ReviewComment {
 }
 
 export interface ReviewReport {
-  id: string;                           // lo crea JSON Server
-  type: 'review' | 'comment';           // qué se reporta
-  idReview?: number;                    // reseña asociada
-  idComment?: number;                   // comentario asociado (si aplica)
-  idMovie?: number;                     // película asociada
-  reporterId: number;                   // QUIÉN reportó
-  reason: string;                       // motivo del reporte
-  createdAt: string;                    // fecha
+  id: string;
+  type: 'review' | 'comment';
+
+  // 👇 Todos estos pueden ser string o number en tu JSON
+  idReview?: string | number;
+  idComment?: string | number;
+  idMovie?: string | number;
+  reporterId: string | number;
+
+  reason: string;
+  createdAt: string;
   status: 'pending' | 'resolved' | 'dismissed';
   movieTitle?: string;
 }
-

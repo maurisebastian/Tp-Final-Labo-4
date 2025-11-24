@@ -3,12 +3,12 @@ import { TopBar } from "../top-bar/top-bar";
 import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TmdbService } from '../../Services/tmdb.service';
-import { ReviewList } from "../review-list/review-list";
+import { ReviewList } from '../review-list/review-list';
 import { AuthService } from '../../auth/auth-service';
 import { MovieActivity } from '../../Services/movie-activity';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
-import { Review } from '../../Interfaces/profilein';
+import { AdminMoviesService } from '../../Services/movies.service';
 
 @Component({
   selector: 'app-movie-review',
@@ -25,8 +25,14 @@ export class MovieReview implements OnInit {
   private movieActivity = inject(MovieActivity);
   private authService = inject(AuthService);
   private hiddenMoviesService = inject(HiddenMoviesService);
+  private adminMovies = inject(AdminMoviesService);
 
-  movieId: number = 0;
+  // Puede ser TMDB (number) o local (string)
+  movieId: number | string | undefined = undefined;
+
+  // Marca si la peli es local (admin)
+  movieIsLocal = false;
+
   movieDetails: any;
   cast: any[] = [];
 
@@ -34,29 +40,29 @@ export class MovieReview implements OnInit {
   userId: string | number | null = null;
   activity: MovieActivityInterface | null = null;
 
-  // 🔹 ¿el usuario logueado es admin?
+  // ¿el usuario logueado es admin?
   get isAdmin(): boolean {
     const user = this.authService.getActiveUser()();
     return !!user && (user.role === 'admin' || user.role === 'superadmin');
   }
 
-  // 🔹 ¿esta peli está oculta según HiddenMoviesService?
+  // ¿esta peli está oculta según HiddenMoviesService?
+  // Sólo aplica cuando es una peli TMDB (id numérico)
   get isHidden(): boolean {
-    return this.hiddenMoviesService.isHidden(this.movieId);
+    return typeof this.movieId === 'number'
+      ? this.hiddenMoviesService.isHidden(this.movieId)
+      : false;
   }
 
-  // 🔹 Motivo de ocultamiento (si existe)
+  // Motivo de ocultamiento (si existe)
   get hiddenReason(): string {
+    if (typeof this.movieId !== 'number') return '';
     const entry = this.hiddenMoviesService.getEntry(this.movieId);
     return entry?.reason ?? '';
   }
 
-  
-
   ngOnInit() {
     const user = this.auth.getActiveUser()();
-    console.log('MovieReview - activeUser:', user);
-    this.userId = user?.id ?? null;
 
     // tomamos id o idProfile SIN convertir a número
     const rawId =
@@ -65,42 +71,101 @@ export class MovieReview implements OnInit {
         : null;
 
     this.userId = rawId ?? null;
-    console.log('MovieReview - userId calculado:', this.userId);
 
     this.route.params.subscribe(params => {
-      this.movieId = Number(params['id'] ?? 0);
+      const idParam = params['id'];
+
+      if (!idParam) {
+        this.movieId = undefined;
+        return;
+      }
+
+      // Si es número → TMDB, si no → local
+      const asNumber = Number(idParam);
+      this.movieId = Number.isNaN(asNumber) ? idParam : asNumber;
+
       this.loadMovieDetails();
       this.loadActivity();
-      this.loadCast();
+      // el cast se carga dentro de loadMovieDetails cuando es TMDB
     });
   }
 
   loadMovieDetails() {
-    if (!this.movieId) return;
+    if (this.movieId === undefined) return;
 
-    this.tmdbService.getMovieDetails(this.movieId).subscribe(
-      (response) => (this.movieDetails = response),
-      (error) => console.error('Error al obtener los detalles:', error)
-    );
+    // 🔹 Caso TMDB (id numérico)
+    if (typeof this.movieId === 'number') {
+      this.tmdbService.getMovieDetails(this.movieId).subscribe({
+        next: (response) => {
+          this.movieIsLocal = false;
+          this.movieDetails = response;
+          this.loadCast(); // sólo TMDB
+        },
+        error: () => {
+          // Si falla TMDB, probamos si existe una peli local ligada a ese tmdbId
+          this.adminMovies.findByTmdbId(this.movieId as number).subscribe({
+            next: (local: any) => {
+              if (!local) return;
+
+              this.movieIsLocal = true;
+              this.movieDetails = {
+                title: local.title,
+                overview: local.overview,
+                poster_path: local.posterPath,
+                release_date: null,
+                runtime: null,
+                vote_average: null,
+                genres: [],
+              };
+              this.cast = [];
+            },
+            error: (err: any) => {
+              console.error('Error buscando película local por tmdbId:', err);
+            }
+          });
+        },
+      });
+
+      return;
+    }
+
+    // 🔹 Caso película local (id string)
+    this.adminMovies.getById(this.movieId).subscribe({
+      next: (local: any) => {
+        if (!local) return;
+
+        this.movieIsLocal = true;
+        this.movieDetails = {
+          title: local.title,
+          overview: local.overview,
+          poster_path: local.posterPath,
+          release_date: null,
+          runtime: null,
+          vote_average: null,
+          genres: [],
+        };
+        this.cast = [];
+      },
+      error: (err: any) => {
+        console.error('Error obteniendo película local por id:', err);
+      }
+    });
   }
 
-  // 🔹 Ocultar / mostrar desde el detalle usando solo TMDB ID
+  // Ocultar / mostrar desde el detalle
+  // Sólo tiene sentido para pelis TMDB (id numérico)
   toggleHiddenFromDetail(): void {
-    if (!this.isAdmin || !this.movieId) return;
+    if (!this.isAdmin || typeof this.movieId !== 'number') return;
 
-    // Si ya está oculta -> la mostramos
     if (this.hiddenMoviesService.isHidden(this.movieId)) {
       this.hiddenMoviesService.unhideMovie(this.movieId);
       return;
     }
 
-    // Si está visible -> pedimos motivo y la ocultamos
     const title = this.movieDetails?.title || 'esta película';
     const reason = window.prompt(`¿Por qué querés ocultar "${title}"?`);
 
-    if (!reason || !reason.trim()) {
-      return;
-    }
+    if (!reason || !reason.trim()) return;
 
     this.hiddenMoviesService.hideMovie(
       this.movieId,
@@ -110,23 +175,25 @@ export class MovieReview implements OnInit {
   }
 
   loadActivity() {
-    if (!this.userId || !this.movieId) return;
+    if (!this.userId || this.movieId == null) return;
 
-    // usamos userId tal cual, casteado a any para que TS no moleste
     this.movieActivity.getActivitiesByUser(this.userId as any).subscribe(list => {
-      this.activity = list.find(a => a.idMovie === this.movieId) || null;
+      // Comparamos como string para que funcione '238' y 238, o 'b89c'
+      const currentId = String(this.movieId);
+      this.activity = list.find(a => String(a.idMovie) === currentId) || null;
     });
   }
 
   markAs(status: 'watched' | 'towatch') {
-    if (!this.userId || !this.movieId) return;
+    if (!this.userId || this.movieId == null) return;
 
     const idProfile = this.userId as any;
+    const idMovie = this.movieId as any; // puede ser string o number
 
     if (!this.activity) {
       const newAct: MovieActivityInterface = {
         idProfile,
-        idMovie: this.movieId,
+        idMovie,
         movieName: this.movieDetails?.title,
         status,
         watchedDate: status === 'watched'
@@ -152,9 +219,12 @@ export class MovieReview implements OnInit {
     }
   }
 
-  // 👉 SOLO dejamos esto para los actores
+  // Reparto (sólo TMDB)
   loadCast() {
-    if (!this.movieId) return;
+    if (typeof this.movieId !== 'number') {
+      this.cast = [];
+      return;
+    }
 
     this.tmdbService.getMovieCredits(this.movieId).subscribe(credits => {
       this.cast = (credits?.cast ?? []).slice(0, 8);

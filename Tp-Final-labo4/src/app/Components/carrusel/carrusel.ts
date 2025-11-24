@@ -7,6 +7,9 @@ import { Moviein } from '../../Interfaces/moviein';
 import { Profile } from '../../Interfaces/profilein';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 
+// ⭐ NUEVO
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-carrusel',
   standalone: true,
@@ -27,28 +30,35 @@ export class Carrusel implements OnInit, OnDestroy {
   // -------- TOP RATED --------
   currentSlideIndex = 0;
   maxVisibleMovies = 5;
-
   autoSlideInterval: any = null;
   slideDelayMs = 1800;
 
-  // -------- RECOMENDADAS --------
+  // -------- RECOMENDADAS (GÉNEROS) --------
   recommendedSlideIndex = 0;
   recommendedMaxVisible = 5;
   recommendedTranslateX = 0;
   recommendedAutoSlideInterval: any = null;
   recommendedSlideDelayMs = 4000;
 
+  // ⭐ NUEVO: PELÍCULAS POR ACTORES FAVORITOS
+  actorBasedMovies: Moviein[] = [];
+  actorSlideIndex = 0;
+  actorMaxVisible = 5;
+  actorTranslateX = 0;
+
   // IDs ocultos
   hiddenTmdbIds: number[] = [];
 
   ngOnInit(): void {
-    // Cargar lista de IDs ocultos desde el servicio
     const hiddenList = this.hiddenMoviesService.hiddenMovies();
     this.hiddenTmdbIds = hiddenList.map(m => Number(m.tmdbId));
 
     this.loadTopRatedMovies();
     this.startAutoSlide();
-    this.loadRecommendations();
+
+    this.loadRecommendations();     // por géneros
+    this.loadActorBasedMovies();    // ⭐ NUEVO: por actores
+
   }
 
   ngOnDestroy(): void {
@@ -108,8 +118,6 @@ export class Carrusel implements OnInit, OnDestroy {
     this.tmdbService.getTopRatedMovies().subscribe({
       next: (response) => {
         const all = response.results ?? [];
-
-        // Filtrar películas ocultas
         const visibles = all.filter((m: Moviein) => !this.isHidden(m.id));
 
         this.topRatedMovies = visibles.slice(0, 10);
@@ -137,33 +145,31 @@ export class Carrusel implements OnInit, OnDestroy {
   }
 
   updateCarousel(): void {
-  if (!this.isBrowser()) return;
+    if (!this.isBrowser()) return;
 
-  // primero intenta con .top-list, si no, agarra el primer .movie-list
-  let movieList = document.querySelector('.top-list') as HTMLElement | null;
-  if (!movieList) {
-    movieList = document.querySelector('.movie-list') as HTMLElement | null;
+    let movieList = document.querySelector('.top-list') as HTMLElement | null;
+    if (!movieList) {
+      movieList = document.querySelector('.movie-list') as HTMLElement | null;
+    }
+    if (!movieList) return;
+
+    const firstItem = movieList.querySelector('.movie-item') as HTMLElement;
+    if (!firstItem) return;
+
+    const itemWidth = firstItem.offsetWidth || 180;
+    const styles = getComputedStyle(movieList);
+    const gap = Number((styles.gap || '0').replace('px', '')) || 0;
+
+    const move = this.currentSlideIndex * (itemWidth + gap);
+    movieList.style.transform = `translateX(-${move}px)`;
   }
-  if (!movieList) return;
-
-  const firstItem = movieList.querySelector('.movie-item') as HTMLElement;
-  if (!firstItem) return;
-
-  const itemWidth = firstItem.offsetWidth || 180;
-  const styles = getComputedStyle(movieList);
-  const gap = Number((styles.gap || '0').replace('px', '')) || 0;
-
-  const move = this.currentSlideIndex * (itemWidth + gap);
-  movieList.style.transform = `translateX(-${move}px)`;
-}
-
 
   isNextButtonDisabled(): boolean {
     return this.currentSlideIndex >= this.topRatedMovies.length - this.maxVisibleMovies;
   }
 
   // ==========================
-  //     RECOMENDADAS
+  //     RECOMENDADAS (GÉNEROS)
   // ==========================
 
   private loadRecommendations(): void {
@@ -186,8 +192,7 @@ export class Carrusel implements OnInit, OnDestroy {
 
         this.recommendedMovies = movies
           .filter((m: Moviein) =>
-            !topIds.has(m.id) &&       // no repetir con top rated
-            !this.isHidden(m.id)       // no mostrar si está oculta
+            !topIds.has(m.id) && !this.isHidden(m.id)
           )
           .slice(0, 12);
 
@@ -275,6 +280,109 @@ export class Carrusel implements OnInit, OnDestroy {
     return (
       this.recommendedSlideIndex >=
       this.recommendedMovies.length - this.recommendedMaxVisible
+    );
+  }
+
+  // ==========================
+  //   ⭐ NUEVO: PELIS POR ACTORES
+  // ==========================
+
+  private loadActorBasedMovies(): void {
+
+    const activeSignal = this.authService.getActiveUser();
+    const active: Profile | undefined = activeSignal();
+
+    const actorIds = active?.favoriteActors ?? [];
+    if (!actorIds.length) {
+      this.actorBasedMovies = [];
+      return;
+    }
+
+    const mainActors = actorIds.slice(0, 3); // ej: primeros 3 elegidos
+
+    const requests = mainActors.map(id => this.tmdbService.getMoviesByActor(id));
+
+    forkJoin(requests).subscribe({
+      next: (responses: any[]) => {
+        // TMDB /person/{id}/movie_credits suele devolver { cast: Movie[] }
+        let allMovies: Moviein[] = [];
+
+        responses.forEach(resp => {
+          const list = (resp.cast ?? resp.results ?? []) as Moviein[];
+          allMovies = allMovies.concat(list);
+        });
+        console.log("RESPUESTAS ACTORES:", responses);
+        console.log("PELÍCULAS RESULTANTES:", allMovies);
+
+        // Sacar duplicados por id
+        const uniqueMap = new Map<number, Moviein>();
+        allMovies.forEach(m => {
+          if (m && m.id != null && !uniqueMap.has(m.id)) {
+            uniqueMap.set(m.id, m);
+          }
+        });
+
+        // Filtrar ocultas
+        const filtered = Array.from(uniqueMap.values()).filter(
+          (m: Moviein) => !this.isHidden(m.id)
+        );
+
+        // Tomamos unas cuantas random
+        this.actorBasedMovies = filtered
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 15);
+
+        this.actorSlideIndex = 0;
+        this.updateActorCarousel();
+      },
+      error: () => {
+        this.actorBasedMovies = [];
+
+        console.log("CANTIDAD FINAL:", this.actorBasedMovies.length);
+
+      },
+    });
+
+  }
+
+  prevActorSlide(): void {
+    if (this.actorSlideIndex > 0) {
+      this.actorSlideIndex--;
+      this.updateActorCarousel();
+    }
+  }
+
+  nextActorSlide(): void {
+    const maxIndex = this.actorBasedMovies.length - this.actorMaxVisible;
+
+    if (this.actorSlideIndex < maxIndex) {
+      this.actorSlideIndex++;
+      this.updateActorCarousel();
+    }
+  }
+
+  updateActorCarousel(): void {
+    if (!this.isBrowser()) return;
+
+    const movieList = document.querySelector('.actor-list') as HTMLElement;
+    if (!movieList) return;
+
+    const firstItem = movieList.querySelector('.movie-item') as HTMLElement;
+    if (!firstItem) return;
+
+    const itemWidth = firstItem.offsetWidth || 180;
+    const styles = getComputedStyle(movieList);
+    const gap = Number((styles.gap || '0').replace('px', '')) || 0;
+
+    const move = this.actorSlideIndex * (itemWidth + gap);
+    this.actorTranslateX = -move;
+    movieList.style.transform = `translateX(${this.actorTranslateX}px)`;
+  }
+
+  isActorNextButtonDisabled(): boolean {
+    return (
+      this.actorSlideIndex >=
+      this.actorBasedMovies.length - this.actorMaxVisible
     );
   }
 }

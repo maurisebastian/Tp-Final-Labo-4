@@ -20,6 +20,8 @@ import { UserActivity } from '../user-activity/user-activity';
 import { ReviewReportService } from '../../Services/review-report.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FollowComponent } from "../follow-component/follow-component";
+import { AdminMoviesService } from '../../Services/movies.service';
+
 
 @Component({
   selector: 'app-profile-detail',
@@ -47,7 +49,7 @@ export class ProfileDetail implements OnInit {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-
+  private adminMovies = inject(AdminMoviesService);
 
   favoriteGenreNames: string[] = [];
 
@@ -180,20 +182,56 @@ export class ProfileDetail implements OnInit {
 
   // ===== RESEÑAS DEL USUARIO =====
   loadUserReviews() {
-    if (this.userProfile && this.userProfile.id) {
-      const profileId = this.userProfile.id;
+  if (this.userProfile && this.userProfile.id != null) {
+    const profileId = this.userProfile.id;
 
-      this.reviewService.getReviewsByUserId(profileId).subscribe((reviews) => {
-        this.reviews = reviews;
+    this.reviewService.getReviewsByUserId(profileId).subscribe((reviews) => {
+      this.reviews = reviews;
 
-        this.reviews.forEach((review) => {
-          this.tmdbService.getMovieDetails(review.idMovie).subscribe((movie) => {
-            review.movieName = movie.title;
+      this.reviews.forEach((review: any) => {
+        const id = review.idMovie;
+
+        // 1) Reseñas viejas sin idMovie → no hay peli asociada
+        if (id == null) {
+          review.movieName = 'Película desconocida';
+          return;
+        }
+
+        const num = Number(id);
+
+        // 2) TMDB (id numérico)
+        if (!Number.isNaN(num)) {
+          this.tmdbService.getMovieDetails(num).subscribe({
+            next: (movie) => {
+              review.movieName = movie.title;
+            },
+            error: (err) => {
+              console.error('Error cargando película TMDB', err);
+              review.movieName = 'Película (TMDB no encontrada)';
+            },
           });
-        });
+        }
+        // 3) Película local (id string → adminMovies)
+        else {
+          this.adminMovies.getById(id).subscribe({
+            next: (local) => {
+              if (local) {
+                review.movieName = local.title;
+              } else {
+                review.movieName = 'Película local no encontrada';
+              }
+            },
+            error: (err) => {
+              console.error('Error cargando película local', err);
+              review.movieName = 'Película local no encontrada';
+            },
+          });
+        }
       });
-    }
+    });
   }
+}
+
 
   deleteReview(reviewId: number) {
     this.reviewService.deleteReviewById(reviewId).subscribe(
@@ -337,8 +375,20 @@ export class ProfileDetail implements OnInit {
   }
 
   // aceptar undefined sin romper
-  goToMovie(movieId?: number) {
-    if (!movieId) return;
-    this.router.navigate(['/movie-review', movieId]);
+goToMovie(idMovie: string | number | undefined) {
+  if (idMovie == null) return;
+
+  const parsed = Number(idMovie);
+
+  if (!Number.isNaN(parsed)) {
+    // ✔ Película TMDB
+    this.router.navigate(['/movie-review', parsed]);
+  } else {
+    // ✔ Película local (id string)
+    this.router.navigate(['/movie-review', String(idMovie)]);
   }
+}
+
+
+
 }

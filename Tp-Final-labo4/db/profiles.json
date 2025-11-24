@@ -79,6 +79,24 @@
       "idReview": "sK1ndJF",
       "idProfile": "6b38",
       "comment": "rere"
+    },
+    {
+      "id": "c458",
+      "idReview": "9ac3",
+      "idProfile": "281a",
+      "comment": "jhgjgh"
+    },
+    {
+      "id": "d8fe",
+      "idReview": "d0ae",
+      "idProfile": "281a",
+      "comment": "klujkl"
+    },
+    {
+      "id": "ef6f",
+      "idReview": "d0ae",
+      "idProfile": "281a",
+      "comment": "jhgjgh"
     }
   ],
   "reviewLikes": [
@@ -187,6 +205,46 @@
       "movieName": "Cadena perpetua",
       "status": "watched",
       "watchedDate": "2025-11-24T04:40:43.627Z"
+    },
+    {
+      "id": "7c71",
+      "idProfile": "281a",
+      "idMovie": 102634,
+      "movieName": "La cucaracha",
+      "status": "watched",
+      "watchedDate": "2025-11-24T06:26:32.950Z"
+    },
+    {
+      "id": "9117",
+      "idProfile": "281a",
+      "idMovie": 129,
+      "movieName": "El viaje de Chihiro",
+      "status": "watched",
+      "watchedDate": "2025-11-24T06:30:41.736Z"
+    },
+    {
+      "id": "322b",
+      "idProfile": "4dbc",
+      "idMovie": 19404,
+      "movieName": "Un amor contra viento y marea",
+      "status": "towatch",
+      "watchedDate": null
+    },
+    {
+      "id": "4f6b",
+      "idProfile": "281a",
+      "idMovie": "b89c",
+      "movieName": "la cucaracha by sofia",
+      "status": "towatch",
+      "watchedDate": null
+    },
+    {
+      "id": "89db",
+      "idProfile": "281a",
+      "idMovie": 397567,
+      "movieName": "Along with the Gods: Los dos mundos",
+      "status": "watched",
+      "watchedDate": "2025-11-24T15:49:49.534Z"
     }
   ],
   "comments": [
@@ -203,27 +261,6 @@
       "idMovie": 389,
       "score": 6,
       "description": "dsfas fasd dfa"
-    },
-    {
-      "id": "358a",
-      "idProfile": "d49b",
-      "idMovie": 240,
-      "score": 5,
-      "description": "dsadsa"
-    },
-    {
-      "id": "c1b1",
-      "idProfile": "d49b",
-      "idMovie": 240,
-      "score": 7,
-      "description": "fdsfsdfds"
-    },
-    {
-      "id": "ae83",
-      "idProfile": "d49b",
-      "idMovie": 240,
-      "score": 4,
-      "description": "hgfjhjgh"
     },
     {
       "id": "d4b0",
@@ -247,13 +284,6 @@
       "description": "la amo"
     },
     {
-      "id": "68a5",
-      "idProfile": "7b97",
-      "idMovie": 4688,
-      "score": 10,
-      "description": "el unico musical q me gusta"
-    },
-    {
       "idProfile": "21a8",
       "idMovie": 240,
       "score": 7,
@@ -275,39 +305,11 @@
       "id": "BGXZOPd"
     },
     {
-      "id": "5e1b",
-      "idProfile": "f4ee",
-      "idMovie": 240,
-      "score": 7,
-      "description": "muy buena!!"
-    },
-    {
-      "id": "4c30",
-      "idProfile": "f4ee",
-      "idMovie": 240,
-      "score": 7,
-      "description": "utfutruu"
-    },
-    {
       "idProfile": "1d76",
       "idMovie": 597,
       "score": 7,
       "description": "muy buena",
       "id": "47pKW0h"
-    },
-    {
-      "id": "1f0d",
-      "idProfile": "6b38",
-      "idMovie": 240,
-      "score": 8,
-      "description": "utryurtyt"
-    },
-    {
-      "id": "9a74",
-      "idProfile": "6b38",
-      "idMovie": 240,
-      "score": 8,
-      "description": "lkhjkjhgkjh"
     },
     {
       "id": "153e",
@@ -338,11 +340,67 @@
       "id": "Zs9w86Z"
     },
     {
-      "id": "5c3d",
+      "id": "9033",
       "idProfile": "281a",
-      "idMovie": null,
+      "idMovie": 238,
+      "score": 8,
+      "description": "vcxvxcvxc"
+    },
+    {
+      "id": "197a",
+      "idProfile": "281a",
+      "idMovie": 155,
+      "score": 7,
+      "description": "jhgjghjgh"
+    },
+    {
+      "id": "c3c1",
+      "idProfile": "281a",
+      "idMovie": "b89c",
+      "score": 8,
+      "description": "hjkhjkhj"
+    },
+    {
+      "id": "fe13",
+      "idProfile": "281a",
+      "idMovie": 129,
+      "score": 9,
+      "description": "jhgjghjghj"
+    },
+    {
+      "id": "d0ae",
+      "idProfile": "4dbc",
+      "idMovie": 278,
       "score": 6,
-      "description": "muy buena"
+      "description": "hgfhfg fhghfg"
+    },
+    {
+      "id": "8682",
+      "idProfile": "4dbc",
+      "idMovie": 19404,
+      "score": 8,
+      "description": "hgfhfg fh ghf"
+    },
+    {
+      "id": "165c",
+      "idProfile": "281a",
+      "idMovie": 278,
+      "score": 7,
+      "description": "fghjgfjhgjgh"
+    },
+    {
+      "id": "9bb3",
+      "idProfile": "281a",
+      "idMovie": 397567,
+      "score": 6,
+      "description": "7rytyurt"
+    },
+    {
+      "id": "4de3",
+      "idProfile": "281a",
+      "idMovie": 11362,
+      "score": 8,
+      "description": "khjkhjkhj"
     }
   ],
   "profiles": [
@@ -477,7 +535,12 @@
         18,
         35
       ],
-      "isPublic": true
+      "isPublic": true,
+      "favoriteActors": [
+        500,
+        6193,
+        287
+      ]
     },
     {
       "id": "bc89",
@@ -545,6 +608,30 @@
         28,
         10752,
         10402
+      ]
+    },
+    {
+      "id": "79cb",
+      "username": "fernanda",
+      "password": "fakepass",
+      "date": "2013-10-28",
+      "cel": "5244564563",
+      "email": "fernandal@gmail.com",
+      "firstName": "fernanda",
+      "lastName": "moya",
+      "role": "user",
+      "favoriteGenres": [
+        12,
+        14,
+        18,
+        9648,
+        53,
+        36
+      ],
+      "favoriteActors": [
+        500,
+        6193,
+        287
       ]
     }
   ],
