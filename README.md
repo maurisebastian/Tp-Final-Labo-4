@@ -107,6 +107,11 @@ Tp-Final-Labo-4/
     │
     └── db/
         └── profiles.json   # Base de datos JSON Server (usuarios, reseñas, likes, etc.)
+```
+
+---
+
+
 ✅ Funcionalidades implementadas
 1. Autenticación y manejo de sesión
 Registro y login con:
@@ -135,6 +140,8 @@ Manejo de sesión al navegar con botón “atrás” del navegador:
 
 Se revalida el usuario activo para evitar “volver” a sesiones viejas.
 
+---
+
 2. Gestión de perfiles
 Creación de perfil al registrarse.
 
@@ -159,6 +166,8 @@ Seguimiento entre usuarios:
 Endpoint follows en JSON.
 
 Listas de “Seguidores” y “Seguidos” con link a perfil.
+
+---
 
 3. Sistema de reseñas
 Reseñas asociadas a:
@@ -189,6 +198,8 @@ Endpoint reviewComments.
 
 Múltiples comentarios por reseña, con referencia a idProfile.
 
+---
+
 4. Reportes y moderación de reseñas
 Los usuarios pueden reportar reseñas que consideren inapropiadas.
 
@@ -203,6 +214,8 @@ Ver el listado de reportes.
 Filtrar por estado o película.
 
 Marcar reportes como resueltos / descartados.
+
+---
 
 5. Actividad del usuario sobre películas
 Endpoint movieActivity con:
@@ -222,6 +235,8 @@ En el perfil se muestran:
 Lista de películas vistas.
 
 Lista de películas “por ver”.
+
+---
 
 6. Integración con TMDB
 Búsqueda de películas por título.
@@ -247,6 +262,8 @@ Uso combinado de:
 Películas de TMDB
 
 Películas locales agregadas por admin (adminMovies)
+
+---
 
 7. Sistema de recomendaciones
 A) Recomendadas por géneros
@@ -284,6 +301,8 @@ Carrusel con el Top 10 de películas (TMDB “top rated”), filtrando película
 
 Autodesplazamiento con pausa al pasar el mouse.
 
+---
+
 8. Películas locales administradas por el panel
 Endpoint adminMovies:
 
@@ -313,6 +332,8 @@ El sistema de carouseles respeta las películas ocultas:
 
 No se muestran en carouseles ni en ciertas vistas.
 
+---
+
 9. Panel de administración
 Vista general (admin-home / admin-panel) con acceso a:
 
@@ -323,6 +344,8 @@ Gestión de reseñas
 Gestión de reportes
 
 Gestión de películas locales
+
+---
 
 Usuarios:
 
@@ -336,6 +359,8 @@ Eliminación de usuarios.
 
 Creación de nuevos administradores.
 
+---
+
 Reseñas:
 
 Listado de reseñas agrupadas por película.
@@ -344,17 +369,23 @@ Posibilidad de filtrar por usuario o por película.
 
 Eliminación de reseñas problemáticas.
 
+---
+
 Reportes:
 
 Listado de reportes de reseñas.
 
 Cambio de estado: pendiente / resuelto / descartado.
 
+---
+
 Películas:
 
 ABM de películas locales (adminMovies).
 
 Botón para ocultar / mostrar en catálogo.
+
+---
 
 10. Interfaz y UX
 Top bar con navegación a:
@@ -368,6 +399,8 @@ Búsqueda de actores
 Perfil
 
 Panel admin (según rol)
+
+---
 
 Footer reutilizable.
 
@@ -404,16 +437,24 @@ follows
 
 adminMovies
 
+---
+
 🚀 Instalación y ejecución
 1. Clonar el repositorio
 bash
 Copiar código
 git clone https://github.com/maurisebastian/Tp-Final-Labo-4.git
 cd Tp-Final-Labo-4/Tp-Final-labo4
+
+---
+
 2. Instalar dependencias
 bash
 Copiar código
 npm install
+
+---
+
 3. Iniciar JSON Server
 Desde la carpeta Tp-Final-labo4:
 
@@ -432,6 +473,8 @@ http://localhost:3000/reviewReports
 
 etc.
 
+---
+
 4. Iniciar la aplicación Angular
 En otra terminal, también desde Tp-Final-labo4:
 
@@ -446,11 +489,13 @@ http://localhost:4200
 Podés crear tu propio usuario desde la pantalla de Signup
 o usar la cuenta de administrador preconfigurada:
 
-text
-Copiar código
 Usuario:  admin
+
 Password: fakepass
+
+
 🔮 Mejoras futuras / trabajo pendiente
+
 Unificar completamente:
 
 Vista de detalle de perfil y edición de perfil.
