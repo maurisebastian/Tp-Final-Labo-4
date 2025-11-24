@@ -16,15 +16,14 @@
 
       <div class="follower-info">
         <span class="username">{{ f.username }}</span>
-        
+        <span><strong>Mail:</strong> {{ f.email }}</span>
       </div>
-<span class="email">
-  <strong>Mail:</strong>
-  <a class="profile-link" [routerLink]="['/profiles', f.id]">
-    {{ f.email }}
-  </a>
-</span>
 
+      @if (showProfileButton) {
+      <button class="go-profile-btn" [routerLink]="['/profiles', f.id]">
+        Ver perfil
+      </button>
+      }
 
     </li>
     }
@@ -49,14 +48,14 @@
 
       <div class="follower-info">
         <span class="username">{{ p.username }}</span>
+        <span><strong>Mail:</strong> {{ p.email }}</span>
       </div>
 
-      <span class="email">
-  <strong>Mail:</strong>
-  <a class="profile-link" [routerLink]="['/profiles', p.id]">
-    {{ p.email }}
-  </a>
-</span>
+      @if (showProfileButton) {
+      <button class="go-profile-btn" [routerLink]="['/profiles', p.id]">
+        Ver perfil
+      </button>
+      }
 
     </li>
     }
