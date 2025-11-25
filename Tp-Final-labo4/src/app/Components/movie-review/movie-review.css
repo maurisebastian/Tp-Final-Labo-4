@@ -141,3 +141,46 @@
   color: #fee2e2;
   text-align: right;
 }
+.hidden-movie-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.hidden-movie-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
+  max-width: 650px;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.hidden-title {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.hidden-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #d0d0d0;
+  margin-bottom: 30px;
+}
+
+.hidden-back-btn {
+  margin-top: 10px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+/* Soft fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

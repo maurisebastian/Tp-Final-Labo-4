@@ -1,6 +1,26 @@
 <app-top-bar></app-top-bar>
 
-@if (movieDetails) {
+@if (isHiddenForUser) {
+  <div class="hidden-movie-container">
+    <div class="hidden-movie-card">
+
+      <h1 class="hidden-title">Película oculta</h1>
+
+      <p class="hidden-text">
+        Esta película ha sido retirada de la vista pública.<br />
+        El administrador decidió ocultarla por razones internas.<br />
+        Su contenido no está disponible para usuarios estándar.
+      </p>
+
+      <button class="btn-activity towatch hidden-back-btn" [routerLink]="['/home']">
+        Volver al inicio
+      </button>
+
+    </div>
+  </div>
+}
+
+@else if (movieDetails) {
 
   <div class="movie-details">
 
@@ -121,6 +141,9 @@
 }
 
 <!-- 🔹 Reseñas (funcionan para TMDB y locales) -->
-<app-review-list [peliculaID]="movieId"></app-review-list>
+@if (!isHiddenForUser) {
+  <app-review-list [peliculaID]="movieId"></app-review-list>
+}
 
 <footer></footer>
+
