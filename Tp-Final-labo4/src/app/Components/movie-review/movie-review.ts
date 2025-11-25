@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TopBar } from "../top-bar/top-bar";
 import { CommonModule, DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TmdbService } from '../../Services/tmdb.service';
 import { ReviewList } from '../review-list/review-list';
 import { AuthService } from '../../auth/auth-service';
@@ -10,10 +10,11 @@ import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 import { AdminMoviesService } from '../../Services/movies.service';
 
+
 @Component({
   selector: 'app-movie-review',
   standalone: true,
-  imports: [TopBar, ReviewList, CommonModule, DatePipe],
+  imports: [TopBar, ReviewList, CommonModule, DatePipe, RouterModule],
   templateUrl: './movie-review.html',
   styleUrl: './movie-review.css',
 })
@@ -44,6 +45,11 @@ export class MovieReview implements OnInit {
   get isAdmin(): boolean {
     const user = this.authService.getActiveUser()();
     return !!user && (user.role === 'admin' || user.role === 'superadmin');
+  }
+
+  // ¿La peli está oculta para este usuario (no admin)?
+  get isHiddenForUser(): boolean {
+    return this.isHidden && !this.isAdmin;
   }
 
   // ¿esta peli está oculta según HiddenMoviesService?
@@ -83,6 +89,8 @@ export class MovieReview implements OnInit {
       // Si es número → TMDB, si no → local
       const asNumber = Number(idParam);
       this.movieId = Number.isNaN(asNumber) ? idParam : asNumber;
+
+
 
       this.loadMovieDetails();
       this.loadActivity();
