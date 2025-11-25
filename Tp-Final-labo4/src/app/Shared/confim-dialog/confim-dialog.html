@@ -1,0 +1,11 @@
+<dialog id="genericConfirmDialog" class="custom-dialog">
+
+  <h3 class="dialog-title">{{ title }}</h3>
+  <p class="dialog-text">{{ description }}</p>
+
+  <div class="dialog-buttons">
+    <button class="btn-confirm" (click)="confirm()">{{ confirmText }}</button>
+    <button class="btn-cancel" (click)="cancel()">{{ cancelText }}</button>
+  </div>
+
+</dialog>

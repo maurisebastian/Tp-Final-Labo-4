@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,11 +6,12 @@ import { RouterLink } from '@angular/router';
 import { ProfileService } from '../../Services/profile.service';
 import { Profile } from '../../Interfaces/profilein';
 import { AuthService } from '../../auth/auth-service';
+import { ConfimDialog } from "../../Shared/confim-dialog/confim-dialog";
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ConfimDialog],
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.css',
 })
@@ -24,6 +25,25 @@ export class AdminPanel implements OnInit {
 
   users: Profile[] = [];
   filteredUsers: Profile[] = [];
+
+  dialogTitle = "";
+dialogDescription = "";
+pendingAction: (() => void) | null = null;
+
+@ViewChild('confirmDialog') confirmDialog!: any;
+
+openConfirm(title: string, description: string, action: (() => void) | null) {
+  this.dialogTitle = title;
+  this.dialogDescription = description;
+  this.pendingAction = action;
+
+  this.confirmDialog.open();
+}
+
+executePendingAction() {
+  if (this.pendingAction) this.pendingAction();
+  this.pendingAction = null;
+}
 
   ngOnInit(): void {
     const active = this.activeUserSignal();
@@ -64,32 +84,47 @@ export class AdminPanel implements OnInit {
     this.router.navigate(['/admin/user', user.id]);
   }
 
-  deleteUser(user: Profile) {
-    if (!user.id) return;
+ deleteUser(user: Profile) {
+  if (!user.id) return;
 
-    const active = this.activeUserSignal();
+  const active = this.activeUserSignal();
 
-    if (user.role === 'superadmin') {
-      alert('No se puede eliminar al Administrador Principal.');
-      return;
-    }
-
-    if (active && active.id === user.id) {
-      alert('No podés eliminar tu propio usuario.');
-      return;
-    }
-
-    const ok = confirm(`¿Seguro que querés eliminar al usuario "${user.username}"?`);
-    if (!ok) return;
-
-    // 👇 el service espera string
-    this.profileService.deleteUser(String(user.id)).subscribe((result) => {
-      if (result) {
-        this.users = this.users.filter((u) => u.id !== user.id);
-        this.filteredUsers = this.filteredUsers.filter((u) => u.id !== user.id);
-      } else {
-        alert('No se pudo eliminar el usuario.');
-      }
-    });
+  if (user.role === 'superadmin') {
+    this.openConfirm(
+      "No permitido",
+      "No se puede eliminar al Administrador Principal.",
+      null
+    );
+    return;
   }
+
+  if (active && active.id === user.id) {
+    this.openConfirm(
+      "Acción bloqueada",
+      "No podés eliminar tu propio usuario.",
+      null
+    );
+    return;
+  }
+
+  // 🔥 CONFIRMACIÓN REAL
+  this.openConfirm(
+    "Eliminar usuario",
+    `¿Seguro que querés eliminar a "${user.username}"?`,
+    () => {
+      this.profileService.deleteUser(String(user.id)).subscribe((result) => {
+        if (result) {
+          this.users = this.users.filter((u) => u.id !== user.id);
+          this.filteredUsers = this.filteredUsers.filter((u) => u.id !== user.id);
+        } else {
+          this.openConfirm(
+            "Error",
+            "No se pudo eliminar el usuario.",
+            null
+          );
+        }
+      });
+    }
+  );
+}
 }

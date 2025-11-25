@@ -1,15 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth-service';
 import { ProfileService } from '../../Services/profile.service';
+import { ConfimDialog } from '../../Shared/confim-dialog/confim-dialog';
 
 @Component({
   selector: 'app-admin-create-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ConfimDialog],
   templateUrl: './admin-create-admin.html',
   styleUrl: './admin-create-admin.css',
 })
@@ -20,6 +21,11 @@ export class AdminCreateAdminComponent {
   private profileService = inject(ProfileService);
   public router = inject(Router);
 
+  @ViewChild('confirmDialog') confirmDialog!: any;
+
+  dialogTitle = '';
+  dialogDescription = '';
+
   newAdminForm = this.fb.nonNullable.group({
     username: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -28,17 +34,25 @@ export class AdminCreateAdminComponent {
 
   activeUserSignal = this.authService.getActiveUser();
 
+  // ⭐ Modal simple (solo mostrar mensaje)
+  showMessage(message: string) {
+    this.dialogTitle = 'Información';
+    this.dialogDescription = message;
+    this.confirmDialog.open();
+  }
+
   createAdmin(event?: Event) {
     if (event) event.preventDefault();
 
     const active = this.activeUserSignal();
     if (!active || active.role !== 'superadmin') {
-      alert('Solo el Administrador Principal puede crear nuevos administradores.');
+      this.showMessage('Solo el Administrador Principal puede crear nuevos administradores.');
       return;
     }
 
     if (this.newAdminForm.invalid) {
       this.newAdminForm.markAllAsTouched();
+      this.showMessage('Completa todos los campos correctamente.');
       return;
     }
 
@@ -47,12 +61,12 @@ export class AdminCreateAdminComponent {
     const trimmedEmail = email.trim();
 
     if (!trimmedUsername || !password || !trimmedEmail) {
-      alert('Completa usuario, contraseña y email.');
+      this.showMessage('Completa usuario, contraseña y email.');
       return;
     }
 
     if (password.includes(' ')) {
-      alert('La contraseña no puede contener espacios.');
+      this.showMessage('La contraseña no puede contener espacios.');
       return;
     }
 
@@ -61,12 +75,12 @@ export class AdminCreateAdminComponent {
       .subscribe({
         next: ({ usernameExists, emailExists }) => {
           if (usernameExists) {
-            alert('Ese nombre de usuario ya existe.');
+            this.showMessage('Ese nombre de usuario ya existe.');
             return;
           }
 
           if (emailExists) {
-            alert('Ese email ya está registrado.');
+            this.showMessage('Ese email ya está registrado.');
             return;
           }
 
@@ -79,21 +93,25 @@ export class AdminCreateAdminComponent {
             .subscribe({
               next: (created) => {
                 if (!created) {
-                  alert('No se pudo crear el administrador.');
+                  this.showMessage('No se pudo crear el administrador.');
                   return;
                 }
 
                 this.newAdminForm.reset();
-                alert('Administrador creado correctamente.');
-                this.router.navigate(['/admin/users']);
+                this.showMessage('Administrador creado correctamente.');
+
+                // Navegar luego de que el usuario cierre el modal
+                setTimeout(() => {
+                  this.router.navigate(['/admin/users']);
+                }, 500);
               },
               error: () => {
-                alert('No se pudo crear el administrador.');
+                this.showMessage('No se pudo crear el administrador.');
               },
             });
         },
         error: () => {
-          alert('Error al validar usuario/email.');
+          this.showMessage('Error al validar usuario/email.');
         },
       });
   }

@@ -48,3 +48,13 @@
     </tbody>
   </table>
 </main>
+
+<app-confim-dialog
+ #confirmDialog
+  [title]="dialogTitle"
+  [description]="dialogDescription"
+  confirmText="Aceptar"
+  [cancelText]="pendingAction ? 'Cancelar' : null"
+  (onConfirm)="executePendingAction()"
+
+></app-confim-dialog>

@@ -1,14 +1,15 @@
-import { Component, inject, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Profile } from '../../Interfaces/profilein';
 import { FollowService } from '../../Services/follow-service';
 import { ProfileService } from '../../Services/profile.service';
 import { CommonModule } from '@angular/common';
 import {  RouterModule } from '@angular/router';
+import { ConfimDialog } from '../../Shared/confim-dialog/confim-dialog';
 
 @Component({
   selector: 'app-follow-component',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ConfimDialog],
   templateUrl: './follow-component.html',
   styleUrl: './follow-component.css',
 })
@@ -23,6 +24,25 @@ export class FollowComponent implements OnInit, OnChanges {
   followers: Profile[] = [];
   following: Profile[] = [];
   loading = true;
+
+
+  @ViewChild('confirmDialog') confirmDialog!: any;
+
+  dialogTitle = "";
+  dialogDescription = "";
+  pendingAction: (() => void) | null = null;
+
+  openConfirmation(title: string, description: string, action: () => void) {
+    this.dialogTitle = title;
+    this.dialogDescription = description;
+    this.pendingAction = action;
+    this.confirmDialog.open();
+  }
+
+  executePendingAction() {
+    if (this.pendingAction) this.pendingAction();
+    this.pendingAction = null;
+  }
 
   ngOnInit(): void {
     if (!this.userId) return;
@@ -56,25 +76,28 @@ export class FollowComponent implements OnInit, OnChanges {
       .catch(() => this.loading = false);
   }
 
-  removeFollower(followerId: string | number) {
-  if (!confirm("¿Eliminar este seguidor?")) return;
-
-  this.followService.unfollow(followerId, this.userId!)
-    .then(() => {
-      this.followers = this.followers.filter(f => f.id !== followerId);
-    })
-    .catch(err => console.error("Error al eliminar seguidor:", err));
-}
-unfollowUser(followingId: string | number) {
-  if (!confirm("¿Dejar de seguir a este usuario?")) return;
-
-  this.followService.unfollow(this.userId!, followingId)
-    .then(() => {
-      this.following = this.following.filter(f => f.id !== followingId);
-    })
-    .catch(err => console.error("Error al dejar de seguir:", err));
-}
-
+   removeFollower(followerId: string | number) {
+    this.openConfirmation(
+      "Eliminar seguidor",
+      "¿Seguro que querés eliminar a este seguidor?",
+      () => {
+        this.followService.unfollow(followerId, this.userId!)
+          .then(() => this.followers = this.followers.filter(f => f.id !== followerId))
+          .catch(err => console.error("Error:", err));
+      }
+    );
+  }
+  unfollowUser(followingId: string | number) {
+    this.openConfirmation(
+      "Dejar de seguir",
+      "¿Seguro que querés dejar de seguir a este usuario?",
+      () => {
+        this.followService.unfollow(this.userId!, followingId)
+          .then(() => this.following = this.following.filter(f => f.id !== followingId))
+          .catch(err => console.error("Error:", err));
+      }
+    );
+  }
   loadFollowing() {
     this.followService.getFollowing(String(this.userId))
       .then(async (follows) => {

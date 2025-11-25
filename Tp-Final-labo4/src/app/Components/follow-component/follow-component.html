@@ -74,3 +74,11 @@
   }
 
 </div>
+<app-confim-dialog
+ #confirmDialog
+  [title]="dialogTitle"
+  [description]="dialogDescription"
+  confirmText="Sí"
+  cancelText="No"
+  (onConfirm)="executePendingAction()"
+></app-confim-dialog>

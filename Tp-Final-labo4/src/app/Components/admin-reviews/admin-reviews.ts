@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { AuthService } from '../../auth/auth-service';
 import { AdminMoviesService } from '../../Services/movies.service';
 
 import { Profile, Review } from '../../Interfaces/profilein';
+import { ConfimDialog } from "../../Shared/confim-dialog/confim-dialog";
 
 // Extendemos Review con campos solo de frontend
 type ReviewWithMeta = Review & {
@@ -21,7 +22,7 @@ type ReviewWithMeta = Review & {
 @Component({
   selector: 'app-admin-reviews',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ConfimDialog],
   templateUrl: './admin-reviews.html',
   styleUrl: './admin-reviews.css',
 })
@@ -51,6 +52,26 @@ export class AdminReviewsComponent implements OnInit {
   get movieIds(): string[] {
     return Object.keys(this.filteredGroupedReviews);
   }
+
+
+  dialogTitle = "";
+dialogDescription = "";
+pendingAction: (() => void) | null = null;
+
+@ViewChild('confirmDialog') confirmDialog!: any;
+
+openConfirmation(title: string, description: string, action: () => void) {
+  this.dialogTitle = title;
+  this.dialogDescription = description;
+  this.pendingAction = action;
+
+  this.confirmDialog.open();
+}
+
+executePendingAction() {
+  if (this.pendingAction) this.pendingAction();
+  this.pendingAction = null;
+}
 
   ngOnInit(): void {
     const active = this.authService.getActiveUser()();
@@ -202,29 +223,35 @@ export class AdminReviewsComponent implements OnInit {
   }
 
   deleteReview(review: ReviewWithMeta): void {
-    const ok = confirm(
-      `¿Seguro que querés eliminar la reseña del usuario ${
-        review.userName ?? review.idProfile
-      } sobre la película ${review.movieName ?? review.idMovie}?`,
-    );
-    if (!ok) return;
-
-    if (!review.id) {
-      console.error('La reseña no tiene id, no se puede borrar');
-      return;
-    }
-
-    this.reviewService.deleteReviewById(review.id).subscribe({
-      next: () => {
-        this.reviews = this.reviews.filter((r) => r.id !== review.id);
-        this.groupedReviews = this.groupByMovie(this.reviews);
-        this.applyFilters();
-      },
-      error: () => {
-        alert('No se pudo eliminar la reseña.');
-      },
-    });
+  if (!review.id) {
+    console.error('La reseña no tiene id, no se puede borrar');
+    return;
   }
+
+  const user = review.userName ?? review.idProfile;
+  const movie = review.movieName ?? review.idMovie;
+
+  this.openConfirmation(
+    "Eliminar reseña",
+    `¿Seguro que querés eliminar la reseña del usuario ${user} sobre la película ${movie}?`,
+    () => {
+      this.reviewService.deleteReviewById(review.id!).subscribe({
+        next: () => {
+          this.reviews = this.reviews.filter(r => r.id !== review.id);
+          this.groupedReviews = this.groupByMovie(this.reviews);
+          this.applyFilters();
+        },
+        error: () => {
+          this.openConfirmation(
+            "Error",
+            "No se pudo eliminar la reseña.",
+            () => {}
+          );
+        }
+      });
+    }
+  );
+}
 
   // =========== FILTROS ===========
   onUserSearch(event: Event): void {

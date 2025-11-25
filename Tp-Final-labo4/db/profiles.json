@@ -51,11 +51,6 @@
       "followingId": "oe5BF45"
     },
     {
-      "id": "f111",
-      "followerId": "_-MNsZD",
-      "followingId": "oe5BF45"
-    },
-    {
       "followerId": "jWTuKTn",
       "followingId": "_-MNsZD",
       "createdAt": "2025-11-24T21:01:35.694Z",
@@ -70,8 +65,14 @@
     {
       "followerId": "jbUZV20",
       "followingId": "b54d",
-      "createdAt": "2025-11-24T21:37:00.605Z",
-      "id": "7HRuuYV"
+      "createdAt": "2025-11-24T21:39:45.454Z",
+      "id": "XxLVv0j"
+    },
+    {
+      "followerId": "_-MNsZD",
+      "followingId": "oe5BF45",
+      "createdAt": "2025-11-25T01:46:26.108Z",
+      "id": "nAbIC1Q"
     }
   ],
   "reviewComments": [
@@ -394,13 +395,6 @@
       "idMovie": 389,
       "score": 9,
       "description": "Suspenso perfecto."
-    },
-    {
-      "id": "r37",
-      "idProfile": "_-MNsZD",
-      "idMovie": 278,
-      "score": 10,
-      "description": "Inolvidable."
     },
     {
       "id": "r38",
@@ -1022,21 +1016,24 @@
       "title": "El padrino (destacada)",
       "overview": "Ejemplo de película administrada localmente.",
       "posterPath": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-      "isHidden": false
+      "isHidden": true,
+      "hiddenReason": "soy admin"
     },
     {
       "id": "b89c",
       "title": "La cucaracha by Sofía",
       "overview": "Película creada de forma local para pruebas del panel de administración.",
       "posterPath": "",
-      "isHidden": false
+      "isHidden": true,
+      "hiddenReason": "porque soy admin"
     },
     {
       "id": "b02c",
       "title": "Bañeros 45",
       "overview": "Comedia local ficticia usada como ejemplo en el TP.",
       "posterPath": "",
-      "isHidden": false
+      "isHidden": true,
+      "hiddenReason": "soy admin"
     }
   ]
 }

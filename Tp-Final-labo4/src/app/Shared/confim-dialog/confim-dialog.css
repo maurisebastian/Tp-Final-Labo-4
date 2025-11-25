@@ -1,0 +1,52 @@
+.custom-dialog {
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  max-width: 350px;
+  width: 90%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  animation: popup 0.25s ease-out;
+}
+
+@keyframes popup {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.custom-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.dialog-title {
+  margin: 0 0 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.dialog-text {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-confirm {
+  background: #dc2626;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+}
+
+.btn-cancel {
+  background: #6b7280;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+}
