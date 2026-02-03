@@ -11,17 +11,17 @@ export class ReviewReportService {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:3000/reviewReports';
 
-  // 🆕 Traer TODOS los reportes (para las 3 columnas)
+  //  Traer TODOS los reportes (para las 3 columnas)
   getAllReports(): Observable<ReviewReport[]> {
     return this.http.get<ReviewReport[]>(this.baseUrl);
   }
 
-  // 🔹 Reportes pendientes para el admin (si en algún lado lo necesitás)
+  //  Reportes pendientes para el admin (si en algún lado lo necesitás)
   getPendingReports(): Observable<ReviewReport[]> {
     return this.http.get<ReviewReport[]>(`${this.baseUrl}?status=pending`);
   }
 
-  // 🔹 Crear un nuevo reporte (review o comment)
+  //  Crear un nuevo reporte (review o comment)
   addReport(
     report: Omit<ReviewReport, 'id' | 'createdAt' | 'status'>
   ): Observable<ReviewReport> {
@@ -34,7 +34,7 @@ export class ReviewReportService {
     return this.http.post<ReviewReport>(this.baseUrl, body);
   }
 
-  // 🔹 Cambiar estado del reporte
+  //  Cambiar estado del reporte
   updateStatus(
     id: string | number,
     status: ReviewReport['status']
@@ -42,7 +42,7 @@ export class ReviewReportService {
     return this.http.patch<ReviewReport>(`${this.baseUrl}/${id}`, { status });
   }
 
-  // 🔹 Reportes hechos por un usuario (para mostrar en su perfil privado)
+  //  Reportes hechos por un usuario (para mostrar en su perfil privado)
   getReportsByUser(profileId: number): Observable<ReviewReport[]> {
     // filtramos por reporterId, que es el id del usuario que reportó
     return this.http.get<ReviewReport[]>(

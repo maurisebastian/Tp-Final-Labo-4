@@ -18,7 +18,7 @@ export interface Profile {
 export interface Review {
   id?: string | number;
   idProfile: string | number;
-  idMovie: number | string;          // 👈 CAMBIO IMPORTANTE
+  idMovie: number | string;          //  CAMBIO IMPORTANTE
   score: number;
   description: string;
   userName?: string;
@@ -42,7 +42,7 @@ export interface ReviewReport {
   id: string;
   type: 'review' | 'comment';
 
-  // 👇 Todos estos pueden ser string o number en tu JSON
+  //  Todos estos pueden ser string o number en tu JSON
   idReview?: string | number;
   idComment?: string | number;
   idMovie?: string | number;

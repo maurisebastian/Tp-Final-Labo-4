@@ -1,4 +1,9 @@
 {
+   "notifications": [
+    
+   ],
+
+
   "follows": [
     {
       "id": "f100",
@@ -71,8 +76,8 @@
     {
       "followerId": "_-MNsZD",
       "followingId": "oe5BF45",
-      "createdAt": "2025-11-25T01:46:26.108Z",
-      "id": "nAbIC1Q"
+      "createdAt": "2025-11-25T04:19:09.169Z",
+      "id": "SKWxlaw"
     }
   ],
   "reviewComments": [
@@ -141,6 +146,14 @@
       "movieName": "Un amor contra viento y marea",
       "status": "towatch",
       "watchedDate": null
+    },
+    {
+      "idProfile": "_-MNsZD",
+      "idMovie": 98,
+      "movieName": "Gladiator",
+      "status": "watched",
+      "watchedDate": "2025-11-25T04:20:09.943Z",
+      "id": "cziKkEe"
     }
   ],
   "comments": [
@@ -430,6 +443,13 @@
       "score": 5,
       "description": "se hace muy larga la peli",
       "id": "CH9Ldfp"
+    },
+    {
+      "id": "65SojPg",
+      "idProfile": "_-MNsZD",
+      "idMovie": 98,
+      "score": 7,
+      "description": "me ancata esta peli"
     }
   ],
   "profiles": [

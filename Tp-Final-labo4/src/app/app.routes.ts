@@ -86,7 +86,7 @@ export const routes: Routes = [
   title: 'Buscar actores'
 },
 
-// ⭐ Detalle de actor + películas en las que aparece
+//  Detalle de actor + películas en las que aparece
 {
   path: 'actor/:id',
   loadComponent: () =>
