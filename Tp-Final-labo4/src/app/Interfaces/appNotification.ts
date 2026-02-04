@@ -1,4 +1,4 @@
-export interface Notification {
+export interface AppNotification {
 
   id?: number;
   userId: number;           // usuario que recibe la notificación

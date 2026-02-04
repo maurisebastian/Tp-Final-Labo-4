@@ -38,6 +38,13 @@
       </a>
     }
 
+    <a routerLink="/notifications">
+  🔔
+  @if (unreadCount() > 0) {
+    <span class="badge">{{ unreadCount() }}</span>
+  }
+</a>
+
     <!-- PERFIL PROPIO -->
     <a [routerLink]="['/profile-detail']" class="profile-link">
       <span class="profile-text">
@@ -45,6 +52,8 @@
       </span>
       <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar" />
     </a>
+
+
   }
 
 </div>
