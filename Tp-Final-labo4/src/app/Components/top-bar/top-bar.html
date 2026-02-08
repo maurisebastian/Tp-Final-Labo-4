@@ -25,26 +25,27 @@
     }
   </div>
 
- <!-- DERECHA: PERFIL + ADMIN -->
-<div class="topbar-right">
+  <!-- DERECHA: PERFIL + ADMIN -->
+  <div class="topbar-right">
 
-  @if (activeUserSignal()) {
+    @if (activeUserSignal()) {
 
     <!-- SOLO mostrar “Buscar amigos…” si NO estoy ya en /profiles -->
     @if (!router.url.includes('profiles')) {
 
-      <a [routerLink]="['/profiles']" class="friend-search-pill">
-        <span class="friend-search-placeholder">🔍 Buscar amigos...</span>
-      </a>
+    <a [routerLink]="['/profiles']" class="friend-search-pill">
+      <span class="friend-search-placeholder">🔍 Buscar amigos...</span>
+    </a>
     }
 
-    <a routerLink="/notifications">
-  🔔
-  @if (unreadCount() > 0) {
-    <span class="badge">{{ unreadCount() }}</span>
-  }
-</a>
+    <a [routerLink]="['/notifications']" class="notif-link">
+      <span class="notif-icon">🔔</span>
+      <span class="notif-text">Notificaciones</span>
 
+      @if (unreadCount() > 0) {
+      <span class="badge">{{ unreadCount() }}</span>
+      }
+    </a>
     <!-- PERFIL PROPIO -->
     <a [routerLink]="['/profile-detail']" class="profile-link">
       <span class="profile-text">
@@ -54,9 +55,9 @@
     </a>
 
 
-  }
+    }
 
-</div>
+  </div>
 
 
 

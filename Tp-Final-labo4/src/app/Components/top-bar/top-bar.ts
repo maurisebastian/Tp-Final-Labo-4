@@ -5,11 +5,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth-service';
 import { NotificationService } from '../../Services/notification-service';
 import { AppNotification } from '../../Interfaces/app-notification';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './top-bar.html',
   styleUrls: ['./top-bar.css'],
 })
@@ -29,7 +30,7 @@ export class TopBar {
     validators: [Validators.required],
   });
 
-    //  guardo lista de notificaciones en un signal
+  //  guardo lista de notificaciones en un signal
   private notifications = signal<AppNotification[]>([]);
 
   //  contador de no leídas (signal computado)
@@ -46,7 +47,7 @@ export class TopBar {
         return;
       }
 
-      this.notificationService.getByUser(Number(user.id)).subscribe({
+      this.notificationService.getByUser(user.id as any).subscribe({
         next: (list) => this.notifications.set(list ?? []),
         error: () => this.notifications.set([]),
       });
@@ -68,15 +69,15 @@ export class TopBar {
   }
 
   goToEditProfile() {
-  const user = this.activeUserSignal();
-  if (!user) {
-    this.router.navigate(['/login']);
-    return;
-  }
+    const user = this.activeUserSignal();
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
-  this.router.navigate(['/profile-detail'], {
-    queryParams: { edit: true }
-  });
-}
+    this.router.navigate(['/profile-detail'], {
+      queryParams: { edit: true }
+    });
+  }
 
 }

@@ -18,6 +18,7 @@ import { ProfilePublic } from './Components/profile-public/profile-public';
 import { ActorSearch } from './Components/actor-search/actor-search';
 import { ActorDetail } from './Components/actor-detail/actor-detail'; 
 import { AdminLocalMovieComponent } from './Components/admin-local-movie/admin-local-movie';
+import { Notification } from './Components/notification/notification';
 
 
 
@@ -41,6 +42,12 @@ export const routes: Routes = [
   component: ProfilesList,
   canActivate: [userGuard],
   title: 'Perfiles'
+  },
+  {
+      path: 'notifications',
+      component : Notification,
+      canActivate : [userGuard],
+      title : 'notificaciones'
   },
 
 

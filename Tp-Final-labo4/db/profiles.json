@@ -5,9 +5,10 @@
       "fromUserId": "EYnfiYV",
       "type": "like",
       "referenceId": "r10",
+      "movieId": 424,
       "message": "agusss le dio like a tu reseña.",
-      "read": false,
-      "createdAt": "2026-02-08T02:14:49.383Z",
+      "read": true,
+      "createdAt": "2026-02-08T22:52:00.809Z",
       "id": 1
     }
   ],
@@ -127,10 +128,10 @@
       "date": "2025-11-24T19:22:09.235Z"
     },
     {
-      "idProfile": "jbUZV20",
-      "idReview": "r31",
-      "date": "2026-02-07T19:21:32.201Z",
-      "id": "bUbLKdh"
+      "idProfile": "EYnfiYV",
+      "idReview": "r10",
+      "date": "2026-02-08T22:52:00.775Z",
+      "id": "Qg5sI5y"
     }
   ],
   "movieActivity": [

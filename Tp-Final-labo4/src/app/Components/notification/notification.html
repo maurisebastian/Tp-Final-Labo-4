@@ -1,1 +1,45 @@
-<p>notification works!</p>
+<div class="notif-page">
+  <div class="header">
+    <h2>Notificaciones</h2>
+
+    <div class="actions">
+      <span class="count" *ngIf="unreadCount() > 0">
+        No leídas: {{ unreadCount() }}
+      </span>
+
+      <button class="btn" (click)="markAllAsRead()" [disabled]="unreadCount() === 0">
+        Marcar todas como leídas
+      </button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  } @else {
+
+    @if (notifications().length === 0) {
+      <p class="empty">No tenés notificaciones.</p>
+    }
+
+    <div class="list">
+      @for (n of notifications(); track trackById($index, n)) {
+        <div class="item" [class.unread]="!n.read" (click)="openNotification(n)">
+          <div class="msg">
+            <div class="text">{{ n.message }}</div>
+            <div class="meta">
+              <span class="type">{{ n.type }}</span>
+              <span class="date">{{ n.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+
+          <div class="item-actions">
+            @if (!n.read) {
+              <button class="btn small" (click)="markOneAsRead(n, $event)">Leída</button>
+            }
+            <button class="btn danger small" (click)="deleteOne(n, $event)">Eliminar</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

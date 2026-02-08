@@ -1,0 +1,70 @@
+.notif-page { max-width: 900px; margin: 0 auto; padding: 16px; }
+.header { display:flex; justify-content:space-between; align-items:center; gap: 12px; }
+.actions { display:flex; align-items:center; gap: 10px; }
+.count { font-weight: 600; }
+.list { display:flex; flex-direction:column; gap: 10px; margin-top: 16px; }
+.item { display:flex; justify-content:space-between; gap: 12px; padding: 12px; border: 1px solid #ddd; border-radius: 10px; cursor:pointer; }
+.item.unread { border-color: #999; background: #f7f7f7; }
+.msg .text { font-size: 14px; }
+.meta { font-size: 12px; opacity: .8; display:flex; gap: 10px; margin-top: 4px; }
+.item-actions { display:flex; gap: 8px; align-items:center; }
+.btn { border: 1px solid #333; background: transparent; padding: 6px 10px; border-radius: 8px; cursor:pointer; }
+.btn.small { padding: 4px 8px; font-size: 12px; }
+.btn.danger { border-color: #b00020; color: #b00020; }
+.empty { opacity: .8; margin-top: 16px; }
+/* Tarjeta */
+.item{
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+/* Texto principal (lo más importante) */
+.item .msg .text{
+  color: #111 !important;
+  font-weight: 600;
+}
+
+/* Meta (tipo + fecha) */
+.item .meta,
+.item .meta span{
+  color: #333 !important;
+  opacity: 1;
+}
+
+/* Si querés resaltar las no leídas */
+.item.unread{
+  background: #f2f6ff;         /* suave */
+  border-color: rgba(0,0,0,.25);
+}
+.msg{
+  flex: 1;
+  min-width: 0;
+}
+
+.msg .text{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hover */
+.item:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  transition: 120ms ease;
+}
+
+/* Resaltar NO leídas con un borde lateral */
+.item.unread{
+  border-left: 6px solid #1f6feb;
+  background: #f2f6ff;
+}
+
+/* Cuando está leída, más “apagada” */
+.item:not(.unread) .msg .text{
+  font-weight: 500;
+  color: #222 !important;
+}
+.item:not(.unread) .meta{
+  opacity: .7;
+}

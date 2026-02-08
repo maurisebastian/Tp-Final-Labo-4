@@ -503,12 +503,13 @@ export class ReviewList {
 
   const ownerId = params.review?.idProfile;
   const reviewId = params.review?.id;
+  const movieId = params.review?.idMovie; // id pelicula
 
   // Evitar null/undefined
-  if (senderId == null || ownerId == null || reviewId == null) {
-    console.warn('Notificación cancelada: faltan ids', { senderId, ownerId, reviewId });
-    return;
-  }
+ if (senderId == null || ownerId == null || reviewId == null || movieId == null) {
+  console.warn('Notificación cancelada: faltan ids', { senderId, ownerId, reviewId, movieId });
+  return;
+}
 
   // No notificar a uno mismo (comparación segura)
   if (String(senderId) === String(ownerId)) return;
@@ -518,6 +519,7 @@ export class ReviewList {
     fromUserId: senderId as any,
     type: params.type,
     referenceId: reviewId as any,
+    movieId: movieId as any, // id pelicula
     message: params.message,
     read: false,
     createdAt: new Date().toISOString(),
