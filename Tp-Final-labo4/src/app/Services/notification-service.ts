@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppNotification } from '../Interfaces/AppNotification';
+import { AppNotification } from '../Interfaces/app-notification';
+
+
 
 @Injectable({
   providedIn: 'root'

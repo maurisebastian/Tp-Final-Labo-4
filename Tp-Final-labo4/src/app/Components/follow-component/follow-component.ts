@@ -2,14 +2,14 @@ import { Component, inject, Input, OnInit, OnChanges, SimpleChanges, ViewChild }
 import { Profile } from '../../Interfaces/profilein';
 import { FollowService } from '../../Services/follow-service';
 import { ProfileService } from '../../Services/profile.service';
-import { CommonModule } from '@angular/common';
+
 import {  RouterModule } from '@angular/router';
 import { ConfimDialog } from '../../Shared/confim-dialog/confim-dialog';
 
 @Component({
   selector: 'app-follow-component',
   standalone: true,
-  imports: [CommonModule, RouterModule, ConfimDialog],
+  imports: [RouterModule, ConfimDialog],
   templateUrl: './follow-component.html',
   styleUrl: './follow-component.css',
 })

@@ -1,15 +1,15 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth-service';
 import { NotificationService } from '../../Services/notification-service';
-import { AppNotification } from '../../Interfaces/AppNotification';
+import { AppNotification } from '../../Interfaces/app-notification';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './top-bar.html',
   styleUrls: ['./top-bar.css'],
 })

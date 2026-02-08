@@ -7,7 +7,7 @@ import {
   ValidatorFn,
   AbstractControl,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ProfileService } from '../../Services/profile.service';
 import { Profile } from '../../Interfaces/profilein';
 import { AuthService } from '../../auth/auth-service';
@@ -15,7 +15,7 @@ import { AuthService } from '../../auth/auth-service';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './signup.html',
   styleUrls: ['./signup.css'],
 })

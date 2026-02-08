@@ -1,6 +1,6 @@
 // src/app/Components/genres/genres.ts
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { TmdbService } from '../../Services/tmdb.service';
@@ -14,7 +14,7 @@ import { Profile } from '../../Interfaces/profilein';
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [CommonModule, TopBar, Footer],
+  imports: [TopBar, Footer],
   templateUrl: './genres.html',
   styleUrls: ['./genres.css'],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth-service';
@@ -10,7 +10,7 @@ import { Carrusel } from '../carrusel/carrusel';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TopBar, Footer, Carrusel],
+  imports: [TopBar, Footer, Carrusel],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })

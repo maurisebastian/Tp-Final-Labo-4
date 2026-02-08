@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -20,7 +20,7 @@ import { HiddenMoviesService, HiddenMovie } from '../../Services/hidden-movies.s
 @Component({
   selector: 'app-admin-movies',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './admin-movies.html',
   styleUrl: './admin-movies.css',
 })

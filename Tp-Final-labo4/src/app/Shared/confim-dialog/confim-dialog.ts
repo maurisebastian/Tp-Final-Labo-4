@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-confim-dialog',
   standalone: true ,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './confim-dialog.html',
   styleUrl: './confim-dialog.css',
 })

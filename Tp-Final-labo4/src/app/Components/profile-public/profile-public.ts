@@ -1,6 +1,6 @@
 // src/app/Components/profile-public/profile-public.ts
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { TopBar } from '../top-bar/top-bar';
@@ -17,7 +17,7 @@ import { TmdbService } from '../../Services/tmdb.service';
 @Component({
   selector: 'app-profile-public',
   standalone: true,
-  imports: [TopBar, Footer, UserActivity, FollowComponent, CommonModule, RouterModule],
+  imports: [TopBar, Footer, UserActivity, FollowComponent, RouterModule],
   templateUrl: './profile-public.html',
   styleUrl: './profile-public.css',
 })

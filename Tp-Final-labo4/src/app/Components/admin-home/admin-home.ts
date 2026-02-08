@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-admin-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './admin-home.html',
   styleUrl: './admin-home.css',
 })

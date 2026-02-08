@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TmdbService } from '../../Services/tmdb.service';
@@ -7,7 +7,7 @@ import { TmdbService } from '../../Services/tmdb.service';
 @Component({
   selector: 'app-actor-search',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './actor-search.html',
   styleUrl: './actor-search.css',
 })

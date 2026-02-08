@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { ConfimDialog } from "../../Shared/confim-dialog/confim-dialog";
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ConfimDialog],
+  imports: [ReactiveFormsModule, RouterLink, ConfimDialog],
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.css',
 })

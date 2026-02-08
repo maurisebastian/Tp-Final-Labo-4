@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
@@ -14,7 +14,7 @@ import { Profile } from '../../Interfaces/profilein';
 @Component({
   selector: 'app-admin-user-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './admin-user-edit.html',
   styleUrls: ['./admin-user-edit.css'],
 })

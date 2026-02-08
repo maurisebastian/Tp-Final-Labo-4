@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router, RouterLink } from '@angular/router';
@@ -22,7 +22,7 @@ type ReviewWithMeta = Review & {
 @Component({
   selector: 'app-admin-reviews',
   standalone: true,
-  imports: [CommonModule, RouterLink, ConfimDialog],
+  imports: [RouterLink, ConfimDialog],
   templateUrl: './admin-reviews.html',
   styleUrl: './admin-reviews.css',
 })

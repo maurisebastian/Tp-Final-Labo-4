@@ -5,13 +5,13 @@ import {
   Validators,
   ReactiveFormsModule
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ProfileService } from '../../Services/profile.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

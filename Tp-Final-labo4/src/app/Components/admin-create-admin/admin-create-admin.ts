@@ -1,5 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { ConfimDialog } from '../../Shared/confim-dialog/confim-dialog';
 @Component({
   selector: 'app-admin-create-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ConfimDialog],
+  imports: [ReactiveFormsModule, ConfimDialog],
   templateUrl: './admin-create-admin.html',
   styleUrl: './admin-create-admin.css',
 })

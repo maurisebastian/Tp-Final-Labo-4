@@ -1,5 +1,5 @@
 import { Component, effect, inject, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormControl,
@@ -21,12 +21,14 @@ import { AuthService } from '../../auth/auth-service';
 import { ReviewLikeService } from '../../Services/review-like.service';
 import { ComentService } from '../../Services/coment-service';
 import { ReviewReportService } from '../../Services/review-report.service';
-	
+import { NotificationService } from '../../Services/notification-service';
+import { AppNotification } from '../../Interfaces/app-notification';
+
 
 @Component({
   selector: 'app-review-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './review-list.html',
   styleUrl: './review-list.css',
 })
@@ -38,12 +40,14 @@ export class ReviewList {
   private readonly likeService = inject(ReviewLikeService);
   private readonly comentService = inject(ComentService);
   private readonly reportService = inject(ReviewReportService);
+  private readonly notificationService = inject(NotificationService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
+
   // ID de la película que viene desde MovieReview
   peliculaID = input<number | string>();
-;
+  ;
 
   activeUser = this.authService.getActiveUser();
   userAlreadyReviewed = false;
@@ -80,50 +84,50 @@ export class ReviewList {
 
   // ====== CARGA DE RESEÑAS + USUARIO + COMENTARIOS ======
   loadReviews() {
-  const id = this.peliculaID();
-  if (!id) return;
+    const id = this.peliculaID();
+    if (!id) return;
 
-  this.reviewService.getReviewsByMovieId(id).subscribe((reviews) => {
-    // 🔹 Filtramos por seguridad (por si viniera algo mezclado)
-    reviews = reviews.filter(r => String(r.idMovie) === String(id));
+    this.reviewService.getReviewsByMovieId(id).subscribe((reviews) => {
+      // 🔹 Filtramos por seguridad (por si viniera algo mezclado)
+      reviews = reviews.filter(r => String(r.idMovie) === String(id));
 
-    if (!reviews || reviews.length === 0) {
-      this.reviews = [];
-      this.userAlreadyReviewed = false;
-      this.existingReview = null;
-      return;
-    }
+      if (!reviews || reviews.length === 0) {
+        this.reviews = [];
+        this.userAlreadyReviewed = false;
+        this.existingReview = null;
+        return;
+      }
 
-    const procesos = reviews.map((review: any) => {
-      return forkJoin({
-        // 🔹 Usuario de la reseña (con fallback si fue eliminado)
-        user: this.profileService.getUserById(review.idProfile as any).pipe(
-          catchError(err => {
-            console.warn('No se encontró el perfil de la reseña', review.idProfile, err);
-            return of({
-              id: review.idProfile,
-              username: 'Usuario eliminado',
-              password: '',
-              role: 'user',
-            } as Profile);
-          })
-        ),
+      const procesos = reviews.map((review: any) => {
+        return forkJoin({
+          // 🔹 Usuario de la reseña (con fallback si fue eliminado)
+          user: this.profileService.getUserById(review.idProfile as any).pipe(
+            catchError(err => {
+              console.warn('No se encontró el perfil de la reseña', review.idProfile, err);
+              return of({
+                id: review.idProfile,
+                username: 'Usuario eliminado',
+                password: '',
+                role: 'user',
+              } as Profile);
+            })
+          ),
 
-        // 🔹 Likes totales
-        likes: this.likeService.getLikesByReview(review.id as any),
+          // 🔹 Likes totales
+          likes: this.likeService.getLikesByReview(review.id as any),
 
-        // 🔹 Si el usuario activo dio like
-        likedByUser: this.userId != null
-          ? this.likeService.getLike(this.userId as any, review.id as any)
-          : of([]),
+          // 🔹 Si el usuario activo dio like
+          likedByUser: this.userId != null
+            ? this.likeService.getLike(this.userId as any, review.id as any)
+            : of([]),
 
-        // 🔹 Comentarios crudos
-        commentsRaw: this.comentService.getComments(review.id as any),
-      }).pipe(
-        switchMap(({ user, likes, likedByUser, commentsRaw }) => {
-          // 🔹 Resolver usuarios de cada comentario
-          const comments$ = (commentsRaw && commentsRaw.length > 0)
-            ? forkJoin(
+          // 🔹 Comentarios crudos
+          commentsRaw: this.comentService.getComments(review.id as any),
+        }).pipe(
+          switchMap(({ user, likes, likedByUser, commentsRaw }) => {
+            // 🔹 Resolver usuarios de cada comentario
+            const comments$ = (commentsRaw && commentsRaw.length > 0)
+              ? forkJoin(
                 commentsRaw.map((c: any) =>
                   this.profileService.getUserById(c.idProfile as any).pipe(
                     // 👉 Usamos la corrección de tu compañero:
@@ -145,36 +149,36 @@ export class ReviewList {
                   )
                 )
               )
-            : of([]);
+              : of([]);
 
-          return comments$.pipe(
-            map((comments) => ({
-              ...review,
-              userName: user.username ?? 'Usuario eliminado',
-              likesCount: likes.length,
-              likedByUser: likedByUser.length > 0,
-              comments,
-            }))
-          );
-        })
-      );
-    });
-
-    forkJoin(procesos).subscribe((reviewsCompletas) => {
-      this.reviews = reviewsCompletas;
-
-      // 🔹 ¿El usuario ya reseñó esta película?
-      if (this.userId != null) {
-        const match = this.reviews.find(r =>
-          String(r.idProfile) === String(this.userId)
+            return comments$.pipe(
+              map((comments) => ({
+                ...review,
+                userName: user.username ?? 'Usuario eliminado',
+                likesCount: likes.length,
+                likedByUser: likedByUser.length > 0,
+                comments,
+              }))
+            );
+          })
         );
+      });
 
-        this.userAlreadyReviewed = !!match;
-        this.existingReview = match ?? null;
-      }
+      forkJoin(procesos).subscribe((reviewsCompletas) => {
+        this.reviews = reviewsCompletas;
+
+        // 🔹 ¿El usuario ya reseñó esta película?
+        if (this.userId != null) {
+          const match = this.reviews.find(r =>
+            String(r.idProfile) === String(this.userId)
+          );
+
+          this.userAlreadyReviewed = !!match;
+          this.existingReview = match ?? null;
+        }
+      });
     });
-  });
-}
+  }
 
 
 
@@ -189,6 +193,15 @@ export class ReviewList {
       if (res.liked) {
         review.likesCount++;
         review.likedByUser = true;
+
+        //  Notificar el like 
+        this.notifyReviewOwner({
+          review,
+          type: 'like',
+          message: `${this.userProfile?.username ?? 'Un usuario'} le dio like a tu reseña.`,
+        });
+
+
       } else {
         review.likesCount--;
         review.likedByUser = false;
@@ -216,6 +229,15 @@ export class ReviewList {
       saved.userName = this.userProfile?.username || 'Tú';
       review.comments.push(saved);
       control.reset();
+
+      //  Notificar el comentario
+      this.notifyReviewOwner({
+        review,
+        type: 'comment',
+        message: `${this.userProfile?.username ?? 'Un usuario'} comentó tu reseña.`,
+      });
+
+
     });
   }
 
@@ -250,52 +272,52 @@ export class ReviewList {
 
   // ====== AGREGAR RESEÑA ======
   addReview(event?: Event) {
-  if (event) event.preventDefault();
-  
+    if (event) event.preventDefault();
+
     if (this.isAdmin) {
-    alert("Los administradores no pueden dejar reseñas.");
-    return;
+      alert("Los administradores no pueden dejar reseñas.");
+      return;
+    }
+
+    if (this.userAlreadyReviewed) {
+      alert("Solo puedes dejar una reseña por película.");
+      return;
+    }
+
+    if (this.reviewForm.invalid) {
+      this.reviewForm.markAllAsTouched();
+      return;
+    }
+
+    if (!this.userLoggedIn || this.userId == null) {
+      alert('Debes estar logueado para dejar una reseña.');
+      return;
+    }
+
+    const movieId = this.peliculaID();
+    if (movieId === undefined) {
+      console.error('No se encontró el ID de la película');
+      return;
+    }
+
+    const newReviewData: Review = {
+      idProfile: this.userId!,
+      idMovie: movieId as any,   // 👈 opcional: casteo para que no rompa
+      score: Number(this.reviewForm.value.score),
+      description: this.reviewForm.value.description ?? '',
+    };
+
+
+    this.reviewService.addReview(newReviewData).subscribe({
+      next: () => {
+        //  Esto hace que el formulario desaparezca sin recargar
+        this.loadReviews();
+        this.reviewForm.reset();
+        this.starRating = 0;
+      },
+      error: (err) => console.error('Error al agregar la reseña:', err),
+    });
   }
-  
-  if (this.userAlreadyReviewed) {
-    alert("Solo puedes dejar una reseña por película.");
-    return;
-  }
-
-  if (this.reviewForm.invalid) {
-    this.reviewForm.markAllAsTouched();
-    return;
-  }
-
-  if (!this.userLoggedIn || this.userId == null) {
-    alert('Debes estar logueado para dejar una reseña.');
-    return;
-  }
-
-  const movieId = this.peliculaID();
-if (movieId === undefined) {
-  console.error('No se encontró el ID de la película');
-  return;
-}
-
-const newReviewData: Review = {
-  idProfile: this.userId!,
-  idMovie: movieId as any,   // 👈 opcional: casteo para que no rompa
-  score: Number(this.reviewForm.value.score),
-  description: this.reviewForm.value.description ?? '',
-};
-
-
-  this.reviewService.addReview(newReviewData).subscribe({
-    next: () => {
-      //  Esto hace que el formulario desaparezca sin recargar
-      this.loadReviews();
-      this.reviewForm.reset();
-      this.starRating = 0;
-    },
-    error: (err) => console.error('Error al agregar la reseña:', err),
-  });
-}
   // ====== ELIMINAR RESEÑA ======
   deleteReview(reviewId: string | number) {
     this.reviewService.deleteReviewById(reviewId as any).subscribe({
@@ -305,61 +327,61 @@ const newReviewData: Review = {
       error: (err) => console.error('Error al eliminar la reseña:', err),
     });
   }
-  
-  isEditing = false;
-editReviewId: number | string | null = null;
-editingReview: any = null;
-startEdit(review: any) {
-  this.isEditing = true;
 
-  this.editReviewId = review.id;
-  this.editingReview = review;
-  this.starRating = review.score;
-  this.reviewForm.setValue({
-    score: review.score,
-    description: review.description
-  });
+  isEditing = false;
+  editReviewId: number | string | null = null;
+  editingReview: any = null;
+  startEdit(review: any) {
+    this.isEditing = true;
+
+    this.editReviewId = review.id;
+    this.editingReview = review;
+    this.starRating = review.score;
+    this.reviewForm.setValue({
+      score: review.score,
+      description: review.description
+    });
 
     // Esperar a que el DOM actualice y luego scrollear
-  setTimeout(() => {
-    const form = document.getElementById('editForm');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, 50);
-}
-
-cancelEdit() {
-  this.isEditing = false;
-  this.editReviewId = null;
-  this.editingReview = null;
-  this.reviewForm.reset();
-  this.starRating = 0;
-}
-saveEdit() {
-  if (this.reviewForm.invalid) {
-    this.reviewForm.markAllAsTouched();
-    return;
+    setTimeout(() => {
+      const form = document.getElementById('editForm');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   }
-  const updatedReview: Review = {
-    id: this.editReviewId!,
-    idProfile: this.userId!,
-    idMovie: this.peliculaID()!,
-    score: this.reviewForm.value.score!,
-    description: this.reviewForm.value.description!
-  };
-  this.reviewService.updateReview(updatedReview).subscribe({
-    next: () => {
-      this.isEditing = false;
-      this.editReviewId = null;
-      this.editingReview = null;
-      this.loadReviews();
-      this.reviewForm.reset();
-      this.starRating = 0;
-    },
-    error: (err) => console.error('Error al editar reseña:', err),
-  });
-}
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.editReviewId = null;
+    this.editingReview = null;
+    this.reviewForm.reset();
+    this.starRating = 0;
+  }
+  saveEdit() {
+    if (this.reviewForm.invalid) {
+      this.reviewForm.markAllAsTouched();
+      return;
+    }
+    const updatedReview: Review = {
+      id: this.editReviewId!,
+      idProfile: this.userId!,
+      idMovie: this.peliculaID()!,
+      score: this.reviewForm.value.score!,
+      description: this.reviewForm.value.description!
+    };
+    this.reviewService.updateReview(updatedReview).subscribe({
+      next: () => {
+        this.isEditing = false;
+        this.editReviewId = null;
+        this.editingReview = null;
+        this.loadReviews();
+        this.reviewForm.reset();
+        this.starRating = 0;
+      },
+      error: (err) => console.error('Error al editar reseña:', err),
+    });
+  }
 
   // ====== REPORTAR RESEÑA ======
   reportReview(review: any) {
@@ -372,19 +394,19 @@ saveEdit() {
     if (!reason || !reason.trim()) return;
 
     this.reportService.addReport({
-  type: 'review',
-  idReview: review.id,
-  idComment: undefined,
-  idMovie: this.peliculaID(),  // ahora acepta string o number
-  reporterId: this.userId!,    // mejor asegurar con !
-  reason: reason.trim(),
-}).subscribe({
-  next: () => alert('Tu reporte fue enviado al administrador.'),
-  error: (err) => {
-    console.error('Error al reportar reseña', err);
-    alert('Ocurrió un error al enviar el reporte.');
-  },
-});
+      type: 'review',
+      idReview: review.id,
+      idComment: undefined,
+      idMovie: this.peliculaID(),  // ahora acepta string o number
+      reporterId: this.userId!,    // mejor asegurar con !
+      reason: reason.trim(),
+    }).subscribe({
+      next: () => alert('Tu reporte fue enviado al administrador.'),
+      error: (err) => {
+        console.error('Error al reportar reseña', err);
+        alert('Ocurrió un error al enviar el reporte.');
+      },
+    });
 
   }
 
@@ -415,7 +437,7 @@ saveEdit() {
   }
 
   // ====== NAVEGAR AL PERFIL DEL USUARIO ======
-    // ====== NAVEGAR AL PERFIL DEL USUARIO ======
+  // ====== NAVEGAR AL PERFIL DEL USUARIO ======
   goToUserProfile(idProfile: string | number) {
     console.log('🔵 goToUserProfile -> idProfile recibido:', idProfile, 'tipo:', typeof idProfile);
 
@@ -471,5 +493,40 @@ saveEdit() {
     });
   }
 
+  private notifyReviewOwner(params: {
+  review: any;
+  type: 'like' | 'comment';
+  message: string;
+}) {
+  const fromUser = this.activeUser();
+  const senderId = fromUser?.id ?? this.userId;
+
+  const ownerId = params.review?.idProfile;
+  const reviewId = params.review?.id;
+
+  // Evitar null/undefined
+  if (senderId == null || ownerId == null || reviewId == null) {
+    console.warn('Notificación cancelada: faltan ids', { senderId, ownerId, reviewId });
+    return;
+  }
+
+  // No notificar a uno mismo (comparación segura)
+  if (String(senderId) === String(ownerId)) return;
+
+  const notif: AppNotification = {
+    userId: ownerId as any,
+    fromUserId: senderId as any,
+    type: params.type,
+    referenceId: reviewId as any,
+    message: params.message,
+    read: false,
+    createdAt: new Date().toISOString(),
+  };
+
+  this.notificationService.create(notif).subscribe({
+    next: (saved) => console.log(' Notificación creada', saved),
+    error: (err) => console.warn(' Error creando notificación', err),
+  });
+}
 
 }

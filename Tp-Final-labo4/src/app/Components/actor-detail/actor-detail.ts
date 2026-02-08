@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { TmdbService } from '../../Services/tmdb.service';
 
 @Component({
   selector: 'app-actor-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './actor-detail.html',
   styleUrl: './actor-detail.css',
 })

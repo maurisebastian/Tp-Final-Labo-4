@@ -2,12 +2,12 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { MovieActivity } from '../../Services/movie-activity';
 import { AuthService } from '../../auth/auth-service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-user-activity',
   standalone: true,
-  imports: [ CommonModule],
+  imports: [],
   templateUrl: './user-activity.html',
   styleUrl: './user-activity.css',
 })
