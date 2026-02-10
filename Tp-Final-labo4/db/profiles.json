@@ -10,6 +10,27 @@
       "read": true,
       "createdAt": "2026-02-08T22:52:00.809Z",
       "id": 1
+    },
+    {
+      "userId": "jbUZV20",
+      "fromUserId": "EYnfiYV",
+      "type": "comment",
+      "referenceId": "r10",
+      "movieId": 424,
+      "message": "agusss comentó tu reseña.",
+      "read": true,
+      "createdAt": "2026-02-08T23:16:07.480Z",
+      "id": 2
+    },
+    {
+      "userId": "jbUZV20",
+      "fromUserId": "EYnfiYV",
+      "type": "follow",
+      "referenceId": "EYnfiYV",
+      "message": "agusss comenzó a seguirte.",
+      "read": true,
+      "createdAt": "2026-02-10T00:39:00.671Z",
+      "id": 3
     }
   ],
   "follows": [
@@ -86,6 +107,12 @@
       "followingId": "oe5BF45",
       "createdAt": "2025-11-25T04:19:09.169Z",
       "id": "SKWxlaw"
+    },
+    {
+      "followerId": "EYnfiYV",
+      "followingId": "jbUZV20",
+      "createdAt": "2026-02-10T00:39:00.620Z",
+      "id": "OYPbNen"
     }
   ],
   "reviewComments": [
@@ -106,6 +133,12 @@
       "idProfile": "pwDug19",
       "comment": "por que incomoda ?",
       "id": "A4yTWVD"
+    },
+    {
+      "idReview": "r10",
+      "idProfile": "EYnfiYV",
+      "comment": "no creo que asi sea",
+      "id": "F6NoCdY"
     }
   ],
   "reviewLikes": [

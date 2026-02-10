@@ -13,6 +13,8 @@ import { FollowService } from '../../Services/follow-service';
 import { AuthService } from '../../auth/auth-service';
 import { FollowComponent } from '../follow-component/follow-component';
 import { TmdbService } from '../../Services/tmdb.service'; 
+import { NotificationService } from '../../Services/notification-service';
+import { AppNotification } from '../../Interfaces/app-notification';
 
 @Component({
   selector: 'app-profile-public',
@@ -27,7 +29,8 @@ export class ProfilePublic implements OnInit {
   private profileService = inject(ProfileService);
   private followService = inject(FollowService);
   public auth = inject(AuthService);
-  private tmdbService = inject(TmdbService); // 🟢 INYECTADO
+  private tmdbService = inject(TmdbService);
+  private notificationService = inject(NotificationService);
 
   activeUserId: string | number | null = null;
 
@@ -80,18 +83,40 @@ export class ProfilePublic implements OnInit {
   }
 
   async toggleFollow() {
-    if (!this.activeUserId || !this.profile) return;
+     if (!this.activeUserId || !this.profile) return;
 
-    const follower = this.activeUserId;
-    const following = this.profile.id!;
+  const follower = this.activeUserId;      // el que sigue (A)
+  const following = this.profile.id!;      // el seguido (B)
 
-    if (this.isFollowing) {
-      await this.followService.unfollow(follower, following);
-      this.isFollowing = false;
-    } else {
-      await this.followService.follow(follower, following);
-      this.isFollowing = true;
-    }
+  if (this.isFollowing) {
+    await this.followService.unfollow(follower, following);
+    this.isFollowing = false;
+    return;
+  }
+
+  // Seguir
+  await this.followService.follow(follower, following);
+  this.isFollowing = true;
+
+  //  Notificación follow (solo si no soy yo mismo)
+  if (String(follower) === String(following)) return;
+
+  const fromUser = this.auth.getActiveUser()();
+  const senderName = fromUser?.username ?? 'Un usuario';
+
+  const notif: AppNotification = {
+    userId: following,
+    fromUserId: follower,
+    type: 'follow',
+    referenceId: follower, // o following, como prefieras
+    message: `${senderName} comenzó a seguirte.`,
+    read: false,
+    createdAt: new Date().toISOString(),
+  };
+
+  this.notificationService.create(notif).subscribe({
+    error: (err) => console.warn('Error creando notificación follow', err),
+  });
   }
 
   getGenreName(id: number | string): string {
