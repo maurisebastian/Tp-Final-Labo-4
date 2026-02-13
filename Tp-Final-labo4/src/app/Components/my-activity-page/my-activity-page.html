@@ -1,0 +1,109 @@
+<app-top-bar></app-top-bar>
+
+@if (userLoggedIn) {
+
+<div class="profile-page">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="left-column">
+
+        <!-- Películas vistas y por ver -->
+        <app-user-activity [userId]="userProfile?.id"></app-user-activity>
+
+        <!-- RESEÑAS -->
+        <h3 class="section-title">Reseñas</h3>
+
+        @if (reviews.length === 0) {
+        <p class="empty-reviews">No tienes reseñas disponibles.</p>
+        }
+
+        @for (review of reviews; track $index) {
+        <div class="review-card">
+
+            <div class="review-header">
+                <strong>Película: </strong>
+                <button type="button" class="link-movie" (click)="goToMovie(review.idMovie)">
+                    {{ review.movieName }}
+                </button>
+
+                <span class="review-score">
+                    Calificación: {{ review.score }} / 10
+                </span>
+
+                <button class="delete-btn" (click)="deleteReview(review.id)">
+                    Eliminar
+                </button>
+            </div>
+
+            <p class="review-text">
+                {{ review.description }}
+            </p>
+        </div>
+        }
+
+        <!-- MIS REPORTES (solo los ve el usuario) -->
+        <h2 class="section-title">Mis reportes</h2>
+
+        @if (myReports.length === 0) {
+        <p class="empty-reviews">No has hecho reportes todavía.</p>
+        }
+
+        <ul class="report-list">
+            @for (r of myReports; track r.id) {
+
+            <li class="report-item">
+
+                <p><strong>Película:</strong>
+                    @if (r.idMovie) {
+                    <button type="button" class="btn-link-peli" (click)="goToMovie(r.idMovie)">
+                        {{ r.movieTitle || 'Cargando...' }}
+                    </button>
+                    } @else {
+                    <span>No asociada a una película</span>
+                    }
+                </p>
+
+                <p><strong>Motivo:</strong> {{ r.reason }}</p>
+                <p><strong>Fecha:</strong> {{ r.createdAt | date:'short' }}</p>
+                <p><strong>Estado:</strong> {{ r.status }}</p>
+
+            </li>
+
+            }
+        </ul>
+
+    </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="right-column">
+
+        <div class="profile-card">
+
+
+            <div class="visibility-box">
+                <p><strong>Visibilidad del perfil:</strong></p>
+
+                <button class="visibility-btn" (click)="toggleVisibility()">
+                    {{ userProfile?.isPublic ? 'Hacer perfil privado' : 'Hacer perfil público' }}
+                </button>
+            </div>
+            <app-follow-component [userId]="userProfile?.id" [showdeletebutton]="true"></app-follow-component>
+
+          
+
+
+        </div>
+
+    </div>
+
+</div>
+
+} @else {
+
+<p class="login-message">
+    Por favor, inicie sesión para ver los detalles de su perfil.
+</p>
+
+}
+
+<app-footer></app-footer>
