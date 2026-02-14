@@ -1,7 +1,5 @@
-<form
-  [formGroup]="form"
-  (submit)="onSignup($event)"
-  class="signup-form fancy-form"
+<form  [formGroup]="form" (submit)="onSignup($event)"
+ class="signup-form fancy-form"
 >
 
   <!-- Mensajes globales -->
@@ -168,6 +166,6 @@
 
   <!-- Botón -->
   <button type="submit" [disabled]="form.invalid">
-    {{ isEditMode ? 'Guardar cambios' : 'Crear usuario' }}
+    {{ isEditMode() ? 'Guardar cambios' : 'Crear usuario' }}
   </button>
 </form>

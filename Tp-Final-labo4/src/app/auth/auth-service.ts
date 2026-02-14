@@ -60,4 +60,18 @@ export class AuthService {
       } catch {}
     }
   }
+  
+  setActiveUser(user: Profile | undefined) {
+    this.activeUser.set(user);
+
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        if (user) {
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
+        } else {
+          localStorage.removeItem(this.STORAGE_KEY);
+        }
+      } catch {}
+    }
+  }
 }

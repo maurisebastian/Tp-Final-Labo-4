@@ -31,6 +31,16 @@
       "read": true,
       "createdAt": "2026-02-10T00:39:00.671Z",
       "id": 3
+    },
+    {
+      "userId": "pwDug19",
+      "fromUserId": "EYnfiYV",
+      "type": "follow",
+      "referenceId": "EYnfiYV",
+      "message": "agusss comenzó a seguirte.",
+      "read": false,
+      "createdAt": "2026-02-14T00:04:03.870Z",
+      "id": 4
     }
   ],
   "follows": [
@@ -113,6 +123,12 @@
       "followingId": "jbUZV20",
       "createdAt": "2026-02-10T00:39:00.620Z",
       "id": "OYPbNen"
+    },
+    {
+      "followerId": "EYnfiYV",
+      "followingId": "pwDug19",
+      "createdAt": "2026-02-14T00:04:03.845Z",
+      "id": "Qy-mYrS"
     }
   ],
   "reviewComments": [
@@ -207,6 +223,14 @@
       "status": "watched",
       "watchedDate": "2025-11-25T04:20:09.943Z",
       "id": "cziKkEe"
+    },
+    {
+      "idProfile": "pwDug19",
+      "idMovie": 893508,
+      "movieName": "The Bezonians",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "9mIBBSb"
     }
   ],
   "comments": [
@@ -959,14 +983,14 @@
         103,
         109
       ],
-      "isPublic": false
+      "isPublic": true
     },
     {
       "username": "bruni",
       "password": "fakepass",
       "date": "1997-08-24",
       "cel": "223283454",
-      "email": "bru_salva@gmail.com",
+      "email": "Brudalva@gmail.com",
       "firstName": "Bruno",
       "lastName": "Salvatierra",
       "role": "user",
@@ -1009,7 +1033,8 @@
         12462,
         12463,
         12674
-      ]
+      ],
+      "isPublic": true
     },
     {
       "username": "mell",

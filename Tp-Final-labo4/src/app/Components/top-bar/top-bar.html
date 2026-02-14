@@ -38,7 +38,7 @@
     </a>
     }
 
-    <a [routerLink]="['/notifications']" class="notif-link">
+    <a [routerLink]="['/notifications']" class="nav-pill notif-link">
       <span class="notif-icon">🔔</span>
       <span class="notif-text">Notificaciones</span>
 
@@ -47,12 +47,13 @@
       }
     </a>
 
-    <a  [routerLink]="['/activity']" >
-        <span>Actividad</span>
+    <a [routerLink]="['/activity']" class="nav-pill">
+      <span class="nav-icon">📌</span>
+      <span class="nav-text">Actividad</span>
     </a>
     <!-- PERFIL PROPIO -->
-    <a [routerLink]="['/profile-detail']" class="profile-link">
-      <span class="profile-text">
+    <a [routerLink]="['/profile-detail']" class=" profile-link">
+      <span class="nav-pill profile-text">
         Perfil ({{ activeUserSignal()?.username }})
       </span>
       <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar" />

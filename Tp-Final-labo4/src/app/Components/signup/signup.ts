@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
@@ -25,13 +25,19 @@ export class Signup {
   // ======================
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private profileService = inject(ProfileService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   // ======================
   //  ESTADO DEL COMPONENTE
   // ======================
   signupError = '';
   signupSuccess = '';
-  isEditMode = false;
+  readonly isEditMode = input(false);
+  readonly profile = input<Profile | undefined>(undefined);
+  readonly profileedit = output<Profile>();
+
   private currentUser: Profile | undefined;
 
   readonly minBirthDate = '1900-01-01';
@@ -84,34 +90,25 @@ export class Signup {
   // ======================
   //  CONSTRUCTOR
   // ======================
-  constructor(
-    private profileService: ProfileService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    const mode = this.route.snapshot.data?.['mode'];
+  constructor() {
+    effect(() => {
+      if (!this.isEditMode()) return;
 
-    if (mode === 'edit') {
-      this.isEditMode = true;
+      const p = this.profile();
+      if (!p) return;
 
-      const active = this.authService.getActiveUser()();
-      if (!active) {
-        this.router.navigate(['/login']);
-        return;
-      }
-
-      this.currentUser = active;
+      this.currentUser = p;
 
       this.form.patchValue({
-        username: active.username,
-        password: active.password,
-        date: active.date ?? '',
-        cel: active.cel ?? '',
-        email: active.email ?? '',
-        firstName: active.firstName ?? '',
-        lastName: active.lastName ?? '',
+        username: p.username,
+        password: p.password,
+        date: p.date ?? '',
+        cel: p.cel ?? '',
+        email: p.email ?? '',
+        firstName: p.firstName ?? '',
+        lastName: p.lastName ?? '',
       });
-    }
+    });
   }
 
   // ======================
@@ -185,21 +182,25 @@ export class Signup {
     }
 
     // ----- MODO EDITAR PERFIL -----
-    if (this.isEditMode) {
+    if (this.isEditMode()) {
       if (!this.currentUser) return;
 
       const updatedUser: Profile = {
         ...this.currentUser,
         ...formValue,
         role: this.currentUser.role,
-        // favoriteGenres se conserva tal como esté en currentUser
+        favoriteGenres: this.currentUser.favoriteGenres ?? [],
+        favoriteActors: this.currentUser.favoriteActors ?? [],
+        isPublic: this.currentUser.isPublic ?? true
+        // ( avatar/bio también)
       };
 
       this.profileService.updateProfile(updatedUser).subscribe({
         next: (ok) => {
           if (ok) {
+            this.profileedit.emit(updatedUser);
             this.signupSuccess = 'Perfil actualizado correctamente.';
-            this.router.navigate(['/']);
+            this.router.navigate(['/profile-detail']);
           } else {
             this.signupError = 'No se pudo actualizar el perfil.';
           }
@@ -214,7 +215,7 @@ export class Signup {
       const newUser: Profile = {
         ...formValue,
         role: 'user',
-         favoriteGenres: []
+        favoriteGenres: []
         // favoriteGenres se van a elegir luego en otra pantalla
       };
 
