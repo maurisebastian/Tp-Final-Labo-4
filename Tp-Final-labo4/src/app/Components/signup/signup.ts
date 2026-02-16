@@ -215,8 +215,14 @@ export class Signup {
       const newUser: Profile = {
         ...formValue,
         role: 'user',
-        favoriteGenres: []
-        // favoriteGenres se van a elegir luego en otra pantalla
+        favoriteGenres: [], // favoriteGenres se van a elegir luego en otra pantalla
+        favoriteActors: [],
+        isPublic: true,
+
+       //  defaults
+       avatarUrl: 'assets/perfil.png',
+       bio: 'Hola! Soy nuevo en MovieHub 🎬',
+       
       };
 
       this.profileService

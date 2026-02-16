@@ -570,7 +570,9 @@
         2201,
         1812
       ],
-      "isPublic": true
+      "isPublic": true,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "id": "b54d",
@@ -602,7 +604,9 @@
         1217614,
         109488
       ],
-      "isPublic": true
+      "isPublic": true,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "id": "281a",
@@ -624,7 +628,9 @@
         6193,
         287
       ],
-      "isPublic": false
+      "isPublic": false,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "pepe",
@@ -663,7 +669,10 @@
         12052,
         12055,
         30487
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": "",
+      "isPublic": true
     },
     {
       "username": "matias",
@@ -698,7 +707,9 @@
         144275,
         1167727,
         966683
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "Martín",
@@ -731,7 +742,9 @@
         100766,
         20707,
         46624
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "mauri",
@@ -777,7 +790,9 @@
         2535,
         147,
         589
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "nico",
@@ -828,7 +843,9 @@
         3799,
         6
       ],
-      "isPublic": false
+      "isPublic": false,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "juli",
@@ -869,7 +886,9 @@
         39008,
         175980,
         176011
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "tomy",
@@ -923,7 +942,9 @@
         55663,
         55665,
         613
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "agusss",
@@ -983,7 +1004,9 @@
         103,
         109
       ],
-      "isPublic": true
+      "isPublic": true,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "bruni",
@@ -1034,7 +1057,9 @@
         12463,
         12674
       ],
-      "isPublic": true
+      "isPublic": true,
+      "avatarUrl": "assets/perfil.png",
+      "bio": ""
     },
     {
       "username": "mell",
@@ -1081,7 +1106,9 @@
         3854,
         73595,
         73596
-      ]
+      ],
+      "avatarUrl": "assets/perfil.png",
+      "bio": "Fan del cine clásico y thrillers. Aguantennn las pelis de misterio."
     }
   ],
   "reviewReports": [

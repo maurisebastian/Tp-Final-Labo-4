@@ -13,12 +13,15 @@ export interface Profile {
   favoriteGenres?: number[];
   favoriteActors?: number[];
   isPublic?: boolean;
+
+  avatarUrl?: string;   
+  bio?: string;  
 }
 
 export interface Review {
   id?: string | number;
   idProfile: string | number;
-  idMovie: number | string;          //  CAMBIO IMPORTANTE
+  idMovie: number | string;      
   score: number;
   description: string;
   userName?: string;
@@ -26,6 +29,7 @@ export interface Review {
   likesCount?: number;
   likedByUser?: boolean;
   comments?: ReviewComment[];
+  
 }
 
 export interface ReviewComment {

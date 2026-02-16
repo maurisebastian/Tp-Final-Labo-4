@@ -1,7 +1,7 @@
 // src/app/Components/profile-detail/profile-detail.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Profile, ReviewReport } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service'
@@ -35,6 +35,7 @@ export class ProfileDetail implements OnInit {
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
+  private readonly fb = inject(FormBuilder);
 
   favoriteGenreNames: string[] = [];
 
@@ -45,6 +46,7 @@ export class ProfileDetail implements OnInit {
 
   // estado edición
   isEditMode = false;
+  isEditBio = false;
   profileError = '';
   profileSuccess = '';
 
@@ -76,6 +78,10 @@ export class ProfileDetail implements OnInit {
       } else {
         this.favoriteGenreNames = [];
       }
+      this.avatarBioForm.patchValue({
+        avatarUrl: user.avatarUrl ?? 'assets/perfil.png',
+        bio: user.bio ?? '',
+      });
 
     } else {
       this.userLoggedIn = false;
@@ -117,12 +123,55 @@ export class ProfileDetail implements OnInit {
     this.isEditMode = false;
   }
   onProfileUpdated(p: Profile) {
-  this.userProfile = p;
-  this.isEditMode = false;
+    this.userProfile = p;
+    this.isEditMode = false;
 
-  //  AuthService  setActiveUser / setUser:
-  this.authService.setActiveUser(p); 
+    //  AuthService  setActiveUser / setUser:
+    this.authService.setActiveUser(p);
+  }
+
+
+  avatarBioForm = this.fb.nonNullable.group({
+    avatarUrl: ['assets/perfil.png', [Validators.required, Validators.pattern(/^(assets\/.+|https?:\/\/.+)$/)]],
+    bio: ['', [Validators.maxLength(160)]],
+  });
+  
+  enableEditAvatar(){
+  this.isEditBio = true;
+  }
+
+ cancelEditAvatar() {
+  this.isEditBio = false;
+
+  this.avatarBioForm.patchValue({
+    avatarUrl: this.userProfile?.avatarUrl ?? 'assets/perfil.png',
+    bio: this.userProfile?.bio ?? '',
+  });
 }
+  
 
+saveAvatarBio() {
+  if (!this.userProfile?.id) return;
+
+  if (this.avatarBioForm.invalid) {
+    this.avatarBioForm.markAllAsTouched();
+    return;
+  }
+
+  const { avatarUrl, bio } = this.avatarBioForm.getRawValue();
+
+  const updated: Profile = {
+    ...this.userProfile,
+    avatarUrl,
+    bio,
+  };
+
+  this.profileService.updateProfile(updated, true).subscribe((ok) => {
+    if (ok) {
+      this.userProfile = updated;
+      this.isEditBio = false; // ✅ cerrar editor al guardar
+    }
+  });
+}
 
 }

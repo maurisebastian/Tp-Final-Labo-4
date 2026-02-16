@@ -30,8 +30,6 @@
         {{ userProfile?.firstName }} {{ userProfile?.lastName }}
       </p>
       }
-
-      <!-- 🟢 NUEVO: géneros favoritos -->
       <p>
         <strong>Géneros favoritos:</strong>
         @if (favoriteGenreNames.length > 0) {
@@ -40,6 +38,58 @@
         Sin géneros seleccionados
         }
       </p>
+      <!--  Avatar + Bio -->
+      @if(!isEditBio){
+
+      <div class="avatar-bio">
+        <img class="avatar-img" [src]="userProfile?.avatarUrl || 'assets/perfil.png'" alt="Avatar" />
+
+        <div class="bio-box">
+          <p class="bio-title"><strong>Bio:</strong></p>
+          <p class="bio-text">
+            {{ userProfile?.bio?.trim() ? userProfile?.bio : 'Sin descripción todavía.' }}
+          </p>
+        </div>
+       
+      </div>
+      <button class="btn-outline" (click)="enableEditAvatar()">
+        Editar avatar y bio
+      </button>
+
+      }@else {
+
+        
+      <div class="avatar-bio-edit" [formGroup]="avatarBioForm">
+        <button class="btn-text" type="button" (click)="cancelEditAvatar()">
+        Cancelar
+      </button>
+        <h3 class="section-title">Avatar y bio</h3>
+
+        <div class="row">
+          <img class="avatar-preview" [src]="avatarBioForm.value.avatarUrl || 'assets/perfil.png'" alt="Avatar" />
+
+          <div class="fields">
+            <label>Avatar (URL o assets/...)</label>
+            <input type="text" formControlName="avatarUrl" />
+
+            <label>Bio</label>
+            <textarea rows="3" formControlName="bio"></textarea>
+
+            <small>
+              {{ (avatarBioForm.value.bio?.length || 0) }}/160
+            </small>
+
+            <button type="button" class="btn-outline" (click)="saveAvatarBio()">
+              Guardar avatar y bio
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+      }
+
     </div>
     } @else {
 
@@ -65,7 +115,7 @@
     </div>
     }
 
-    <app-signup [isEditMode]="true" [profile]="userProfile"  (profileedit)="onProfileUpdated($event)"></app-signup>
+    <app-signup [isEditMode]="true" [profile]="userProfile" (profileedit)="onProfileUpdated($event)"></app-signup>
 
     }
 
@@ -87,6 +137,7 @@
       <app-follow-component [userId]="userProfile?.id" [showdeletebutton]="true"></app-follow-component>
 
     </div>
+
 
   </div>
 
