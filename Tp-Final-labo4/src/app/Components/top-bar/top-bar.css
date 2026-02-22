@@ -209,6 +209,20 @@
 .nav-icon{
   font-size: 14px;
 }
+/* BOTÓN ACTIVO */
+.active-pill{
+  background: linear-gradient(135deg,#4f46e5,#6366f1);
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 4px 14px rgba(79,70,229,0.55);
+  transform: translateY(-1px);
+}
+
+/* icono dentro activo */
+.active-pill .nav-icon,
+.active-pill .nav-text,
+.active-pill .profile-text{
+  color: #ffffff;
+}
 
 
 .friend-search-placeholder {

@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/auth-service';
 import { NotificationService } from '../../Services/notification-service';
 import { AppNotification } from '../../Interfaces/app-notification';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../../Services/chat-service';
 
 @Component({
   selector: 'app-top-bar',
@@ -20,6 +21,7 @@ export class TopBar {
   router = inject(Router);
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
+  private chatService = inject(ChatService);
 
 
   // usuario logueado (signal)
@@ -38,6 +40,9 @@ export class TopBar {
     this.notifications().filter((n) => !n.read).length
   );
 
+   unreadChat = signal(0);
+
+
   constructor() {
     //  cada vez que cambie el usuario logueado, recargo notificaciones
     effect(() => {
@@ -51,6 +56,10 @@ export class TopBar {
         next: (list) => this.notifications.set(list ?? []),
         error: () => this.notifications.set([]),
       });
+
+      this.chatService.getUnreadCount(user.id!)
+        .subscribe(count => this.unreadChat.set(count));
+
     });
   }
 

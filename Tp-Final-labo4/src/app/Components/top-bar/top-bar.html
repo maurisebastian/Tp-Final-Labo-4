@@ -38,7 +38,7 @@
     </a>
     }
 
-    <a [routerLink]="['/notifications']" class="nav-pill notif-link">
+    <a [routerLink]="['/notifications']" class="nav-pill notif-link" routerLinkActive="active-pill">
       <span class="notif-icon">🔔</span>
       <span class="notif-text">Notificaciones</span>
 
@@ -47,17 +47,22 @@
       }
     </a>
 
-    <a [routerLink]="['/activity']" class="nav-pill">
+    <a [routerLink]="['/activity']" class="nav-pill" routerLinkActive="active-pill">
       <span class="nav-icon">📌</span>
       <span class="nav-text">Actividad</span>
     </a>
 
-    <a [routerLink]="['/chat']" class="nav-pill">
+    <a [routerLink]="['/chat']" class="nav-pill notif-link" routerLinkActive="active-pill">
       <span class="nav-icon">💬</span>
-     <span class="nav-text">Chat</span>
+      <span class="nav-text">Chat</span>
+
+      @if (unreadChat() > 0) {
+      <span class="badge">{{ unreadChat() }}</span>
+      }
     </a>
+
     <!-- PERFIL PROPIO -->
-    <a [routerLink]="['/profile-detail']" class=" profile-link">
+    <a [routerLink]="['/profile-detail']" class=" profile-link" routerLinkActive="active-pill">
       <span class="nav-pill profile-text">
         Perfil ({{ activeUserSignal()?.username }})
       </span>

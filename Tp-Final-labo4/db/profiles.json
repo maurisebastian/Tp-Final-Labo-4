@@ -1,7 +1,42 @@
 {
-
-  "conversations": [],
-  "messages": [],
+  "conversations": [
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "lastMessage": "si, todo en orden. vos ?",
+      "updatedAt": "2026-02-22T21:24:15.472Z",
+      "id": 1
+    }
+  ],
+  "messages": [
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "senderId": "jWTuKTn",
+      "content": "hola",
+      "createdAt": "2026-02-22T01:59:05.158Z",
+      "id": 1,
+      "read": true
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "senderId": "_-MNsZD",
+      "content": "todo bien ?",
+      "createdAt": "2026-02-22T01:59:23.815Z",
+      "id": 2,
+      "read": true
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "senderId": "jWTuKTn",
+      "content": "si, todo en orden. vos ?",
+      "createdAt": "2026-02-22T21:24:15.422Z",
+      "read": false,
+      "id": 3
+    }
+  ],
   "notifications": [
     {
       "userId": "jbUZV20",

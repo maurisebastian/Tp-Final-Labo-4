@@ -45,14 +45,25 @@ export class ChatWindow {
     });
   }
 
-    loadMessages() {
-    const f = this.friend();
-    if (!f || !this.activeUser) return;
+   loadMessages() {
 
-    this.chatService
-      .getConversation(this.activeUser.id!, f.id!)
-      .subscribe(list => this.messages.set(list ?? []));
-  }
+  const friend = this.friend();
+  const user = this.activeUser;
+
+  if (!friend || !user) return;
+
+  this.chatService
+    .getConversation(user.id!, friend.id!)
+    .subscribe(list => {
+
+      this.messages.set(list);
+
+      // marcar como leídos
+      this.chatService
+        .markAsRead(user.id!, friend.id!)
+        .subscribe();
+    });
+}
 
 
   send() {

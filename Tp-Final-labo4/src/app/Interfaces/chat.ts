@@ -20,4 +20,5 @@ export interface ChatMessage {
   content: string;
 
   createdAt: string;
+  read?: boolean;
 }

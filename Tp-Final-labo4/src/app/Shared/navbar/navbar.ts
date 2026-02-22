@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Signal, effect } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
+import { TopBar } from '../../Components/top-bar/top-bar';
 
 @Component({
   selector: 'app-navbar',
