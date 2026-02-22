@@ -20,6 +20,7 @@ import { ActorDetail } from './Components/actor-detail/actor-detail';
 import { AdminLocalMovieComponent } from './Components/admin-local-movie/admin-local-movie';
 import { Notification } from './Components/notification/notification';
 import { MyActivityPage } from './Components/my-activity-page/my-activity-page';
+import { ChatPage } from './Components/chat-page/chat-page';
 
 
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'profile-detail', component: ProfileDetail, canActivate: [userGuard], title: 'profile detail' },
   { path: 'search/:query', component: MovieSearch },
   {path: 'activity',component: MyActivityPage, canActivate:[userGuard],title: 'my actividad' },
+  {path: 'chat',component:ChatPage, canActivate: [userGuard], title : 'mensajes'},
  
   {
   path: 'profiles/:id',

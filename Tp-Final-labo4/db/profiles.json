@@ -1,4 +1,7 @@
 {
+
+  "conversations": [],
+  "messages": [],
   "notifications": [
     {
       "userId": "jbUZV20",
@@ -41,6 +44,16 @@
       "read": false,
       "createdAt": "2026-02-14T00:04:03.870Z",
       "id": 4
+    },
+    {
+      "userId": "jWTuKTn",
+      "fromUserId": "_-MNsZD",
+      "type": "follow",
+      "referenceId": "_-MNsZD",
+      "message": "mell comenzó a seguirte.",
+      "read": false,
+      "createdAt": "2026-02-19T04:10:01.777Z",
+      "id": 5
     }
   ],
   "follows": [
@@ -129,6 +142,12 @@
       "followingId": "pwDug19",
       "createdAt": "2026-02-14T00:04:03.845Z",
       "id": "Qy-mYrS"
+    },
+    {
+      "followerId": "_-MNsZD",
+      "followingId": "jWTuKTn",
+      "createdAt": "2026-02-19T04:10:01.735Z",
+      "id": "u7cl3ft"
     }
   ],
   "reviewComments": [

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Follow } from '../Interfaces/follow';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, forkJoin, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,9 @@ import { firstValueFrom, map } from 'rxjs';
 export class FollowService {
 
 
-   private readonly baseUrl = 'http://localhost:3000/follows';
+  private readonly baseUrl = 'http://localhost:3000/follows';
 
-   private  readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   // Seguir a un usuario
   follow(followerId: string | number, followingId: string | number) {
@@ -34,13 +34,13 @@ export class FollowService {
   }
 
   // Verificar si A sigue a B
-isFollowing(followerId: string | number, followingId: string | number) {
-  return this.http.get<Follow[]>(
-    `${this.baseUrl}?followerId=${followerId}&followingId=${followingId}`
-  ).pipe(
-    map(result => result.length > 0)
-  );
-}
+  isFollowing(followerId: string | number, followingId: string | number) {
+    return this.http.get<Follow[]>(
+      `${this.baseUrl}?followerId=${followerId}&followingId=${followingId}`
+    ).pipe(
+      map(result => result.length > 0)
+    );
+  }
 
   // Listar usuarios que siguen al usuario X
   getFollowers(userId: string | number) {
@@ -55,5 +55,16 @@ isFollowing(followerId: string | number, followingId: string | number) {
       this.http.get<Follow[]>(`${this.baseUrl}?followerId=${userId}`)
     );
   }
-  
+
+
+  // Amigos = follow mutuo
+  isFriend(userA: string | number, userB: string | number) {
+    return forkJoin({
+      ab: this.isFollowing(userA, userB),
+      ba: this.isFollowing(userB, userA),
+    }).pipe(
+      map(({ ab, ba }) => ab && ba)
+    );
+  }
+
 }
