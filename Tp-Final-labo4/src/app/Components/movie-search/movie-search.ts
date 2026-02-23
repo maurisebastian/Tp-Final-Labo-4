@@ -1,16 +1,17 @@
 // src/app/Components/movie-search/movie-search.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Footer } from '../../Shared/footer/footer';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 
 import { MovieSearchService, SearchMovie } from '../../Services/movie-search.service';
+import { MoviesearchComponent } from "../../Shared/moviesearch-component/moviesearch-component";
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-movie-search',
   standalone: true,
-  imports: [RouterLink, Footer, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, MoviesearchComponent],
   templateUrl: './movie-search.html',
   styleUrl: './movie-search.css',
 })
@@ -20,6 +21,8 @@ export class MovieSearch implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private hiddenMoviesService = inject(HiddenMoviesService);
+  private readonly authService = inject(AuthService);
+  activeUser = false;
 
   busqueda = new FormControl('', Validators.required);
   resultados: SearchMovie[] = [];
@@ -28,6 +31,8 @@ export class MovieSearch implements OnInit {
   hiddenTmdbIds: number[] = [];
 
   ngOnInit(): void {
+    const user = this.authService.getActiveUser()();
+    this.activeUser = !!user;
 
     // ⭐ 1) Cargar IDs ocultos
     const hiddenList = this.hiddenMoviesService.hiddenMovies();

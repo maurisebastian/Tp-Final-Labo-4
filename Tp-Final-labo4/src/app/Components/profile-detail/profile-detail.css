@@ -316,6 +316,29 @@
   flex-direction:column;
   gap:8px;
 }
+.avatar-picker{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin: 6px 0 10px;
+}
+
+.avatar-picker .picker-center{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+
+.picker-count{
+  font-size: 12px;
+  opacity: .85;
+}
+
+.btn-outline.small{
+  padding: 6px 10px;
+  border-radius: 10px;
+}
 
 /* Solo para el componente de seguidores dentro del panel derecho */
 .profile-card app-follow-component,

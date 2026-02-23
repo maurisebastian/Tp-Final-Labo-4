@@ -1,6 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TopBar } from '../top-bar/top-bar';
-import { Footer } from '../../Shared/footer/footer';
 import { UserActivity } from '../user-activity/user-activity';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FollowComponent } from '../follow-component/follow-component';
@@ -16,7 +14,7 @@ import { Profile, ReviewReport } from '../../Interfaces/profilein';
 @Component({
   selector: 'app-my-activity-page',
   standalone: true,
-  imports: [TopBar, Footer, UserActivity, DatePipe, CommonModule, FollowComponent],
+  imports: [ UserActivity, DatePipe, CommonModule, FollowComponent],
   templateUrl: './my-activity-page.html',
   styleUrl: './my-activity-page.css',
 })

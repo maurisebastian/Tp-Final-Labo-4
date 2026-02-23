@@ -86,7 +86,7 @@
       "type": "follow",
       "referenceId": "_-MNsZD",
       "message": "mell comenzó a seguirte.",
-      "read": false,
+      "read": true,
       "createdAt": "2026-02-19T04:10:01.777Z",
       "id": 5
     }

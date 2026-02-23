@@ -8,13 +8,12 @@ import { ProfileService } from '../../Services/profile.service';
 import { AuthService } from '../../auth/auth-service';
 import { Moviein } from '../../Interfaces/moviein';
 import { TopBar } from '../top-bar/top-bar';
-import { Footer } from '../../Shared/footer/footer';
 import { Profile } from '../../Interfaces/profilein';
 
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [TopBar, Footer],
+  imports: [TopBar],
   templateUrl: './genres.html',
   styleUrls: ['./genres.css'],
 })
@@ -248,7 +247,7 @@ export class Genres implements OnInit {
               return;
             }
 
-            // ✅ Actualizamos el usuario activo en memoria
+            // Actualizamos el usuario activo en memoria
             const updatedUser: Profile = {
               ...active,
               favoriteGenres,

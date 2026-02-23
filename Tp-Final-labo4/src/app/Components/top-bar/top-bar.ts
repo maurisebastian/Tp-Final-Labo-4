@@ -22,7 +22,7 @@ export class TopBar {
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
   private chatService = inject(ChatService);
-
+  
 
   // usuario logueado (signal)
   activeUserSignal = this.authService.getActiveUser();

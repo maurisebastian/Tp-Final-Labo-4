@@ -19,7 +19,7 @@ import { AppNotification } from '../../Interfaces/app-notification';
 @Component({
   selector: 'app-profile-public',
   standalone: true,
-  imports: [TopBar, Footer, UserActivity, FollowComponent, RouterModule],
+  imports: [ UserActivity, FollowComponent, RouterModule],
   templateUrl: './profile-public.html',
   styleUrl: './profile-public.css',
 })

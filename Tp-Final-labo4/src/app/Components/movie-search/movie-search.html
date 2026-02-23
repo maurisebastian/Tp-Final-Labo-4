@@ -1,83 +1,45 @@
 <div class="search-page">
 
-  <div class="search-topbar">
-
-    <div class="search-logo">
-      <a [routerLink]="['/']">
-        <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img">
-      </a>
-    </div>
-
-    <div class="search-center">
-      <form class="search-box" (submit)="onSubmit($event)">
-        <input
-          [formControl]="busqueda"
-          type="text"
-          id="search"
-          placeholder="Buscar película"
-          class="search-input"
-        />
-
-        <button
-          type="submit"
-          class="search-btn"
-          [disabled]="busqueda.invalid">
-          Buscar
-        </button>
-      </form>
-
-      @if (busqueda.hasError('required') && busqueda.touched) {
-        <span class="search-error">
-          No se ingresó dato de la película.
-        </span>
-      }
-    </div>
-
-    <div class="search-profile">
-      <a [routerLink]="['/profile-detail']" class="profile-link">
-        <span class="profile-text">Perfil</span>
-        <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar">
-      </a>
-    </div>
-
+  @if (!activeUser) {
+  <div>
+    <app-moviesearch-component></app-moviesearch-component>
   </div>
+
+  }
+
 
   <h2 class="results-title">
     Resultados de búsqueda
     @if (busqueda.value) {
-      <span class="results-query">"{{ busqueda.value }}"</span>
+    <span class="results-query">"{{ busqueda.value }}"</span>
     }
   </h2>
 
-    <div class="results-grid">
+  <div class="results-grid">
     @for (item of resultados; track item.id) {
-      <div class="result-card">
-        <a [routerLink]="['/movie-review', item.id]">
-          <img
-            [src]="
+    <div class="result-card">
+      <a [routerLink]="['/movie-review', item.id]">
+        <img [src]="
               item.isLocal
                 ? (item.posterUrl || 'assets/placeholder-poster.png')
                 : 'https://image.tmdb.org/t/p/w500' + (item.posterPath || '')
-            "
-            [alt]="item.title"
-            class="result-poster">
-        </a>
+            " [alt]="item.title" class="result-poster">
+      </a>
 
-        <a [routerLink]="['/movie-review', item.id]" class="result-title">
-          {{ item.title }}
-        </a>
+      <a [routerLink]="['/movie-review', item.id]" class="result-title">
+        {{ item.title }}
+      </a>
 
-        <p class="result-score">
-          Puntuación:
-          {{
-            item.voteAverage !== null && item.voteAverage !== undefined
-              ? item.voteAverage
-              : 'N/A'
-          }}
-        </p>
-      </div>
+      <p class="result-score">
+        Puntuación:
+        {{
+        item.voteAverage !== null && item.voteAverage !== undefined
+        ? item.voteAverage
+        : 'N/A'
+        }}
+      </p>
+    </div>
     }
   </div>
 
 </div>
-

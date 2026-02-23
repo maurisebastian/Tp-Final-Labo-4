@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TopBar } from "../top-bar/top-bar";
 import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TmdbService } from '../../Services/tmdb.service';
@@ -9,12 +8,13 @@ import { MovieActivity } from '../../Services/movie-activity';
 import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 import { AdminMoviesService } from '../../Services/movies.service';
+import { MoviesearchComponent } from "../../Shared/moviesearch-component/moviesearch-component";
 
 
 @Component({
   selector: 'app-movie-review',
   standalone: true,
-  imports: [TopBar, ReviewList, CommonModule, DatePipe, RouterModule],
+  imports: [ReviewList, CommonModule, DatePipe, RouterModule, MoviesearchComponent],
   templateUrl: './movie-review.html',
   styleUrl: './movie-review.css',
 })

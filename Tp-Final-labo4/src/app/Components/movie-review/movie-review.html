@@ -1,4 +1,3 @@
-<app-top-bar></app-top-bar>
 
 @if (isHiddenForUser) {
   <div class="hidden-movie-container">
@@ -21,6 +20,13 @@
 }
 
 @else if (movieDetails) {
+  
+  @if (!userId) {
+  <div>
+    <br>
+    <app-moviesearch-component></app-moviesearch-component>
+  </div>
+}
 
   <div class="movie-details">
 

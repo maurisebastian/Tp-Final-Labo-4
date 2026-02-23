@@ -4,14 +4,17 @@
   max-width: 1200px;
   margin: 12px auto 0;
   padding: 10px 24px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+
   font-family: "Segoe UI", Arial, sans-serif;
   background: #020617;                 /* fondo oscuro tipo app */
   border-radius: 999px;                /* pill gigante */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
 }
 
 /* ===== IZQUIERDA: LOGO + NOMBRE APP ===== */

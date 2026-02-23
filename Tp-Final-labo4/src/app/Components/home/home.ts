@@ -3,14 +3,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth-service';
-import { TopBar } from '../top-bar/top-bar';
-import { Footer } from '../../Shared/footer/footer';
 import { Carrusel } from '../carrusel/carrusel';
+import { MoviesearchComponent } from "../../Shared/moviesearch-component/moviesearch-component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TopBar, Footer, Carrusel],
+  imports: [Carrusel, MoviesearchComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })

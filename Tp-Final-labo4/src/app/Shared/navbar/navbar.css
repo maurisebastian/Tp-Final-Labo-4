@@ -1,16 +1,56 @@
-nav {
+.main-nav{
   position: sticky;
   top: 0;
   z-index: 100;
+
+  background: #f3f4f6;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+  padding: 8px 40px 12px;
+  transition: padding .18s ease, background .18s ease, box-shadow .18s ease;
+
+}
+
+.main-nav.compact{
+  padding: 6px 40px 6px;             /* antes 12px */
+  background: #eef0f3;              /* apenas más oscuro, opcional */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* fila de Home + botones */
+.nav-row{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 40px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  font-family: "Segoe UI", Arial, sans-serif;
 }
+.topbar-wrap{
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  max-height: 120px;              /* ajustalo si tu topbar es más alto */
+  opacity: 1;
+  transform: translateY(0);
+
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease, margin-top .18s ease;
+  will-change: max-height, opacity, transform;
+}
+
+.topbar-wrap{
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  max-height: 120px;              /* ajustalo si tu topbar es más alto */
+  opacity: 1;
+  transform: translateY(0);
+
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease, margin-top .18s ease;
+  will-change: max-height, opacity, transform;
+}
+
+
 
 /* Contenedor de botones de la derecha */
 .nav-buttons {

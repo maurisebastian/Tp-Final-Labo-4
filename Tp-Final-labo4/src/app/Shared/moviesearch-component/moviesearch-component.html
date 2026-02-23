@@ -1,0 +1,34 @@
+<div class="search-topbar">
+
+    <div class="search-logo">
+      <a [routerLink]="['/']">
+        <img src="assets/logo-cine.png" alt="logo-cine" class="logo-img">
+      </a>
+    </div>
+
+    <div class="search-center">
+      <form class="search-box" (submit)="onSubmit($event)">
+        <input
+          [formControl]="busqueda"
+          type="text"
+          id="search"
+          placeholder="Buscar película"
+          class="search-input"
+        />
+
+        <button
+          type="submit"
+          class="search-btn"
+          [disabled]="busqueda.invalid">
+          Buscar
+        </button>
+      </form>
+
+      @if (busqueda.hasError('required') && busqueda.touched) {
+        <span class="search-error">
+          No se ingresó dato de la película.
+        </span>
+      }
+    </div>
+
+  </div>

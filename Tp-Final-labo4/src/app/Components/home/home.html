@@ -1,22 +1,27 @@
-<app-top-bar></app-top-bar>
-
 <div class="home-container">
   <section class="welcome-section">
     @if (activeUserSignal()) {
-      <h1>¡Bienvenid@, {{ activeUserSignal()?.firstName || activeUserSignal()?.username }}! 🍿</h1>
-      <p class="subtitle">
-        Elegí una peli, dejá tu reseña y descubrí nuevas recomendaciones.
-      </p>
+    <h1>¡Bienvenid@, {{ activeUserSignal()?.firstName || activeUserSignal()?.username }}! 🍿</h1>
+    <p class="subtitle">
+      Elegí una peli, dejá tu reseña y descubrí nuevas recomendaciones.
+    </p>
     } @else {
-      <h1>Bienvenido a MovieHub 🎬</h1>
-      <p class="subtitle">
-        Iniciá sesión o registrate para puntuar películas y obtener sugerencias personalizadas.
-      </p>
+
+    <section>
+      <app-moviesearch-component></app-moviesearch-component>
+    </section>
+    
+    <h1>Bienvenido a MovieHub 🎬</h1>
+    <p class="subtitle">
+      Iniciá sesión o registrate para puntuar películas y obtener sugerencias personalizadas.
+    </p>
+
+
     }
   </section>
+
 
   <section class="carousel-section">
     <app-carrusel></app-carrusel>
   </section>
 </div>
-

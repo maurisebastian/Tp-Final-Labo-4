@@ -5,8 +5,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Profile, ReviewReport } from '../../Interfaces/profilein';
 import { ProfileService } from '../../Services/profile.service'
-import { TopBar } from '../top-bar/top-bar';
-import { Footer } from '../../Shared/footer/footer';
 import { TmdbService } from '../../Services/tmdb.service';
 import { AuthService } from '../../auth/auth-service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,8 +16,7 @@ import { Signup } from '../signup/signup';
   selector: 'app-profile-detail',
   standalone: true,
   imports: [
-    TopBar,
-    Footer,
+
     CommonModule,
     ReactiveFormsModule,
     FollowComponent,
@@ -83,6 +80,8 @@ export class ProfileDetail implements OnInit {
         bio: user.bio ?? '',
       });
 
+      this.setAvatarIndexByUrl(user.avatarUrl ?? this.avatars[0]);
+
     } else {
       this.userLoggedIn = false;
     }
@@ -132,46 +131,75 @@ export class ProfileDetail implements OnInit {
 
 
   avatarBioForm = this.fb.nonNullable.group({
-    avatarUrl: ['assets/perfil.png', [Validators.required, Validators.pattern(/^(assets\/.+|https?:\/\/.+)$/)]],
+    avatarUrl: ['assets/avatar_01.png', [Validators.required, Validators.pattern(/^assets\/avatar_\d{2}\.png$/i),],],
     bio: ['', [Validators.maxLength(160)]],
   });
-  
-  enableEditAvatar(){
-  this.isEditBio = true;
+
+  cancelEditAvatar() {
+    this.isEditBio = false;
+
+    this.avatarBioForm.patchValue({
+      avatarUrl: this.userProfile?.avatarUrl ?? 'assets/perfil.png',
+      bio: this.userProfile?.bio ?? '',
+    });
   }
 
- cancelEditAvatar() {
-  this.isEditBio = false;
 
-  this.avatarBioForm.patchValue({
-    avatarUrl: this.userProfile?.avatarUrl ?? 'assets/perfil.png',
-    bio: this.userProfile?.bio ?? '',
-  });
-}
-  
+  saveAvatarBio() {
+    if (!this.userProfile?.id) return;
 
-saveAvatarBio() {
-  if (!this.userProfile?.id) return;
-
-  if (this.avatarBioForm.invalid) {
-    this.avatarBioForm.markAllAsTouched();
-    return;
-  }
-
-  const { avatarUrl, bio } = this.avatarBioForm.getRawValue();
-
-  const updated: Profile = {
-    ...this.userProfile,
-    avatarUrl,
-    bio,
-  };
-
-  this.profileService.updateProfile(updated, true).subscribe((ok) => {
-    if (ok) {
-      this.userProfile = updated;
-      this.isEditBio = false; // ✅ cerrar editor al guardar
+    if (this.avatarBioForm.invalid) {
+      this.avatarBioForm.markAllAsTouched();
+      return;
     }
+
+    const { avatarUrl, bio } = this.avatarBioForm.getRawValue();
+
+    const updated: Profile = {
+      ...this.userProfile,
+      avatarUrl,
+      bio,
+    };
+
+    this.profileService.updateProfile(updated, true).subscribe((ok) => {
+      if (ok) {
+        this.userProfile = updated;
+        this.isEditBio = false; //  cerrar editor al guardar
+      }
+    });
+  }
+
+  avatars: string[] = Array.from({ length: 20 }, (_, i) => {
+    const n = String(i + 1).padStart(2, '0');
+    return `assets/avatar_${n}.png`;
   });
-}
+
+  avatarIndex = 0;
+
+  private setAvatarIndexByUrl(url?: string) {
+    const idx = this.avatars.indexOf(url ?? '');
+    this.avatarIndex = idx >= 0 ? idx : 0;
+  }
+
+  enableEditAvatar() {
+    this.isEditBio = true;
+
+    this.setAvatarIndexByUrl(this.userProfile?.avatarUrl ?? this.avatars[0]);
+
+    this.avatarBioForm.patchValue({
+      avatarUrl: this.avatars[this.avatarIndex],
+      bio: this.userProfile?.bio ?? '',
+    });
+  }
+
+  prevAvatar() {
+    this.avatarIndex = (this.avatarIndex - 1 + this.avatars.length) % this.avatars.length;
+    this.avatarBioForm.patchValue({ avatarUrl: this.avatars[this.avatarIndex] });
+  }
+
+  nextAvatar() {
+    this.avatarIndex = (this.avatarIndex + 1) % this.avatars.length;
+    this.avatarBioForm.patchValue({ avatarUrl: this.avatars[this.avatarIndex] });
+  }
 
 }

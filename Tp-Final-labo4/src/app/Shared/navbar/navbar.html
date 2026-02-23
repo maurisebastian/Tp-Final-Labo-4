@@ -1,25 +1,22 @@
-<nav>
-  <a
-    class="button"
-    routerLink=""
-    routerLinkActive="activebutton"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Home
-  </a>
+<nav class="main-nav"  [class.compact]="activeUser && !showTopbar" >
+  <div class="nav-row">
+    <a class="button" routerLink="" routerLinkActive="activebutton" [routerLinkActiveOptions]="{ exact: true }">
+      Home
+    </a>
 
-  <div class="nav-buttons">
-    @if (!activeUser) {
-      <a class="button" routerLink="/login" routerLinkActive="activebutton">
-        Login
-      </a>
-      <a class="button" routerLink="/signup" routerLinkActive="activebutton">
-        Register
-      </a>
-    } @else {
-      <a class="button" (click)="onLogout()">
-        Logout
-      </a>
-    }
+    <div class="nav-buttons">
+      @if (!activeUser) {
+        <a class="button" routerLink="/login" routerLinkActive="activebutton">Login</a>
+        <a class="button" routerLink="/signup" routerLinkActive="activebutton">Register</a>
+      } @else {
+        <a class="button" (click)="onLogout()">Logout</a>
+      }
+    </div>
   </div>
+
+  @if (activeUser) {
+    <div class="topbar-wrap"   [class.is-hidden]="!showTopbar">
+      <app-top-bar></app-top-bar>
+    </div>
+  }
 </nav>
