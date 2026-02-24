@@ -58,6 +58,10 @@ export class ChatService {
     );
   }
 
+ getAllMessages() {
+  return this.http.get<ChatMessage[]>(`${this.baseUrl}/messages`);
+}
+
   // CREAR / ACTUALIZAR CONVERSACIÓN
 
   private updateConversation(msg: ChatMessage) {

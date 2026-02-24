@@ -1,4 +1,4 @@
-<div class="topbar-container" >
+<div class="topbar-container">
 
   <!-- IZQUIERDA: LOGO -->
   <div class="topbar-left">
@@ -66,7 +66,8 @@
       <span class="nav-pill profile-text">
         Perfil ({{ activeUserSignal()?.username }})
       </span>
-      <img src="assets/perfil.png" alt="Perfil del usuario" class="profile-avatar" />
+      <img class="profile-avatar" [src]="activeUserSignal()?.avatarUrl || 'assets/perfil.png'"
+        alt="Perfil del usuario" />
     </a>
 
 

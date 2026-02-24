@@ -132,7 +132,7 @@ export class ProfileDetail implements OnInit {
 
   avatarBioForm = this.fb.nonNullable.group({
     avatarUrl: ['assets/avatar_01.png', [Validators.required, Validators.pattern(/^assets\/avatar_\d{2}\.png$/i),],],
-    bio: ['', [Validators.maxLength(160)]],
+    bio: ['', [Validators.maxLength(30)]],
   });
 
   cancelEditAvatar() {
@@ -169,7 +169,7 @@ export class ProfileDetail implements OnInit {
     });
   }
 
-  avatars: string[] = Array.from({ length: 20 }, (_, i) => {
+  avatars: string[] = Array.from({ length: 30 }, (_, i) => {
     const n = String(i + 1).padStart(2, '0');
     return `assets/avatar_${n}.png`;
   });

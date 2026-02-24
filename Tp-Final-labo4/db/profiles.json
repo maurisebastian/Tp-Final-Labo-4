@@ -3,9 +3,23 @@
     {
       "userAId": "_-MNsZD",
       "userBId": "jWTuKTn",
-      "lastMessage": "si, todo en orden. vos ?",
-      "updatedAt": "2026-02-22T21:24:15.472Z",
+      "lastMessage": "que bien mell, me alegro",
+      "updatedAt": "2026-02-24T01:11:42.259Z",
       "id": 1
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "lastMessage": "como te acordaste justo",
+      "updatedAt": "2026-02-24T01:43:01.979Z",
+      "id": 2
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "oe5BF45",
+      "lastMessage": "claro que si",
+      "updatedAt": "2026-02-24T01:31:26.371Z",
+      "id": 3
     }
   ],
   "messages": [
@@ -33,8 +47,116 @@
       "senderId": "jWTuKTn",
       "content": "si, todo en orden. vos ?",
       "createdAt": "2026-02-22T21:24:15.422Z",
-      "read": false,
+      "read": true,
       "id": 3
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "hola",
+      "createdAt": "2026-02-24T01:08:32.199Z",
+      "read": true,
+      "id": 4
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "EYnfiYV",
+      "content": "todo bien ?",
+      "createdAt": "2026-02-24T01:09:16.276Z",
+      "read": true,
+      "id": 5
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "EYnfiYV",
+      "content": "vos",
+      "createdAt": "2026-02-24T01:09:17.188Z",
+      "read": true,
+      "id": 6
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "que bien",
+      "createdAt": "2026-02-24T01:09:48.991Z",
+      "read": true,
+      "id": 7
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "senderId": "_-MNsZD",
+      "content": "bien",
+      "createdAt": "2026-02-24T01:11:12.624Z",
+      "read": true,
+      "id": 8
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "jWTuKTn",
+      "senderId": "jWTuKTn",
+      "content": "que bien mell, me alegro",
+      "createdAt": "2026-02-24T01:11:42.227Z",
+      "read": true,
+      "id": 9
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "como va ?",
+      "createdAt": "2026-02-24T01:13:15.693Z",
+      "read": true,
+      "id": 10
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "todo bien mell",
+      "createdAt": "2026-02-24T01:31:00.097Z",
+      "read": true,
+      "id": 11
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "oe5BF45",
+      "senderId": "_-MNsZD",
+      "content": "ea ahora si amgigo",
+      "createdAt": "2026-02-24T01:31:19.235Z",
+      "read": true,
+      "id": 12
+    },
+    {
+      "userAId": "_-MNsZD",
+      "userBId": "oe5BF45",
+      "senderId": "_-MNsZD",
+      "content": "claro que si",
+      "createdAt": "2026-02-24T01:31:26.324Z",
+      "read": true,
+      "id": 13
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "eeee",
+      "createdAt": "2026-02-24T01:42:52.610Z",
+      "read": true,
+      "id": 14
+    },
+    {
+      "userAId": "EYnfiYV",
+      "userBId": "oe5BF45",
+      "senderId": "oe5BF45",
+      "content": "como te acordaste justo",
+      "createdAt": "2026-02-24T01:43:01.931Z",
+      "read": true,
+      "id": 15
     }
   ],
   "notifications": [
@@ -89,6 +211,36 @@
       "read": true,
       "createdAt": "2026-02-19T04:10:01.777Z",
       "id": 5
+    },
+    {
+      "userId": "EYnfiYV",
+      "fromUserId": "oe5BF45",
+      "type": "follow",
+      "referenceId": "oe5BF45",
+      "message": "Martin comenzó a seguirte.",
+      "read": false,
+      "createdAt": "2026-02-24T00:09:24.215Z",
+      "id": 6
+    },
+    {
+      "userId": "oe5BF45",
+      "fromUserId": "EYnfiYV",
+      "type": "follow",
+      "referenceId": "EYnfiYV",
+      "message": "agusss comenzó a seguirte.",
+      "read": false,
+      "createdAt": "2026-02-24T00:09:44.122Z",
+      "id": 7
+    },
+    {
+      "userId": "_-MNsZD",
+      "fromUserId": "oe5BF45",
+      "type": "follow",
+      "referenceId": "oe5BF45",
+      "message": "Martin comenzó a seguirte.",
+      "read": false,
+      "createdAt": "2026-02-24T01:13:08.978Z",
+      "id": 8
     }
   ],
   "follows": [
@@ -183,6 +335,24 @@
       "followingId": "jWTuKTn",
       "createdAt": "2026-02-19T04:10:01.735Z",
       "id": "u7cl3ft"
+    },
+    {
+      "followerId": "oe5BF45",
+      "followingId": "EYnfiYV",
+      "createdAt": "2026-02-24T00:09:24.189Z",
+      "id": "p78SNxg"
+    },
+    {
+      "followerId": "EYnfiYV",
+      "followingId": "oe5BF45",
+      "createdAt": "2026-02-24T00:09:44.086Z",
+      "id": "1hy7Ak2"
+    },
+    {
+      "followerId": "oe5BF45",
+      "followingId": "_-MNsZD",
+      "createdAt": "2026-02-24T01:13:08.949Z",
+      "id": "7TY5tw3"
     }
   ],
   "reviewComments": [
@@ -625,16 +795,16 @@
         1812
       ],
       "isPublic": true,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_14.png",
       "bio": ""
     },
     {
       "id": "b54d",
-      "username": "fernandamoya",
+      "username": "ferr",
       "password": "fakepass",
       "date": "1990-02-01",
       "cel": "25362894",
-      "email": "fernandamoyal@gmail.com",
+      "email": "fernandamo@gmail.com",
       "firstName": "Fernanda",
       "lastName": "Moya",
       "role": "user",
@@ -659,13 +829,13 @@
         109488
       ],
       "isPublic": true,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_03.png",
       "bio": ""
     },
     {
       "id": "281a",
       "username": "camila",
-      "password": "fakepass",
+      "password": "123456",
       "date": "1995-06-15",
       "cel": "1122334455",
       "email": "camila@example.com",
@@ -683,7 +853,7 @@
         287
       ],
       "isPublic": false,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_25.png",
       "bio": ""
     },
     {
@@ -724,7 +894,7 @@
         12055,
         30487
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_19.png",
       "bio": "",
       "isPublic": true
     },
@@ -762,12 +932,12 @@
         1167727,
         966683
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_18.png",
       "bio": ""
     },
     {
-      "username": "Martín",
-      "password": "FAKEPASS",
+      "username": "Martin",
+      "password": "123456",
       "date": "2001-04-04",
       "cel": "223764532",
       "email": "martinacosta@gmail.com",
@@ -797,7 +967,7 @@
         20707,
         46624
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_22.png",
       "bio": ""
     },
     {
@@ -845,7 +1015,7 @@
         147,
         589
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_18.png",
       "bio": ""
     },
     {
@@ -898,7 +1068,7 @@
         6
       ],
       "isPublic": false,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_07.png",
       "bio": ""
     },
     {
@@ -941,7 +1111,7 @@
         175980,
         176011
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_21.png",
       "bio": ""
     },
     {
@@ -997,7 +1167,7 @@
         55665,
         613
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_09.png",
       "bio": ""
     },
     {
@@ -1059,7 +1229,7 @@
         109
       ],
       "isPublic": true,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_01.png",
       "bio": ""
     },
     {
@@ -1112,7 +1282,7 @@
         12674
       ],
       "isPublic": true,
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_11.png",
       "bio": ""
     },
     {
@@ -1161,8 +1331,50 @@
         73595,
         73596
       ],
-      "avatarUrl": "assets/perfil.png",
+      "avatarUrl": "assets/avatar_15.png",
       "bio": "Fan del cine clásico y thrillers. Aguantennn las pelis de misterio."
+    },
+    {
+      "username": "Leoo",
+      "password": "123456",
+      "date": "1995-08-21",
+      "cel": "223434532",
+      "email": "leonardopizzi@gmail.com",
+      "firstName": "leonardo",
+      "lastName": "Pizzi",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        35,
+        80,
+        10749
+      ],
+      "favoriteActors": [
+        12111,
+        2897867,
+        36594,
+        1519512,
+        35515,
+        32312,
+        3281,
+        24366,
+        24599,
+        9920,
+        145092,
+        2223265,
+        2133335,
+        106581,
+        113791,
+        5676,
+        4959,
+        5682,
+        5683,
+        5684
+      ],
+      "isPublic": true,
+      "avatarUrl": "assets/avatar_08.png",
+      "bio": "Hola! Soy nuevo en MovieHub 🎬",
+      "id": "_GxMOjz"
     }
   ],
   "reviewReports": [

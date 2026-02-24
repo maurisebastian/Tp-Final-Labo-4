@@ -7,23 +7,26 @@
 
     @for (friend of friends(); track friend.id) {
 
-      <div class="friend-item"
-           (click)="selectFriend(friend)"
-           [class.active]="selectedFriend()?.id === friend.id">
+    <div class="friend-item" (click)="selectFriend(friend)" [class.active]="selectedFriend()?.id === friend.id">
 
-        <img
-          class="avatar"
-          [src]="friend.avatarUrl || 'assets/perfil.png'"
-        />
+      <img class="avatar" [src]="friend.avatarUrl || 'assets/perfil.png'" />
 
-        <div class="info">
+      <div class="info">
+        <div class="name-row">
           <div class="name">{{ friend.username }}</div>
-          <div class="bio">
-            {{ friend.bio || 'Sin descripción' }}
-          </div>
+
+          @if ((unreadByFriend()[friend.id + ''] || 0) > 0) {
+          <span class="badge">
+            {{ unreadByFriend()[friend.id + ''] }}
+          </span>
+          }
         </div>
 
+        <div class="bio">
+          {{ friend.bio || 'Sin descripción' }}
+        </div>
       </div>
+    </div>
     }
 
   </div>
@@ -34,25 +37,22 @@
 
     @if (!selectedFriend()) {
 
-      <div class="empty-chat">
-        Seleccioná un amigo para comenzar a chatear
-      </div>
+    <div class="empty-chat">
+      Seleccioná un amigo para comenzar a chatear
+    </div>
 
     } @else {
 
-      <div class="chat-header">
-        <img
-          class="avatar"
-          [src]="selectedFriend()?.avatarUrl || 'assets/perfil.png'"
-        />
-        <span>{{ selectedFriend()?.username }}</span>
-      </div>
+    <div class="chat-header">
+      <img class="avatar" [src]="selectedFriend()?.avatarUrl || 'assets/perfil.png'" />
+      <span>{{ selectedFriend()?.username }}</span>
+    </div>
 
-      <!-- componente de mensajes -->
-      <div class="chat-body">
-        <app-chat-window [friend]="selectedFriend()">
-        </app-chat-window>
-      </div>
+    <!-- componente de mensajes -->
+    <div class="chat-body">
+      <app-chat-window [friend]="selectedFriend()">
+      </app-chat-window>
+    </div>
 
     }
 
