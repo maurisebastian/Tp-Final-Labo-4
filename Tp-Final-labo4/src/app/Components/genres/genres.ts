@@ -7,13 +7,12 @@ import { TmdbService } from '../../Services/tmdb.service';
 import { ProfileService } from '../../Services/profile.service';
 import { AuthService } from '../../auth/auth-service';
 import { Moviein } from '../../Interfaces/moviein';
-import { TopBar } from '../top-bar/top-bar';
 import { Profile } from '../../Interfaces/profilein';
 
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [TopBar],
+  imports: [],
   templateUrl: './genres.html',
   styleUrls: ['./genres.css'],
 })

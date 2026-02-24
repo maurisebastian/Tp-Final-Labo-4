@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  @if (activeUser) {
+  @if (activeUser && !isAdmin) {
     <div class="topbar-wrap"   [class.is-hidden]="!showTopbar">
       <app-top-bar></app-top-bar>
     </div>

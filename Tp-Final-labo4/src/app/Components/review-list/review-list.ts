@@ -165,14 +165,18 @@ export class ReviewList {
       });
 
       forkJoin(procesos).subscribe((reviewsCompletas) => {
-        this.reviews = reviewsCompletas;
 
-        // 🔹 ¿El usuario ya reseñó esta película?
+        //  Orden: más likes primero, y si empatan, más nueva primero
+        this.reviews = [...reviewsCompletas].sort((a: any, b: any) => {
+          const likesDiff = (b.likesCount ?? 0) - (a.likesCount ?? 0);
+          if (likesDiff !== 0) return likesDiff;
+
+          return new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime();
+        });
+
+        // ¿El usuario ya reseñó esta película?
         if (this.userId != null) {
-          const match = this.reviews.find(r =>
-            String(r.idProfile) === String(this.userId)
-          );
-
+          const match = this.reviews.find(r => String(r.idProfile) === String(this.userId));
           this.userAlreadyReviewed = !!match;
           this.existingReview = match ?? null;
         }
@@ -206,6 +210,18 @@ export class ReviewList {
         review.likesCount--;
         review.likedByUser = false;
       }
+
+      // reordenar like
+      this.sortReviewsByLikes();
+    });
+  }
+
+  // reordenar al dar like
+  private sortReviewsByLikes() {
+    this.reviews = [...this.reviews].sort((a: any, b: any) => {
+      const likesDiff = (b.likesCount ?? 0) - (a.likesCount ?? 0);
+      if (likesDiff !== 0) return likesDiff;
+      return new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime();
     });
   }
 
@@ -494,41 +510,41 @@ export class ReviewList {
   }
 
   private notifyReviewOwner(params: {
-  review: any;
-  type: 'like' | 'comment';
-  message: string;
-}) {
-  const fromUser = this.activeUser();
-  const senderId = fromUser?.id ?? this.userId;
+    review: any;
+    type: 'like' | 'comment';
+    message: string;
+  }) {
+    const fromUser = this.activeUser();
+    const senderId = fromUser?.id ?? this.userId;
 
-  const ownerId = params.review?.idProfile;
-  const reviewId = params.review?.id;
-  const movieId = params.review?.idMovie; // id pelicula
+    const ownerId = params.review?.idProfile;
+    const reviewId = params.review?.id;
+    const movieId = params.review?.idMovie; // id pelicula
 
-  // Evitar null/undefined
- if (senderId == null || ownerId == null || reviewId == null || movieId == null) {
-  console.warn('Notificación cancelada: faltan ids', { senderId, ownerId, reviewId, movieId });
-  return;
-}
+    // Evitar null/undefined
+    if (senderId == null || ownerId == null || reviewId == null || movieId == null) {
+      console.warn('Notificación cancelada: faltan ids', { senderId, ownerId, reviewId, movieId });
+      return;
+    }
 
-  // No notificar a uno mismo (comparación segura)
-  if (String(senderId) === String(ownerId)) return;
+    // No notificar a uno mismo (comparación segura)
+    if (String(senderId) === String(ownerId)) return;
 
-  const notif: AppNotification = {
-    userId: ownerId as any,
-    fromUserId: senderId as any,
-    type: params.type,
-    referenceId: reviewId as any,
-    movieId: movieId as any, // id pelicula
-    message: params.message,
-    read: false,
-    createdAt: new Date().toISOString(),
-  };
+    const notif: AppNotification = {
+      userId: ownerId as any,
+      fromUserId: senderId as any,
+      type: params.type,
+      referenceId: reviewId as any,
+      movieId: movieId as any, // id pelicula
+      message: params.message,
+      read: false,
+      createdAt: new Date().toISOString(),
+    };
 
-  this.notificationService.create(notif).subscribe({
-    next: (saved) => console.log(' Notificación creada', saved),
-    error: (err) => console.warn(' Error creando notificación', err),
-  });
-}
+    this.notificationService.create(notif).subscribe({
+      next: (saved) => console.log(' Notificación creada', saved),
+      error: (err) => console.warn(' Error creando notificación', err),
+    });
+  }
 
 }

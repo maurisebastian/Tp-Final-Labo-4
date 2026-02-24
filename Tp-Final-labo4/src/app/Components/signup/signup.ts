@@ -70,7 +70,7 @@ export class Signup {
       [
         Validators.required,
         this.minAgeValidator(12),
-        this.yearMinValidator(1900),
+        this.yearMinValidator(1900)
       ],
     ],
     cel: [

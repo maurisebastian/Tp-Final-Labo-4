@@ -6,15 +6,54 @@
       Elegí una peli, dejá tu reseña y descubrí nuevas recomendaciones.
     </p>
     } @else {
+       <section class="guest-hero">
 
-    <section>
-      <app-moviesearch-component></app-moviesearch-component>
-    </section>
-    
-    <h1>Bienvenido a MovieHub 🎬</h1>
-    <p class="subtitle">
-      Iniciá sesión o registrate para puntuar películas y obtener sugerencias personalizadas.
-    </p>
+  <!-- fondo + overlay -->
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-left">
+      <p class="hero-kicker">Tu red social de cine</p>
+
+      <h1 class="hero-title">
+        Descubrí películas, reseñá y conectate con amigos  <span class="emoji">🎬</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Creá tu perfil, elegí tus favoritas y recibí recomendaciones personalizadas.
+        Seguís amigos, mirás su actividad y chateás con ellos.
+      </p>
+
+      <ul class="hero-features">
+        <li>⭐ Puntuar y reseñar películas</li>
+        <li>🎯 Recomendaciones según tus gustos</li>
+        <li>👥 Amigos + actividad</li>
+        <li>💬 Chat</li>
+      </ul>
+
+      <div class="hero-actions">
+        <a class="btn-cta" routerLink="/signup">Crear cuenta gratis</a>
+        <a class="btn-ghost" routerLink="/login">Ya tengo cuenta</a>
+      </div>
+
+      <p class="hero-note">
+        Registrate en 1 minuto — después elegís tus favoritas y listo ✅
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <div class="search-card">
+        <h3>Buscá una película ahora</h3>
+        <p class="muted">Probalo sin registrarte:</p>
+
+        <app-moviesearch-component></app-moviesearch-component>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
     }

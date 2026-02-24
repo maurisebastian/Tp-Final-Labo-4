@@ -241,6 +241,105 @@
       "read": false,
       "createdAt": "2026-02-24T01:13:08.978Z",
       "id": 8
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:01:24.510Z",
+      "id": 9
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:01:34.573Z",
+      "id": 11
+    },
+    {
+      "userId": "jbUZV20",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r10",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:01:41.303Z",
+      "id": 13
+    },
+    {
+      "userId": "oe5BF45",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r17",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:02:59.245Z",
+      "id": 14
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:03:00.228Z",
+      "id": 15
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:03:01.215Z",
+      "id": 16
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:03:02.268Z",
+      "id": 17
+    },
+    {
+      "userId": "b54d",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r6",
+      "movieId": 424,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:03:03.302Z",
+      "id": 18
+    },
+    {
+      "userId": "8358",
+      "fromUserId": "281a",
+      "type": "like",
+      "referenceId": "r2",
+      "movieId": 278,
+      "message": "camila le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T03:55:54.613Z",
+      "id": 19
     }
   ],
   "follows": [
@@ -402,9 +501,21 @@
     },
     {
       "idProfile": "EYnfiYV",
-      "idReview": "r10",
-      "date": "2026-02-08T22:52:00.775Z",
-      "id": "Qg5sI5y"
+      "idReview": "r17",
+      "date": "2026-02-24T03:02:59.211Z",
+      "id": "9jnTDDF"
+    },
+    {
+      "idProfile": "EYnfiYV",
+      "idReview": "r6",
+      "date": "2026-02-24T03:03:03.269Z",
+      "id": "wa4sQje"
+    },
+    {
+      "idProfile": "281a",
+      "idReview": "r2",
+      "date": "2026-02-24T03:55:54.577Z",
+      "id": "bcwa5xV"
     }
   ],
   "movieActivity": [
@@ -1068,7 +1179,7 @@
         6
       ],
       "isPublic": false,
-      "avatarUrl": "assets/avatar_07.png",
+      "avatarUrl": "assets/avatar_32.png",
       "bio": ""
     },
     {
@@ -1167,7 +1278,7 @@
         55665,
         613
       ],
-      "avatarUrl": "assets/avatar_09.png",
+      "avatarUrl": "assets/avatar_34.png",
       "bio": ""
     },
     {
@@ -1229,7 +1340,7 @@
         109
       ],
       "isPublic": true,
-      "avatarUrl": "assets/avatar_01.png",
+      "avatarUrl": "assets/avatar_40.png",
       "bio": ""
     },
     {
@@ -1387,7 +1498,7 @@
       "reporterId": "b54d",
       "reason": "No concuerdo con la reseña, pero no es ofensiva.",
       "createdAt": "2025-11-24T18:30:00.000Z",
-      "status": "dismissed"
+      "status": "pending"
     },
     {
       "id": "rr2",
@@ -1398,7 +1509,7 @@
       "reporterId": "281a",
       "reason": "Spoilers en la descripción.",
       "createdAt": "2025-11-24T19:05:12.000Z",
-      "status": "pending"
+      "status": "dismissed"
     }
   ],
   "adminMovies": [

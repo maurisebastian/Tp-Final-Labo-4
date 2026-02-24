@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../auth/auth-service';
 import { Carrusel } from '../carrusel/carrusel';
@@ -9,7 +9,7 @@ import { MoviesearchComponent } from "../../Shared/moviesearch-component/moviese
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Carrusel, MoviesearchComponent],
+  imports: [Carrusel, MoviesearchComponent,RouterModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })

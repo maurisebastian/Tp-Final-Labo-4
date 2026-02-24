@@ -169,7 +169,7 @@ export class ProfileDetail implements OnInit {
     });
   }
 
-  avatars: string[] = Array.from({ length: 30 }, (_, i) => {
+  avatars: string[] = Array.from({ length: 40 }, (_, i) => {
     const n = String(i + 1).padStart(2, '0');
     return `assets/avatar_${n}.png`;
   });
