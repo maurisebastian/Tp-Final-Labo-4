@@ -38,7 +38,7 @@ export class ActorDetail implements OnInit {
 
   loadMovies() {
     this.tmdb.getMoviesByActor(this.actorId).subscribe((res: any) => {
-      this.movies = res?.cast ?? [];   // 👈 acá usamos cast
+      this.movies = res?.cast ?? [];   //  acá usamos cast
     });
   }
 }

@@ -340,6 +340,39 @@
       "read": false,
       "createdAt": "2026-02-24T03:55:54.613Z",
       "id": 19
+    },
+    {
+      "userId": "8358",
+      "fromUserId": "EYnfiYV",
+      "type": "comment",
+      "referenceId": "r2",
+      "movieId": 278,
+      "message": "agusss comentó tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T20:44:50.935Z",
+      "id": 20
+    },
+    {
+      "userId": "8358",
+      "fromUserId": "EYnfiYV",
+      "type": "like",
+      "referenceId": "r2",
+      "movieId": 278,
+      "message": "agusss le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T20:44:52.784Z",
+      "id": 21
+    },
+    {
+      "userId": "281a",
+      "fromUserId": "8358",
+      "type": "like",
+      "referenceId": "r7",
+      "movieId": 278,
+      "message": "sofia le dio like a tu reseña.",
+      "read": false,
+      "createdAt": "2026-02-24T20:46:04.302Z",
+      "id": 22
     }
   ],
   "follows": [
@@ -478,6 +511,12 @@
       "idProfile": "EYnfiYV",
       "comment": "no creo que asi sea",
       "id": "F6NoCdY"
+    },
+    {
+      "idReview": "r2",
+      "idProfile": "EYnfiYV",
+      "comment": "sii, totalmente",
+      "id": "5JEnAOT"
     }
   ],
   "reviewLikes": [
@@ -516,6 +555,18 @@
       "idReview": "r2",
       "date": "2026-02-24T03:55:54.577Z",
       "id": "bcwa5xV"
+    },
+    {
+      "idProfile": "EYnfiYV",
+      "idReview": "r2",
+      "date": "2026-02-24T20:44:52.751Z",
+      "id": "9fVa6px"
+    },
+    {
+      "idProfile": "8358",
+      "idReview": "r7",
+      "date": "2026-02-24T20:46:04.285Z",
+      "id": "4BQUbPY"
     }
   ],
   "movieActivity": [
