@@ -6,7 +6,9 @@ MovieHub es una aplicación web desarrollada en *Angular* que combina:
 - ⭐ Reseñas, puntuaciones, likes y comentarios
 - 🧑‍🤝‍🧑 Seguimiento entre usuarios (followers / following)
 - 🧾 Listas de “vistas” y “por ver”
-- 🛡 Moderación de contenido y gestión por parte de administradores
+- 🎯 Preferencias inteligentes: géneros y actores favoritos con estadísticas que se actualizan con el uso
+- 💬 Chat entre usuarios para conversar y mantenerse conectados dentro de la comunidad
+-🛡 Moderación y control administrativo (reportes, contenido, usuarios y catálogo)
 
 Cada usuario tiene un *perfil propio*, que puede ser público o privado, con:
 
