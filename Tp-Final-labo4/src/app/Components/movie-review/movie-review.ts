@@ -9,6 +9,7 @@ import { MovieActivityInterface } from '../../Interfaces/reaction';
 import { HiddenMoviesService } from '../../Services/hidden-movies.service';
 import { AdminMoviesService } from '../../Services/movies.service';
 import { MoviesearchComponent } from "../../Shared/moviesearch-component/moviesearch-component";
+import { PreferenceService } from '../../Services/preference-service';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class MovieReview implements OnInit {
   private authService = inject(AuthService);
   private hiddenMoviesService = inject(HiddenMoviesService);
   private adminMovies = inject(AdminMoviesService);
+ private preferenceService = inject(PreferenceService);
+
 
   // Puede ser TMDB (number) o local (string)
   movieId: number | string | undefined = undefined;
@@ -192,40 +195,92 @@ export class MovieReview implements OnInit {
     });
   }
 
-  markAs(status: 'watched' | 'towatch') {
-    if (!this.userId || this.movieId == null) return;
+markAs(status: 'watched' | 'towatch') {
+  if (!this.userId || this.movieId == null) return;
 
-    const idProfile = this.userId as any;
-    const idMovie = this.movieId as any; // puede ser string o number
-
-    if (!this.activity) {
-      const newAct: MovieActivityInterface = {
-        idProfile,
-        idMovie,
-        movieName: this.movieDetails?.title,
-        status,
-        watchedDate: status === 'watched'
-          ? new Date().toISOString()
-          : null
-      };
-
-      this.movieActivity.addActivity(newAct).subscribe(saved => {
-        this.activity = saved;
-      });
-
-    } else {
-      const payload: any = { status };
-
-      if (status === 'watched') {
-        payload.watchedDate = new Date().toISOString();
-      } else {
-        payload.watchedDate = null;
-      }
-
-      this.movieActivity.updateActivity(this.activity.id!, payload)
-        .subscribe(() => this.loadActivity());
-    }
+  // ✅ Solo TMDB (number). Si es peli local (string), no sumamos stats.
+  if (typeof this.movieId !== 'number') {
+    // igual guardás actividad sin sumar preferencias
+    this.saveActivityOnly(status);
+    return;
   }
+
+  const idProfile = this.userId as any;
+  const idMovie = this.movieId as any; // number
+
+  // puntos objetivo por estado
+  const targetPoints = status === 'watched' ? 2 : 1;
+
+  // si no había actividad: crear + sumar puntos del estado
+  if (!this.activity) {
+    const newAct: MovieActivityInterface = {
+      idProfile,
+      idMovie,
+      movieName: this.movieDetails?.title,
+      status,
+      watchedDate: status === 'watched' ? new Date().toISOString() : null
+    };
+
+    this.movieActivity.addActivity(newAct).subscribe(saved => {
+      this.activity = saved;
+
+      // ✅ sumar puntos
+      this.preferenceService.addSignalFromMovie(this.movieId as number, targetPoints).subscribe();
+    });
+
+    return;
+  }
+
+  // si ya existe actividad:
+  const prevStatus = this.activity.status;
+
+  // si no cambia, no hagas nada
+  if (prevStatus === status) return;
+
+  // update actividad
+  const payload: any = { status };
+  payload.watchedDate = status === 'watched' ? new Date().toISOString() : null;
+
+  this.movieActivity.updateActivity(this.activity.id!, payload).subscribe(() => {
+    this.loadActivity();
+
+    // ✅ sumar solo la diferencia cuando corresponde
+    // towatch(1) -> watched(2) => +1
+    // watched -> towatch => +0
+    let delta = 0;
+
+    if (prevStatus === 'towatch' && status === 'watched') delta = 1;
+    if (prevStatus === 'towatch' && status === 'towatch') delta = 0;
+    if (prevStatus === 'watched' && status === 'watched') delta = 0;
+    if (prevStatus === 'watched' && status === 'towatch') delta = 0;
+
+    if (delta > 0) {
+      this.preferenceService.addSignalFromMovie(this.movieId as number, delta).subscribe();
+    }
+  });
+}
+
+private saveActivityOnly(status: 'watched' | 'towatch') {
+  if (!this.userId || this.movieId == null) return;
+
+  const idProfile = this.userId as any;
+  const idMovie = this.movieId as any;
+
+  if (!this.activity) {
+    const newAct: MovieActivityInterface = {
+      idProfile,
+      idMovie,
+      movieName: this.movieDetails?.title,
+      status,
+      watchedDate: status === 'watched' ? new Date().toISOString() : null
+    };
+
+    this.movieActivity.addActivity(newAct).subscribe(saved => this.activity = saved);
+  } else {
+    const payload: any = { status, watchedDate: status === 'watched' ? new Date().toISOString() : null };
+    this.movieActivity.updateActivity(this.activity.id!, payload).subscribe(() => this.loadActivity());
+  }
+}
 
   // Reparto (sólo TMDB)
   loadCast() {

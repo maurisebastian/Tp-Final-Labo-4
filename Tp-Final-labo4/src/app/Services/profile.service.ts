@@ -134,15 +134,16 @@ updateProfile(user: Profile, updateActiveUser: boolean = true) {
       );
   }*/
 
-       updateFavoritePreferences(
-    profileId: string,
-    favoriteGenres: number[],
-    favoriteActors: number[]
+       updateFavoritePreferences( profileId: string,favoriteGenres: number[], favoriteActors: number[], genreStats: Record<string, number>,
+  actorStats: Record<string, number>
   ): Observable<boolean> {
     return this.http
       .patch<Profile>(`${this.baseUrl}/${profileId}`, {
         favoriteGenres,
         favoriteActors,
+        genreStats,
+        actorStats,
+        
       })
       .pipe(
         map(() => true),

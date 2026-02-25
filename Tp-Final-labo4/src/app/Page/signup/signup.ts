@@ -217,12 +217,15 @@ export class Signup {
         role: 'user',
         favoriteGenres: [], // favoriteGenres se van a elegir luego en otra pantalla
         favoriteActors: [],
+        //  stats para recomendaciones automáticas
+        genreStats: {},
+        actorStats: {},
         isPublic: true,
 
-       //  defaults
-       avatarUrl: 'assets/perfil.png',
-       bio: 'Hola! Soy nuevo en MovieHub 🎬',
-       
+        //  defaults
+        avatarUrl: 'assets/perfil.png',
+        bio: 'Hola! Soy nuevo en MovieHub 🎬',
+
       };
 
       this.profileService

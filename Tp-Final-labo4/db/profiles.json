@@ -617,6 +617,70 @@
       "status": "towatch",
       "watchedDate": null,
       "id": "9mIBBSb"
+    },
+    {
+      "idProfile": "M9rnNpT",
+      "idMovie": 10775,
+      "movieName": "Juego sucio (Infernal Affairs)",
+      "status": "watched",
+      "watchedDate": "2026-02-25T01:42:24.177Z",
+      "id": "UDx3ldr"
+    },
+    {
+      "idProfile": "281a",
+      "idMovie": 129,
+      "movieName": "El viaje de Chihiro",
+      "status": "watched",
+      "watchedDate": "2026-02-25T03:05:15.867Z",
+      "id": "8LHI3iA"
+    },
+    {
+      "idProfile": "281a",
+      "idMovie": 240,
+      "movieName": "El Padrino Parte II",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "jHWvqpN"
+    },
+    {
+      "idProfile": "8uNCAU7",
+      "idMovie": 10949,
+      "movieName": "Oliver Twist",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "FrZ9NGV"
+    },
+    {
+      "idProfile": "8uNCAU7",
+      "idMovie": 129,
+      "movieName": "El viaje de Chihiro",
+      "status": "watched",
+      "watchedDate": "2026-02-25T03:35:49.686Z",
+      "id": "4wXIwCa"
+    },
+    {
+      "idProfile": "8uNCAU7",
+      "idMovie": 424,
+      "movieName": "La lista de Schindler",
+      "status": "watched",
+      "watchedDate": "2026-02-25T03:36:54.636Z",
+      "id": "7i14O1P"
+    },
+    {
+      "idProfile": "sSKk7vZ",
+      "idMovie": 129,
+      "movieName": "El viaje de Chihiro",
+      "status": "watched",
+      "watchedDate": "2026-02-25T16:57:10.004Z",
+      "id": "aXXkY1i"
+    },
+    {
+      "idProfile": "sSKk7vZ",
+      "idMovie": 128,
+      "movieName": "La princesa Mononoke",
+      "status": "towatch",
+      "watchedDate": null,
+      "id": "1-Rb1lP"
     }
   ],
   "comments": [
@@ -675,13 +739,6 @@
       "idMovie": 389,
       "score": 7,
       "description": "Muy buena, aunque algunas partes me resultaron intensas."
-    },
-    {
-      "id": "r9",
-      "idProfile": "281a",
-      "idMovie": 240,
-      "score": 8,
-      "description": "Una secuela impecable, muy bien actuada."
     },
     {
       "id": "r10",
@@ -773,13 +830,6 @@
       "idMovie": 240,
       "score": 9,
       "description": "Excelente desarrollo de personajes."
-    },
-    {
-      "id": "r23",
-      "idProfile": "M9rnNpT",
-      "idMovie": 424,
-      "score": 8,
-      "description": "Una crítica social durísima."
     },
     {
       "id": "r24",
@@ -913,6 +963,48 @@
       "idMovie": 98,
       "score": 7,
       "description": "me ancata esta peli"
+    },
+    {
+      "idProfile": "M9rnNpT",
+      "idMovie": 424,
+      "score": 8,
+      "description": "Una crítica social durísima.",
+      "id": "tA0WqqL"
+    },
+    {
+      "idProfile": "M9rnNpT",
+      "idMovie": 10775,
+      "score": 7,
+      "description": "Una crítica social durísima.",
+      "id": "3KC9Yrd"
+    },
+    {
+      "idProfile": "281a",
+      "idMovie": 497,
+      "score": 9,
+      "description": "muy buena ! ",
+      "id": "8DAoh3M"
+    },
+    {
+      "idProfile": "281a",
+      "idMovie": 240,
+      "score": 8,
+      "description": "Una secuela impecable, muy bien actuada.",
+      "id": "0DfqXCb"
+    },
+    {
+      "idProfile": "sSKk7vZ",
+      "idMovie": 128,
+      "score": 6,
+      "description": "HOLAAAAA",
+      "id": "BCG9kTN"
+    },
+    {
+      "idProfile": "sSKk7vZ",
+      "idMovie": 240,
+      "score": 8,
+      "description": "puede ser ",
+      "id": "e5GGnuP"
     }
   ],
   "profiles": [
@@ -1005,18 +1097,41 @@
       "lastName": "Pérez",
       "role": "user",
       "favoriteGenres": [
-        35,
+        14,
+        16,
+        10751,
         18,
-        10749
+        80
       ],
       "favoriteActors": [
-        500,
-        6193,
-        287
+        19587,
+        19588,
+        19589,
+        19590,
+        19591
       ],
       "isPublic": false,
       "avatarUrl": "assets/avatar_25.png",
-      "bio": ""
+      "bio": "",
+      "genreStats": {
+        "14": 2,
+        "16": 2,
+        "18": 1,
+        "80": 1,
+        "10751": 2
+      },
+      "actorStats": {
+        "380": 1,
+        "1158": 1,
+        "3087": 1,
+        "3092": 1,
+        "3096": 1,
+        "19587": 2,
+        "19588": 2,
+        "19589": 2,
+        "19590": 2,
+        "19591": 2
+      }
     },
     {
       "username": "pepe",
@@ -1191,47 +1306,36 @@
       "role": "user",
       "favoriteGenres": [
         18,
-        53,
         28,
-        36,
-        35,
-        14,
-        10749,
-        16,
-        12,
-        878
+        53,
+        80,
+        9648
       ],
       "id": "M9rnNpT",
       "favoriteActors": [
-        819,
-        287,
-        1283,
-        7470,
-        7499,
-        70131,
-        76977,
-        76976,
-        10071,
-        125721,
-        8600,
-        87341,
-        123757,
-        123758,
-        102551,
-        587506,
-        543505,
-        130640,
-        932967,
-        226366,
-        2,
-        3,
-        4,
-        3799,
-        6
+        1337,
+        25246,
+        26724,
+        66717,
+        72730
       ],
       "isPublic": false,
       "avatarUrl": "assets/avatar_32.png",
-      "bio": ""
+      "bio": "",
+      "genreStats": {
+        "18": 2,
+        "28": 2,
+        "53": 2,
+        "80": 2,
+        "9648": 2
+      },
+      "actorStats": {
+        "1337": 2,
+        "25246": 2,
+        "26724": 2,
+        "66717": 2,
+        "72730": 2
+      }
     },
     {
       "username": "juli",
@@ -1243,38 +1347,50 @@
       "lastName": "Fernández",
       "role": "user",
       "favoriteGenres": [
-        80,
         18,
-        12,
-        16,
         14,
-        35
+        16,
+        36,
+        10751
       ],
       "id": "8uNCAU7",
       "favoriteActors": [
-        1118644,
-        143370,
-        143371,
-        1118645,
-        1118646,
-        190,
-        448,
-        192,
-        449,
-        450,
-        613,
-        617,
-        616,
-        622,
-        624,
-        37505,
-        139573,
-        39008,
-        175980,
-        176011
+        2282,
+        3896,
+        5469,
+        6692,
+        6693
       ],
       "avatarUrl": "assets/avatar_21.png",
-      "bio": ""
+      "bio": "",
+      "genreStats": {
+        "12": 1,
+        "14": 2,
+        "16": 2,
+        "18": 3,
+        "35": 1,
+        "36": 2,
+        "80": 1,
+        "10751": 2,
+        "10752": 2
+      },
+      "actorStats": {
+        "2282": 2,
+        "3896": 2,
+        "5469": 2,
+        "6692": 2,
+        "6693": 2,
+        "12248": 1,
+        "19587": 2,
+        "19588": 2,
+        "19589": 2,
+        "19590": 2,
+        "19591": 2,
+        "29520": 1,
+        "67615": 1,
+        "67616": 1,
+        "93900": 1
+      }
     },
     {
       "username": "tomy",
@@ -1537,6 +1653,140 @@
       "avatarUrl": "assets/avatar_08.png",
       "bio": "Hola! Soy nuevo en MovieHub 🎬",
       "id": "_GxMOjz"
+    },
+    {
+      "username": "rand",
+      "password": "123456",
+      "date": "2014-02-05",
+      "cel": "5632456345",
+      "email": "asdaasdsd@fsd.com",
+      "firstName": "asdasdsads",
+      "lastName": "asdasdasdsa",
+      "role": "user",
+      "favoriteGenres": [
+        18,
+        35,
+        10749
+      ],
+      "favoriteActors": [
+        4457,
+        1023,
+        1185,
+        76392,
+        77530
+      ],
+      "isPublic": true,
+      "avatarUrl": "assets/avatar_03.png",
+      "bio": "Hola! Soy nuevo en MovieHub 🎬",
+      "id": "yk8bCkE",
+      "genreStats": {
+        "18": 7,
+        "35": 4,
+        "10749": 2
+      },
+      "actorStats": {
+        "1019": 2,
+        "1023": 3,
+        "1185": 3,
+        "1936": 2,
+        "4457": 5,
+        "5247": 2,
+        "5248": 2,
+        "5249": 2,
+        "5250": 2,
+        "7684": 2,
+        "9208": 2,
+        "14974": 2,
+        "20125": 2,
+        "47156": 2,
+        "76392": 3,
+        "77530": 3,
+        "80600": 2,
+        "147333": 1,
+        "1112385": 2,
+        "1188827": 2,
+        "1309844": 1,
+        "1640507": 1,
+        "1640510": 1,
+        "1737888": 1
+      }
+    },
+    {
+      "username": "generosasd",
+      "password": "123456",
+      "date": "2002-02-20",
+      "cel": "2342342342",
+      "email": "asdasdasd@gmail.com",
+      "firstName": "generosss",
+      "lastName": "favorritooos",
+      "role": "user",
+      "favoriteGenres": [
+        14,
+        16,
+        12,
+        18,
+        28
+      ],
+      "favoriteActors": [
+        2413,
+        4173,
+        5049,
+        10774,
+        11857
+      ],
+      "genreStats": {
+        "12": 6,
+        "14": 8,
+        "16": 8,
+        "18": 5,
+        "28": 5,
+        "35": 5,
+        "36": 5,
+        "53": 5,
+        "80": 5,
+        "10751": 2
+      },
+      "actorStats": {
+        "622": 1,
+        "2413": 5,
+        "4173": 5,
+        "5049": 5,
+        "10774": 5,
+        "11857": 5,
+        "13325": 5,
+        "19587": 2,
+        "19588": 2,
+        "19589": 2,
+        "19590": 2,
+        "19591": 2,
+        "20330": 1,
+        "20331": 1,
+        "20332": 1,
+        "20333": 1,
+        "45586": 5,
+        "52583": 5,
+        "52584": 5,
+        "52585": 5,
+        "52586": 5,
+        "67837": 5,
+        "75913": 5,
+        "113505": 5,
+        "118976": 5,
+        "150125": 5,
+        "235416": 5,
+        "469968": 5,
+        "1024395": 5,
+        "1128106": 5,
+        "2185754": 5,
+        "2463716": 5,
+        "2718152": 5,
+        "2974840": 5,
+        "2974841": 5
+      },
+      "isPublic": true,
+      "avatarUrl": "assets/perfil.png",
+      "bio": "Hola! Soy nuevo en MovieHub 🎬",
+      "id": "sSKk7vZ"
     }
   ],
   "reviewReports": [

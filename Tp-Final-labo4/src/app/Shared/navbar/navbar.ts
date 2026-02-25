@@ -2,7 +2,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { effect } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
-import { TopBar } from '../../Components/top-bar/top-bar';
+import { TopBar } from '../../Components/profile/top-bar/top-bar';
 
 @Component({
   selector: 'app-navbar',

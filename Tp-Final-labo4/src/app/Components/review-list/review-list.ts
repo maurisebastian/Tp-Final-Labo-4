@@ -45,6 +45,7 @@ export class ReviewList {
   private readonly fb = inject(FormBuilder);
 
 
+
   // ID de la película que viene desde MovieReview
   peliculaID = input<number | string>();
   ;
@@ -54,7 +55,7 @@ export class ReviewList {
   existingReview: Review | null = null;
 
   // estado de usuario
-  userId: number | null = null;
+  userId: string | number | null = null;
   userLoggedIn = false;
   isAdmin = false;
 
@@ -246,6 +247,12 @@ export class ReviewList {
       review.comments.push(saved);
       control.reset();
 
+      // sumar señal por comentar
+      const movieIdRaw = this.peliculaID();
+
+      
+    
+
       //  Notificar el comentario
       this.notifyReviewOwner({
         review,
@@ -268,7 +275,7 @@ export class ReviewList {
     const user = this.authService.getActiveUser()();
 
     if (user?.id) {
-      this.userId = user.id as number;
+      this.userId = user.id as any;
       this.userLoggedIn = true;
       this.isAdmin = user.role === 'admin' || user.role === 'superadmin';
 
@@ -318,7 +325,7 @@ export class ReviewList {
 
     const newReviewData: Review = {
       idProfile: this.userId!,
-      idMovie: movieId as any,   // 👈 opcional: casteo para que no rompa
+      idMovie: movieId as any,   //  opcional: casteo para que no rompa
       score: Number(this.reviewForm.value.score),
       description: this.reviewForm.value.description ?? '',
     };
@@ -473,7 +480,7 @@ export class ReviewList {
     }
   }
 
-  // 👇 ¿Puede reportar esta reseña?
+  //  ¿Puede reportar esta reseña?
   canReportReview(review: any): boolean {
     if (!this.userLoggedIn || this.userId == null) return false;
 

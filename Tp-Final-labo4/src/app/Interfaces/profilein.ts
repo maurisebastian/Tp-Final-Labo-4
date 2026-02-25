@@ -12,6 +12,8 @@ export interface Profile {
   lastName?: string;
   favoriteGenres?: number[];
   favoriteActors?: number[];
+ genreStats?: Record<string, number>;
+ actorStats?: Record<string, number>;
   isPublic?: boolean;
 
   avatarUrl?: string;   
